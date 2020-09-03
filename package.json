@@ -1,0 +1,27 @@
+{
+  "name": "app2000",
+  "version": "1.0.0",
+  "description": "School Project",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/233518/APP2000.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/233518/APP2000/issues"
+  },
+  "homepage": "https://github.com/233518/APP2000#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "n": "^6.7.0",
+    "stable": "^0.1.8"
+  }
+}
