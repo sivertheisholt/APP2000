@@ -1,0 +1,3 @@
+
+Gjør i wsl i vs code
+sudo npm run devStart
