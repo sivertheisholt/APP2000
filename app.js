@@ -1,10 +1,11 @@
 const path = require("path");
 const http = require("http");
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const express = require("express");
 const session = require('express-session');
 const mongoose = require('mongoose');
 const brukerRoutes = require('./handling/routingAuth');
+const socketIO = require('socket.io');
 
 //Her kobler vi opp databasen
 mongoose
@@ -14,9 +15,6 @@ mongoose
 
 //Setter port
 const port = 3000;
-
-//Implementerer socketIo
-const socketIO = require('socket.io');
 
 //Lager default path til public, dette er da på klientsiden
 const publicPath = path.join(__dirname, "/public");
@@ -69,7 +67,6 @@ app.get("/test3", (req, res) => {
 
 //Setter opp socket.io
 io.on('connection', async (socket) => {
-
   //Logger at ny bruker logget på nettsiden
   console.log("New user just connected");
 
@@ -77,6 +74,7 @@ io.on('connection', async (socket) => {
   socket.on('disconnect', () => {
     console.log('User was disconnected')
   })
+  
 
   //Test av The Movie Database API
   const testFilm = await theMovieDatabase.data.getMovieInfo("Spider-Man: Into the Spider-Verse");
@@ -84,6 +82,5 @@ io.on('connection', async (socket) => {
 
 });
 
-
-//"Starter" serveren
+//"Lytter" serveren
 server.listen(port, () => console.log("Example app listening on port 3000!"));
