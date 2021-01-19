@@ -24,3 +24,14 @@
                 li.uk-nav-divider
                 li
                   a(href='#') Item
+          li
+            a(href='#') Sign in
+            .uk-navbar-dropdown
+              ul.uk-nav.uk-dropdown-nav
+                form(method='post')
+                  input(type='text' name='u' placeholder='Username' required='required')
+                  br
+                  input(type='password' name='p' placeholder='Password' required='required')
+                  button.btn.btn-primary.btn-block.btn-large(type='submit') Sign in
+
+
