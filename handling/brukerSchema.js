@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 //Vi lager et nytt schema
 const brukerSchema = new mongoose.Schema({
-    username: String,
+    email: String,
     password: String, //Denne skal da bli hashed + salt
   })
 
