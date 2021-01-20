@@ -8,6 +8,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const brukerRoutes = require('./handling/routingAuth');
 const socketIO = require('socket.io');
+const hjelpeMetoder = require('./handling/hjelpeMetoder');
 
 //Her kobler vi opp databasen
 mongoose
@@ -49,18 +50,21 @@ app.use(session({
 //Denne sier at vi skal bruke bodyParser som gjør om body til json
 app.use(bodyParser.json()); 
 
-
 //Samme som over bare application/xwww-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true })); 
+
+//Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
+let tmdbInformasjon;
+oppdaterTmdbData();
 
 //Bruk routes
 app.use("/auth", brukerRoutes);
 
 //Disse 4 håndterer hvilken side du er på, / er da root. Disse skal bli fjerna senere
 app.get("/", async (req, res) => {
-  const discoverMovies = await theMovieDatabase.data.getDiscoverMovies(); //Skaffer informasjonen fra moviedatabase
   let finalList = []; //Lager en tom array
-  for(movie of discoverMovies.results) { //For loop imellom hver item i discoverMovies
+  console.log(tmdbInformasjon);
+  for(movie of tmdbInformasjon.discoverMovies) { //For loop imellom hver item i discoverMovies
     //Lager et object for hver movie
     let tempObject = {
       id: movie.id,
@@ -99,3 +103,8 @@ io.on('connection', async (socket) => {
 
 //"Lytter" serveren
 server.listen(port, () => console.log("Example app listening on port 3000!"));
+
+//Denne er for å få tak i all data når nettsiden starter.
+async function oppdaterTmdbData() {
+  tmdbInformasjon = await hjelpeMetoder.data.hentTmdbInformasjon();
+}

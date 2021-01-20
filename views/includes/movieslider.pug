@@ -1,8 +1,8 @@
 .uk-slider-container-offset(uk-slider='')
   .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
     ul.uk-slider-items.uk-grid(class='uk-child-width-1-4@s')
-    - var discoverMovies = [{discoverMovies}]; //Tar imot filmene
-    each item in discoverMovies[0].discoverMovies //Går igjennom hvert object i arrayet og legger inn på siden
+    - var discoverMovies = [{discoverMovies}];
+    each item in discoverMovies[0].discoverMovies
       li
         .uk-card.uk-card-default
           .uk-card-media-top
