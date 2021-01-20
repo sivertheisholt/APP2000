@@ -35,6 +35,19 @@ Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies() {
         })
     })
 }
+
+Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows() {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/discover/tv?api_key=${this.token}`;
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
 module.exports = Tmdb;
 
 

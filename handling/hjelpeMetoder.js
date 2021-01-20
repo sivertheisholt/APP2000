@@ -4,17 +4,22 @@ const theMovieDatabase = require("../handling/tmdbHandler.js");
  var methods = {
      hentTmdbInformasjon: async function () {
          try {
-            let tmdbInformasjon = {discoverMovies: {}};
+            let tmdbInformasjon = {
+                discoverMovies: {},
+                discoverTvshows: {},
+            };
             console.log("Skaffer informasjon fra TheMovieDatabase...");
             let getDiscoverMovies = await theMovieDatabase.data.getDiscoverMovies();
+            let getDiscoverTvshows = await theMovieDatabase.data.getDiscoverTvshows();
             console.log("All informasjon er ferdig hentet!");
             tmdbInformasjon.discoverMovies = getDiscoverMovies.results;
+            tmdbInformasjon.discoverTvshows = getDiscoverTvshows.results;
             return tmdbInformasjon;
          } catch(err) {
              console.log(err);
          }
      },
-     lagFinDato: async function(datoInn, stringTilSplitting) {
+     lagFinDato: function(datoInn, stringTilSplitting) {
          try {
             let splitDato = datoInn.split(stringTilSplitting);
             const dato = new Date(splitDato[0], splitDato[1], splitDato[2])

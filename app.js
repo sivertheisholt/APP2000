@@ -42,7 +42,7 @@ app.use(express.static(publicPath));
 
 //Fortelle express at pakken session skal brukes - Session er ikke ferdig enda! Må sette opp cookies
 app.use(session({
-  secret: 'DetteErSecret',
+  secret: 'DetteErSecret', //her burde det brukes .env
   resave: true,
   saveUninitialized: true
 }));
@@ -62,22 +62,38 @@ app.use("/auth", brukerRoutes);
 
 //Disse 4 håndterer hvilken side du er på, / er da root. Disse skal bli fjerna senere
 app.get("/", async (req, res) => {
-  let finalList = []; //Lager en tom array
-  console.log(tmdbInformasjon.discoverMovies);
+  let finalListMovies = []; //Lager en tom array
+  let finalListTvshows = []; //Lager en tom array
+
   for(movie of tmdbInformasjon.discoverMovies) { //For loop imellom hver item i discoverMovies
     //Lager et object for hver movie
-    let tempObject = {
+    let tempObjectMovie = {
       id: movie.id,
       pictureUrl: movie.poster_path,
       title: movie.original_title,
       releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, "-")
-    } 
-    //Pusher objectet inn i arrayet
-    finalList.push(tempObject);
+    }
+    finalListMovies.push(tempObjectMovie);
   }
+  for(tvshow of tmdbInformasjon.discoverTvshows) { //For loop imellom hver item i discoverMovies
+    //Lager et object for hver movie
+    let tempObjectTvshow = {
+      id: tvshow.id,
+      pictureUrl: tvshow.poster_path,
+      title: tvshow.original_title,
+      releaseDate: await hjelpeMetoder.data.lagFinDato(tvshow.first_air_date, "-")
+    }
+    finalListTvshows.push(tempObjectTvshow);
+  }
+
   //res.set('Content-Type', 'application/javascript');
-  res.render("index", {discoverMovies: finalList}); //Sender arrayet til pug filen
+  res.render("index", {
+    discoverMovies: finalListMovies,
+    discoverTvshows: finalListTvshows,
+  }); //Sender arrayet til pug filen
+
 });
+
 app.get("/test2", (req, res) => {
   res.render("test2", {});
 });

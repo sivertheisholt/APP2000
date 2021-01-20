@@ -8,6 +8,9 @@ var methods = {
     },
     getDiscoverMovies: async function() {
         return await tmdb.getDiscoverMovies();
+    },
+    getDiscoverTvshows: async function() {
+        return await tmdb.getDiscoverTvshows();
     }
 };
 
