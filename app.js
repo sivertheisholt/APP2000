@@ -2,6 +2,7 @@ require('dotenv').config();
 const path = require("path");
 const http = require("http");
 const bodyParser = require('body-parser');
+const parse = require('node-html-parser');
 const express = require("express");
 const session = require('express-session');
 const mongoose = require('mongoose');
@@ -57,9 +58,21 @@ app.use("/auth", brukerRoutes);
 
 //Disse 4 håndterer hvilken side du er på, / er da root. Disse skal bli fjerna senere
 app.get("/", async (req, res) => {
-  const discoverMovies = await theMovieDatabase.data.getDiscoverMovies();
-  console.log(discoverMovies);
-  res.render("index", {});
+  const discoverMovies = await theMovieDatabase.data.getDiscoverMovies(); //Skaffer informasjonen fra moviedatabase
+  let finalList = []; //Lager en tom array
+  for(movie of discoverMovies.results) { //For loop imellom hver item i discoverMovies
+    //Lager et object for hver movie
+    let tempObject = {
+      id: movie.id,
+      pictureUrl: movie.poster_path,
+      title: movie.original_title,
+      overview: movie.overview
+    } 
+    //Pusher objectet inn i arrayet
+    finalList.push(tempObject);
+  }
+  //res.set('Content-Type', 'application/javascript');
+  res.render("index", {discoverMovies: finalList}); //Sender arrayet til pug filen
 });
 app.get("/test2", (req, res) => {
   res.render("test2", {});
@@ -78,7 +91,6 @@ io.on('connection', async (socket) => {
     console.log('User was disconnected')
   })
   
-
   //Test av The Movie Database API
   const testFilm = await theMovieDatabase.data.getMovieInfo("Spider-Man: Into the Spider-Verse");
   socket.emit('skaffFilm', testFilm);
