@@ -63,14 +63,14 @@ app.use("/auth", brukerRoutes);
 //Disse 4 håndterer hvilken side du er på, / er da root. Disse skal bli fjerna senere
 app.get("/", async (req, res) => {
   let finalList = []; //Lager en tom array
-  console.log(tmdbInformasjon);
+  console.log(tmdbInformasjon.discoverMovies);
   for(movie of tmdbInformasjon.discoverMovies) { //For loop imellom hver item i discoverMovies
     //Lager et object for hver movie
     let tempObject = {
       id: movie.id,
       pictureUrl: movie.poster_path,
       title: movie.original_title,
-      overview: movie.overview
+      releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, "-")
     } 
     //Pusher objectet inn i arrayet
     finalList.push(tempObject);

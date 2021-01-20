@@ -14,6 +14,15 @@ const theMovieDatabase = require("../handling/tmdbHandler.js");
              console.log(err);
          }
      },
+     lagFinDato: async function(datoInn, stringTilSplitting) {
+         try {
+            let splitDato = datoInn.split(stringTilSplitting);
+            const dato = new Date(splitDato[0], splitDato[1], splitDato[2])
+            return dato.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' });;
+         } catch(err) {
+             console.log(err);
+         }
+     }
  };
  
  exports.data = methods;
