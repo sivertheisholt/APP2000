@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require("path");
 const http = require("http");
 const bodyParser = require('body-parser');
@@ -55,7 +56,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/auth", brukerRoutes);
 
 //Disse 4 håndterer hvilken side du er på, / er da root. Disse skal bli fjerna senere
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  const discoverMovies = await theMovieDatabase.data.getDiscoverMovies();
+  console.log(discoverMovies);
   res.render("index", {});
 });
 app.get("/test2", (req, res) => {

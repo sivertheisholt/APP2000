@@ -1,9 +1,13 @@
+require('dotenv').config();
 const Tmdb = require('../api/tmdb.js')
-const tmdb = new Tmdb('589ba51d3b593e5b9abb04481436cea2');
+const tmdb = new Tmdb('process.env.TMDB_TOKEN');
 
 var methods = {
     getMovieInfo: async function (movieTitle) {
         return await tmdb.getMovieResults(movieTitle);
+    },
+    getDiscoverMovies: async function() {
+        return await tmdb.getDiscoverMovies();
     }
 };
 
