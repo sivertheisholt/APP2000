@@ -80,7 +80,7 @@ app.get("/", async (req, res) => {
     let tempObjectTvshow = {
       id: tvshow.id,
       pictureUrl: tvshow.poster_path,
-      title: tvshow.original_title,
+      title: tvshow.name,
       releaseDate: await hjelpeMetoder.data.lagFinDato(tvshow.first_air_date, "-")
     }
     finalListTvshows.push(tempObjectTvshow);
