@@ -39,7 +39,7 @@ router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er
     bruker.password = await bcrypt.hash(bruker.password, salt);
     bruker.save().then((dokument) => {
         res.status(201).send(dokument);
-        res.redirect(301, '../');
+        //res.redirect(301, '../');
     })  //Redirecter tilbake til root
 });
 
