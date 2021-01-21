@@ -7,7 +7,8 @@ const express = require("express");
 const session = require('express-session');
 const mongoose = require('mongoose');
 const brukerRoutes = require('./handling/routingAuth');
-const indexRoute = require('./routing');
+const indexRoute = require('./routing/index.js');
+const filmRoute = require('./routing/filminfo.js')
 const socketIO = require('socket.io');
 const hjelpeMetoder = require('./handling/hjelpeMetoder');
 
@@ -62,6 +63,7 @@ hjelpeMetoder.data.hentTmdbInformasjon();
 //Bruk routes
 app.use("/auth", brukerRoutes);
 app.use("/", indexRoute);
+app.use("/mediainfo", filmRoute);
 
 //Setter opp socket.io
 io.on('connection', async (socket) => {
