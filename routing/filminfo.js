@@ -3,7 +3,6 @@ const router = express.Router();
 
 router.get("/filminfo", async (req, res) => {
     console.log('lorem');
-    console.alert("Nisse");
   res.render("mediainfo/filminfo", {}); //Sender arrayet til pug filen
 });
 
