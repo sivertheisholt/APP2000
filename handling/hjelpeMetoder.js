@@ -1,4 +1,5 @@
 const theMovieDatabase = require("../handling/tmdbHandler.js");
+let tmdbInformasjonKlar;
 
 //Her kan dere legge inn hjelpemetoder dere vil lage
  var methods = {
@@ -14,10 +15,13 @@ const theMovieDatabase = require("../handling/tmdbHandler.js");
             console.log("All informasjon er ferdig hentet!");
             tmdbInformasjon.discoverMovies = getDiscoverMovies.results;
             tmdbInformasjon.discoverTvshows = getDiscoverTvshows.results;
-            return tmdbInformasjon;
+            tmdbInformasjonKlar = tmdbInformasjon;
          } catch(err) {
              console.log(err);
          }
+     },
+     returnerTmdbInformasjon: function () {
+         return tmdbInformasjonKlar
      },
      lagFinDato: function(datoInn, stringTilSplitting) {
          try {

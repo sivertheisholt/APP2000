@@ -7,6 +7,7 @@ const express = require("express");
 const session = require('express-session');
 const mongoose = require('mongoose');
 const brukerRoutes = require('./handling/routingAuth');
+const indexRoute = require('./routing');
 const socketIO = require('socket.io');
 const hjelpeMetoder = require('./handling/hjelpeMetoder');
 
@@ -54,52 +55,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
-let tmdbInformasjon;
-oppdaterTmdbData();
+/* let tmdbInformasjon;
+oppdaterTmdbData(); */
+hjelpeMetoder.data.hentTmdbInformasjon();
 
 //Bruk routes
 app.use("/auth", brukerRoutes);
-
-//Disse 4 håndterer hvilken side du er på, / er da root. Disse skal bli fjerna senere
-app.get("/", async (req, res) => {
-  let finalListMovies = []; //Lager en tom array
-  let finalListTvshows = []; //Lager en tom array
-
-  for(movie of tmdbInformasjon.discoverMovies) { //For loop imellom hver item i discoverMovies
-    //Lager et object for hver movie
-    let tempObjectMovie = {
-      id: movie.id,
-      pictureUrl: movie.poster_path,
-      title: movie.original_title,
-      releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, "-")
-    }
-    finalListMovies.push(tempObjectMovie);
-  }
-  for(tvshow of tmdbInformasjon.discoverTvshows) { //For loop imellom hver item i discoverMovies
-    //Lager et object for hver movie
-    let tempObjectTvshow = {
-      id: tvshow.id,
-      pictureUrl: tvshow.poster_path,
-      title: tvshow.name,
-      releaseDate: await hjelpeMetoder.data.lagFinDato(tvshow.first_air_date, "-")
-    }
-    finalListTvshows.push(tempObjectTvshow);
-  }
-
-  //res.set('Content-Type', 'application/javascript');
-  res.render("index", {
-    discoverMovies: finalListMovies,
-    discoverTvshows: finalListTvshows,
-  }); //Sender arrayet til pug filen
-
-});
-
-app.get("/test2", (req, res) => {
-  res.render("test2", {});
-});
-app.get("/test3", (req, res) => {
-  res.render("test3", {});
-});
+app.use("/", indexRoute);
 
 //Setter opp socket.io
 io.on('connection', async (socket) => {
@@ -119,8 +81,3 @@ io.on('connection', async (socket) => {
 
 //"Lytter" serveren
 server.listen(port, () => console.log("Example app listening on port 3000!"));
-
-//Denne er for å få tak i all data når nettsiden starter.
-async function oppdaterTmdbData() {
-  tmdbInformasjon = await hjelpeMetoder.data.hentTmdbInformasjon();
-}
