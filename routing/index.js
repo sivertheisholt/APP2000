@@ -2,6 +2,9 @@ const express = require('express');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
 const router = express.Router();
 
+router.use('/mediainfo', require('./mediainfo'));
+router.use('/auth', require('../handling/routingAuth'));
+
 router.get("/", async (req, res) => {
   let tmdbInformasjon = hjelpeMetoder.data.returnerTmdbInformasjon();
   let finalListMovies = []; //Lager en tom array
@@ -27,6 +30,9 @@ router.get("/", async (req, res) => {
     }
     finalListTvshows.push(tempObjectTvshow);
   }
+
+  if(req.session)
+    console.log(req.session);
 
   //res.set('Content-Type', 'application/javascript');
   res.render("index", {

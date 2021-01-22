@@ -6,14 +6,11 @@ const parse = require('node-html-parser');
 const express = require("express");
 const session = require('express-session');
 const mongoose = require('mongoose');
-const brukerRoutes = require('./handling/routingAuth');
-const indexRoute = require('./routing/index.js');
-const filmRoute = require('./routing/filminfo.js')
 const socketIO = require('socket.io');
 const hjelpeMetoder = require('./handling/hjelpeMetoder');
 
 //Her kobler vi opp databasen
-mongoose
+const connection = mongoose
   .connect("mongodb://localhost:27017/app", { useNewUrlParser: true, useUnifiedTopology: true })
   .then((_) => console.log("Connected to DB"))
   .catch((err) => console.error("error", err));
@@ -42,11 +39,14 @@ app.set("view engine", "pug");
 //Forteller express hvordan public path som skal brukes
 app.use(express.static(publicPath));
 
-//Fortelle express at pakken session skal brukes - Session er ikke ferdig enda! Må sette opp cookies
+//Fortelle express at pakken session skal brukes
 app.use(session({
   secret: 'DetteErSecret', //her burde det brukes .env
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24
+  }
 }));
 
 //Denne sier at vi skal bruke bodyParser som gjør om body til json
@@ -56,14 +56,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
-/* let tmdbInformasjon;
-oppdaterTmdbData(); */
 hjelpeMetoder.data.hentTmdbInformasjon();
 
 //Bruk routes
-app.use("/auth", brukerRoutes);
-app.use("/", indexRoute);
-app.use("/mediainfo", filmRoute);
+app.use(require('./routing'));
 
 //Setter opp socket.io
 io.on('connection', async (socket) => {
