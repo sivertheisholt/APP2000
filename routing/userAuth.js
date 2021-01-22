@@ -19,14 +19,14 @@ router.get("/sucess", (req, res) => {
 router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
     const pugBody = req.body; //Skaffer body fra form
     console.log(pugBody);
+    //Sjekker at mail tilfredsstiller krav
     if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
         return res.status(400).send({error: "Email is not properly formatted"});
     }
-
+    //Sjekker at passord tilfredstiller krav
     if(!(hjelpeMetoder.data.validatePassword(pugBody.password))){
         return res.status(400).send({error: 'Password is not properly formatted'});
     }
-    
     //Vi gjør en sjekk at alle feltene er fylt inn
     if(!(pugBody.email && pugBody.password && pugBody.passwordRepeat)) {
         return res.status(400).send({error: "Data is not properly formatted"}); //Vi returnerer res (result) og sier at dataen ikke er riktig
@@ -47,8 +47,9 @@ router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er
     bruker.password = await bcrypt.hash(bruker.password, salt);
     bruker.save().then((dokument) => {
         res.status(201).send(dokument);
-        //res.redirect(301, '../');
+        //res.redirect('./auth/sucess.pug');
     })  //Redirecter tilbake til root
+    //res.end();
 });
 
 //Her tar vi oss av login

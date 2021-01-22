@@ -35,40 +35,77 @@
                             a(href='#') Signup
                         ul.uk-switcher.uk-margin
                           li
-                            form(action='/auth/login' method='post')
-                              .uk-margin
-                                .uk-inline
-                                  span.uk-form-icon(uk-icon='icon: user')
-                                  input.uk-input(type='text' name='email' placeholder='Email')
-                              .uk-margin
-                                .uk-inline
-                                  span.uk-form-icon.uk-form-icon-flip(uk-icon='icon: lock')
-                                  input.uk-input(type='password' name='password' placeholder='Password')
-                              .uk-margin
-                                .uk-inline
-                                  button.uk-button.uk-button-default.uk-margin-right Enter
-                                  a(href='#') Forgot my password
+                            .uk-grid.uk-width-1-1.uk-flex-nowrap
+                              .uk-aling-center
+                                form(action='/auth/login' method='post')
+                                  .uk-margin
+                                    .uk-inline
+                                      span.uk-form-icon(uk-icon='icon: user')
+                                      input.uk-input(type='text' name='email' placeholder='Email')
+                                  .uk-margin
+                                    .uk-inline
+                                      span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
+                                      input.uk-input(type='password' name='password' placeholder='Password')
+                                  .uk-margin
+                                    .uk-inline
+                                      button.uk-button.uk-button-default.uk-margin-right Enter
+                                      a.uk-text-small(href='#modal-example' uk-toggle='') Forgot password
+                              .uk-text-center.uk-width-1-2.uk-margin-auto
+                                h3.uk-card-title Lorem
+                                p.uk-text-small
+                                  | Lorem ipsum 
+                                  a(href='#') dolor
+                                  |  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                           li
-                            form(action='/auth/signup' method='post')
-                              .uk-margin
-                                .uk-inline
-                                  span.uk-form-icon(uk-icon='icon: user')
-                                  input.uk-input(type='text' name='email' placeholder='Email' required)
-                              .uk-margin
-                                .uk-inline
-                                  span.uk-form-icon.uk-form-icon-flip(uk-icon='icon: lock')
-                                  input.uk-input(type='password' name='password' placeholder='Password' required)
-                              .uk-margin
-                                .uk-inline
-                                  span.uk-form-icon.uk-form-icon-flip(uk-icon='icon: lock')
-                                  input.uk-input(type='password' name='passwordRepeat' placeholder='Repeat password' required)
-                              .uk-margin
-                                .uk-inline
-                                  button.uk-button.uk-button-default.uk-margin-right Enter
-                .uk-navbar-item
-                  form.uk-search.uk-search-navbar
-                    span(uk-search-icon='')
-                    input.uk-search-input(type='search' placeholder='Search...')
+                            .uk-grid.uk-width-1-1.uk-flex-nowrap
+                              .uk-aling-center
+                                form(action='/auth/signup' method='post')
+                                  .uk-margin
+                                    .uk-inline
+                                      span.uk-form-icon(uk-icon='icon: user')
+                                      input.uk-input(type='text' name='email' placeholder='Email' required)
+                                  .uk-margin
+                                    .uk-inline
+                                      span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
+                                      input.uk-input(type='password' name='password' placeholder='Password' required)
+                                  .uk-margin
+                                    .uk-inline
+                                      span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
+                                      input.uk-input(type='password' name='passwordRepeat' placeholder='Repeat password' required)
+                                  .uk-margin
+                                    .uk-inline
+                                      button.uk-button.uk-button-default.uk-margin-right Enter
+                              .uk-text-center.uk-width-1-2.uk-margin-auto
+                                h3.uk-card-title Lorem
+                                p.uk-text-small
+                                  | Lorem ipsum 
+                                  a(href='#') dolor
+                                  |  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+                    #modal-example(uk-modal='')
+                      .uk-modal-dialog.uk-modal-body.uk-margin-auto.uk-margin-auto-vertical
+                        .uk-grid.uk-width-1-1.uk-flex-nowrap
+                          .uk-aling-center
+                            h3.uk-text-bold Password Recovery
+                              form
+                                .uk-margin-bottom
+                                  .uk-inline
+                                    input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailRecovery' placeholder='Email' required)
+                                .uk-margin-bottom
+                                  .uk-inline
+                                    button.uk-button.uk-button-default.uk-modal-close.uk-margin-right.uk-button-small(type='button') Cancel
+                                    button.uk-button.uk-button-default.uk-button-small(type='button') Send
+                          .uk-text-center.uk-width-1-2.uk-margin-auto
+                            h3.uk-card-title Lorem
+                            p.uk-text-small
+                              | Lorem ipsum 
+                              a(href='#') dolor
+                              |  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+          .uk-navbar-item
+              form.uk-search.uk-search-default.uk-width-1-1
+                  span(uk-search-icon='')
+                  input.uk-search-input(type='search' placeholder='Search...')
 
 
 
