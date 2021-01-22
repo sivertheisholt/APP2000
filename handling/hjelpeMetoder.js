@@ -39,6 +39,14 @@ let tmdbInformasjonKlar;
         }catch(err){
             console.log(err);
         }
+     },
+     validatePassword: function(password){
+         try{
+            const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+            return passw.test(String(password));
+         }catch(err){
+             console.log(err);
+         }
      }
  };
  

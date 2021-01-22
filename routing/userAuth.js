@@ -22,6 +22,11 @@ router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er
     if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
         return res.status(400).send({error: "Email is not properly formatted"});
     }
+
+    if(!(hjelpeMetoder.data.validatePassword(pugBody.password))){
+        return res.status(400).send({error: 'Password is not properly formatted'});
+    }
+    
     //Vi gjør en sjekk at alle feltene er fylt inn
     if(!(pugBody.email && pugBody.password && pugBody.passwordRepeat)) {
         return res.status(400).send({error: "Data is not properly formatted"}); //Vi returnerer res (result) og sier at dataen ikke er riktig
