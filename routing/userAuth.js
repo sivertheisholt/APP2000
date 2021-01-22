@@ -1,7 +1,8 @@
 const express = require('express');
-const Bruker = require('./brukerSchema');
+const Bruker = require('../handling/brukerSchema');
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const hjelpeMetoder = require('../handling/hjelpeMetoder');
 
 router.get("/signup", (req, res) => {
     res.render("auth/sucess", {});
@@ -18,7 +19,9 @@ router.get("/sucess", (req, res) => {
 router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
     const pugBody = req.body; //Skaffer body fra form
     console.log(pugBody);
-
+    if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
+        return res.status(400).send({error: "Email is not properly formatted"});
+    }
     //Vi gjør en sjekk at alle feltene er fylt inn
     if(!(pugBody.email && pugBody.password && pugBody.passwordRepeat)) {
         return res.status(400).send({error: "Data is not properly formatted"}); //Vi returnerer res (result) og sier at dataen ikke er riktig

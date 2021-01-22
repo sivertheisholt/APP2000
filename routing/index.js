@@ -4,7 +4,7 @@ const router = express.Router();
 
 //Sender videre basert på directory
 router.use('/mediainfo', require('./mediainfo'));
-router.use('/auth', require('../handling/routingAuth'));
+router.use('/auth', require('./userAuth'));
 
 //Startsiden kjører her
 router.get("/", async (req, res) => {
