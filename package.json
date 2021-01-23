@@ -30,6 +30,8 @@
     "n": "^6.7.0",
     "node-fetch": "^2.6.0",
     "node-html-parser": "^2.0.2",
+    "nodemailer": "^6.4.17",
+    "nodemailer-smtp-transport": "^2.7.4",
     "pug": "^3.0.0",
     "socket.io": "^3.0.5",
     "stable": "^0.1.8"

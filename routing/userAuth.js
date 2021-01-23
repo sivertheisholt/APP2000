@@ -3,6 +3,7 @@ const Bruker = require('../handling/brukerSchema');
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
+var mailer = require('../handling/mailer');
 
 router.get("/signup", (req, res) => {
     res.render("auth/sucess", {});
@@ -47,6 +48,12 @@ router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er
     bruker.password = await bcrypt.hash(bruker.password, salt);
     bruker.save().then((dokument) => {
         res.status(201).send(dokument);
+        /*mailer({
+            from: process.env.EMAIL,
+            to: process.env.EMAIL, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
+            subject: 'Welcome to Filmatory!',
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum vulputate luctus.'
+        });*/
         //res.redirect('./auth/sucess.pug');
     })  //Redirecter tilbake til root
     //res.end();
