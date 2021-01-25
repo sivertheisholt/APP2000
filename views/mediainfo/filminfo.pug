@@ -1,10 +1,117 @@
 include ../includes/head.pug
 include ../includes/nav.pug
 
-body
-    .container
-        p Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni placeat tempore debitis.
-        
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Film info
+  style.
+    body, ol, li, h1, h2, a{
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    }
+    header h1{
+    color: white;
+    border: 8px solid white;
+    padding: 6px 12px;
+    display: inline-block;
+    border-radius: 36px;
+    }
+    nav{
+    background-color: #F4F4F4;
+    padding:20px;
+    top:103px;
+    position: sticky;
+    }
+    nav ol{
+    white-space: nowrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    }
+    nav li{
+    width: 16%;
+    display: inline-block;
+    font-size: 16px;
+    word-wrap: break-word;
+    }
+    nav li a{
+    text-decoration: none;
+    color: #4b4b4b;
+    }
+    main{
+    max-width: 100%;
+    width: 1200px;
+    margin: 80px auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    }
+    .filminfos {
+    width: 100%;
+    background-color: lightgray;
+    max-width: 100%;
+    }
+    .filminfos p{
+    color: #4b4b4b;
+    }
+    .filminfos
+    article h2{
+    color: black;
+    font-size: 36px;
+    }
+    .filminfos img{
+    }
+    article p{
+    line-height: 1em;
+    }
+    article{
+    width: 50%;
+    }
+    .actor-li{
+    padding: 5px;
+    }
+main
+  .filminfos
+    img(src='../images/imgmovies/hard_kill.jpg' alt='Hard Kill movie poster')
+    article
+      h2 Hard Kill
+      h3 10/23/2020 - Action, Thriller
+      h3 1 Hour 38 Minutes
+      h2 Overview
+      p
+        | Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nam natus ipsum obcaecati tempore, molestiae, officia dolorum ad odio molestias a, id commodi officiis itaque aliquid in nemo reprehenderit eveniet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam natus nisi veniam reprehenderit voluptatibus a esse repellendus, corporis ipsam autem libero repellat laboriosam doloribus similique numquam exercitationem labore impedit placeat?
+      .direcAndscreenpl
+        p Director
+        p Screenplay
+  nav.actors-nav
+    ol
+      li.actor-li
+        img(src='../images/imgactors/bruce_willis.jpg' alt='Picture of Bruce Willis')
+        br
+        a(href='/bruce-willis.html') Bruce Willis
+      li.actor-li
+        img(src='../images/imgactors/jesse_metcalfe.jpg' alt='Picture of Jesse Metcalfe')
+        br
+        a(href='/actor2.html') Jesse Metcalfe
+      li.actor-li
+        img(src='../images/imgactors/natalie_eva_marie.jpg' alt='Picture of Eva Marie')
+        br
+        a(href='/actor3.htmll') Natalie Eva Marie
+      li.actor-li
+        img(src='../images/imgactors/lala-kent.jpg' alt='Picture of Lala Kent')
+        br
+        a(href='/actor4.html') Lala Kent
+      li.actor-li
+        img(src='../images/imgactors/texas-battle.jpg' alt='Picture of Texas Battle')
+        br
+        a(href='/actor4.html') Texas Battle
+      li.actor-li
+        img(src='../images/imgactors/swen-temmel.jpg' alt='Picture of Swen Temmel')
+        br
+        a(href='/actor4.html') Swen Temmel
+
+
 footer    
     include ../includes/footer.pug
 
