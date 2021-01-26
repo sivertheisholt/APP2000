@@ -16,7 +16,7 @@ const connection = mongoose
   .catch((err) => console.error("error", err));
 
 //Setter port
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //Lager default path til public, dette er da på klientsiden
 const publicPath = path.join(__dirname, "/public");
