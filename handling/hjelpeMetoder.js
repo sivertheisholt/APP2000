@@ -26,12 +26,49 @@ let tmdbInformasjonKlar;
      lagFinDato: function(datoInn, stringTilSplitting) {
          try {
             let splitDato = datoInn.split(stringTilSplitting);
-            const dato = new Date(splitDato[0], splitDato[1], splitDato[2])
-            return dato.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' });;
+            const dato = new Date(splitDato[0], splitDato[1]-1, splitDato[2]-1)
+            return dato.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' });
          } catch(err) {
              console.log(err);
          }
      },
+
+    // Funksjon for å hente månedsnummer (plassering)
+    lagfinMåned: function(datoInn, stringTilSplitting) {
+        try {
+                let splitDato = datoInn.split(stringTilSplitting);
+                const dato = new Date(splitDato[0], splitDato[1]-1, splitDato[2]-1)
+                const monthName = dato.getMonth()
+              return monthName
+            } catch(err) {
+                console.log(err);
+            }
+        },
+    // Funksjon for å hente dagsnummer sin plassering
+    lagfinDag: function(datoInn, stringTilSplitting) {
+        try {
+                let splitDato = datoInn.split(stringTilSplitting);
+                const dato = new Date(splitDato[0], splitDato[1]-1, splitDato[2]-1)
+                const dagnavn = dato.getDate()
+                return dagnavn
+            } catch(err) {
+                console.log(err);
+            }
+        },
+        
+    // Henter årstall
+    lagfinÅrstall: function(datoInn, stringTilSplitting) {
+        try {
+                let splitDato = datoInn.split(stringTilSplitting);
+                const dato = new Date(splitDato[0], splitDato[1]-1, splitDato[2]-1)
+                const år = dato.getFullYear()
+                return år
+            } catch(err) {
+                console.log(err);
+            }
+        },
+
+
      validateEmail: function(email){
         try{
             const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
