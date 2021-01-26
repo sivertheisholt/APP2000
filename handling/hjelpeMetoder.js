@@ -3,6 +3,9 @@ let tmdbInformasjonKlar;
 
 //Her kan dere legge inn hjelpemetoder dere vil lage
  var methods = {
+
+     //hentTmdbInformasjon metoden henter informasjon fra The Movie Database API'en
+     //Legger informasjonen inn i variabelen tmdbInformasjonKlar
      hentTmdbInformasjon: async function () {
          try {
             let tmdbInformasjon = {
@@ -20,9 +23,13 @@ let tmdbInformasjonKlar;
              console.log(err);
          }
      },
+
+     //returnerTmdbInformasjon metoden returnerer informasjonen fra tmdbInformasjonKlar
      returnerTmdbInformasjon: function () {
          return tmdbInformasjonKlar
      },
+
+     //lagFinDato metoden gjør om en dato lettere å lese
      lagFinDato: function(datoInn, stringTilSplitting) {
          try {
             let splitDato = datoInn.split(stringTilSplitting);
@@ -33,7 +40,7 @@ let tmdbInformasjonKlar;
          }
      },
 
-    // Funksjon for å hente månedsnummer (plassering)
+    // lagfinMåned Funksjon for å hente månedsnummer (plassering)
     lagfinMåned: function(datoInn, stringTilSplitting) {
         try {
                 let splitDato = datoInn.split(stringTilSplitting);
@@ -44,7 +51,8 @@ let tmdbInformasjonKlar;
                 console.log(err);
             }
         },
-    // Funksjon for å hente dagsnummer sin plassering
+
+    // lagfinDag Funksjon for å hente dagsnummer sin plassering
     lagfinDag: function(datoInn, stringTilSplitting) {
         try {
                 let splitDato = datoInn.split(stringTilSplitting);
@@ -56,7 +64,7 @@ let tmdbInformasjonKlar;
             }
         },
         
-    // Henter årstall
+    // lagfinÅrstall Funksjon Henter årstall
     lagfinÅrstall: function(datoInn, stringTilSplitting) {
         try {
                 let splitDato = datoInn.split(stringTilSplitting);
@@ -67,7 +75,6 @@ let tmdbInformasjonKlar;
                 console.log(err);
             }
         },
-
 
      validateEmail: function(email){
         try{
