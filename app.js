@@ -11,7 +11,7 @@ const hjelpeMetoder = require('./handling/hjelpeMetoder');
 
 //Her kobler vi opp databasen
 const connection = mongoose
-  .connect("mongodb://localhost:27017/app", { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_DB_URL || "mongodb://localhost:27017/app", { useNewUrlParser: true, useUnifiedTopology: true })
   .then((_) => console.log("Connected to DB"))
   .catch((err) => console.error("error", err));
 
