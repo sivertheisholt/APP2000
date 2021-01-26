@@ -23,6 +23,11 @@
                   li.uk-nav-divider
                   li
                     a(href='#') Contact
+              li
+                .uk-navbar-item
+                  form.uk-search.uk-search-default.uk-width-1-1
+                      span(uk-search-icon='')
+                      input.uk-search-input(type='search' placeholder='Search...')
                 li
                     a.uk-button.uk-button-default.login-btn(href='#modal-center' uk-toggle='') Sign in
                     #modal-center.uk-flex-top(uk-modal='')
@@ -48,7 +53,7 @@
                                       input.uk-input(type='password' name='password' placeholder='Password')
                                   .uk-margin
                                     .uk-inline
-                                      button.uk-button.uk-button-default.uk-margin-right Enter
+                                      button.uk-button.uk-button-default.uk-margin-right(type='submit') Enter
                                       a.uk-text-small(href='#modal-example' uk-toggle='') Forgot password
                               .uk-text-center.uk-width-1-2.uk-margin-auto
                                 h3.uk-card-title Lorem
@@ -74,7 +79,7 @@
                                       input.uk-input(type='password' name='passwordRepeat' placeholder='Repeat password' required)
                                   .uk-margin
                                     .uk-inline
-                                      button.uk-button.uk-button-default.uk-margin-right Enter
+                                      button.uk-button.uk-button-default.uk-margin-right(type='submit') Enter
                               .uk-text-center.uk-width-1-2.uk-margin-auto
                                 h3.uk-card-title Lorem
                                 p.uk-text-small
@@ -84,28 +89,23 @@
 
                     #modal-example(uk-modal='')
                       .uk-modal-dialog.uk-modal-body.uk-margin-auto.uk-margin-auto-vertical
+                        button.uk-modal-close-default(type='button' uk-close='')
                         .uk-grid.uk-width-1-1.uk-flex-nowrap
                           .uk-aling-center
                             h3.uk-text-bold Password Recovery
-                              form
+                              form(action='/auth/forgottenPassword' method='post')
                                 .uk-margin-bottom
                                   .uk-inline
-                                    input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailRecovery' placeholder='Email' required)
+                                    input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailForgottenPassword' placeholder='Email' required)
                                 .uk-margin-bottom
                                   .uk-inline
-                                    button.uk-button.uk-button-default.uk-modal-close.uk-margin-right.uk-button-small(type='button') Cancel
-                                    button.uk-button.uk-button-default.uk-button-small(type='button') Send
+                                    button.uk-button.uk-button-default.uk-button-small(type='submit') Send
                           .uk-text-center.uk-width-1-2.uk-margin-auto
                             h3.uk-card-title Lorem
                             p.uk-text-small
                               | Lorem ipsum 
                               a(href='#') dolor
                               |  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          .uk-navbar-item
-              form.uk-search.uk-search-default.uk-width-1-1
-                  span(uk-search-icon='')
-                  input.uk-search-input(type='search' placeholder='Search...')
 
 
 

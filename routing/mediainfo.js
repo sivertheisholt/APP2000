@@ -10,7 +10,7 @@ router.get("/filminfo", (req, res) => {
 //Serieinfo siden kjører her
 router.get("/serieinfo", (req, res) => {
   console.log('lorem');
-res.render("mediainfo/filminfo", {});
+res.render("mediainfo/serieinfo", {});
 });
 
 module.exports = router;

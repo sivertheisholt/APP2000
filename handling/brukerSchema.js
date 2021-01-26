@@ -14,6 +14,10 @@ const brukerSchema = new mongoose.Schema({
     required: true,
     minlength: true,
     maxlength: 1024
+  },
+  resetLink: {
+    data: String,
+    default: ''
   }
 });
 
