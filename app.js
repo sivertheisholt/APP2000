@@ -41,7 +41,7 @@ app.use(express.static(publicPath));
 
 //Fortelle express at pakken session skal brukes
 app.use(session({
-  secret: 'DetteErSecret', //her burde det brukes .env
+  secret: process.env.SESSION_SECRET, //her burde det brukes .env
   resave: true,
   saveUninitialized: true,
   cookie: {
