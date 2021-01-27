@@ -33,7 +33,6 @@ Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies(addParams) {
             else if (typeof addParams === 'string')
                 url += '&' + addParams;
         }
-        console.log(url)
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());
@@ -53,7 +52,6 @@ Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams) {
             else if (typeof addParams === 'string')
                 url += '&' + addParams;
         }
-        console.log(url)
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());
