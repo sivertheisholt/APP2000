@@ -1,0 +1,18 @@
+- var upcomingMovies = [{upcomingMovies}];
+
+include ../includes/head.pug
+include ../includes/nav.pug
+
+body
+    .container
+        .upcomingMovies
+            .uk-child-width-1-4.uk-grid
+                each item in upcomingMovies[0].upcomingMovies
+                    .uk-card.uk-card-default
+                        .uk-card-media-top
+                            img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')
+                        .uk-card-body
+                            h3.uk-card-title=item.title
+                            p= item.releaseDate
+include ../includes/footer.pug
+

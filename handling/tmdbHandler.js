@@ -17,6 +17,10 @@ var methods = {
     //getDiscoverTvshows metoden skaffer discoverTvshows listen fra tmdb
     getDiscoverTvshows: async function() {
         return await tmdb.getDiscoverTvshows();
+    },
+
+    getUpcomingMovies: async function() {
+        return await tmdb.getUpcomingMovies();
     }
 };
 

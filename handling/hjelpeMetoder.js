@@ -11,13 +11,16 @@ let tmdbInformasjonKlar;
             let tmdbInformasjon = {
                 discoverMovies: {},
                 discoverTvshows: {},
+                upcomingMovies: {}
             };
             console.log("Skaffer informasjon fra TheMovieDatabase...");
             let getDiscoverMovies = await theMovieDatabase.data.getDiscoverMovies();
             let getDiscoverTvshows = await theMovieDatabase.data.getDiscoverTvshows();
+            let getUpcomingMovies = await theMovieDatabase.data.getUpcomingMovies();
             console.log("All informasjon er ferdig hentet!");
             tmdbInformasjon.discoverMovies = getDiscoverMovies.results;
             tmdbInformasjon.discoverTvshows = getDiscoverTvshows.results;
+            tmdbInformasjon.upcomingMovies = getUpcomingMovies.results;
             tmdbInformasjonKlar = tmdbInformasjon;
          } catch(err) {
              console.log(err);
