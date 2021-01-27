@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
   let finalListMovies = []; //Lager en tom array
   let finalListTvshows = []; //Lager en tom array
 
-  for(movie of tmdbInformasjon.discoverMovies) { //For loop imellom hver item i discoverMovies
+  for(movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
     //Lager et object for hver movie
     let tempObjectMovie = {
       id: movie.id,
@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
     }
     finalListMovies.push(tempObjectMovie); //Pusher til array
   }
-  for(tvshow of tmdbInformasjon.discoverTvshows) { //For loop imellom hver item i discoverTvshows
+  for(tvshow of tmdbInformasjon.discoverTvshowsPopular) { //For loop imellom hver item i discoverTvshows
     //Lager et object for hver serie
     let tempObjectTvshow = {
       id: tvshow.id,

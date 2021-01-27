@@ -9,19 +9,27 @@ let tmdbInformasjonKlar;
      hentTmdbInformasjon: async function () {
          try {
             let tmdbInformasjon = {
-                discoverMovies: {},
-                discoverTvshows: {},
-                upcomingMovies: {}
+                discoverMoviesUpcoming: {},
+                discoverMoviesPopular: {},
+                discoverTvshowsUpcoming: {},
+                discoverTvshowsPopular: {},
             };
             console.log("Skaffer informasjon fra TheMovieDatabase...");
-            let getDiscoverMovies = await theMovieDatabase.data.getDiscoverMovies();
-            let getDiscoverTvshows = await theMovieDatabase.data.getDiscoverTvshows();
-            let getUpcomingMovies = await theMovieDatabase.data.getUpcomingMovies();
-            console.log("All informasjon er ferdig hentet!");
-            tmdbInformasjon.discoverMovies = getDiscoverMovies.results;
-            tmdbInformasjon.discoverTvshows = getDiscoverTvshows.results;
-            tmdbInformasjon.upcomingMovies = getUpcomingMovies.results;
+            //Skaff filmer
+            let getDiscoverMoviesUpcoming = await theMovieDatabase.data.getDiscoverMoviesUpcoming();
+            let getDiscoverMoviesPopular = await theMovieDatabase.data.getDiscoverMoviesPopular();
+            //Skaff serier
+            let getDiscoverTvshowsUpcoming = await theMovieDatabase.data.getDiscoverTvshowsUpcoming();
+            let getDiscoverTvshowsPopular = await theMovieDatabase.data.getDiscoverTvshowsPopular();
+            //Lagre filmer
+            tmdbInformasjon.discoverMoviesUpcoming = getDiscoverMoviesUpcoming.results;
+            tmdbInformasjon.discoverMoviesPopular = getDiscoverMoviesPopular.results;
+            //Lagre serier
+            tmdbInformasjon.discoverTvshowsUpcoming = getDiscoverTvshowsUpcoming.results;
+            tmdbInformasjon.discoverTvshowsPopular = getDiscoverTvshowsPopular.results;
+            
             tmdbInformasjonKlar = tmdbInformasjon;
+            console.log("All informasjon er ferdig hentet!");
          } catch(err) {
              console.log(err);
          }

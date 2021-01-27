@@ -8,20 +8,26 @@ var methods = {
     getMovieInfo: async function (movieTitle) {
         return await tmdb.getMovieResults(movieTitle);
     },
-
-    //getDiscoverMovies metoden skaffer discovermovies listen fra tmdb
-    getDiscoverMovies: async function() {
-        return await tmdb.getDiscoverMovies();
+    //getDiscoverMoviesUpcoming metoden skaffer filmer som ikke er ute
+    getDiscoverMoviesUpcoming: async function() {
+        let date = new Date();
+        return await tmdb.getDiscoverMovies(`primary_release_date.gte=${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, "0")}-${date.getDate()}`);
     },
-
-    //getDiscoverTvshows metoden skaffer discoverTvshows listen fra tmdb
-    getDiscoverTvshows: async function() {
-        return await tmdb.getDiscoverTvshows();
+    //getDiscoverTvshowsUpcoming metoden skaffer serie som ikke er ute
+    getDiscoverTvshowsUpcoming: async function() {
+        let date = new Date();
+        return await tmdb.getDiscoverTvshows(`primary_release_date.gte=${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, "0")}-${date.getDate()}`);
     },
-
-    getUpcomingMovies: async function() {
-        return await tmdb.getUpcomingMovies();
-    }
+    //getDiscoverMoviesPopular metoden skaffer filmer som er ute og populære
+    getDiscoverMoviesPopular: async function() {
+        let date = new Date();
+        return await tmdb.getDiscoverMovies(`primary_release_date.lte=${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, "0")}-${date.getDate()}&sort_by=popularity.desc`);
+    },
+    //getDiscoverTvshowsPopular metoden skaffer serie som er ute og populære
+    getDiscoverTvshowsPopular: async function() {
+        let date = new Date();
+        return await tmdb.getDiscoverTvshows(`primary_release_date.lte=${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, "0")}-${date.getDate()}&sort_by=popularity.desc`);
+    },
 };
 
 exports.data = methods;

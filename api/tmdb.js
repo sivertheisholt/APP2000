@@ -23,9 +23,17 @@ Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle) {
     })
 }
 
-Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies() {
+Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies(addParams) {
     return new Promise((resolve, reject) => {
         var url = `https://api.themoviedb.org/3/discover/movie?api_key=${this.token}`;
+        
+        if (addParams) {
+            if (typeof addParams === "object" && addParams !== null)
+                Object.keys(addParams).map(function (key) { url += '&' + key + '=' + addParams[key] });
+            else if (typeof addParams === 'string')
+                url += '&' + addParams;
+        }
+        console.log(url)
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());
@@ -36,9 +44,16 @@ Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies() {
     })
 }
 
-Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows() {
+Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams) {
     return new Promise((resolve, reject) => {
         var url = `https://api.themoviedb.org/3/discover/tv?api_key=${this.token}`;
+        if (addParams) {
+            if (typeof addParams === "object" && addParams !== null)
+                Object.keys(addParams).map(function (key) { url += '&' + key + '=' + addParams[key] });
+            else if (typeof addParams === 'string')
+                url += '&' + addParams;
+        }
+        console.log(url)
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());
@@ -52,7 +67,6 @@ Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows() {
 Tmdb.prototype.getUpcomingMovies = function getUpcomingMovies() {
     return new Promise((resolve, reject) => {
         var url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${this.token}`;
-
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());
