@@ -1,117 +1,105 @@
 include ../includes/head.pug
 include ../includes/nav.pug
-
-doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title Film info
-  style.
-    body, ol, li, h1, h2, a{
-    margin: 0;
-    padding: 0;
-    font-family: arial;
-    }
-    header h1{
-    color: white;
-    border: 8px solid white;
-    padding: 6px 12px;
-    display: inline-block;
-    border-radius: 36px;
-    }
-    nav{
-    background-color: #F4F4F4;
-    padding:20px;
-    top:103px;
-    position: sticky;
-    }
-    nav ol{
-    white-space: nowrap;
-    max-width: 1200px;
-    margin: 0 auto;
-    }
-    nav li{
-    width: 16%;
-    display: inline-block;
-    font-size: 16px;
-    word-wrap: break-word;
-    }
-    nav li a{
-    text-decoration: none;
-    color: #4b4b4b;
-    }
-    main{
-    max-width: 100%;
-    width: 1200px;
-    margin: 80px auto;
-    padding: 0 40px;
-    box-sizing: border-box;
-    }
-    .filminfos {
-    width: 100%;
-    background-color: lightgray;
-    max-width: 100%;
-    }
-    .filminfos p{
-    color: #4b4b4b;
-    }
-    .filminfos
-    article h2{
-    color: black;
-    font-size: 36px;
-    }
-    .filminfos img{
-    }
-    article p{
-    line-height: 1em;
-    }
-    article{
-    width: 50%;
-    }
-    .actor-li{
-    padding: 5px;
-    }
+style.
+  .film_oversikt{
+  max-width: 100%;
+  width: 100%;
+  margin: 0px auto;
+  padding: 0 0%;
+  box-sizing: border-box;
+  background-color: #bcbcbc;
+  }
+  .slider{
+  max-width: 100%;
+  width: 100%;
+  margin: 0px auto;
+  padding: 0 15%;
+  box-sizing: border-box;
+  }
 main
-  .filminfos
-    img(src='../images/imgmovies/hard_kill.jpg' alt='Hard Kill movie poster')
-    article
-      h2 Hard Kill
-      h3 10/23/2020 - Action, Thriller
-      h3 1 Hour 38 Minutes
-      h2 Overview
-      p
-        | Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nam natus ipsum obcaecati tempore, molestiae, officia dolorum ad odio molestias a, id commodi officiis itaque aliquid in nemo reprehenderit eveniet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam natus nisi veniam reprehenderit voluptatibus a esse repellendus, corporis ipsam autem libero repellat laboriosam doloribus similique numquam exercitationem labore impedit placeat?
-      .direcAndscreenpl
-        p Director
-        p Screenplay
-  nav.actors-nav
-    ol
-      li.actor-li
-        img(src='../images/imgactors/bruce_willis.jpg' alt='Picture of Bruce Willis')
-        br
-        a(href='/bruce-willis.html') Bruce Willis
-      li.actor-li
-        img(src='../images/imgactors/jesse_metcalfe.jpg' alt='Picture of Jesse Metcalfe')
-        br
-        a(href='/actor2.html') Jesse Metcalfe
-      li.actor-li
-        img(src='../images/imgactors/natalie_eva_marie.jpg' alt='Picture of Eva Marie')
-        br
-        a(href='/actor3.htmll') Natalie Eva Marie
-      li.actor-li
-        img(src='../images/imgactors/lala-kent.jpg' alt='Picture of Lala Kent')
-        br
-        a(href='/actor4.html') Lala Kent
-      li.actor-li
-        img(src='../images/imgactors/texas-battle.jpg' alt='Picture of Texas Battle')
-        br
-        a(href='/actor4.html') Texas Battle
-      li.actor-li
-        img(src='../images/imgactors/swen-temmel.jpg' alt='Picture of Swen Temmel')
-        br
-        a(href='/actor4.html') Swen Temmel
-
-
+  .film_oversikt
+    // Grid
+    div(uk-grid='')
+      .uk-width-1-6
+      // Poster image
+      .uk-width-1-3
+        .uk-align-right
+          img(src='/images/imgmovies/hard_kill.jpg' alt='' style='width:max-content;')
+      // Informasjon on film
+      .uk-width-1-3
+        .uk-background-muted.uk-padding(style='background-color: #bcbcbc; color: black;')
+          article
+            h2
+              b  Denne siden er ikke ferdig, fortsatt litt bugga -Sigve
+            h3 10/23/2020 - Action, Thriller
+            h3 1 Hour 38 Minutes
+            h2
+            h2 Overview
+            p(style='text-align: left; font-size: small;')
+              | Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nam natus ipsum obcaecati tempore, molestiae, officia dolorum ad odio molestias a, id commodi officiis itaque aliquid in nemo reprehenderit eveniet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam natus nisi veniam reprehenderit voluptatibus a esse repellendus, corporis ipsam autem libero repellat laboriosam doloribus similique numquam exercitationem labore impedit placeat?
+            .direc(uk-grid='' style='font-size: small;')
+              br
+              .uk-width-1-2
+                p Director
+                // a(href='' style='font-size: 1.2em; color: black' ;='')
+                  b  Name Nameson  
+              .uk-width-1-2
+                p Screenplay
+                // a(href='' style='font-size: 1.2em; color: black' ;='')
+                  b  Name Nameson  
+      .uk-width-1-6
+        a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' uk-icon='heart')
+        a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' uk-icon='star')
+  br
+  // Slider
+  .slider
+    .uk-slider-container-offset(uk-slider='')
+      .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
+        ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s')
+          li
+            .uk-card.uk-card-default
+              .uk-card-media-top
+                img(src='/images/imgactors/bruce_willis.jpg' alt='')
+              .uk-card-body
+                h3.uk-card-title Bruce Willis
+                p Lorem ipsum dolor sit amet.
+          li
+            .uk-card.uk-card-default
+              .uk-card-media-top
+                img(src='/images/imgactors/jesse_metcalfe.jpg' alt='')
+              .uk-card-body
+                h3.uk-card-title Jesse Metcalfe
+                p Lorem ipsum dolor sit amet.
+          li
+            .uk-card.uk-card-default
+              .uk-card-media-top
+                img(src='/images/imgactors/natalie_eva_marie.jpg' alt='')
+              .uk-card-body
+                h3.uk-card-title Eva Marie
+                p Lorem ipsum dolor sit amet.
+          li
+            .uk-card.uk-card-default
+              .uk-card-media-top
+                img(src='/images/imgactors/lala-kent.jpg' alt='')
+              .uk-card-body
+                h3.uk-card-title Lala Kent
+                p Lorem ipsum dolor sit amet.
+          li
+            .uk-card.uk-card-default
+              .uk-card-media-top
+                img(src='/images/imgactors/texas-battle.jpg' alt='')
+              .uk-card-body
+                h3.uk-card-title Texas Battle
+                p Lorem ipsum dolor sit amet.
+          li
+            .uk-card.uk-card-default
+              .uk-card-media-top
+                img(src='/images/imgactors/swen-temmel.jpg' alt='')
+              .uk-card-body
+                h3.uk-card-title Swen Temmel
+                p Lorem ipsum dolor sit amet.
+        a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slider-item='previous')
+        a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slider-item='next')
+      ul.uk-slider-nav.uk-dotnav.uk-flex-center.uk-margin
 footer    
     include ../includes/footer.pug
-
