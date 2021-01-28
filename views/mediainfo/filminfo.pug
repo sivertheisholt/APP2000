@@ -1,38 +1,25 @@
 include ../includes/head.pug
 include ../includes/nav.pug
-style.
-  .film_oversikt{
-  max-width: 100%;
-  width: 100%;
-  margin: 0px auto;
-  padding: 0 0%;
-  box-sizing: border-box;
-  background-color: #bcbcbc;
-  }
-  .slider{
-  max-width: 100%;
-  width: 100%;
-  margin: 0px auto;
-  padding: 0 15%;
-  box-sizing: border-box;
-  }
+doctype html
 main
-  .film_oversikt
+  .film_oversikt(style='background-color: #bcbcbc;')
     // Grid
     div(uk-grid='')
       .uk-width-1-6
       // Poster image
-      .uk-width-1-3
+      .uk-width-1-3.uk-padding-remove
         .uk-align-right
           img(src='/images/imgmovies/hard_kill.jpg' alt='' style='width:max-content;')
       // Informasjon on film
       .uk-width-1-3
-        .uk-background-muted.uk-padding(style='background-color: #bcbcbc; color: black;')
+        .uk-background-muted.uk-padding.uk-padding-remove-left.uk-padding-remove-right(style='background-color: #bcbcbc; color: black;')
           article
             h2
-              b  Denne siden er ikke ferdig, fortsatt litt bugga -Sigve
+              b  Hard Kill 
             h3 10/23/2020 - Action, Thriller
             h3 1 Hour 38 Minutes
+            .review(style='width: 100px; height: 100px; line-height: 100px; border-radius: 50%; font-size: 30px; color: red; text-align: center; background-color: #C8C8C7;')
+              h2(style='color: #32bf53; padding: 26px;') 95%
             h2
             h2 Overview
             p(style='text-align: left; font-size: small;')
@@ -41,65 +28,77 @@ main
               br
               .uk-width-1-2
                 p Director
-                // a(href='' style='font-size: 1.2em; color: black' ;='')
+                //a(href='' style='font-size: 1.2em; color: black' ;='')
                   b  Name Nameson  
               .uk-width-1-2
                 p Screenplay
-                // a(href='' style='font-size: 1.2em; color: black' ;='')
+                //a(href='' style='font-size: 1.2em; color: black' ;='')
                   b  Name Nameson  
-      .uk-width-1-6
+      .uk-width-1-6.uk-padding-remove
         a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' uk-icon='heart')
         a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' uk-icon='star')
   br
   // Slider
-  .slider
-    .uk-slider-container-offset(uk-slider='')
-      .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
-        ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s')
+  .uk-grid
+    .uk-width-1-6  
+    .uk-width-5-6(style='max-width: 1150px;')
+      .uk-slider-container-offset(uk-slider='')
+        .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
+          ul.uk-slider-items.uk-grid(class='uk-child-width-1-6@s')
+            li
+              .uk-card.uk-card-default
+                .uk-card-media-top
+                  img(src='/images/imgactors/bruce_willis.jpg' alt='')
+                .uk-card-body
+                  h3.uk-card-title Bruce Willis
+                  p Chalmers
+            li
+              .uk-card.uk-card-default
+                .uk-card-media-top
+                  img(src='/images/imgactors/jesse_metcalfe.jpg' alt='')
+                .uk-card-body
+                  h3.uk-card-title Jesse Metcalfe
+                  p Miller.
+            li
+              .uk-card.uk-card-default
+                .uk-card-media-top
+                  img(src='/images/imgactors/natalie_eva_marie.jpg' alt='')
+                .uk-card-body
+                  h3.uk-card-title Eva Marie
+                  p Sasha
+            li
+              .uk-card.uk-card-default
+                .uk-card-media-top
+                  img(src='/images/imgactors/lala-kent.jpg' alt='')
+                .uk-card-body
+                  h3.uk-card-title Lala Kent
+                  p Eva Chalmers
+            li
+              .uk-card.uk-card-default
+                .uk-card-media-top
+                  img(src='/images/imgactors/texas-battle.jpg' alt='')
+                .uk-card-body
+                  h3.uk-card-title Texas Battle
+                  p Fox
+            li
+              .uk-card.uk-card-default
+                .uk-card-media-top
+                  img(src='/images/imgactors/swen-temmel.jpg' alt='')
+                .uk-card-body
+                  h3.uk-card-title Dash hawkings
+                  p Nisse
+          a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slider-item='previous')
+          a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slider-item='next')
+        ul.uk-slider-nav.uk-dotnav.uk-flex-center.uk-margin
+      // Reviews og Media
+      div
+        br
+        br
+        ul.uk-tab-bottom(uk-tab='')
+          li.uk-active
+            a(href='#') Reviews
           li
-            .uk-card.uk-card-default
-              .uk-card-media-top
-                img(src='/images/imgactors/bruce_willis.jpg' alt='')
-              .uk-card-body
-                h3.uk-card-title Bruce Willis
-                p Lorem ipsum dolor sit amet.
-          li
-            .uk-card.uk-card-default
-              .uk-card-media-top
-                img(src='/images/imgactors/jesse_metcalfe.jpg' alt='')
-              .uk-card-body
-                h3.uk-card-title Jesse Metcalfe
-                p Lorem ipsum dolor sit amet.
-          li
-            .uk-card.uk-card-default
-              .uk-card-media-top
-                img(src='/images/imgactors/natalie_eva_marie.jpg' alt='')
-              .uk-card-body
-                h3.uk-card-title Eva Marie
-                p Lorem ipsum dolor sit amet.
-          li
-            .uk-card.uk-card-default
-              .uk-card-media-top
-                img(src='/images/imgactors/lala-kent.jpg' alt='')
-              .uk-card-body
-                h3.uk-card-title Lala Kent
-                p Lorem ipsum dolor sit amet.
-          li
-            .uk-card.uk-card-default
-              .uk-card-media-top
-                img(src='/images/imgactors/texas-battle.jpg' alt='')
-              .uk-card-body
-                h3.uk-card-title Texas Battle
-                p Lorem ipsum dolor sit amet.
-          li
-            .uk-card.uk-card-default
-              .uk-card-media-top
-                img(src='/images/imgactors/swen-temmel.jpg' alt='')
-              .uk-card-body
-                h3.uk-card-title Swen Temmel
-                p Lorem ipsum dolor sit amet.
-        a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slider-item='previous')
-        a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slider-item='next')
-      ul.uk-slider-nav.uk-dotnav.uk-flex-center.uk-margin
+            a(href='#') Media
+
 footer    
     include ../includes/footer.pug
