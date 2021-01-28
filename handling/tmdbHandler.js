@@ -11,7 +11,7 @@ var methods = {
     //getDiscoverMoviesUpcoming metoden skaffer filmer som ikke er ute
     getDiscoverMoviesUpcoming: async function() {
         let date = new Date();
-        return await tmdb.getDiscoverMovies(`primary_release_date.gte=${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, "0")}-${date.getDate()}`);
+        return await tmdb.getDiscoverMovies(`primary_release_date.gte=${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, "0")}-${date.getDate()}&sort_by=primary_release_date.asc`);
     },
     //getDiscoverTvshowsUpcoming metoden skaffer serie som ikke er ute
     getDiscoverTvshowsUpcoming: async function() {
