@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const fetch = require('node-fetch');
 
 //Her kan dere legge inn hjelpemetoder dere vil lage
  var methods = {
@@ -63,6 +64,19 @@ const mongoose = require('mongoose');
             return passw.test(String(password));
          }catch(err){
              console.log(err);
+         }
+     },
+     sjekkOmBildeLoader: function(url) {
+         try {
+            return fetch(url).then(res=>{
+                if(res.status == 200) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+         } catch(err) {
+
          }
      }
  };

@@ -19,9 +19,12 @@ res.render("mediainfo/serieinfo", {});
 router.get("/upcoming", async (req, res) => {
   let tmdbInformasjon = tmdb.data.returnerTmdbInformasjon();
   let finalListUpcomingMovies = [];
-
   for(movie of tmdbInformasjon.discoverMoviesUpcoming) {
-    if(movie.poster_path == null){
+    if(!await hjelpeMetoder.data.sjekkOmBildeLoader(`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`)) {
+      continue;
+    }
+
+    if(movie.poster_path == null || movie.poster_path == ""){
       continue;
     }
     let tempObj = {

@@ -2,6 +2,7 @@ const express = require('express');
 const hjelpemetoder = require('../handling/hjelpeMetoder');
 const tmdb = require('../handling/tmdbHandler');
 const router = express.Router();
+const Session = require("../database/sessionSchema")
 
 //Sender videre basert på directory
 router.use('/mediainfo', require('./mediainfo'));
@@ -34,10 +35,12 @@ router.get("/", async (req, res) => {
     finalListTvshows.push(tempObjectTvshow); //Pusher til array
   }
 
+  //Skaffer session
+  const session = await Session.findOne({_id: req.sessionID});
   //Vis siden
   res.render("index", {
     //Sender variabler til pug filen
-    username: false,
+    username: session ? true : false,
     discoverMovies: finalListMovies,
     discoverTvshows: finalListTvshows,
   });
