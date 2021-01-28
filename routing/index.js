@@ -7,6 +7,7 @@ const Session = require("../database/sessionSchema")
 //Sender videre basert på directory
 router.use('/mediainfo', require('./mediainfo'));
 router.use('/auth', require('./userAuth'));
+router.use('/infosider', require('./info'));
 
 //Startsiden kjører her
 router.get("/", async (req, res) => {
