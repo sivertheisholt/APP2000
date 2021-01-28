@@ -1,4 +1,5 @@
 const express = require('express');
+const tmdb = require('../handling/tmdbHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
 const router = express.Router();
 
@@ -16,7 +17,7 @@ res.render("mediainfo/serieinfo", {});
 });
 
 router.get("/upcoming", async (req, res) => {
-  let tmdbInformasjon = hjelpeMetoder.data.returnerTmdbInformasjon();
+  let tmdbInformasjon = tmdb.data.returnerTmdbInformasjon();
   let finalListUpcomingMovies = [];
 
   for(movie of tmdbInformasjon.discoverMoviesUpcoming) {
