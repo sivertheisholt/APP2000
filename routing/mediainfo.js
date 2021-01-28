@@ -19,7 +19,10 @@ router.get("/upcoming", async (req, res) => {
   let tmdbInformasjon = hjelpeMetoder.data.returnerTmdbInformasjon();
   let finalListUpcomingMovies = [];
 
-  for(movie of tmdbInformasjon.upcomingMovies) {
+  for(movie of tmdbInformasjon.discoverMoviesUpcoming) {
+    if(movie.poster_path == null){
+      continue;
+    }
     let tempObj = {
       id: movie.id,
       pictureUrl: movie.poster_path,
@@ -32,6 +35,7 @@ router.get("/upcoming", async (req, res) => {
     upcomingMovies: finalListUpcomingMovies
   });
 });
+
 
 
 module.exports = router;
