@@ -5,12 +5,13 @@ const bodyParser = require('body-parser');
 const parse = require('node-html-parser');
 const express = require("express");
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const socketIO = require('socket.io');
-const hjelpeMetoder = require('./handling/hjelpeMetoder');
+const tmdb = require('./handling/tmdbHandler');
 
 //Her kobler vi opp databasen
-const connection = mongoose
+mongoose
   .connect(process.env.MONGO_DB_URL || "mongodb://localhost:27017/app", { useNewUrlParser: true, useUnifiedTopology: true })
   .then((_) => console.log("Connected to DB"))
   .catch((err) => console.error("error", err));
@@ -42,8 +43,12 @@ app.use(express.static(publicPath));
 //Fortelle express at pakken session skal brukes
 app.use(session({
   secret: process.env.SESSION_SECRET, //her burde det brukes .env
-  resave: true,
+  resave: false,
   saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    touchAfter: 12 * 3600 // time period in seconds
+  }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 //Setter cookies til å slettes etter 1 day
   }
@@ -56,7 +61,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
-hjelpeMetoder.data.hentTmdbInformasjon();
+tmdb.data.hentTmdbInformasjon();
 
 //Bruk routes
 app.use(require('./routing'));

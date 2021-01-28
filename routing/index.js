@@ -1,5 +1,6 @@
 const express = require('express');
-const hjelpeMetoder = require('../handling/hjelpeMetoder');
+const hjelpemetoder = require('../handling/hjelpeMetoder');
+const tmdb = require('../handling/tmdbHandler');
 const router = express.Router();
 
 //Sender videre basert på directory
@@ -8,7 +9,7 @@ router.use('/auth', require('./userAuth'));
 
 //Startsiden kjører her
 router.get("/", async (req, res) => {
-  let tmdbInformasjon = hjelpeMetoder.data.returnerTmdbInformasjon(); //Skaffer tmdb info
+  let tmdbInformasjon = tmdb.data.returnerTmdbInformasjon(); //Skaffer tmdb info
   let finalListMovies = []; //Lager en tom array
   let finalListTvshows = []; //Lager en tom array
 
@@ -18,7 +19,7 @@ router.get("/", async (req, res) => {
       id: movie.id,
       pictureUrl: movie.poster_path,
       title: movie.original_title,
-      releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, "-")
+      releaseDate: await hjelpemetoder.data.lagFinDato(movie.release_date, "-")
     }
     finalListMovies.push(tempObjectMovie); //Pusher til array
   }
@@ -28,7 +29,7 @@ router.get("/", async (req, res) => {
       id: tvshow.id,
       pictureUrl: tvshow.poster_path,
       title: tvshow.name,
-      releaseDate: await hjelpeMetoder.data.lagFinDato(tvshow.first_air_date, "-")
+      releaseDate: await hjelpemetoder.data.lagFinDato(tvshow.first_air_date, "-")
     }
     finalListTvshows.push(tempObjectTvshow); //Pusher til array
   }
@@ -36,6 +37,7 @@ router.get("/", async (req, res) => {
   //Vis siden
   res.render("index", {
     //Sender variabler til pug filen
+    username: false,
     discoverMovies: finalListMovies,
     discoverTvshows: finalListTvshows,
   });

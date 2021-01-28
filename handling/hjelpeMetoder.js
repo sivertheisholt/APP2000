@@ -1,45 +1,7 @@
-const theMovieDatabase = require("../handling/tmdbHandler.js");
-let tmdbInformasjonKlar;
+const mongoose = require('mongoose');
 
 //Her kan dere legge inn hjelpemetoder dere vil lage
  var methods = {
-
-     //hentTmdbInformasjon metoden henter informasjon fra The Movie Database API'en
-     //Legger informasjonen inn i variabelen tmdbInformasjonKlar
-     hentTmdbInformasjon: async function () {
-         try {
-            let tmdbInformasjon = {
-                discoverMoviesUpcoming: {},
-                discoverMoviesPopular: {},
-                discoverTvshowsUpcoming: {},
-                discoverTvshowsPopular: {},
-            };
-            console.log("Skaffer informasjon fra TheMovieDatabase...");
-            //Skaff filmer
-            let getDiscoverMoviesUpcoming = await theMovieDatabase.data.getDiscoverMoviesUpcoming();
-            let getDiscoverMoviesPopular = await theMovieDatabase.data.getDiscoverMoviesPopular();
-            //Skaff serier
-            let getDiscoverTvshowsUpcoming = await theMovieDatabase.data.getDiscoverTvshowsUpcoming();
-            let getDiscoverTvshowsPopular = await theMovieDatabase.data.getDiscoverTvshowsPopular();
-            //Lagre filmer
-            tmdbInformasjon.discoverMoviesUpcoming = getDiscoverMoviesUpcoming.results;
-            tmdbInformasjon.discoverMoviesPopular = getDiscoverMoviesPopular.results;
-            //Lagre serier
-            tmdbInformasjon.discoverTvshowsUpcoming = getDiscoverTvshowsUpcoming.results;
-            tmdbInformasjon.discoverTvshowsPopular = getDiscoverTvshowsPopular.results;
-            
-            tmdbInformasjonKlar = tmdbInformasjon;
-            console.log("All informasjon er ferdig hentet!");
-         } catch(err) {
-             console.log(err);
-         }
-     },
-
-     //returnerTmdbInformasjon metoden returnerer informasjonen fra tmdbInformasjonKlar
-     returnerTmdbInformasjon: function () {
-         return tmdbInformasjonKlar
-     },
-
      //lagFinDato metoden gjør om en dato lettere å lese
      lagFinDato: function(datoInn, stringTilSplitting) {
          try {
