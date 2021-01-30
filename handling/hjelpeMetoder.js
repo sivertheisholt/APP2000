@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const fetch = require('node-fetch');
 
 //Her kan dere legge inn hjelpemetoder dere vil lage
