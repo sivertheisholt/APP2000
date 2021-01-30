@@ -7,28 +7,35 @@ const hjelpeMetoder = require('../handling/hjelpeMetoder');
 var mailer = require('../handling/mailer');
 const jwt = require('jsonwebtoken');
 
-router.get("/signup", (req, res) => {
+/* router.get("/signup", (req, res) => {
     res.render("auth/sucess", {});
 });
+ */
+/* router.get("/login", (req, res) => {
+    if(!req.session.userId) {
+        res.render("auth/sucess", {});
+    } else {
+        res.redirect('/');
+    }
+}); */
 
-router.get("/login", (req, res) => {
-    res.render("auth/sucess", {});
+router.get("/logout", (req, res) => {
+    req.session.destroy(err => {
+        res.clearCookie('sid')
+        res.redirect('/')
+      })
 });
 
-router.get("/sucess", (req, res) => {
+/* router.get("/sucess", (req, res) => {
     res.render("auth/sucess", {});
-});
+}); */
 
-router.get('/forgottenPassword',(req, res) => {
+/* router.get('/forgottenPassword',(req, res) => {
     res.render('auth/sucess');
-});
+}); */
 
 router.get("/resetpassword/:token", (req, res) => {
-    //let resetPasswordUrl = req.originalUrl;
-    //let splitUrl = resetPasswordUrl.split('/');
-    //let token = splitUrl[2];
     let token = req.params.token
-    //res.send(token);
     res.render("auth/resetpassword", {
         token: token
     });
@@ -37,7 +44,6 @@ router.get("/resetpassword/:token", (req, res) => {
 //Først kan vi sette opp signup
 router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
     const pugBody = req.body; //Skaffer body fra form
-    console.log(pugBody);
     //Sjekker at mail tilfredsstiller krav
     if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
         return res.status(400).send({error: "Email is not properly formatted"});
@@ -56,7 +62,6 @@ router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er
     }
 
     //Nå må vi lage et nytt bruker objekt
-    
     const bruker = new Bruker(pugBody);
     
     //Nå må vi lage ny salt for å hashe passord
@@ -72,23 +77,20 @@ router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er
             subject: 'Welcome to Filmatory!',
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum vulputate luctus.'
         });
-        //res.redirect('./auth/sucess.pug');
-    })  //Redirecter tilbake til root
-    //res.end();
+    })
 });
 
 //Her tar vi oss av login
 router.post("/login", async (req, res) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
     const pugBody = req.body; //Skaffer body fra form
-    console.log(pugBody.email);
     const bruker = await Bruker.findOne({email: pugBody.email}); //Finner brukeren fra databasen
     
-
     //Nå skal vi sjekke om passordet stemmer
     if(bruker) {
         const sjekkPassword = await bcrypt.compare(pugBody.password, bruker.password); //Bruker bcrypt for å sammenligne, true/false return
-    
+
         if (sjekkPassword) {
+            req.session.userId = bruker._id; //Setter session
             res.status(200).json({ message: "Valid password" }); //Returnerer 200 dersom passordet var riktig
             //res.redirect(301, 'sucess');
           } else {
@@ -125,7 +127,7 @@ router.post('/forgottenPassword',(req, res) => {
     })
 });
 
-router.post('/resetPassword/:token', async(req, res) => {
+router.post('/resetPassword/:token', async(req, res) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
     const resetLink = req.params.token;
     const pugBody = req.body;
     if(resetLink){
@@ -149,7 +151,6 @@ router.post('/resetPassword/:token', async(req, res) => {
 
                 bruker.save((err, result) => {
                     if(err) {
-                        console.log(err);
                         return res.status(400).json({error: 'Reset password error'});
                     } else {
                         return res.status(200).json({message: 'Your password has been changed'});

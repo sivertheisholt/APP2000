@@ -2,7 +2,6 @@ require('dotenv').config();
 const path = require("path");
 const http = require("http");
 const bodyParser = require('body-parser');
-const parse = require('node-html-parser');
 const express = require("express");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -44,7 +43,7 @@ app.use(express.static(publicPath));
 app.use(session({
   secret: process.env.SESSION_SECRET, //her burde det brukes .env
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
     touchAfter: 12 * 3600 // time period in seconds
