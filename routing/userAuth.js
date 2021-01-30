@@ -1,5 +1,5 @@
 const express = require('express');
-const Bruker = require('../handling/brukerSchema');
+const Bruker = require('../database/brukerSchema');
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const _ = require('lodash');
