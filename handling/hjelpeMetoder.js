@@ -7,7 +7,7 @@ const fetch = require('node-fetch');
      lagFinDato: function(datoInn, stringTilSplitting) {
          try {
             let splitDato = datoInn.split(stringTilSplitting);
-            const dato = new Date(splitDato[0], splitDato[1]-1, splitDato[2]-1)
+            const dato = new Date(splitDato[0], splitDato[1]-1, splitDato[2])
             return dato.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' });
          } catch(err) {
              console.log(err);
