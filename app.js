@@ -9,9 +9,12 @@ const mongoose = require('mongoose');
 const socketIO = require('socket.io');
 const tmdb = require('./handling/tmdbHandler');
 
+//Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
+tmdb.data.hentTmdbInformasjon();
+
 //Her kobler vi opp databasen
 mongoose
-  .connect(process.env.MONGO_DB_URL || "mongodb://localhost:27017/app", { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_DB_URL || "mongodb://localhost:27017/app", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then((_) => console.log("Connected to DB"))
   .catch((err) => console.error("error", err));
 
@@ -58,9 +61,6 @@ app.use(bodyParser.json());
 
 //Samme som over bare application/xwww-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true })); 
-
-//Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
-tmdb.data.hentTmdbInformasjon();
 
 //Bruk routes
 app.use(require('./routing'));
