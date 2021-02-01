@@ -1,4 +1,8 @@
-const fetch = require('node-fetch');
+const got = require('got');
+const {
+    performance,
+    PerformanceObserver
+  } = require('perf_hooks');
 
 //Her kan dere legge inn hjelpemetoder dere vil lage
  var methods = {
@@ -66,18 +70,16 @@ const fetch = require('node-fetch');
          }
      },
      sjekkOmBildeLoader: function(url) {
-         try {
-            return fetch(url).then(res=>{
-                if(res.status == 200) {
-                    return true;
-                } else {
-                    return false;
-                }
-            })
-         } catch(err) {
-
-         }
-     }
+        let per = performance.now()
+        // @ts-ignore
+        return got(url, {http2: true}).then(res=>{
+            if(res.statusCode == 200) {
+                console.log(`Getting information - Current time: ${((performance.now() - per) / 1000).toFixed(2)}s`);
+                return true;
+            } else {
+                return false;
+            }
+        })}
  };
  
  exports.data = methods;
