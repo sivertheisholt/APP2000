@@ -20,7 +20,7 @@ res.render("mediainfo/serieinfo", {});
 router.get("/upcoming",  asyncExpress (async (req, res, next) => {
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
   let finalListUpcomingMovies = [];
-  for(movie of tmdbInformasjon.discoverMoviesUpcoming) {
+  for(const movie of tmdbInformasjon.discoverMoviesUpcoming) {
     let tempObj = {
       id: movie.id,
       pictureUrl: movie.poster_path,
