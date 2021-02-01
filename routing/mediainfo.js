@@ -2,22 +2,23 @@ const express = require('express');
 const tmdb = require('../handling/tmdbHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
 const router = express.Router();
+const asyncExpress = require('../handling/expressUtils');
 
 
 //Filminfo siden kjører her
-router.get("/filminfo", (req, res) => {
+router.get("/filminfo",  asyncExpress (async (req, res, next) => {
     console.log('lorem');
   res.render("mediainfo/filminfo", {});
-});
+}));
 
 //Serieinfo siden kjører her
-router.get("/serieinfo", (req, res) => {
+router.get("/serieinfo",  asyncExpress (async (req, res, next) => {
   console.log('lorem');
 res.render("mediainfo/serieinfo", {});
-});
+}));
 
-router.get("/upcoming", async (req, res) => {
-  let tmdbInformasjon = tmdb.data.returnerTmdbInformasjon();
+router.get("/upcoming",  asyncExpress (async (req, res, next) => {
+  let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
   let finalListUpcomingMovies = [];
   for(movie of tmdbInformasjon.discoverMoviesUpcoming) {
     let tempObj = {
@@ -31,7 +32,7 @@ router.get("/upcoming", async (req, res) => {
   res.render("mediainfo/upcoming", {
     upcomingMovies: finalListUpcomingMovies
   });
-});
+}));
 
 
 

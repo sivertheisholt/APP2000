@@ -6,6 +6,7 @@ const _ = require('lodash');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
 var mailer = require('../handling/mailer');
 const jwt = require('jsonwebtoken');
+const asyncExpress = require('../handling/expressUtils');
 
 /* router.get("/signup", (req, res) => {
     res.render("auth/sucess", {});
@@ -19,12 +20,12 @@ const jwt = require('jsonwebtoken');
     }
 }); */
 
-router.get("/logout", (req, res) => {
+router.get("/logout", asyncExpress (async (req, res, next) => {
     req.session.destroy(err => {
         res.clearCookie('sid')
         res.redirect('/')
       })
-});
+}));
 
 /* router.get("/sucess", (req, res) => {
     res.render("auth/sucess", {});
@@ -34,19 +35,22 @@ router.get("/logout", (req, res) => {
     res.render('auth/sucess');
 }); */
 
-router.get("/resetpassword/:token", (req, res) => {
+router.get("/resetpassword/:token", asyncExpress (async (req, res, next) => {
     let token = req.params.token
     res.render("auth/resetpassword", {
         token: token
     });
-  });
+  }));
 
 //Først kan vi sette opp signup
-router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
+router.post("/signup", asyncExpress (async (req, res, next) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
     const pugBody = req.body; //Skaffer body fra form
     //Sjekker at mail tilfredsstiller krav
     if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
         return res.status(400).send({error: "Email is not properly formatted"});
+    }
+    if(Bruker.findOne({email: pugBody.email})) {
+        return res.status(400).send({error: "Email is already taken"});
     }
     //Sjekker at passord tilfredstiller krav
     if(!(hjelpeMetoder.data.validatePassword(pugBody.password))){
@@ -78,10 +82,10 @@ router.post("/signup", async (req, res) => { //Grunnen til at vi bruker async er
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum vulputate luctus.'
         });
     })
-});
+}));
 
 //Her tar vi oss av login
-router.post("/login", async (req, res) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
+router.post("/login", asyncExpress (async (req, res, next) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
     const pugBody = req.body; //Skaffer body fra form
     const bruker = await Bruker.findOne({email: pugBody.email}); //Finner brukeren fra databasen
     
@@ -99,9 +103,9 @@ router.post("/login", async (req, res) => { //Grunnen til at vi bruker async er 
     } else {
         res.status(401).json({ error: "User does not exist" }); //Returnerer 401 dersom brukeren ikke eksisterer
     }
-});
+}));
 
-router.post('/forgottenPassword',(req, res) => {
+router.post('/forgottenPassword',asyncExpress (async (req, res, next) => {
     const pugBody = req.body;
     Bruker.findOne({email: pugBody.emailForgottenPassword}, (err, bruker) => {
         if(!bruker || err) {
@@ -125,9 +129,9 @@ router.post('/forgottenPassword',(req, res) => {
             }
         })
     })
-});
+}));
 
-router.post('/resetPassword/:token', async(req, res) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
+router.post('/resetPassword/:token', asyncExpress (async (req, res, next) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
     const resetLink = req.params.token;
     const pugBody = req.body;
     if(resetLink){
@@ -161,6 +165,6 @@ router.post('/resetPassword/:token', async(req, res) => { //Grunnen til at vi br
     }else {
         return res.status(401).json({error: 'Authentication error!!!'});
     }
-})
+}));
 
 module.exports = router;

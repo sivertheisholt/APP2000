@@ -65,6 +65,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Bruk routes
 app.use(require('./routing'));
 
+//Error handling
+app.use((err, req, res, next) => {
+    res.send("Something wrong happen! Please try again later");
+});
+
 //Setter opp socket.io
 io.on('connection', async (socket) => {
   //Logger at ny bruker logget på nettsiden
