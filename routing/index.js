@@ -3,6 +3,7 @@ const hjelpemetoder = require('../handling/hjelpeMetoder');
 const tmdb = require('../handling/tmdbHandler');
 const router = express.Router();
 const Session = require("../database/sessionSchema")
+const asyncExpress = require('../handling/expressUtils');
 
 //Sender videre basert på directory
 router.use('/mediainfo', require('./mediainfo'));
@@ -10,10 +11,12 @@ router.use('/auth', require('./userAuth'));
 router.use('/infosider', require('./info'));
 
 //Startsiden kjører her
-router.get("/", async (req, res) => {
-  let tmdbInformasjon = tmdb.data.returnerTmdbInformasjon(); //Skaffer tmdb info
+router.get("/", asyncExpress (async (req, res, next) => {
+  let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon(); //Skaffer tmdb info
   let finalListMovies = []; //Lager en tom array
   let finalListTvshows = []; //Lager en tom array
+  let maxMovies = 10;
+  let maxTvshows = 10;
 
   for(movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
     //Lager et object for hver movie
@@ -24,6 +27,9 @@ router.get("/", async (req, res) => {
       releaseDate: await hjelpemetoder.data.lagFinDato(movie.release_date, "-")
     }
     finalListMovies.push(tempObjectMovie); //Pusher til array
+    maxMovies--;
+    if(maxMovies == 0)
+        break;
   }
   for(tvshow of tmdbInformasjon.discoverTvshowsPopular) { //For loop imellom hver item i discoverTvshows
     //Lager et object for hver serie
@@ -34,6 +40,9 @@ router.get("/", async (req, res) => {
       releaseDate: await hjelpemetoder.data.lagFinDato(tvshow.first_air_date, "-")
     }
     finalListTvshows.push(tempObjectTvshow); //Pusher til array
+    maxTvshows--;
+    if(maxTvshows == 0)
+        break;
   }
 
   //Skaffer session
@@ -45,6 +54,6 @@ router.get("/", async (req, res) => {
     discoverMovies: finalListMovies,
     discoverTvshows: finalListTvshows,
   });
-});
+}));
 
 module.exports = router;
