@@ -2,7 +2,7 @@ include ../includes/head.pug
 include ../includes/nav.pug
 main
   .container
-    .film_oversikt(style='background-color: #bcbcbc;')
+    .film_oversikt
       // Grid
       div(uk-grid='')
         // Poster image
@@ -19,21 +19,20 @@ main
                 a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' width="40" height ="40" uk-icon='star')
               h3 10/23/2020 - Action, Thriller
               h3 1 Hour 38 Minutes
-              .review(style='width: 100px; height: 100px; line-height: 100px; border-radius: 50%; font-size: 30px; color: red; text-align: center; background-color: #C8C8C7;')
-                h2(style='color: #32bf53; padding: 26px;') 95%
-              h2
+              .review
+                h2 95%
               h2 Overview
               p(style='text-align: left; font-size: small;')
                 | Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nam natus ipsum obcaecati tempore, molestiae, officia dolorum ad odio molestias a, id commodi officiis itaque aliquid in nemo reprehenderit eveniet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam natus nisi veniam reprehenderit voluptatibus a esse repellendus, corporis ipsam autem libero repellat laboriosam doloribus similique numquam exercitationem labore impedit placeat?
-              .direc(uk-grid='' style='font-size: small;')
+              .direc(uk-grid='')
                 br
                 .uk-width-1-2
                   p Director
-                  a(href='' style='font-size: 1.2em; color: black')
+                  a(href='')
                     b  Name Nameson  
                 .uk-width-1-2
                   p Screenplay
-                  a(href='' style='font-size: 1.2em; color: black')
+                  a(href='')
                     b  Name Nameson  
     br
     // Slider

@@ -108,5 +108,34 @@ footer {
 }
 
 /*********************************/
-/* Filminfo.pug */
+/* Filminfo.pug / Serieinfo.pug */
 /*********************************/
+
+.review {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  border-radius: 50%;
+  font-size: 30px;
+  color: red;
+  text-align: center;
+  background-color: #C8C8C7;
+}
+
+.review h2 {
+  color: #32bf53;
+  padding: 26px;
+}
+
+.direc {
+  font-size: small;
+}
+
+.direc a {
+  font-size: 1.2em;
+  color: black;
+}
+
+.film_oversikt {
+  background-color: #bcbcbc;
+}
