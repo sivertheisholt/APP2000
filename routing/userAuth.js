@@ -49,7 +49,7 @@ router.post("/signup", asyncExpress (async (req, res, next) => { //Grunnen til a
     if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
         return res.status(400).send({error: "Email is not properly formatted"});
     }
-    if(Bruker.findOne({email: pugBody.email})) {
+    if(!(Bruker.findOne({email: pugBody.email}))) {
         return res.status(400).send({error: "Email is already taken"});
     }
     //Sjekker at passord tilfredstiller krav
