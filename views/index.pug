@@ -1,5 +1,6 @@
 include includes/head.pug
 include includes/nav.pug
+div#searchDiv
 body
     .header-img
     .container
@@ -18,3 +19,5 @@ body
                             li Free
                             li Secure
     include includes/footer.pug
+    script(src="javascript/index/liveSearch.js")
+    //p!= UIkit.modal("#modal-center").show();

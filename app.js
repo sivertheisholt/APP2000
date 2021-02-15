@@ -1,3 +1,4 @@
+// @ts-nocheck
 require('dotenv').config();
 const path = require("path");
 const http = require("http");
@@ -8,6 +9,7 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const socketIO = require('socket.io');
 const tmdb = require('./handling/tmdbHandler');
+const search = require("./handling/searchHandler");
 
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
 tmdb.data.hentTmdbInformasjon();
@@ -79,11 +81,12 @@ io.on('connection', async (socket) => {
   socket.on('disconnect', () => {
     console.log('User was disconnected')
   })
-  
-  //Test av The Movie Database API
-  const testFilm = await theMovieDatabase.data.getMovieInfo("Spider-Man: Into the Spider-Verse");
-  socket.emit('skaffFilm', testFilm);
 
+  //Skaffer info fra search baren på index.js
+  socket.on("userInputSearch", async (userInputSearch) => {
+    const results = await search(userInputSearch); //henter info
+    socket.emit('resultatFilm', results); //Sender info til klient
+  })
 });
 
 //"Lytter" serveren

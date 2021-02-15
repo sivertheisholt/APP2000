@@ -28,7 +28,7 @@
                 .uk-navbar-item
                   form.uk-search.uk-search-default.uk-width-1-1
                       span(uk-search-icon='')
-                      input.uk-search-input(type='search' placeholder='Search...')
+                      input#searchBox.uk-search-input(type='text' placeholder='Search...')
               if username
                 include loggedin.pug
               else
