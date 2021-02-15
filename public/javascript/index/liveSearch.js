@@ -1,7 +1,11 @@
 var socket = io();
 
-$('#searchBox').bind('input',function() {
-    socket.emit("userInputSearch", $(this).val())
+$('#searchBox').on('input',function() {
+    if($(this).val() == "") {
+        document.getElementById('searchDiv').innerHTML = ``;
+    } else {
+        socket.emit("userInputSearch", $(this).val())
+    }
 });
 
 socket.on('connect', function () {
