@@ -18,7 +18,7 @@ router.get("/", asyncExpress (async (req, res, next) => {
   let maxMovies = 10;
   let maxTvshows = 10;
 
-  for(movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
+  for(const movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
     //Lager et object for hver movie
     let tempObjectMovie = {
       id: movie.id,
@@ -31,7 +31,7 @@ router.get("/", asyncExpress (async (req, res, next) => {
     if(maxMovies == 0)
         break;
   }
-  for(tvshow of tmdbInformasjon.discoverTvshowsPopular) { //For loop imellom hver item i discoverTvshows
+  for(const tvshow of tmdbInformasjon.discoverTvshowsPopular) { //For loop imellom hver item i discoverTvshows
     //Lager et object for hver serie
     let tempObjectTvshow = {
       id: tvshow.id,
