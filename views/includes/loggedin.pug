@@ -1,3 +1,46 @@
 li
     a.uk-button.uk-button-default.login-btn(href='#modal-center' uk-toggle='') Account
     #modal-center.uk-flex-top(uk-modal='')
+        .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical.uk-width-1-3
+            button.uk-modal-close-default(type='button' uk-close='')
+            ul.uk-subnav.uk-subnav-pill(uk-switcher='animation: uk-animation-fade')
+                li
+                    a(href='#') Change Password
+                li
+                    a(href='#') Favorites
+                li
+                    a(href='#') Something
+                li
+                    a(href='#') Something else
+            ul.uk-switcher.uk-margin
+                li
+                    .uk-grid.uk-width-1-1.uk-flex-nowrap
+                        .uk-aling-center
+                            form(action='' method='post')
+                                .uk-margin-bottom
+                                    .uk-inline
+                                        input.uk-input.uk-margin-top.uk-text-small(type='text' name='changePassword' placeholder='New Password' required)
+                                .uk-margin-bottom
+                                    .uk-inline
+                                        input.uk-input.uk-margin-top.uk-text-small(type='text' name='changePasswordRepeat' placeholder='Repeat Password' required)
+                                .uk-margin-bottom
+                                    .uk-inline
+                                        button.uk-button.uk-button-default.uk-button-small(type='submit') Send
+                        .uk-text-center.uk-width-1-2.uk-margin-auto
+                            h3.uk-card-title Lorem
+                            p.uk-text-small
+                            | Lorem ipsum 
+                            a(href='#') dolor
+                            |  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                li
+                    .uk-grid.uk-width-1-1.uk-flex-nowrap
+                        .uk-aling-center
+                            p Placeholder text 2
+                li
+                    .uk-grid.uk-width-1-1.uk-flex-nowrap
+                        .uk-aling-center
+                            p Placeholder text 3
+                li
+                    .uk-grid.uk-width-1-1.uk-flex-nowrap
+                        .uk-aling-center
+                            p Placeholder text 4
