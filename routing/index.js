@@ -4,6 +4,7 @@ const tmdb = require('../handling/tmdbHandler');
 const router = express.Router();
 const Session = require("../database/sessionSchema")
 const asyncExpress = require('../handling/expressUtils');
+const charts = require('../handling/chartMaker');
 
 //Sender videre basert på directory
 router.use('/mediainfo', require('./mediainfo'));
@@ -47,12 +48,15 @@ router.get("/", asyncExpress (async (req, res, next) => {
 
   //Skaffer session
   const session = await Session.findOne({_id: req.sessionID});
+  //Lager chart objekt
+  let options = await charts.data.makeTrendingChart();
   //Vis siden
   res.render("index", {
     //Sender variabler til pug filen
     username: session ? true : false,
     discoverMovies: finalListMovies,
     discoverTvshows: finalListTvshows,
+    trendingChart: JSON.stringify(options),
   });
 }));
 
