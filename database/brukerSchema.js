@@ -12,7 +12,7 @@ const brukerSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: true,
+    minlength: 8,
     maxlength: 1024
   },
   resetLink: {
