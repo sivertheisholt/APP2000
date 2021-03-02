@@ -66,6 +66,18 @@ var methods = {
     //getMovieInfo metoden skaffer info om en film ved å søke etter tittel
     getMovieInfo: async function (movieTitle) {
         return await tmdb.getMovieResults(movieTitle);
+    },
+    getTrendingMovies: async function() {
+        return await tmdb.getTrendingMovies();
+    },
+    getGenreMovie: async function() {
+        return await tmdb.getGenresMovie();
+    },
+    getTrendingTv: async function() {
+        return await tmdb.getTrendingTv();
+    },
+    getGenreTv: async function() {
+        return await tmdb.getGenresTv();
     }
 };
 

@@ -51,6 +51,60 @@ Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams) {
     })
 }
 
+Tmdb.prototype.getTrendingMovies = function getTrendingMovies(addParams) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${this.token}`;
+        url = makeUrl(url, addParams);
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
+Tmdb.prototype.getTrendingTv = function getTrendingTv(addParams) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/trending/tv/week?api_key=${this.token}`;
+        url = makeUrl(url, addParams);
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
+
+Tmdb.prototype.getGenresMovie = function getGenresMovie(addParams) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.token}`;
+        url = makeUrl(url, addParams);
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
+Tmdb.prototype.getGenresTv = function getGenresTv(addParams) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/genre/tv/list?api_key=${this.token}`;
+        url = makeUrl(url, addParams);
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
+
 function makeUrl(url, addParams) {
     if (addParams) {
         if (typeof addParams === "object" && addParams !== null)
