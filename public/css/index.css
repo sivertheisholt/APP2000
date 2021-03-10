@@ -108,6 +108,22 @@ footer {
   padding: 0px;
 }
 
+.upcoming-load-more-text{
+  font-size: larger;
+}
+
+#loadMore{
+  display: block;
+}
+
+#noMoreMovies{
+  display: none;
+}
+
+#noMoreMovies a{
+  display: block;
+}
+
 /*********************************/
 /* Filminfo.pug / Serieinfo.pug  */
 /*********************************/
@@ -177,5 +193,12 @@ footer {
 .filminfo_img img{
   height: 80%;
   vertical-align: middle;
-
 }
+
+.noContent {
+  color: #000 !important;
+  background-color: transparent !important;
+  pointer-events: none;
+}
+
+

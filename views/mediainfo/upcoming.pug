@@ -1,4 +1,5 @@
-- var upcomingMovies = [{upcomingMovies}];
+script.
+    var upcomingMovies = !{upcomingMovies}
 
 include ../includes/head.pug
 include ../includes/nav.pug
@@ -32,12 +33,15 @@ body
                     li
                         a Comedy
         .upcomingMovies.uk-grid.uk-width-3-4
-            .uk-grid.uk-child-width-1-4
-                each item in upcomingMovies[0].upcomingMovies
-                    .uk-card.uk-card-default.upcoming-card-padding
-                        .uk-card-media-top
-                            img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')
-                        .uk-card-body
-                            h3.uk-card-title=item.title
-                            p= item.releaseDate
+            .uk-grid.uk-child-width-1-4#movieCard
+            .uk-grid.uk-width-1-1.uk-button.uk-button-default.uk-align-center
+                a#loadMore(onclick="loadMoreMovies(event)")
+                    span.text Load More
+                #noMoreMovies
+                    a(href="#")
+                        span.text No more movies, click to go to top.
+
+
+
 include ../includes/footer.pug
+    script(src="/javascript/upcomingmovies.js")

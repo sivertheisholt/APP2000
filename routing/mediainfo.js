@@ -30,7 +30,7 @@ router.get("/upcoming",  asyncExpress (async (req, res, next) => {
     finalListUpcomingMovies.push(tempObj);
   }
   res.render("mediainfo/upcoming", {
-    upcomingMovies: finalListUpcomingMovies
+    upcomingMovies: JSON.stringify(finalListUpcomingMovies)
   });
 }));
 
