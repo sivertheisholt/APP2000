@@ -19,7 +19,7 @@ socket.on('disconnect', function () {
 socket.on('resultatFilm', (resultatFilm) => {
     document.getElementById('searchDiv').innerHTML = ``;
     for(const movie of resultatFilm) {
-        document.getElementById('searchDiv').innerHTML += ` <div class='uk-card uk-card-default uk-card-body uk-width-1-2@m'> <h3 class='uk-card-title'>${movie.title}</h3> <p>${movie.overview}</p> </div>`;
+        document.getElementById('searchDiv').innerHTML += ` <div class='uk-card uk-card-default uk-card-body uk-width-1-2@m search-result'> <h3 class='uk-card-title'>${movie.title}</h3> <p>${movie.overview}</p> </div>`;
     }
 });
             
