@@ -18,6 +18,12 @@ const brukerSchema = new mongoose.Schema({
   resetLink: {
     data: String,
     default: ''
+  },
+  movieFavourites: {
+      data: Array
+  },
+  tvFavourites: {
+      data: Array
   }
 });
 
