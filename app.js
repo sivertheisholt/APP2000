@@ -70,6 +70,7 @@ app.use(require('./routing'));
 //Error handling
 app.use((err, req, res, next) => {
     res.send("Something wrong happen! Please try again later");
+    console.log(err);
 });
 
 //Setter opp socket.io
