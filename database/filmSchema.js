@@ -43,7 +43,7 @@ const filmSchema = new mongoose.Schema({
     },
     vote_average: {
         type: Number,
-    }
+    },
 });
 
 module.exports = mongoose.model('film', filmSchema); //ES6 Module
