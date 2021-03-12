@@ -20,10 +20,10 @@ const brukerSchema = new mongoose.Schema({
     default: ''
   },
   movieFavourites: {
-      data: Array
+      type: Array
   },
   tvFavourites: {
-      data: Array
+    type: Array
   }
 });
 

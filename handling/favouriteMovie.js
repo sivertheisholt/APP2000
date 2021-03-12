@@ -1,5 +1,5 @@
 const Film = require('../database/filmSchema');
-const Bruker = require('../database/filmSchema');
+const Bruker = require('../database/brukerSchema');
 //Sjekker om filmen eksisterer i databasen
 async function checkIfSaved(movieId) {
     const film = await Film.findOne({id: movieId});
@@ -43,7 +43,7 @@ async function addFavourite(movie, userId) {
     const user = await Bruker.findOne({_id:userId});
     if(!user)
         return false;
-    user.updateOne({$push: {favourite: movie.id}}).exec();
+    user.updateOne({$push: {movieFavourites: movie.id}}).exec();
     const isSaved = await checkIfSaved(movie.id);
     if(isSaved)
         return true;
@@ -52,3 +52,5 @@ async function addFavourite(movie, userId) {
         return false;
     return true;
 }
+
+module.exports = addFavourite;
