@@ -9,7 +9,12 @@ const reviewSchema = new mongoose.Schema({
         type: Number
     },
     movieId: {
-        type: Number
+        type: Number,
+        default: null
+    },
+    tvId: {
+        type: Number,
+        default: null
     },
     text: {
         type: String
