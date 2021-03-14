@@ -22,7 +22,7 @@ const asyncExpress = require('../handling/expressUtils');
 
 router.get("/logout", asyncExpress (async (req, res, next) => {
     req.session.destroy(err => {
-        res.clearCookie('sid')
+        res.clearCookie('connect.sid')
         res.redirect('/')
       })
 }));
