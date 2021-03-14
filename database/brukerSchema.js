@@ -24,6 +24,12 @@ const brukerSchema = new mongoose.Schema({
   },
   tvFavourites: {
     type: Array
+  },
+  moviesWatched: {
+      type: Array
+  },
+  tvsWatched: {
+      type: Array
   }
 });
 

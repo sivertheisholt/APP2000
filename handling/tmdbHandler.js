@@ -78,6 +78,14 @@ var methods = {
     },
     getGenreTv: async function() {
         return await tmdb.getGenresTv();
+    },
+    getDiscoverMoviesWithGenres: async function(genreList) {
+        let string = "";
+        for(const genre of genreList) {
+            string += `${genre},`
+        }
+        string.substr(string.length);
+        return await tmdb.getDiscoverMovies(string);
     }
 };
 
