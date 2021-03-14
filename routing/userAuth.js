@@ -95,6 +95,8 @@ router.post("/login", asyncExpress (async (req, res, next) => { //Grunnen til at
 
         if (sjekkPassword) {
             req.session.userId = bruker._id; //Setter session
+            req.session.user = bruker;
+            console.log(req.session.user);
             res.status(200).json({ message: "Valid password" }); //Returnerer 200 dersom passordet var riktig
             //res.redirect(301, 'sucess');
           } else {

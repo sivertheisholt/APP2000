@@ -12,8 +12,8 @@ const sessionSchema = new mongoose.Schema({
     type: Date,
   },
   session: {
-    data: Date,
-  }
+      type: Object,
+  },
 });
 
 module.exports = mongoose.model('session', sessionSchema); //ES6 Module
