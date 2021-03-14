@@ -86,6 +86,7 @@ footer {
 
 .search-result:hover{
   color: black;
+  background-color: yellow;
   transform: scale(1.1);
   z-index: 2;
 }
@@ -98,6 +99,11 @@ footer {
 .card-animation:hover{
   transform:scale(1.1);
   z-index: 1;
+}
+
+img.center {
+  display: block;
+  margin: 0 auto;
 }
 
 /*********************************/
@@ -228,3 +234,10 @@ footer {
 }
 
 
+/*********************************/
+/* Dashboard.pug */
+/*********************************/
+
+.dashboard-menu{
+  line-height: 5;
+}

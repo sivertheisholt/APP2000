@@ -1,0 +1,18 @@
+script.
+    var usern = {[usern]};
+.uk-card.uk-card-default.uk-card-body
+    p Profile information
+    form(action='/user/changeUsername' method='post')
+        .uk-margin
+            .uk-inline
+                span.uk-form-icon(uk-icon='icon: user')
+                input.uk-input(type='text' name='username' placeholder=`${usern.username}`)
+        .uk-margin
+            .uk-inline
+                button.uk-button.uk-button-default.uk-margin-right(type='submit') Enter
+    p Upload profile picture by clicking the button below
+    .js-upload(uk-form-custom='')
+        input(type='file' multiple='')
+        button.uk-button.uk-button-default(type='button' tabindex='-1') Upload
+
+

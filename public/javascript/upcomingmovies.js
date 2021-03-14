@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded',function(){
     document.getElementById('movieCard').innerHTML += movieCard(movie);
   }
 });
+
 function loadMoreMovies(e){
   e.preventDefault();
   
