@@ -88,15 +88,12 @@ router.post("/signup", asyncExpress (async (req, res, next) => { //Grunnen til a
 router.post("/login", asyncExpress (async (req, res, next) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
     const pugBody = req.body; //Skaffer body fra form
     const bruker = await Bruker.findOne({email: pugBody.email}); //Finner brukeren fra databasen
-    
     //Nå skal vi sjekke om passordet stemmer
     if(bruker) {
         const sjekkPassword = await bcrypt.compare(pugBody.password, bruker.password); //Bruker bcrypt for å sammenligne, true/false return
-
         if (sjekkPassword) {
             req.session.userId = bruker._id; //Setter session
-            req.session.user = bruker;
-            console.log(req.session.user);
+            //req.session.user.id = bruker._id;
             res.status(200).json({ message: "Valid password" }); //Returnerer 200 dersom passordet var riktig
             //res.redirect(301, 'sucess');
           } else {

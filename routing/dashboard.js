@@ -6,12 +6,11 @@ const asyncExpress = require('../handling/expressUtils');
 const Session = require("../database/sessionSchema")
 const Bruker = require('../database/brukerSchema');
 const bcrypt = require("bcrypt");
-const session = require('express-session');
 
 //Filminfo siden kjører her
 router.get("/dashboard", asyncExpress (async (req, res, next) => {
-  const session = await Session.findOne({_id: req.sessionID});
-  var usern = await Bruker.findOne(req.session.user);
+  var session = await Session.findOne({_id: req.sessionID});
+  var usern = await Bruker.findOne({_id: req.session.userId});
   if(!session){
     res.redirect("/");
   }
@@ -21,9 +20,9 @@ router.get("/dashboard", asyncExpress (async (req, res, next) => {
     });
 }));
 
-router.post("/dashboardChangePassword", asyncExpress (async (req, res, next) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
+router.post("/dashboardChangePassword", asyncExpress ((req, res, next) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
   const pugBody = req.body; //Skaffer body fra form
-  Bruker.findOne(req.session.user, async (err, bruker) => {
+  Bruker.findOne({_id: req.session.userId}, async (err, bruker) => {
       if(err) {
           return res.status(400).json({message: 'Error'});
       }
@@ -44,7 +43,6 @@ router.post("/dashboardChangePassword", asyncExpress (async (req, res, next) => 
 
       //Nå setter vi passord til det hasha passordet
       bruker.password = await bcrypt.hash(pugBody.dashboardNewPassword, salt);
-      req.session.user.password = bruker.password; 
       bruker.save((err, result) => {
           if(err) {
               return res.status(400).json({error: 'Reset password error'});
