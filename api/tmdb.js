@@ -27,6 +27,18 @@ Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle) {
         })
     })
 }
+Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.token}}`;
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
 /**
  * 
  * @param {Object|String} addParams 

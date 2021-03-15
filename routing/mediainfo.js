@@ -6,10 +6,28 @@ const asyncExpress = require('../handling/expressUtils');
 
 
 //Filminfo siden kjører her
-router.get("/filminfo",  asyncExpress (async (req, res, next) => {
-    console.log('lorem');
-  res.render("mediainfo/filminfo", {});
+
+
+router.get("/filminfo/:uid",  asyncExpress (async (req, res, next) => {
+  //console.log('lorem');
+  console.log(req.url);
+  let filminfo = await tmdb.data.getMovieInfoByID(12);
+  console.log("filminfo");
+
+
+res.render("mediainfo/filminfo", {
+  filminformasjon:filminfo
+});
 }));
+
+/* router.get("/filminfo",  asyncExpress (async (req, res, next) => {
+  console.log('lorem');
+
+
+res.render("mediainfo/filminfo", {
+  filminformasjon:req.session.film
+});
+})); */
 
 //Serieinfo siden kjører her
 router.get("/serieinfo",  asyncExpress (async (req, res, next) => {

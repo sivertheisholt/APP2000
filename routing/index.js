@@ -20,6 +20,8 @@ router.get("/", asyncExpress (async (req, res, next) => {
   let finalListTvshows = []; //Lager en tom array
   let maxMovies = 10;
   let maxTvshows = 10;
+  let filminformasjon = await tmdb.data.getMovieInfo("Hard Kill");
+  req.session.film = filminformasjon.results[0];
 
   for(const movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
     //Lager et object for hver movie
