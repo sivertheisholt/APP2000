@@ -56,14 +56,11 @@ router.post("/dashboardChangePassword", asyncExpress ((req, res, next) => { //Gr
 router.post("/changeUsername", (req, res, next) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
   const pugBody = req.body; //Skaffer body fra form
   try {
-    Bruker.findOne(req.session.user, async (err, bruker) => {
+    Bruker.findOne({_id: req.session.userId}, async (err, bruker) => {
         if(err) {
             return res.status(400).json({message: 'Error'});
         }
-
         bruker.username = pugBody.username;
-        req.session.user.username = bruker.username;
-
         bruker.save((err, result) => {
             if(err) {
                 return res.status(400).json({error: 'Username Error'});
@@ -72,7 +69,6 @@ router.post("/changeUsername", (req, res, next) => { //Grunnen til at vi bruker 
             }
         })
     })
-    
   } catch (error) {
       console.log(error);
   }
