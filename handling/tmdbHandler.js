@@ -70,6 +70,12 @@ var methods = {
     getMovieInfoByID: async function (movieID) {
         return await tmdb.getMovieInfoByID(movieID);
     },
+    getMovieCastByID: async function (movieID) {
+        return await tmdb.getMovieCastByID(movieID);
+    },
+    getSerieInfoByID: async function (serieID) {
+        return await tmdb.getSerieInfoByID(serieID);
+    },
     getTrendingMovies: async function() {
         return await tmdb.getTrendingMovies();
     },

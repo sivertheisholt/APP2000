@@ -29,7 +29,32 @@ Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle) {
 }
 Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID) {
     return new Promise((resolve, reject) => {
-        var url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.token}}`;
+        var url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.token}`;
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
+Tmdb.prototype.getMovieCastByID = function getCastInfoByID(movieID) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.token}`;
+        console.log(url);
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
+Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/tv/${serieID}?api_key=${this.token}`;
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());
