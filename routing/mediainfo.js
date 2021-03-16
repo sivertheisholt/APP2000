@@ -37,7 +37,7 @@ router.get("/serieinfo",  asyncExpress (async (req, res, next) => {
 res.render("mediainfo/serieinfo", {});
 }));
 
-router.get("/upcoming",  asyncExpress (async (req, res, next) => {
+router.get("/upcomingmovies",  asyncExpress (async (req, res, next) => {
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
   let finalListUpcomingMovies = [];
   for(const movie of tmdbInformasjon.discoverMoviesUpcoming) {
@@ -49,8 +49,42 @@ router.get("/upcoming",  asyncExpress (async (req, res, next) => {
     }
     finalListUpcomingMovies.push(tempObj);
   }
-  res.render("mediainfo/upcoming", {
+  res.render("mediainfo/upcomingmovies", {
     upcomingMovies: JSON.stringify(finalListUpcomingMovies)
+  });
+}));
+
+router.get("/tvshows",  asyncExpress (async (req, res, next) => {
+  let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
+  let finalListTvshowsPopular = [];
+  for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
+    let tempObj = {
+      id: tv.id,
+      pictureUrl: tv.poster_path,
+      title: tv.name,
+      releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, "-")
+    }
+    finalListTvshowsPopular.push(tempObj);
+  }
+  res.render("mediainfo/tvshows", {
+    tvShows: JSON.stringify(finalListTvshowsPopular)
+  });
+}));
+
+router.get("/movies",  asyncExpress (async (req, res, next) => {
+  let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
+  let finalListPopularMovies = [];
+  for(const movie of tmdbInformasjon.discoverMoviesPopular) {
+    let tempObj = {
+      id: movie.id,
+      pictureUrl: movie.poster_path,
+      title: movie.title,
+      releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-')
+    }
+    finalListPopularMovies.push(tempObj);
+  }
+  res.render("mediainfo/movies", {
+    popularMovies: JSON.stringify(finalListPopularMovies)
   });
 }));
 

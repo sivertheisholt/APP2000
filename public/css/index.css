@@ -66,29 +66,13 @@ footer {
   margin: 0 auto;
   display: block;
 }
+
 .footer-socials-wrapper {
   text-align: center;
 }
 
 .slider-card-heading {
   line-height: 1.3;
-}
-
-#searchDiv {
-  position: absolute;
-  z-index: 1;
-}
-
-.search-result{
-  margin: 0 auto;
-  transition: 0.5s;
-}
-
-.search-result:hover{
-  color: black;
-  background-color: yellow;
-  transform: scale(1.1);
-  z-index: 2;
 }
 
 .card-animation{
@@ -104,6 +88,59 @@ footer {
 img.center {
   display: block;
   margin: 0 auto;
+}
+
+
+
+/*********************************/
+/* Searchbar */
+/*********************************/
+
+#searchDiv {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+@media screen and (max-width: 680px) {
+  #searchDiv .uk-card {
+    width:100%;
+    font-size: 12px;
+  }
+  #searchDiv h3{
+    font-size: 20px;
+  }
+
+  #searchDiv .uk-card-body{
+    padding: 20px;
+    overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #searchDiv {
+    max-width: 1000px;
+  }
+}
+
+.search-result{
+  margin: 0 auto;
+  transition: 0.5s;
+  max-height: 200px;
+}
+
+.search-result:hover{
+  color: black;
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+img.search-image-style{
+  width: 150;
+  height: 200;
 }
 
 /*********************************/
@@ -148,11 +185,11 @@ img.center {
   display: block;
 }
 
-#noMoreMovies{
+#noMoreMedia{
   display: none;
 }
 
-#noMoreMovies a{
+#noMoreMedia a{
   display: block;
 }
 
