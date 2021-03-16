@@ -1,6 +1,6 @@
 const Tv = require('../database/filmSchema');
 const Bruker = require('../database/brukerSchema');
-//Sjekker om filmen eksisterer i databasen
+//Sjekker om serie eksisterer i databasen
 async function checkIfSaved(tvId) {
     const tv = await Tv.findOne({id: tvId});
     if(tv)
@@ -8,7 +8,7 @@ async function checkIfSaved(tvId) {
     return false;
 }
 
-//Legger til film i databasen
+//Legger til serie i databasen
 function addToDatabase(tvInfo) {
     const tv = new Tv(tvInfo);
     return tv.save().then((err, doc) => {
@@ -18,7 +18,7 @@ function addToDatabase(tvInfo) {
     })
 }
 
-//Skaffer film fra database
+//Skaffer serie fra database
 async function getFromDatabase(tvId) {
     const film = await Tv.findOne({id: tvId});
     if(film)
@@ -26,7 +26,7 @@ async function getFromDatabase(tvId) {
     return false;
 }
 
-//Skaffer alle filmene som er i favoritt til brukeren
+//Skaffer alle seriene som er i favoritt til brukeren
 async function getAllTvFavourites(userId) {
     const user = await Bruker.findOne({_id: userId});
     if(!user)
@@ -38,7 +38,7 @@ async function getAllTvFavourites(userId) {
     return tvs;
 }
 
-//Legger til film i database
+//Legger til serie i database
 async function addFavourite(tv, userId) {
     const user = await Bruker.findOne({_id:userId});
     if(!user)
