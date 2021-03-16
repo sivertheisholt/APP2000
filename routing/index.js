@@ -20,6 +20,8 @@ router.get("/", asyncExpress (async (req, res, next) => {
   let finalListTvshows = []; //Lager en tom array
   let maxMovies = 10;
   let maxTvshows = 10;
+  let error = undefined;
+  let errorType = undefined;
 
   for(const movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
     //Lager et object for hver movie
@@ -52,6 +54,12 @@ router.get("/", asyncExpress (async (req, res, next) => {
   const session = await Session.findOne({_id: req.sessionID});
   //Lager chart objekt
   let options = await charts.data.makeTrendingChart();
+
+  //skaffer error
+  if(req.query.error) {
+    error = req.query.error;
+    errorType = req.query.errorType;
+  }
   //Vis siden
   res.render("index", {
     //Sender variabler til pug filen
@@ -59,6 +67,8 @@ router.get("/", asyncExpress (async (req, res, next) => {
     discoverMovies: finalListMovies,
     discoverTvshows: finalListTvshows,
     trendingChart: JSON.stringify(options),
+    error: JSON.stringify(error),
+    errorType: JSON.stringify(errorType)
   });
 }));
 

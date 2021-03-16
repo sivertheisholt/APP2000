@@ -8,32 +8,12 @@ var mailer = require('../handling/mailer');
 const jwt = require('jsonwebtoken');
 const asyncExpress = require('../handling/expressUtils');
 
-/* router.get("/signup", (req, res) => {
-    res.render("auth/sucess", {});
-});
- */
-/* router.get("/login", (req, res) => {
-    if(!req.session.userId) {
-        res.render("auth/sucess", {});
-    } else {
-        res.redirect('/');
-    }
-}); */
-
 router.get("/logout", asyncExpress (async (req, res, next) => {
     req.session.destroy(err => {
         res.clearCookie('connect.sid')
         res.redirect('/')
       })
 }));
-
-/* router.get("/sucess", (req, res) => {
-    res.render("auth/sucess", {});
-}); */
-
-/* router.get('/forgottenPassword',(req, res) => {
-    res.render('auth/sucess');
-}); */
 
 router.get("/resetpassword/:token", asyncExpress (async (req, res, next) => {
     let token = req.params.token
@@ -47,22 +27,27 @@ router.post("/signup", asyncExpress (async (req, res, next) => { //Grunnen til a
     const pugBody = req.body; //Skaffer body fra form
     //Sjekker at mail tilfredsstiller krav
     if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
-        return res.status(400).send({error: "Email is not properly formatted"});
+        res.redirect('/?error=Email is not properly formatted&errorType=signup');
+        return;
     }
     if(!(Bruker.findOne({email: pugBody.email}))) {
-        return res.status(400).send({error: "Email is already taken"});
+        res.redirect('/?error=Email is already taken&errorType=signup');
+        return;
     }
     //Sjekker at passord tilfredstiller krav
     if(!(hjelpeMetoder.data.validatePassword(pugBody.password))){
-        return res.status(400).send({error: 'Password is not properly formatted'});
+        res.redirect('/?error=Password is not properly formatted&errorType=signup');
+        return;
     }
     //Vi gjør en sjekk at alle feltene er fylt inn
     if(!(pugBody.email && pugBody.password && pugBody.passwordRepeat)) {
-        return res.status(400).send({error: "Data is not properly formatted"}); //Vi returnerer res (result) og sier at dataen ikke er riktig
+        res.redirect('/?error=Data is not properly formatted&errorType=signup');
+        return;
     }
     //Vi gjør en sjekk at passord 1 er lik passord 2 (Repeat password)
     if(!(pugBody.password == pugBody.passwordRepeat)) {
-        return res.status(400).send({error: "Passwords do not match"}); //Denne må endres, viser bare en error melding dersom de ikke matcher for nå
+        res.redirect('/?error=Passwords do not match&errorType=signup');
+        return;
     }
 
     //Nå må vi lage et nytt bruker objekt
@@ -74,7 +59,7 @@ router.post("/signup", asyncExpress (async (req, res, next) => { //Grunnen til a
     //Nå setter vi passord til det hasha passordet
     bruker.password = await bcrypt.hash(bruker.password, salt);
     bruker.save().then((dokument) => {
-        res.status(201).send(dokument);
+        //res.status(201).send(dokument); debug only
         mailer({
             from: process.env.EMAIL,
             to: process.env.EMAIL, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
@@ -82,6 +67,7 @@ router.post("/signup", asyncExpress (async (req, res, next) => { //Grunnen til a
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum vulputate luctus.'
         });
     })
+    res.redirect('/');
 }));
 
 //Her tar vi oss av login
@@ -93,14 +79,15 @@ router.post("/login", asyncExpress (async (req, res, next) => { //Grunnen til at
         const sjekkPassword = await bcrypt.compare(pugBody.password, bruker.password); //Bruker bcrypt for å sammenligne, true/false return
         if (sjekkPassword) {
             req.session.userId = bruker._id; //Setter session
-            //req.session.user.id = bruker._id;
-            res.status(200).json({ message: "Valid password" }); //Returnerer 200 dersom passordet var riktig
-            //res.redirect(301, 'sucess');
-          } else {
-            res.status(400).json({ error: "Invalid Password" }); //Returnerer 400 dersom passordet var feil
-          }
+            res.redirect('/');
+            return;
+        } else {
+            res.redirect('/?error=Invalid Password&errorType=login');
+            return; //Returnerer 400 dersom passordet var feil
+        }
     } else {
-        res.status(401).json({ error: "User does not exist" }); //Returnerer 401 dersom brukeren ikke eksisterer
+        res.redirect('/?error=User does not exist&errorType=login');
+        return;
     }
 }));
 
@@ -108,12 +95,14 @@ router.post('/forgottenPassword',asyncExpress (async (req, res, next) => {
     const pugBody = req.body;
     Bruker.findOne({email: pugBody.emailForgottenPassword}, (err, bruker) => {
         if(!bruker || err) {
-            return res.status(400).json({error: 'User with this email does not exist.'});
+            res.redirect('/?error=User with this email does not exist&errorType=forgottenPassword');
+            return;
         }
         const token = jwt.sign({_id: bruker._id}, process.env.RESET_PASSWORD_KEY, {expiresIn:'60m'});
         return bruker.updateOne({resetLink: token}, function(err, success) {
             if(err) {
-                return res.status(400).json({error: 'reset password link error'});
+                res.redirect('/?error=Reset password link error&errorType=forgottenPassword');
+                return;
             } else {
                 let link = `http://${process.env.CLIENT_URL}/auth/resetpassword/${token}`
                 mailer({

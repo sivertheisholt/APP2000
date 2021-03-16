@@ -1,4 +1,6 @@
 script.
+    var error = !{error}
+    var errorType = !{errorType}
     var trendingChart = !{trendingChart}
 include includes/head.pug
 include includes/nav.pug
@@ -24,4 +26,22 @@ body
     include includes/footer.pug
     script(src="javascript/index/chart.js")
     script(src="javascript/index/liveSearch.js")
-    //p!= UIkit.modal("#modal-center").show();
+script.
+    if(error != undefined) {
+        console.log(error);
+        switch(errorType) {
+            case "signup": 
+                UIkit.modal("#modal-center").show();
+                document.getElementById("loginButton").classList.remove('uk-active');
+                document.getElementById("signupButton").classList.add('uk-active');
+                break;
+            case "login":
+                UIkit.modal("#modal-center").show();
+                break;
+            case "forgottenPassword":
+                UIkit.modal("#modal-center").show();
+                break;
+            default:
+                UIkit.modal("#modal-center").hide();
+        }
+    }
