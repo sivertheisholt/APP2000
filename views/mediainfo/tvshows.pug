@@ -1,0 +1,56 @@
+script.
+    var tvShows = !{tvShows}
+    function load(){
+        document.getElementById('mediaCard').innerHTML += "";
+        for (const media of tvShows.slice(0,16)){
+            document.getElementById('mediaCard').innerHTML += mediaCard(media);
+        }
+    }
+    window.onload = load;
+    
+
+include ../includes/head.pug
+include ../includes/nav.pug
+
+body
+    .container.uk-grid.uk-margin-top
+        .filter-wrap.ukgrid.uk-width-1-4.upcoming-no-padding
+            button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by
+            div.upcoming-scroll-bar(uk-dropdown='mode: click')
+                ul
+                    a Popularity Descending
+                ul
+                    a Popularity Ascending
+                ul
+                    a Release Date Descending
+                ul
+                    a Release Date Ascending
+                ul
+                    a Title (A-Z)
+                ul
+                    a Title (Z-A)
+            .upcoming-text-align
+                h3 Filter by genre
+                ul.uk-list
+                    li
+                        a Action
+                    li
+                        a Adventure
+                    li
+                        a Animation
+                    li
+                        a Comedy
+        .upcomingMovies.uk-grid.uk-width-3-4
+            .uk-grid.uk-child-width-1-4#mediaCard
+            .uk-grid.uk-width-1-1.uk-button.uk-button-default.uk-align-center
+                a#loadMore(onclick="load(tvShows, event)")
+                    span.text Load More
+                #noMoreMedia
+                    a(href="#")
+                        span.text No more movies, click to go to top.
+
+script.
+    
+
+include ../includes/footer.pug
+    script(src="/javascript/mediainfo/media.js")

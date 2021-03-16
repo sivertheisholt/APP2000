@@ -1,5 +1,12 @@
 script.
-    var upcomingMovies = !{upcomingMovies}
+    var popularMovies = !{popularMovies}
+    function load(){
+        document.getElementById('mediaCard').innerHTML += "";
+            for (const media of popularMovies.slice(0,16)){
+            document.getElementById('mediaCard').innerHTML += mediaCard(media);
+        }
+    }
+    window.onload = load;
 
 include ../includes/head.pug
 include ../includes/nav.pug
@@ -33,15 +40,15 @@ body
                     li
                         a Comedy
         .upcomingMovies.uk-grid.uk-width-3-4
-            .uk-grid.uk-child-width-1-4#movieCard
+            .uk-grid.uk-child-width-1-4#mediaCard
             .uk-grid.uk-width-1-1.uk-button.uk-button-default.uk-align-center
-                a#loadMore(onclick="loadMoreMovies(event)")
+                a#loadMore(onclick="load(popularMovies, event)")
                     span.text Load More
-                #noMoreMovies
+                #noMoreMedia
                     a(href="#")
                         span.text No more movies, click to go to top.
 
 
 
 include ../includes/footer.pug
-    script(src="/javascript/upcomingmovies.js")
+    script(src="/javascript/mediainfo/media.js")
