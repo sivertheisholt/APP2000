@@ -14,7 +14,7 @@ const filmSchema = new mongoose.Schema({
     release_date: {
         type: String,
     },
-    genre_ids: {
+    genres: {
         type: Array,
     },
     id: {

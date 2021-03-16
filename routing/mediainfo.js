@@ -8,28 +8,30 @@ const asyncExpress = require('../handling/expressUtils');
 //Filminfo siden kjører her
 
 
-router.get("/filminfo/:uid",  asyncExpress (async (req, res, next) => {
-  //console.log('lorem');
-  console.log(req.url);
-  let filminfo = await tmdb.data.getMovieInfoByID(12);
-  console.log("filminfo");
-
-
+router.get("/filminfo/:id",  asyncExpress (async (req, res, next) => {
+  let filminfo = await tmdb.data.getMovieInfoByID(req.url.slice(10));
+  let castinfo = await tmdb.data.getMovieCastByID(req.url.slice(10));
+  //console.log(castinfo)
 res.render("mediainfo/filminfo", {
-  filminformasjon:filminfo
+  filminformasjon:filminfo,
+  castinfo:castinfo
 });
 }));
 
 /* router.get("/filminfo",  asyncExpress (async (req, res, next) => {
-  console.log('lorem');
-
-
 res.render("mediainfo/filminfo", {
   filminformasjon:req.session.film
 });
 })); */
 
 //Serieinfo siden kjører her
+router.get("/serieinfo/:id",  asyncExpress (async (req, res, next) => {
+  let serieinfo = await tmdb.data.getSerieInfoByID(req.url.slice(10));
+res.render("mediainfo/serieinfo", {
+  serieinformasjon:serieinfo
+});
+}));
+
 router.get("/serieinfo",  asyncExpress (async (req, res, next) => {
   console.log('lorem');
 res.render("mediainfo/serieinfo", {});
