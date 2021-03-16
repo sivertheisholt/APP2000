@@ -32,8 +32,11 @@ script.
         switch(errorType) {
             case "signup": 
                 UIkit.modal("#modal-center").show();
-                document.getElementById("loginButton").classList.remove('uk-active');
-                document.getElementById("signupButton").classList.add('uk-active');
+                document.getElementById("loginButton").className = "";
+                document.getElementById("signupButton").className = "uk-active";
+                document.getElementById("loginForm").className = "";
+                document.getElementById("signupForm").className = "uk-active";
+                document.getElementById("loginButton").ariaExpanded="false";
                 break;
             case "login":
                 UIkit.modal("#modal-center").show();
