@@ -39,9 +39,34 @@ Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID) {
         })
     })
 }
-Tmdb.prototype.getMovieCastByID = function getCastInfoByID(movieID) {
+Tmdb.prototype.getMovieVideosByID = function getMovieVideosByID(movieID) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${this.token}`;
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
+Tmdb.prototype.getMovieCastByID = function getCastMovieInfoByID(movieID) {
     return new Promise((resolve, reject) => {
         var url = `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.token}`;
+        console.log(url);
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
+Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/tv/${serieID}/credits?api_key=${this.token}`;
         console.log(url);
         fetch(url).then(res => {
             if(res.ok) {
@@ -55,6 +80,18 @@ Tmdb.prototype.getMovieCastByID = function getCastInfoByID(movieID) {
 Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID) {
     return new Promise((resolve, reject) => {
         var url = `https://api.themoviedb.org/3/tv/${serieID}?api_key=${this.token}`;
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
+Tmdb.prototype.getSerieVideosByID = function getSerieVideosByID(serieID) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/tv/${serieID}/videos?api_key=${this.token}`;
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());
