@@ -79,7 +79,7 @@ Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID) {
 }
 Tmdb.prototype.getPersonByID = function getPersonByID(personID) {
     return new Promise((resolve, reject) => {
-        var url = `https://api.themoviedb.org/3/person/${personID}/?api_key=${this.token}`;
+        var url = `https://api.themoviedb.org/3/person/${personID}?api_key=${this.token}`;
         console.log(url);
         fetch(url).then(res => {
             if(res.ok) {
