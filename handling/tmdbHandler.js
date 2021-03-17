@@ -77,7 +77,10 @@ var methods = {
         return await tmdb.getMovieCastByID(movieID);
     },
     getSerieCastByID: async function (serieID) {
-        return await tmdb.getMovieCastByID(serieID);
+        return await tmdb.getSerieCastByID(serieID);
+    },
+    getPersonByID: async function (personID) {
+        return await tmdb.getPersonByID(personID);
     },
     getSerieInfoByID: async function (serieID) {
         return await tmdb.getSerieInfoByID(serieID);

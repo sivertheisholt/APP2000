@@ -77,6 +77,19 @@ Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID) {
         })
     })
 }
+Tmdb.prototype.getPersonByID = function getPersonByID(personID) {
+    return new Promise((resolve, reject) => {
+        var url = `https://api.themoviedb.org/3/person/${personID}/?api_key=${this.token}`;
+        console.log(url);
+        fetch(url).then(res => {
+            if(res.ok) {
+                resolve(res.json());
+            } else {
+                reject(false)
+            }
+        })
+    })
+}
 Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID) {
     return new Promise((resolve, reject) => {
         var url = `https://api.themoviedb.org/3/tv/${serieID}?api_key=${this.token}`;
