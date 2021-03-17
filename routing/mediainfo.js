@@ -11,10 +11,17 @@ const asyncExpress = require('../handling/expressUtils');
 router.get("/filminfo/:id",  asyncExpress (async (req, res, next) => {
   let filminfo = await tmdb.data.getMovieInfoByID(req.url.slice(10));
   let castinfo = await tmdb.data.getMovieCastByID(req.url.slice(10));
-  //console.log(castinfo)
+  let videos = await tmdb.data.getMovieVideosByID(req.url.slice(10));
+  let listOfPersons = [];
+
+  for(const item of castinfo.cast){
+    listOfPersons.push(await tmdb.data.getPersonByID(item.id));
+  }
 res.render("mediainfo/filminfo", {
   filminformasjon:filminfo,
-  castinfo:castinfo
+  castinfo:castinfo,
+  videos:videos,
+  listOfPersons:listOfPersons
 });
 }));
 
@@ -27,8 +34,21 @@ res.render("mediainfo/filminfo", {
 //Serieinfo siden kjører her
 router.get("/serieinfo/:id",  asyncExpress (async (req, res, next) => {
   let serieinfo = await tmdb.data.getSerieInfoByID(req.url.slice(10));
+  let castinfo = await tmdb.data.getSerieCastByID(req.url.slice(10));
+  let videos = await tmdb.data.getSerieVideosByID(req.url.slice(10));
+  let listOfPersons = [];
+
+  for(const item of castinfo.cast){
+    //let person = await tmdb.data.getPersonByID(item.id);
+    listOfPersons.push(await tmdb.data.getPersonByID(item.id));
+  }
+  
+  //let person = await tmdb.data.getPersonByID(personID);
 res.render("mediainfo/serieinfo", {
-  serieinformasjon:serieinfo
+  serieinformasjon:serieinfo,
+  castinfo:castinfo,
+  videos:videos,
+  listOfPersons:listOfPersons
 });
 }));
 

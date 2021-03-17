@@ -1,6 +1,50 @@
 - var filminformasjon = filminformasjon;
+- var castinfo = castinfo;
+- var videos = videos;
+- var listOfPersons = listOfPersons;
+- var videoTrailers = [];
+- var genres = [];
+- var actors = [];
+- var counter = 0;
+- var director;
+- var screenplay;
+
+each item in filminformasjon.genres
+  - genres += item.name + " ";
+  - if(counter == 1)
+   - break;
+  - counter++;
+
+each item in castinfo.crew
+  - if(item.job == 'Director')
+    - director = item.name;
+    - break;
+
+each item in castinfo.crew
+  - if(item.job == 'Screenplay')
+    - screenplay = item.name;
+    - break;
+
+each item in castinfo.cast 
+  - if (item.known_for_department == 'Acting')
+    - var info = {id:item.id, navn:item.name, character:item.character, picture:'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' + item.profile_path, imdbID:""}
+    - if(item.profile_path == null)
+        - info.picture = '/images/imgactors/altpicture.svg'
+    - actors.push(info);
+
+each item in videos.results
+  - if(item.type == "Trailer" && item.site == "YouTube")
+    - videoTrailers.push(item.key);
+    - break;
+
+each actor in actors
+  each person in listOfPersons 
+    - if(actor.id == person.id)
+      - actor.imdbID = person.imdb_id;
+
 include ../includes/head.pug
 include ../includes/nav.pug
+
 
 body
   .overlay
@@ -16,34 +60,35 @@ body
               h2= filminformasjon.title
                 a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' width="40" height ="40" uk-icon='heart')
                 a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' width="40" height ="40" uk-icon='star')
-              h3 10/23/2020 - Action, Thriller
-              h3 1 Hour 38 Minutes
-              h1 95%
+              h3= `${filminformasjon.release_date} ${genres}`
+              h3= `${filminformasjon.runtime} Minutes`
+              h1= `${filminformasjon.vote_average*10}%`
               h2 Overview
-              p
-                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nam natus ipsum obcaecati tempore, molestiae, officia dolorum ad odio molestias a, id commodi officiis itaque aliquid in nemo reprehenderit eveniet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam natus nisi veniam reprehenderit voluptatibus a esse repellendus, corporis ipsam autem libero repellat laboriosam doloribus similique numquam exercitationem labore impedit placeat?
+              p= filminformasjon.overview
               .direc(uk-grid='')
                 .uk-width-1-2
                   p Director
                   a(href='')
-                    b  Name Nameson  
+                    b= `${director}`
                 .uk-width-1-2
                   p Screenplay
                   a(href='')
-                    b  Name Nameson  
+                    b= `${screenplay}` 
       // Slider
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')
           .uk-slider-container-offset(uk-slider='')
             .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
               ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s uk-grid-match')
-                li
-                  .uk-card.uk-card-default
-                    .uk-card-media-top
-                      img(src='/images/imgactors/bruce_willis.jpg' alt='' width='100%')
-                    .uk-card-body
-                      h3.uk-card-title Bruce Willis
-                      p Chalmers
+                each item in actors
+                  li
+                    a(href=`https://www.imdb.com/name/${item.imdbID}/`)
+                      .uk-card.uk-card-default
+                        .uk-card-media-top
+                          img(src=`${item.picture}` alt='' width='100%')
+                        .uk-card-body
+                          h3.uk-card-title= `${item.navn}`
+                          p= `${item.character}`
               a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slider-item='previous')
               a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slider-item='next')
             ul.uk-slider-nav.uk-dotnav.uk-flex-center.uk-margin
@@ -73,6 +118,6 @@ body
                   p
                     | Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             li
-              iframe(width='1280' height='720' src='https://www.youtube.com/embed/D1yo-zswLw4?autoplay=1' allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+              iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
 
       include ../includes/footer.pug
