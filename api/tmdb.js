@@ -54,7 +54,6 @@ Tmdb.prototype.getMovieVideosByID = function getMovieVideosByID(movieID) {
 Tmdb.prototype.getMovieCastByID = function getCastMovieInfoByID(movieID) {
     return new Promise((resolve, reject) => {
         var url = `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.token}`;
-        console.log(url);
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());
@@ -67,7 +66,6 @@ Tmdb.prototype.getMovieCastByID = function getCastMovieInfoByID(movieID) {
 Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID) {
     return new Promise((resolve, reject) => {
         var url = `https://api.themoviedb.org/3/tv/${serieID}/credits?api_key=${this.token}`;
-        console.log(url);
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());
@@ -80,7 +78,6 @@ Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID) {
 Tmdb.prototype.getPersonByID = function getPersonByID(personID) {
     return new Promise((resolve, reject) => {
         var url = `https://api.themoviedb.org/3/person/${personID}?api_key=${this.token}`;
-        console.log(url);
         fetch(url).then(res => {
             if(res.ok) {
                 resolve(res.json());

@@ -1,10 +1,10 @@
-- var discoverTvshows = discoverTvshows;
+- var castSlider = castSlider;
 .uk-slider-container-offset(uk-slider='')
   .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
     ul.uk-slider-items.uk-grid.uk-grid-match(class='uk-child-width-1-5@s')
-      each item in discoverTvshows
+      each item in castSlider
         li
-          a(href=`http://localhost:3000/mediainfo/serieinfo/${item.id}`)
+          a(href=`http://localhost:3000/mediainfo/filminfo/${item.id}`)
             .uk-card.uk-card-default.card-animation
               .uk-card-media-top
                 img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')

@@ -64,6 +64,20 @@ var methods = {
         return tmdbInformasjonKlar
     },
     //getMovieInfo metoden skaffer info om en film ved å søke etter tittel
+    getDiscoverMoviesWithGenres: async function(genreList) {
+        let string = "";
+        for(const genre of genreList) {
+            string += `${genre},`
+        }
+        string.substr(string.length);
+        return await tmdb.getDiscoverMovies(string);
+    },
+    getTrendingMovies: async function() {
+        return await tmdb.getTrendingMovies();
+    },
+    getGenreMovie: async function() {
+        return await tmdb.getGenresMovie();
+    },
     getMovieInfo: async function (movieTitle) {
         return await tmdb.getMovieResults(movieTitle);
     },
@@ -79,20 +93,11 @@ var methods = {
     getSerieCastByID: async function (serieID) {
         return await tmdb.getSerieCastByID(serieID);
     },
-    getPersonByID: async function (personID) {
-        return await tmdb.getPersonByID(personID);
-    },
     getSerieInfoByID: async function (serieID) {
         return await tmdb.getSerieInfoByID(serieID);
     },
     getSerieVideosByID: async function (serieID) {
         return await tmdb.getSerieVideosByID(serieID);
-    },
-    getTrendingMovies: async function() {
-        return await tmdb.getTrendingMovies();
-    },
-    getGenreMovie: async function() {
-        return await tmdb.getGenresMovie();
     },
     getTrendingTv: async function() {
         return await tmdb.getTrendingTv();
@@ -100,13 +105,8 @@ var methods = {
     getGenreTv: async function() {
         return await tmdb.getGenresTv();
     },
-    getDiscoverMoviesWithGenres: async function(genreList) {
-        let string = "";
-        for(const genre of genreList) {
-            string += `${genre},`
-        }
-        string.substr(string.length);
-        return await tmdb.getDiscoverMovies(string);
+    getPersonByID: async function (personID) {
+        return await tmdb.getPersonByID(personID);
     }
 };
 

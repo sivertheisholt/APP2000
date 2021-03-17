@@ -31,9 +31,11 @@ socket.on('resultatFilm', (resultatFilm) => {
     document.getElementById('searchDiv').innerHTML = ``;
     for(const movie of resultatFilm) {
         document.getElementById('searchDiv').innerHTML += `<div class="uk-card uk-card-default uk-grid uk-grid-collapse uk-width-3-4 search-result">
-                                                                <div class="uk-card-media-left uk-cover-container uk-width-auto">
-                                                                    <img class="search-image-style center" src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}" alt="">
-                                                                </div>
+                                                                <a href= "http://localhost:3000/mediainfo/filminfo/${movie.id}">
+                                                                    <div class="uk-card-media-left uk-cover-container uk-width-auto">
+                                                                        <img class="search-image-style center" src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}" alt="">
+                                                                    </div>
+                                                                </a>
                                                                 <div class="uk-width-expand">
                                                                     <div class="uk-card-body">
                                                                         <h3 class="uk-card-title">${movie.title}</h3>
