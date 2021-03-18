@@ -11,8 +11,10 @@ script.
             .uk-inline
                 button.uk-button.uk-button-default.uk-margin-right(type='submit') Enter
     p Upload profile picture by clicking the button below
-    .js-upload(uk-form-custom='')
-        input(type='file' multiple='')
-        button.uk-button.uk-button-default(type='button' tabindex='-1') Upload
-
-
+    form(action='/user/upload-avatar' method='post' enctype='multipart/form-data')
+        .uk-margin 
+            .uk-inline
+                 input(type='file' name='avatar')
+        .uk-margin 
+            .uk-inline
+                button.uk-button.uk-button-default.uk-margin-right(type='submit') Upload

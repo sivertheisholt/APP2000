@@ -9,7 +9,6 @@ const charts = require('../handling/chartMaker');
 //Sender videre basert på directory
 router.use('/mediainfo', require('./mediainfo'));
 router.use('/auth', require('./userAuth'));
-//router.use('/auth', require('./dashboard'));
 router.use('/infosider', require('./info'));
 router.use('/user', require('./dashboard'));
 

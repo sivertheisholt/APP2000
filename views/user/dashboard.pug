@@ -7,7 +7,7 @@ body
         .uk-child-width-1-1.uk-grid=''
             div(uk-grid='')
                 .uk-width-auto
-                    img.center(src='/images/default.png' alt='')
+                    img.center.avatar(src=`${usern.avatar}` alt='')
                     ul.uk-tab-left.dashboard-menu(uk-tab='connect: #component-tab-left; animation: uk-animation-fade')
                         li  
                             a(href='#') Change Password
