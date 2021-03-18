@@ -53,7 +53,7 @@ img.center {
   padding: 0;
 }
 
-#mobile-nav{
+.mobile-nav{
   display: none;
 }
 
@@ -63,20 +63,18 @@ img.center {
   height: 50%;
 }
 
-
-
 @media (max-width: 680px) {
+  .desktop-nav{
+    display:none;
+  }
+
   .nav-wrapper {
     max-width: 100%;
   }
 
-  #mobile-nav{
+  .mobile-nav{
     display: flex;
     margin: 0;
-  }
-
-  .uk-navbar{
-    display: none;
   }
   
   .menu ul {
@@ -163,12 +161,16 @@ img.center {
   }
   
   .menu.active {
-    margin-top: 80px;
+    margin-top: 79px;
     display: block;
     animation: fade .5s;
     position: absolute;
     text-align: center;
     line-height: 50px;
+  }
+
+  .uk-search-input{
+    width: 75%;
   }
 }
 
