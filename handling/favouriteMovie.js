@@ -8,6 +8,14 @@ async function checkIfSaved(movieId) {
     return false;
 }
 
+async function checkIfFavorited(movieId, brukerId) {
+    const bruker = await Bruker.findOne({id: brukerId, movieFavourites: movieId})
+    //const film = await Film.findOne({id: movieId});
+    if(bruker)
+        return true;
+    return false;
+}
+
 //Legger til film i databasen
 function addToDatabase(movie) {
     const film = new Film(movie);
@@ -44,6 +52,9 @@ async function addFavourite(movie, userId) {
     if(!user)
         return false;
     user.updateOne({$push: {movieFavourites: movie.id}}).exec();
+    const isFavorited = await checkIfFavorited(movie.id, user._id);
+    if(isFavorited)
+        return true;
     const isSaved = await checkIfSaved(movie.id);
     if(isSaved)
         return true;
