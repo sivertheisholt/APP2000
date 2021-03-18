@@ -189,6 +189,8 @@ footer {
   display: grid;
   grid-template-columns: 25% 25% 50%;
   height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .footerlogo {
@@ -338,7 +340,6 @@ img.search-image-style{
   width: 100%;
   height: 900px;
   position: relative;
-  background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/86L8wqGMDbwURPni2t7FQ0nDjsH.jpg);
 }
 
 .overlay:after{
@@ -379,11 +380,11 @@ img.search-image-style{
   border-radius: 5px 20px 5px;
   background: linear-gradient(90deg, rgba(2,255,10,1) 0%, rgba(0,255,72,1) 50%, rgba(0,120,0,1) 100%);
   width: 150px;
+  margin: 0 auto;
 }
 
-.filminfo_img img{
-  height: 80%;
-  vertical-align: middle;
+.filminfo_img{
+  padding: 60px;
 }
 
 .noContent {

@@ -47,7 +47,7 @@ include ../includes/nav.pug
 
 
 body
-  .overlay
+  .overlay(style=`background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/${filminformasjon.poster_path})`)
     .container
       // Grid
       div(uk-grid='').film_oversikt
@@ -55,7 +55,7 @@ body
         .uk-width-1-2.uk-flex-middle.filminfo_img
           img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${filminformasjon.poster_path}` alt='')
         // Informasjon on film
-        .uk-width-1-3
+        .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
               h2= filminformasjon.title
                 a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' width="40" height ="40" uk-icon='heart')
@@ -120,4 +120,4 @@ body
             li
               iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
 
-      include ../includes/footer.pug
+    include ../includes/footer.pug
