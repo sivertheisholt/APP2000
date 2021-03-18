@@ -37,12 +37,18 @@ script.
                 document.getElementById("loginForm").className = "";
                 document.getElementById("signupForm").className = "uk-active";
                 document.getElementById("loginButton").ariaExpanded="false";
+                document.getElementById("signup-error").style.display='block';
+                document.getElementById("signup-error").innerHTML += 'ERROR: ' + error;
                 break;
             case "login":
                 UIkit.modal("#modal-center").show();
+                document.getElementById("login-error").style.display='block';
+                document.getElementById("login-error").innerHTML += 'ERROR: ' + error;
                 break;
             case "forgottenPassword":
                 UIkit.modal("#modal-center").show();
+                document.getElementById("forgot-error").style.display='block';
+                document.getElementById("forgot-error").innerHTML += 'ERROR: ' + error;
                 break;
             default:
                 UIkit.modal("#modal-center").hide();

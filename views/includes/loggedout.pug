@@ -20,6 +20,7 @@ a.uk-button.uk-button-default.login-btn(href='#modal-center' uk-toggle='') Sign 
                                 .uk-inline
                                     span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
                                     input.uk-input(type='password' name='password' placeholder='Password')
+                            #login-error
                             .uk-margin
                                 .uk-inline
                                     button.uk-button.uk-button-default.uk-margin-right(type='submit') Enter
@@ -46,6 +47,7 @@ a.uk-button.uk-button-default.login-btn(href='#modal-center' uk-toggle='') Sign 
                                 .uk-inline
                                     span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
                                     input.uk-input(type='password' name='passwordRepeat' placeholder='Repeat password' required)
+                            #signup-error
                             .uk-margin
                                 .uk-inline
                                     button.uk-button.uk-button-default.uk-margin-right(type='submit') Enter
@@ -61,11 +63,13 @@ a.uk-button.uk-button-default.login-btn(href='#modal-center' uk-toggle='') Sign 
         button.uk-modal-close-default(type='button' uk-close='')
         .uk-grid.uk-width-1-1.uk-flex-nowrap
             .uk-aling-center
-                h3.uk-text-bold Password Recovery
+                h3 Password Recovery
                     form(action='/auth/forgottenPassword' method='post')
                         .uk-margin-bottom
                             .uk-inline
                                 input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailForgottenPassword' placeholder='Email' required)
+                        .uk-margin-bottom
+                            #forgot-error
                         .uk-margin-bottom
                             .uk-inline
                                 button.uk-button.uk-button-default.uk-button-small(type='submit') Send
