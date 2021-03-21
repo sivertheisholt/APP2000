@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
+const logger = require('../logging/logger');
 
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
@@ -18,9 +19,10 @@ let transporter = nodemailer.createTransport(smtpTransport({
 let sendMail = (mailOptions) => {
   transporter.sendMail(mailOptions,(err, info) => {
     if(err){
+      logger.log({level: 'error', message: `Could not send email! Error: ${err}`});
       return console.log(err);
     } else {
-      console.log('Email sent: ' + info.response);
+      logger.log({level: 'debug', message: `Email sent: ${info.response}`});
     }
   })
 }

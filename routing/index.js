@@ -5,6 +5,7 @@ const router = express.Router();
 const Session = require("../database/sessionSchema")
 const asyncExpress = require('../handling/expressUtils');
 const charts = require('../handling/chartMaker');
+const logger = require('../logging/logger');
 
 //Sender videre basert på directory
 router.use('/mediainfo', require('./mediainfo'));
@@ -15,6 +16,7 @@ router.use('/user', require('./dashboard'));
 
 //Startsiden kjører her
 router.get("/", asyncExpress (async (req, res, next) => {
+  logger.log({level: 'debug' ,message:'Request received for /'})
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon(); //Skaffer tmdb info
   let finalListMovies = []; //Lager en tom array
   let finalListTvshows = []; //Lager en tom array
@@ -23,6 +25,7 @@ router.get("/", asyncExpress (async (req, res, next) => {
   let error = null;
   let errorType = null;
 
+  logger.log({level: 'debug' ,message:'Creating slider information for movies'})
   for(const movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
     //Lager et object for hver movie
     let tempObjectMovie = {
@@ -36,6 +39,7 @@ router.get("/", asyncExpress (async (req, res, next) => {
     if(maxMovies == 0)
         break;
   }
+  logger.log({level: 'debug' ,message:'Creating slider information for tv'})
   for(const tvshow of tmdbInformasjon.discoverTvshowsPopular) { //For loop imellom hver item i discoverTvshows
     //Lager et object for hver serie
     let tempObjectTvshow = {
@@ -50,6 +54,7 @@ router.get("/", asyncExpress (async (req, res, next) => {
         break;
   }
 
+  logger.log({level: 'debug' ,message:'Finding session for user'})
   //Skaffer session
   const session = await Session.findOne({_id: req.sessionID});
   //Lager chart objekt
@@ -61,6 +66,7 @@ router.get("/", asyncExpress (async (req, res, next) => {
     errorType = req.query.errorType;
   }
   //Vis siden
+  logger.log({level: 'debug' ,message:'Rendering the page to the user'})
   res.render("index", {
     //Sender variabler til pug filen
     username: session ? true : false,

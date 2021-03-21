@@ -1,5 +1,6 @@
 require('dotenv').config();
-const Tmdb = require('../api/tmdb.js')
+const Tmdb = require('../api/tmdb.js');
+const logger = require('../logging/logger.js');
 const hjelp = require('./hjelpeMetoder')
 const tmdb = new Tmdb(process.env.TMDB_TOKEN); //Lager et nytt tmdb objekt
 let tmdbInformasjonKlar;
@@ -9,6 +10,7 @@ var methods = {
     //Legger informasjonen inn i variabelen tmdbInformasjonKlar
     hentTmdbInformasjon: async function () {
         try {
+            logger.log({level: 'info', message: 'Starting collection of tmdb information...'});
             let currentDate = new Date();
             let currentDateFormated = `${currentDate.getFullYear()}-${(currentDate.getMonth()+1).toString().padStart(2, "0")}-${currentDate.getDate().toString().padStart(2,"0")}`
             const antallPages = 5; //Antall sider som skal bli hentet
@@ -18,8 +20,6 @@ var methods = {
                 discoverTvshowsUpcoming: [],
                 discoverTvshowsPopular: [],
             };
-            
-            console.log("Skaffer informasjon fra TheMovieDatabase...");
             const [discoverMoviesUpcoming, discoverMoviesPopular, discoverTvshowsUpcoming, discoverTvshowsPopular] = await Promise.all([
                 Promise.all(getDiscoverMovie(antallPages, `primary_release_date.gte=${currentDateFormated}`)
                     .map(promise => promise
@@ -53,9 +53,9 @@ var methods = {
                 return new Date(a.release_date).getTime() - new Date(b.release_date).getTime();
             })
             tmdbInformasjonKlar = tmdbInformasjon;
-            console.log("All informasjon er ferdig hentet!");
+            logger.log({level: 'info',message: 'All information is sucessfully collected!'});
         } catch(err) {
-            console.log(err);
+            logger.log({level: 'error' ,message: `Something unexpected happen while collecting tmdb information! Error: ${err}`});
         }
     },
 
@@ -113,7 +113,6 @@ var methods = {
 async function checkData(results) {
     let promiseArray = [];
     for(const result of results) {
-        
         if(result.poster_path == null || result.poster_path == ""){
             continue;
           }

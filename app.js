@@ -10,24 +10,23 @@ const mongoose = require('mongoose');
 const socketIO = require('socket.io');
 const tmdb = require('./handling/tmdbHandler');
 const search = require("./handling/searchHandler");
+const logger = require('./logging/logger');
 
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
 tmdb.data.hentTmdbInformasjon();
 
 //Her kobler vi opp databasen
+logger.log({level: 'info',message: 'Establishing connection to database'});
 mongoose
   .connect(process.env.MONGO_DB_URL || "mongodb://localhost:27017/app", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-  .then((_) => console.log("Connected to DB"))
-  .catch((err) => console.error("error", err));
+  .then((_) => logger.log({level: 'info', message: 'Successfully connected to database!'}))
+  .catch((err) => logger.log({level: 'error', message: `Cant connect to database! Error: ${err}`}));
 
 //Setter port
 const port = process.env.PORT || 3000;
 
 //Lager default path til public, dette er da på klientsiden
 const publicPath = path.join(__dirname, "/public");
-
-//Implementerer metodene i tmdbHandler.js
-const theMovieDatabase = require("./handling/tmdbHandler.js");
 
 //Lager objektet app
 const app = express();
@@ -70,25 +69,33 @@ app.use(require('./routing'));
 //Error handling
 app.use((err, req, res, next) => {
     res.send("Something wrong happen! Please try again later");
-    console.log(err);
+    logger.log({level: 'error',message: `Express threw an error! Error: ${err}`});
 });
 
 //Setter opp socket.io
 io.on('connection', async (socket) => {
   //Logger at ny bruker logget på nettsiden
-  console.log("New user just connected");
+  logger.log({level: 'info',message: `New user just connected`});
 
   //Metode som kjører dersom bruker logger ut av nettsiden
   socket.on('disconnect', () => {
-    console.log('User was disconnected')
+    logger.log({level: 'info',message: `User disconnected`});
   })
 
   //Skaffer info fra search baren på index.js
   socket.on("userInputSearch", async (userInputSearch) => {
+    if(userInputSearch.length < 2)
+        return;
+    logger.log({level: 'debug',message: `User searching for movie: ${userInputSearch}`});
     const results = await search(userInputSearch); //henter info
-    socket.emit('resultatFilm', results); //Sender info til klient
+    if(results) {
+        logger.log({level: 'debug',message: `Movie respons from API: ${results}`});
+        socket.emit('resultatFilm', results); //Sender info til klient
+        return;
+    }
+    logger.log({level: 'warn',message:'No result found'})
   })
 });
 
 //"Lytter" serveren
-server.listen(port, () => console.log("Example app listening on port 3000!"));
+server.listen(port, () => logger.log({level: 'info', message: `Application is now listening on port ${port}`}));

@@ -1,8 +1,10 @@
 const tmdb = require("../handling/tmdbHandler");
+const logger = require("../logging/logger");
 
 var methods = {
     //Denne metoden lager trending genre chart og returnerer ett objekt
     makeTrendingChart: async function() {
+        logger.log({level: 'debug', message: 'Creating trending chart information'});
         //Skaffer data fra API
         const trendingMovies = await tmdb.data.getTrendingMovies();
         const genresMovies = await tmdb.data.getGenreMovie();
@@ -82,6 +84,7 @@ var methods = {
                 data: dataTv
             }]
         }
+        logger.log({level: 'debug', message: 'Done creating chart information!'});
         return options;
     }    
 }
