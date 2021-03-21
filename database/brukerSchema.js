@@ -36,6 +36,10 @@ const brukerSchema = new mongoose.Schema({
   },
   tvsWatched: {
       type: Array
+  },
+  avatar: {
+    type: String,
+    default: '/uploads/default.png'
   }
 });
 
