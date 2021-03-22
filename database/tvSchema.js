@@ -1,46 +1,73 @@
 const mongoose = require('mongoose');
 
 //Vi lager et nytt schema
-const tvSchema = new mongoose.Schema({
-    poster_path: {
+const filmSchema = new mongoose.Schema({
+    backdrop_path: {
+        type: String,
+    },
+    episode_run_time: {
+        type: Array,
+    },
+    first_air_date: {
+        type: Date,
+    },
+    genres: {
+        type: Array,
+    },
+    homepage: {
+        type: String,
+    },
+    id: {
+        type: Number,
+    },
+    in_production: {
+        type: Boolean,
+    },
+    last_air_date: {
+        type: Date,
+    },
+    last_episode_to_air: {
+        type: Object,
+    },
+    name: {
+        type: String,
+    },
+    next_episode_to_air: {
+        type: String,
+    },
+    number_of_episodes: {
+        type: Number,
+    },
+    number_of_seasons: {
+        type: Number,
+    },
+    overview: {
         type: String,
     },
     popularity: {
         type: Number,
     },
-    id: {
-        data: Number,
+    poster_path: {
+        type: String,
     },
-    backdrop_path: {
-        data: String,
+    seasons: {
+        type: Array,
+    },
+    status: {
+        type: String,
+    },
+    tagline: {
+        type: String,
+    },
+    type: {
+        type: String,
     },
     vote_average: {
-        data: Number,
-    },
-    overview: {
-        data: String,
-    },
-    first_air_date: {
-        data: String,
-    },
-    origin_country: {
-        data: Array,
-    },
-    genre_ids: {
-        data: Array,
-    },
-    original_language: {
-        data: String,
+        type: Number,
     },
     vote_count: {
-        data: Number,
+        type: Number,
     },
-    name: {
-        data: String,
-    },
-    original_name: {
-        data: String,
-    }
 });
 
-module.exports = mongoose.model('tv', tvSchema); //ES6 Module
+module.exports = mongoose.model('film', filmSchema); //ES6 Module
