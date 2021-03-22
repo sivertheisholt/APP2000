@@ -90,6 +90,9 @@ var methods = {
     getMovieCastByID: async function (movieID) {
         return await tmdb.getMovieCastByID(movieID);
     },
+    getRecommendationsMovie: async function(movieId) {
+        return await tmdb.getRecommendationsMovie(movieId);
+    },
     getSerieCastByID: async function (serieID) {
         return await tmdb.getSerieCastByID(serieID);
     },

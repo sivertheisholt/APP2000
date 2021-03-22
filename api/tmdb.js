@@ -78,7 +78,14 @@ Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies(addParams) {
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
-    })
+    }) 
+}
+Tmdb.prototype.getRecommendationsMovie = function getRecommendationsMovie(movieId) {
+    var url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${this.token}`;
+    return fetch(url).then(res => {
+        makeLog(res, url);
+        return resultHandler(res);
+    }) 
 }
 Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams) {
     var url = `https://api.themoviedb.org/3/discover/tv?api_key=${this.token}`;
@@ -117,7 +124,7 @@ Tmdb.prototype.getGenresTv = function getGenresTv() {
         makeLog(res, url);
         return resultHandler(res);
     })
-}
+} 
 
 /**
  * 
