@@ -2,10 +2,50 @@ include ../includes/head.pug
 include ../includes/nav.pug
 
 body
+    
     .container
-        h About us
-        p Filmatory is a Norwegian start-up company. We're a group of unexperienced students with different skills.
-        p Making Filmatory has been our Product Owner's, Sivert, life long dream. He loves javascript node and using his node-skills to get information about movies and shows.
-        p Our front end geek Ørjan loves to design designs. In his head everything has to be beautiful and in line with his vision.
-         
+        .uk-heading-medium.uk-text-center.about-page-margin About us
+
+
+        .uk-width-1-1
+            .uk-column-1-4.uk-text-center.uk-align-center
+                div
+                    p.uk-text-large 5423
+                    p Registrerte brukere
+                div
+                    p.uk-text-large 1023
+                    p linjer med kode
+                div 
+                    p.uk-text-large Lorem, ipsum.
+                    p Lorem ipsum dolor sit amet.
+                div
+                    p.uk-text-large Lorem, ipsum.
+                    p Lorem ipsum dolor sit.
+
+
+        .uk-child-width-1-1.uk-grid=''
+            div
+                .uk-card.uk-card-default
+                    .uk-card-media-top.about-page-center-image
+                        img(src='/images/about-movies.jpg' alt='')
+                    .uk-card-body
+                        h3.uk-card-title Media Top
+                        p
+                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                        | Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quo maxime odio, reprehenderit illum, dolor iure optio cupiditate iste fugiat mollitia molestiae illo ea culpa! Reprehenderit eos libero animi non!
+
+
+        .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
+            .uk-card-media-left.uk-cover-container
+                img(src='/images/about-movies.jpg' alt='' uk-cover='')
+                canvas(width='200' height='400')
+        div
+            .uk-card-body
+            h3.uk-card-title Media Left
+            p
+                | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+
+
+
+
     include ../includes/footer.pug
