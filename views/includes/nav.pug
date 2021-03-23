@@ -1,35 +1,53 @@
 - var username = username;
 .nav-wrapper
   .uk-position-relative
-      nav.uk-navbar-container.uk-navbar-transparent(uk-navbar='')
-        .uk-navbar-left
+      nav(uk-navbar='')
+        .desktop-nav
           ul.uk-navbar-nav
             li.uk-active
-              a(href='../') Home
+              a(href='/') Home
             li
               a(href='/infosider/about') About
             li
-              a(href='/mediainfo/upcoming') Upcoming
+              a(href='#') Explore
               .uk-navbar-dropdown
                 ul.uk-nav.uk-navbar-dropdown-nav
-                  li.uk-active
-                    a(href='#') Active
                   li
-                    a(href='#') Item
-                  li.uk-nav-header Explore
+                    a(href='/mediainfo/movies') Movies
                   li
-                    a(href='#') Movies
+                    a(href='/mediainfo/tvshows') TV-Shows
+                  li.uk-nav-divider
+                  .uk-nav-header More
                   li
-                    a(href='#') TV-Shows
+                    a(href='/mediainfo/upcomingmovies') Upcoming Movies
                   li.uk-nav-divider
                   li
                     a(href='#') Contact
+        .mobile-nav
+          .nav-overlay.uk-navbar-item
+            .hamburger
+              .line
+              .line
+              .line
+          .menu
+            ul
               li
-                .uk-navbar-item
-                  form.uk-search.uk-search-default.uk-width-1-1
-                      span(uk-search-icon='')
-                      input#searchBox.uk-search-input(type='text' placeholder='Search...')
-              if username
-                include loggedin.pug
-              else
-                include loggedout.pug
+                a(href='/') Home
+              li
+                a(href='/mediainfo/movies') Movies
+              li
+                a(href='/mediainfo/tvshows') TV-Shows
+              li
+                a(href='/mediainfo/upcomingmovies') Upcoming Movies
+              li
+                a(href='#') Contact
+            img(src='/images/logo/footerlogo.png' alt='' width='200px' height='200px')
+        .nav-overlay.uk-navbar-item
+          form.uk-search.uk-search-default.uk-width-1-1
+              span(uk-search-icon='')
+              input#searchBox.uk-search-input(type='text' placeholder='Search...')
+        .nav-overlay.uk-navbar-item
+          if username
+            include loggedin.pug
+          else
+            include loggedout.pug

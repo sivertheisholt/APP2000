@@ -15,9 +15,31 @@ const brukerSchema = new mongoose.Schema({
     minlength: 8,
     maxlength: 1024
   },
+  username: {
+    type: String,
+    minlength: 4,
+    maxlength: 20,
+    default: 'unnamed'
+  },
   resetLink: {
     data: String,
     default: ''
+  },
+  movieFavourites: {
+      type: Array
+  },
+  tvFavourites: {
+    type: Array
+  },
+  moviesWatched: {
+      type: Array
+  },
+  tvsWatched: {
+      type: Array
+  },
+  avatar: {
+    type: String,
+    default: '/uploads/default.png'
   }
 });
 

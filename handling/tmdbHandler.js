@@ -1,5 +1,6 @@
 require('dotenv').config();
-const Tmdb = require('../api/tmdb.js')
+const Tmdb = require('../api/tmdb.js');
+const logger = require('../logging/logger.js');
 const hjelp = require('./hjelpeMetoder')
 const tmdb = new Tmdb(process.env.TMDB_TOKEN); //Lager et nytt tmdb objekt
 let tmdbInformasjonKlar;
@@ -9,6 +10,7 @@ var methods = {
     //Legger informasjonen inn i variabelen tmdbInformasjonKlar
     hentTmdbInformasjon: async function () {
         try {
+            logger.log({level: 'info', message: 'Starting collection of tmdb information...'});
             let currentDate = new Date();
             let currentDateFormated = `${currentDate.getFullYear()}-${(currentDate.getMonth()+1).toString().padStart(2, "0")}-${currentDate.getDate().toString().padStart(2,"0")}`
             const antallPages = 5; //Antall sider som skal bli hentet
@@ -18,8 +20,6 @@ var methods = {
                 discoverTvshowsUpcoming: [],
                 discoverTvshowsPopular: [],
             };
-            
-            console.log("Skaffer informasjon fra TheMovieDatabase...");
             const [discoverMoviesUpcoming, discoverMoviesPopular, discoverTvshowsUpcoming, discoverTvshowsPopular] = await Promise.all([
                 Promise.all(getDiscoverMovie(antallPages, `primary_release_date.gte=${currentDateFormated}`)
                     .map(promise => promise
@@ -53,9 +53,9 @@ var methods = {
                 return new Date(a.release_date).getTime() - new Date(b.release_date).getTime();
             })
             tmdbInformasjonKlar = tmdbInformasjon;
-            console.log("All informasjon er ferdig hentet!");
+            logger.log({level: 'info',message: 'All information is sucessfully collected!'});
         } catch(err) {
-            console.log(err);
+            logger.log({level: 'error' ,message: `Something unexpected happen while collecting tmdb information! Error: ${err}`});
         }
     },
 
@@ -64,8 +64,13 @@ var methods = {
         return tmdbInformasjonKlar
     },
     //getMovieInfo metoden skaffer info om en film ved å søke etter tittel
-    getMovieInfo: async function (movieTitle) {
-        return await tmdb.getMovieResults(movieTitle);
+    getDiscoverMoviesWithGenres: async function(genreList) {
+        let string = "";
+        for(const genre of genreList) {
+            string += `${genre},`
+        }
+        string.substr(string.length);
+        return await tmdb.getDiscoverMovies(string);
     },
     getTrendingMovies: async function() {
         return await tmdb.getTrendingMovies();
@@ -73,18 +78,44 @@ var methods = {
     getGenreMovie: async function() {
         return await tmdb.getGenresMovie();
     },
+    getMovieInfo: async function (movieTitle) {
+        return await tmdb.getMovieResults(movieTitle);
+    },
+    getMovieInfoByID: async function (movieID) {
+        return await tmdb.getMovieInfoByID(movieID);
+    },
+    getMovieVideosByID: async function (movieID) {
+        return await tmdb.getMovieVideosByID(movieID);
+    },
+    getMovieCastByID: async function (movieID) {
+        return await tmdb.getMovieCastByID(movieID);
+    },
+    getRecommendationsMovie: async function(movieId) {
+        return await tmdb.getRecommendationsMovie(movieId);
+    },
+    getSerieCastByID: async function (serieID) {
+        return await tmdb.getSerieCastByID(serieID);
+    },
+    getSerieInfoByID: async function (serieID) {
+        return await tmdb.getSerieInfoByID(serieID);
+    },
+    getSerieVideosByID: async function (serieID) {
+        return await tmdb.getSerieVideosByID(serieID);
+    },
     getTrendingTv: async function() {
         return await tmdb.getTrendingTv();
     },
     getGenreTv: async function() {
         return await tmdb.getGenresTv();
+    },
+    getPersonByID: async function (personID) {
+        return await tmdb.getPersonByID(personID);
     }
 };
 
 async function checkData(results) {
     let promiseArray = [];
     for(const result of results) {
-        
         if(result.poster_path == null || result.poster_path == ""){
             continue;
           }

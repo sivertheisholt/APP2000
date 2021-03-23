@@ -1,8 +1,5 @@
 const got = require('got');
-const {
-    performance,
-    PerformanceObserver
-  } = require('perf_hooks');
+const logger = require('../logging/logger');
 
 //Her kan dere legge inn hjelpemetoder dere vil lage
  var methods = {
@@ -13,7 +10,7 @@ const {
             const dato = new Date(splitDato[0], splitDato[1]-1, splitDato[2])
             return dato.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' });
          } catch(err) {
-             console.log(err);
+            logger.log({level: 'error', message: `Could not format date from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`}); 
          }
      },
 
@@ -25,7 +22,7 @@ const {
                 const monthName = dato.getMonth()
               return monthName
             } catch(err) {
-                console.log(err);
+                logger.log({level: 'error', message: `Could not format month from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`}); 
             }
         },
 
@@ -37,7 +34,7 @@ const {
                 const dagnavn = dato.getDate()
                 return dagnavn
             } catch(err) {
-                console.log(err);
+                logger.log({level: 'error', message: `Could not format day from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`});
             }
         },
         
@@ -49,7 +46,7 @@ const {
                 const år = dato.getFullYear()
                 return år
             } catch(err) {
-                console.log(err);
+                logger.log({level: 'error', message: `Could not format year from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`});
             }
         },
 
@@ -58,7 +55,7 @@ const {
             const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(String(email).toLowerCase());
         }catch(err){
-            console.log(err);
+            logger.log({level: 'error', message: `Could not validate email ${email}! Error: ${err}`});
         }
      },
      validatePassword: function(password){
@@ -66,20 +63,17 @@ const {
             const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
             return passw.test(String(password));
          }catch(err){
-             console.log(err);
+            logger.log({level: 'error', message: `Could not validate password! Error: ${err}`});
          }
      },
      sjekkOmBildeLoader: function(url) {
-        let per = performance.now()
-        // @ts-ignore
         return got(url, {http2: true}).then(res=>{
             if(res.statusCode == 200) {
-                console.log(`Getting information - Current time: ${((performance.now() - per) / 1000).toFixed(2)}s`);
                 return true;
             } else {
                 return false;
             }
-        })}
+        })},
  };
  
  exports.data = methods;

@@ -1,9 +1,11 @@
 script.
+    var error = !{error}
+    var errorType = !{errorType}
     var trendingChart = !{trendingChart}
 include includes/head.pug
 include includes/nav.pug
-div#searchDiv
 body
+    div#searchDiv
     .header-img
     .container
         h1 Discover movies
@@ -24,4 +26,31 @@ body
     include includes/footer.pug
     script(src="javascript/index/chart.js")
     script(src="javascript/index/liveSearch.js")
-    //p!= UIkit.modal("#modal-center").show();
+script.
+    if(error != undefined) {
+        console.log(error);
+        switch(errorType) {
+            case "signup": 
+                UIkit.modal("#modal-center").show();
+                document.getElementById("loginButton").className = "";
+                document.getElementById("signupButton").className = "uk-active";
+                document.getElementById("loginForm").className = "";
+                document.getElementById("signupForm").className = "uk-active";
+                document.getElementById("loginButton").ariaExpanded="false";
+                document.getElementById("signup-error").style.display='block';
+                document.getElementById("signup-error").innerHTML += 'ERROR: ' + error;
+                break;
+            case "login":
+                UIkit.modal("#modal-center").show();
+                document.getElementById("login-error").style.display='block';
+                document.getElementById("login-error").innerHTML += 'ERROR: ' + error;
+                break;
+            case "forgottenPassword":
+                UIkit.modal("#modal-center").show();
+                document.getElementById("forgot-error").style.display='block';
+                document.getElementById("forgot-error").innerHTML += 'ERROR: ' + error;
+                break;
+            default:
+                UIkit.modal("#modal-center").hide();
+        }
+    }

@@ -1,0 +1,20 @@
+script.
+    var usern = {[usern]};
+.uk-card.uk-card-default.uk-card-body
+    p Profile information
+    form(action='/user/changeUsername' method='post')
+        .uk-margin
+            .uk-inline
+                span.uk-form-icon(uk-icon='icon: user')
+                input.uk-input(type='text' name='username' placeholder=`${usern.username}`)
+        .uk-margin
+            .uk-inline
+                button.uk-button.uk-button-default.uk-margin-right(type='submit') Enter
+    p Upload profile picture by clicking the button below
+    form(action='/user/upload-avatar' method='post' enctype='multipart/form-data')
+        .uk-margin 
+            .uk-inline
+                 input(type='file' name='avatar')
+        .uk-margin 
+            .uk-inline
+                button.uk-button.uk-button-default.uk-margin-right(type='submit') Upload
