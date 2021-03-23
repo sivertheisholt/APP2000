@@ -3,14 +3,24 @@
   .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
     ul.uk-slider-items.uk-grid.uk-grid-match(class='uk-child-width-1-5@s')
       each item in discoverMovies
-        li
-          a(href=`http://localhost:3000/mediainfo/filminfo/${item.id}`)
-            .uk-card.uk-card-default.card-animation
-              .uk-card-media-top
-                img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')
-              .uk-card-body
-                h3.slider-card-heading.uk-card-title= item.title
-                p= item.releaseDate
+        - if(process.env.NODE_ENV == 'production')
+            li
+                a(href=`https://filmatoryeksamen.herokuapp.com/mediainfo/filminfo/${item.id}`)
+                    .uk-card.uk-card-default.card-animation
+                        .uk-card-media-top
+                            img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')
+                        .uk-card-body
+                            h3.slider-card-heading.uk-card-title= item.title
+                            p= item.releaseDate
+        - else
+            li
+                a(href=`http://localhost:3000/mediainfo/filminfo/${item.id}`)
+                    .uk-card.uk-card-default.card-animation
+                        .uk-card-media-top
+                            img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')
+                        .uk-card-body
+                            h3.slider-card-heading.uk-card-title= item.title
+                            p= item.releaseDate
     a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slider-item='previous')
     a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slider-item='next')
   ul.uk-slider-nav.uk-dotnav.uk-flex-center.uk-margin
