@@ -227,4 +227,18 @@ footer {
   pointer-events: none;
 }
 
+/* About page
+*/
+
+.about-page-margin {
+  margin-top: 36;
+  margin-bottom: 40;
+  }
+
+.about-page-center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
