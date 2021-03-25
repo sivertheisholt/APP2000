@@ -1,6 +1,8 @@
 const express = require('express');
 const tmdb = require('../handling/tmdbHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
+const favoriteMovie = require('../handling/favouriteMovie');
+const favoriteTv = require('../handling/favouriteTv');
 const router = express.Router();
 const asyncExpress = require('../handling/expressUtils');
 const uploadHandle = require('../handling/uploadHandler');
@@ -13,12 +15,46 @@ const fs = require("fs");
 router.get("/dashboard", asyncExpress (async (req, res, next) => {
   var session = await Session.findOne({_id: req.sessionID});
   var usern = await Bruker.findOne({_id: req.session.userId});
+  let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.session.userId)).information;
+  let favoriteTvs = (await favoriteTv.getAllTvFavourites(req.session.userId)).information;
+  console.log(favoriteTvs);
+  let tempListFavoriteMovies = [];
+  let finalListFavoriteMovies = [];
+  let tempListFavoriteTvShow = [];
+  let finalListFavoriteTvShow = [];
+  
+  for(const item of favoriteMovies){
+    tempListFavoriteMovies.push(await favoriteMovie.getFromDatabase(item));
+  }
+  for(const item of tempListFavoriteMovies){
+    let tempObj = {
+        id: item.information.id,
+        pictureUrl: item.information.poster_path,
+        title: item.information.original_title,
+        releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(item.information.release_date, ', ')
+      }
+      finalListFavoriteMovies.push(tempObj);
+  }
+  for(const item of favoriteTvs){
+    tempListFavoriteTvShow.push(await favoriteTv.getFromDatabase(item));
+  }
+  for(const item of tempListFavoriteTvShow){
+    let tempObj = {
+        id: item.information.id,
+        pictureUrl: item.information.poster_path,
+        title: item.information.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(item.information.first_air_date, ', ')
+      }
+      finalListFavoriteTvShow.push(tempObj);
+  }
+  let allFavorites= finalListFavoriteMovies.concat(finalListFavoriteTvShow);
   if(!session){
     res.redirect("/");
   }
   res.render("user/dashboard", {
     username: session ? true : false,
-    usern: usern
+    usern: usern,
+    allFavorites: allFavorites
     });
 }));
 
@@ -86,7 +122,6 @@ router.post('/upload-avatar', (req, res) => {
                     if(err){
                         console.log(err);
                     }
-                    console.log("deleted");
                 });
                 bruker.avatar = dest + req.file.filename;
                 bruker.save((err, result) => {

@@ -4,14 +4,15 @@ const path = require("path");
 const http = require("http");
 const bodyParser = require('body-parser');
 const express = require("express");
-const session = require('express-session');
+let session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const socketIO = require('socket.io');
 const tmdb = require('./handling/tmdbHandler');
 const search = require("./handling/searchHandler");
 const logger = require('./logging/logger');
-
+const favoriteMov = require('./handling/favouriteMovie');
+const favoriteTv = require('./handling/favouriteTv');
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
 tmdb.data.hentTmdbInformasjon();
 
@@ -44,7 +45,7 @@ app.set("view engine", "pug");
 app.use(express.static(publicPath));
 
 //Fortelle express at pakken session skal brukes
-app.use(session({
+var sessionExpress = session({
   secret: process.env.SESSION_SECRET, //her burde det brukes .env
   resave: false,
   saveUninitialized: false,
@@ -54,8 +55,12 @@ app.use(session({
   }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 //Setter cookies til å slettes etter 1 day
-  }
-}));
+  },
+});
+
+var sharedsession = require('express-socket.io-session');
+
+app.use(sessionExpress);
 
 //Denne sier at vi skal bruke bodyParser som gjør om body til json
 app.use(bodyParser.json()); 
@@ -71,6 +76,8 @@ app.use((err, req, res, next) => {
     res.send("Something wrong happen! Please try again later");
     logger.log({level: 'error',message: `Express threw an error! Error: ${err}`});
 });
+
+io.use(sharedsession(sessionExpress));
 
 //Setter opp socket.io
 io.on('connection', async (socket) => {
@@ -97,5 +104,26 @@ io.on('connection', async (socket) => {
   })
 });
 
+io.on('connection', async (socket) => {
+  socket.on("favoriteMovie", async (args) => {
+    favoriteMov.addFavourite(args, socket.handshake.session.userId);
+    socket.emit('favoritedMovie');
+ });
+  socket.on('unFavoriteMovie', async (args) => {
+    favoriteMov.removeFavorite(args, socket.handshake.session.userId);
+    socket.emit('unfavoritedMovie');
+  });
+})
+
+io.on('connection', async (socket) => {
+  socket.on("favoriteTv", async (args) => {
+    favoriteTv.addFavourite(args, socket.handshake.session.userId);
+    socket.emit('favoritedTv');
+ });
+  socket.on('unfavoriteTv', async (args) => {
+    favoriteTv.removeFavorite(args, socket.handshake.session.userId);
+    socket.emit('unfavoritedTv');
+  });
+})
 //"Lytter" serveren
 server.listen(port, () => logger.log({level: 'info', message: `Application is now listening on port ${port}`}));

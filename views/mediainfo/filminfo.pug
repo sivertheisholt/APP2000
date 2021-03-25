@@ -8,7 +8,11 @@
 - var counter = 0;
 - var director;
 - var screenplay;
+- var user = user;
+- var username = username;
 
+script.
+    var isMovFav = !{isMovFav};
 each item in filminformasjon.genres
   - genres += item.name + " ";
   - if(counter == 1)
@@ -41,7 +45,6 @@ each actor in actors
   each person in listOfPersons 
     - if(actor.id == person.id)
       - actor.imdbID = person.imdb_id;
-
 include ../includes/head.pug
 include ../includes/nav.pug
 
@@ -58,8 +61,8 @@ body
         .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
               h2= filminformasjon.title
-                a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' width="40" height ="40" uk-icon='heart')
-                a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' width="40" height ="40" uk-icon='star')
+                a(href='#' width="40" id="heart-movie-favorite" data-movieid=`${filminformasjon.id}` height ="40" uk-icon='heart')
+                a(href='#'  width="40" height ="40" uk-icon='star')
               h3= `${filminformasjon.release_date} ${genres}`
               h3= `${filminformasjon.runtime} Minutes`
               h1= `${filminformasjon.vote_average*10}%`
@@ -119,5 +122,6 @@ body
                     | Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             li
               iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
-
     include ../includes/footer.pug
+    script(src="/javascript/mediainfo/moviefavorite.js")
+    

@@ -67,21 +67,20 @@ async function getAllMovieFavourites(userId) {
 
 //Legger til film i database
 async function addFavourite(movieId, userId) {
-    logger.log({level: 'debug', message: `Adding movie with id ${movieId} to ${userId}'s favourite list`});
-    //Sjekker om bruker eksisterer
-    const user = await Bruker.findOne({_id:userId});
-    if(!user) {
+    logger.log({level: 'debug', message: `Adding movie with id ${movieId} to ${userId}'s favourite list`}); 
+    const user = await getUserFromId(userId);
+    if(!user.status) {
         logger.log({level: 'debug', message: `User with id ${userId} was not found`}); 
         return new ValidationHandler(false, 'User was not found');
     }
     //Sjekker om bruker allerede har filmen som favoritt
-    const isFavorited = await checkIfFavorited(movieId, user);
+    /* const isFavorited = await checkIfFavorited(movieId, user);
     if(isFavorited.status)
-        return new ValidationHandler(true, isFavorited.information);
+        return new ValidationHandler(true, isFavorited.information); */
     //Prøver å oppdatere bruker
     try {
         logger.log({level: 'debug', message: `Updating user with id ${userId} in the database`}); 
-        user.updateOne({$push: {movieFavourites: movieId}}).exec();
+        user.information.updateOne({$push: {movieFavourites: movieId}}).exec();
     } catch(err) {
         logger.log({level: 'error', message: `Could not update user with id ${userId} in the database! Error: ${err}`}); 
         return new ValidationHandler(false, 'Could not update user');
@@ -103,4 +102,26 @@ async function addFavourite(movieId, userId) {
     return new ValidationHandler(true, `Favourite successfully added`);
 }
 
-module.exports = addFavourite, checkIfFavorited;
+async function getUserFromId(userId) {
+    const user = await Bruker.findOne({_id: userId});
+    if(!user)
+        return new ValidationHandler(false, `Can't find user in database`);
+    return new ValidationHandler(true, user);
+}
+async function removeFavorite(movieId, userId) {
+    const user = await getUserFromId(userId);
+    if(!user.status) {
+        logger.log({level: 'debug', message: `User with id ${userId} was not found`}); 
+        return new ValidationHandler(false, 'User was not found');
+    }
+    //Prøver å oppdatere bruker
+    try {
+        logger.log({level: 'debug', message: `Updating user with id ${userId} in the database`}); 
+        user.information.updateOne({$pull: {movieFavourites: movieId}}).exec();
+    } catch(err) {
+        logger.log({level: 'error', message: `Could not update user with id ${userId} in the database! Error: ${err}`}); 
+        return new ValidationHandler(false, 'Could not update user');
+    }
+}
+
+module.exports = {addFavourite, checkIfFavorited, getUserFromId, removeFavorite, getAllMovieFavourites, getFromDatabase};

@@ -13,6 +13,15 @@ const logger = require('../logging/logger');
             logger.log({level: 'error', message: `Could not format date from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`}); 
          }
      },
+     lagFinDatoFraDB: function(datoInn, stringTilSplitting) {
+        try {
+           let d = datoInn.toLocaleString();
+           d = d.split(stringTilSplitting)[0];
+           return d;
+        } catch(err) {
+           logger.log({level: 'error', message: `Could not format date from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`}); 
+        }
+    },
 
     // lagfinMåned Funksjon for å hente månedsnummer (plassering)
     lagfinMåned: function(datoInn, stringTilSplitting) {
@@ -49,7 +58,6 @@ const logger = require('../logging/logger');
                 logger.log({level: 'error', message: `Could not format year from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`});
             }
         },
-
      validateEmail: function(email){
         try{
             const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

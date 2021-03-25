@@ -4,28 +4,27 @@ include ../includes/nav.pug
 body
     .container
         h2.uk-heading-small.uk-heading-divider.uk-margin-medium-bottom Dashboard
-        .uk-child-width-1-1.uk-grid=''
-            div(uk-grid='')
-                .uk-width-auto
-                    img.center.avatar(src=`${usern.avatar}` alt='')
-                    ul.uk-tab-left.dashboard-menu(uk-tab='connect: #component-tab-left; animation: uk-animation-fade')
-                        li  
-                            a(href='#') Change Password
-                        li
-                            a(href='#') Favorites
-                        li
-                            a(href='#') Statistics
-                        li
-                            a(href='#') Profile
-                .uk-width-expand
-                    ul#component-tab-left.uk-switcher
-                        li
-                            include ../includes/dashboard/changepassword.pug
-                        li
-                            include ../includes/dashboard/favorites.pug
-                        li
-                            include ../includes/dashboard/statistics.pug
-                        li 
-                            include ../includes/dashboard/profileinfo.pug
+        div(uk-grid='')
+            .uk-width-1-4
+                img.center.avatar(src=`${usern.avatar}` alt='')
+                ul.uk-tab-left.dashboard-menu(uk-tab='connect: #component-tab-left; animation: uk-animation-fade')
+                    li  
+                        a(href='#') Change Password
+                    li
+                        a(href='#') Favorites
+                    li
+                        a(href='#') Statistics
+                    li
+                        a(href='#') Profile
+            .uk-width-3-4
+                ul#component-tab-left.uk-switcher
+                    li
+                        include ../includes/dashboard/changepassword.pug
+                    li 
+                        include ../includes/dashboard/favorites.pug
+                    li
+                        include ../includes/dashboard/statistics.pug
+                    li 
+                        include ../includes/dashboard/profileinfo.pug
 
 include ../includes/footer.pug
