@@ -15,8 +15,8 @@ const logger = require('../logging/logger');
      },
      lagFinDatoFraDB: function(datoInn, stringTilSplitting) {
         try {
-           let d = datoInn.toLocaleString();
-           d = d.split(stringTilSplitting)[0];
+           let d = datoInn.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' });
+           d = `${d.split(stringTilSplitting)[0]} ${d.split(stringTilSplitting)[1]}`
            return d;
         } catch(err) {
            logger.log({level: 'error', message: `Could not format date from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`}); 
