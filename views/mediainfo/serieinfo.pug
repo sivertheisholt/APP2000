@@ -8,7 +8,8 @@
 - var counter = 0;
 - var execProducer;
 - var creators = [];
-
+script.
+    var isTvFav = !{isTvFav};
 each item in serieinformasjon.created_by 
   - creators.push(item.name);
 
@@ -54,8 +55,8 @@ body
         .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
               h2= serieinformasjon.name
-                a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' width="40" height ="40" uk-icon='heart')
-                a(href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO' width="40" height ="40" uk-icon='star')
+                a(href='#' width="40" id="heart-tv-favorite" data-tvid=`${serieinformasjon.id}` height ="40" uk-icon='heart')
+                a(href='#'  width="40" height ="40" uk-icon='star')
               h3= `${serieinformasjon.first_air_date.substring(0,4)} - ${serieinformasjon.last_air_date.substring(0,4)} ${genres}`
               h3= `${serieinformasjon.number_of_seasons} Seasons`
               h1= `${serieinformasjon.vote_average*10}%`
@@ -117,3 +118,4 @@ body
               iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
 
       include ../includes/footer.pug
+      script(src="/javascript/mediainfo/seriefavorite.js")

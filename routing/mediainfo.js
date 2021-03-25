@@ -3,25 +3,33 @@ const tmdb = require('../handling/tmdbHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
 const router = express.Router();
 const asyncExpress = require('../handling/expressUtils');
-
+const Session = require("../database/sessionSchema");
+const Bruker = require('../database/brukerSchema');
+const movieFavorite = require('../handling/favouriteMovie');
+const tvFavorite = require('../handling/favouriteTv');
 
 //Filminfo siden kjører her
 
 
 router.get("/filminfo/:id",  asyncExpress (async (req, res, next) => {
+  var session = await Session.findOne({_id: req.sessionID});
+  var user = await Bruker.findOne({_id: req.session.userId});
   let filminfo = await tmdb.data.getMovieInfoByID(req.url.slice(10));
   let castinfo = await tmdb.data.getMovieCastByID(req.url.slice(10));
   let videos = await tmdb.data.getMovieVideosByID(req.url.slice(10));
   let listOfPersons = [];
-
   for(const item of castinfo.cast){
     listOfPersons.push(await tmdb.data.getPersonByID(item.id));
   }
+  var isMovFav = await movieFavorite.checkIfFavorited(filminfo.id,(await movieFavorite.getUserFromId(req.session.userId)).information);
 res.render("mediainfo/filminfo", {
+  username: session ? true : false,
   filminformasjon:filminfo,
   castinfo:castinfo,
   videos:videos,
-  listOfPersons:listOfPersons
+  listOfPersons:listOfPersons,
+  user: user,
+  isMovFav: JSON.stringify(isMovFav.status)
 });
 }));
 
@@ -33,6 +41,8 @@ res.render("mediainfo/filminfo", {
 
 //Serieinfo siden kjører her
 router.get("/serieinfo/:id",  asyncExpress (async (req, res, next) => {
+  var session = await Session.findOne({_id: req.sessionID});
+  var user = await Bruker.findOne({_id: req.session.userId});
   let serieinfo = await tmdb.data.getSerieInfoByID(req.url.slice(10));
   let castinfo = await tmdb.data.getSerieCastByID(req.url.slice(10));
   let videos = await tmdb.data.getSerieVideosByID(req.url.slice(10));
@@ -42,13 +52,16 @@ router.get("/serieinfo/:id",  asyncExpress (async (req, res, next) => {
     //let person = await tmdb.data.getPersonByID(item.id);
     listOfPersons.push(await tmdb.data.getPersonByID(item.id));
   }
-  
+  var isTvFav = await tvFavorite.checkIfFavorited(serieinfo.id,(await tvFavorite.getUserFromId(req.session.userId)).information);
   //let person = await tmdb.data.getPersonByID(personID);
 res.render("mediainfo/serieinfo", {
+  username: session ? true : false,
   serieinformasjon:serieinfo,
   castinfo:castinfo,
   videos:videos,
-  listOfPersons:listOfPersons
+  listOfPersons:listOfPersons,
+  user: user,
+  isTvFav: JSON.stringify(isTvFav.status)
 });
 }));
 

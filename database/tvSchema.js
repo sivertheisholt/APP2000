@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 //Vi lager et nytt schema
-const filmSchema = new mongoose.Schema({
+const tvSchema = new mongoose.Schema({
     backdrop_path: {
         type: String,
     },
@@ -70,4 +70,4 @@ const filmSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('film', filmSchema); //ES6 Module
+module.exports = mongoose.model('tv', tvSchema); //ES6 Module
