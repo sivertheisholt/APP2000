@@ -18,10 +18,14 @@ router.get("/filminfo/:id",  asyncExpress (async (req, res, next) => {
   let castinfo = await tmdb.data.getMovieCastByID(req.url.slice(10));
   let videos = await tmdb.data.getMovieVideosByID(req.url.slice(10));
   let listOfPersons = [];
+  var isMovFav = false;
   for(const item of castinfo.cast){
     listOfPersons.push(await tmdb.data.getPersonByID(item.id));
   }
-  var isMovFav = await movieFavorite.checkIfFavorited(filminfo.id,(await movieFavorite.getUserFromId(req.session.userId)).information);
+  if(session){
+    isMovFav = await movieFavorite.checkIfFavorited(filminfo.id,(await movieFavorite.getUserFromId(req.session.userId)).information);
+  }
+ 
 res.render("mediainfo/filminfo", {
   username: session ? true : false,
   filminformasjon:filminfo,
@@ -47,12 +51,15 @@ router.get("/serieinfo/:id",  asyncExpress (async (req, res, next) => {
   let castinfo = await tmdb.data.getSerieCastByID(req.url.slice(10));
   let videos = await tmdb.data.getSerieVideosByID(req.url.slice(10));
   let listOfPersons = [];
+  var isTvFav = false;
 
   for(const item of castinfo.cast){
     //let person = await tmdb.data.getPersonByID(item.id);
     listOfPersons.push(await tmdb.data.getPersonByID(item.id));
   }
-  var isTvFav = await tvFavorite.checkIfFavorited(serieinfo.id,(await tvFavorite.getUserFromId(req.session.userId)).information);
+  if(session){
+     isTvFav = await tvFavorite.checkIfFavorited(serieinfo.id,(await tvFavorite.getUserFromId(req.session.userId)).information);
+  }
   //let person = await tmdb.data.getPersonByID(personID);
 res.render("mediainfo/serieinfo", {
   username: session ? true : false,
