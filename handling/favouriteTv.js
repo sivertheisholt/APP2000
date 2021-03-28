@@ -2,34 +2,8 @@ const Tv = require('../database/tvSchema');
 const Bruker = require('../database/brukerSchema');
 const ValidationHandler = require('./ValidationHandler');
 const logger = require('../logging/logger');
-const tmdb = require('../handling/tmdbHandler');
-
-//Sjekker om serie eksisterer i databasen
-async function checkIfSaved(tvId) {
-    logger.log({level: 'debug', message: `Checking if tv-show is already saved in database! TvId: ${tvId} `});
-    const tv = await Tv.findOne({id: tvId});
-    if(tv) {
-        logger.log({level: 'debug', message: `${tvId} is already in the database`});
-        return new ValidationHandler(true, `${tvId} is already in the database`);
-    }
-    logger.log({level: 'debug', message: `${tvId} is not in the database`});  
-    return new ValidationHandler(false, `Movie is not in the database`);
-}
-
-//Legger til serie i databasen
-function addToDatabase(serie) {
-    logger.log({level: 'debug', message: `Adding movie to database with id: ${serie.id}...`});
-    delete serie.next_episode_to_air
-    const tv = new Tv(serie);
-    return tv.save().then((doc, err) => {
-        if(err) {
-            logger.log({level: 'error', message: `There was an error adding the tv-show to the database! Error: ${err}`});
-            return new ValidationHandler(false, 'Could not add tv-show to the database!');
-        }
-        logger.log({level: 'info', message: `Tv-show with id ${tv.id} was saved to the database`});
-        return new ValidationHandler(true, 'Tv-show was successfully saved to the database');
-    })
-}
+const tmdb = require('./tmdbHandler');
+const tvAdder = require('../handling/tvAdder')
 
 //Skaffer serie fra database
 async function getFromDatabase(tvId) {
@@ -72,7 +46,7 @@ async function addFavourite(tvId, userId) {
         return false;
     user.information.updateOne({$push: {tvFavourites: tvId}}).exec();
     //Sjekker om serie er lagret i database
-    const isSaved = await checkIfSaved(tvId);
+    const isSaved = await tvAdder.checkIfSaved(tvId);
     if(isSaved.status)
         return new ValidationHandler(true,isSaved.information);
     //Skaffer film informasjon
@@ -82,7 +56,7 @@ async function addFavourite(tvId, userId) {
         return new ValidationHandler(false, 'Could not retrieve tv-show information');
     }
     //Legger til film i database
-    const addToDatabaseResult = await addToDatabase(serieInfo);
+    const addToDatabaseResult = await tvAdder.addToDatabase(serieInfo);
     if(!addToDatabaseResult.status)
         return new ValidationHandler(false, addToDatabaseResult.information);
     return new ValidationHandler(true, `Favourite successfully added`);
