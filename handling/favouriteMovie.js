@@ -1,20 +1,9 @@
 const Film = require('../database/filmSchema');
 const Bruker = require('../database/brukerSchema');
 const logger = require('../logging/logger');
-const tmdb = require('../handling/tmdbHandler');
+const tmdb = require('./tmdbHandler');
 const ValidationHandler = require('./ValidationHandler');
-
-//Sjekker om filmen eksisterer i databasen
-async function checkIfSaved(movieId) {
-    logger.log({level: 'debug', message: `Checking if movie is already saved in database! MovieId: ${movieId} `});
-    const film = await Film.findOne({id: movieId});
-    if(film) {
-        logger.log({level: 'debug', message: `${movieId} is already in the database`});
-        return new ValidationHandler(true, `${movieId} is already in the database`);
-    }
-    logger.log({level: 'debug', message: `${movieId} is not in the database`});  
-    return new ValidationHandler(false, `Movie is not in the database`);
-}
+const movieAdder = require('./movieAdder')
 
 //Sjekker om bruker har filmen som favoritt
 async function checkIfFavorited(movieId, user) {
@@ -27,21 +16,6 @@ async function checkIfFavorited(movieId, user) {
     }
     logger.log({level: 'debug', message: `UserId: ${user._id} does not have movie with id ${movieId} favourited`});
     return new ValidationHandler(false, `Movie is not favourited`);
-}
-
-//Legger til film i databasen
-function addToDatabase(movie) {
-    logger.log({level: 'debug', message: `Adding movie to database with id: ${movie.id}...`});
-    delete movie.production_companies, movie.production_countries, movie.spoken_languages
-    const film = new Film(movie);
-    return film.save().then((doc, err) => {
-        if(err) {
-            logger.log({level: 'error', message: `There was an error adding the movie to the database! Error: ${err}`});
-            return new ValidationHandler(false, 'Could not add movie to the database!');
-        }
-        logger.log({level: 'info', message: `Movie with id ${movie.id} was saved to the database`});
-        return new ValidationHandler(true, 'Movie was successfully saved to the database');
-    })
 }
 
 //Skaffer film fra database
@@ -74,9 +48,9 @@ async function addFavourite(movieId, userId) {
         return new ValidationHandler(false, 'User was not found');
     }
     //Sjekker om bruker allerede har filmen som favoritt
-    /* const isFavorited = await checkIfFavorited(movieId, user);
+    const isFavorited = await checkIfFavorited(movieId, user);
     if(isFavorited.status)
-        return new ValidationHandler(true, isFavorited.information); */
+        return new ValidationHandler(true, isFavorited.information);
     //Prøver å oppdatere bruker
     try {
         logger.log({level: 'debug', message: `Updating user with id ${userId} in the database`}); 
@@ -86,7 +60,7 @@ async function addFavourite(movieId, userId) {
         return new ValidationHandler(false, 'Could not update user');
     }
     //Sjekker om film er lagret i database
-    const isSaved = await checkIfSaved(movieId);
+    const isSaved = await movieAdder.checkIfSaved(movieId);
     if(isSaved.status)
         return new ValidationHandler(true,isSaved.information);
     //Skaffer film informasjon
@@ -96,7 +70,7 @@ async function addFavourite(movieId, userId) {
         return new ValidationHandler(false, 'Could not retrieve movie information');
     }
     //Legger til film i database
-    const addToDatabaseResult = await addToDatabase(movieInfo);
+    const addToDatabaseResult = await movieAdder.addToDatabase(movieInfo);
     if(!addToDatabaseResult.status)
         return new ValidationHandler(false, addToDatabaseResult.information);
     return new ValidationHandler(true, `Favourite successfully added`);
