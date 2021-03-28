@@ -1,3 +1,4 @@
+// @ts-ignore
 var socket = io();
 
 $('#searchBox').on('input',function() {
