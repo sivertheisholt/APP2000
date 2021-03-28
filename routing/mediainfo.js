@@ -5,8 +5,10 @@ const router = express.Router();
 const asyncExpress = require('../handling/expressUtils');
 const Session = require("../database/sessionSchema");
 const Bruker = require('../database/brukerSchema');
-const movieFavorite = require('../handling/favouriteMovie');
-const tvFavorite = require('../handling/favouriteTv');
+const movieFavorite = require('../favourite/favouriteMovie');
+const movieHandler = require('../handling/movieHandler');
+const tvFavorite = require('../favourite/favouriteTv');
+const tvHandler = require('../handling/tvHandler');
 
 //Filminfo siden kjører her
 

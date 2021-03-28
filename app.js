@@ -11,8 +11,8 @@ const socketIO = require('socket.io');
 const tmdb = require('./handling/tmdbHandler');
 const search = require("./handling/searchHandler");
 const logger = require('./logging/logger');
-const favoriteMov = require('./handling/favouriteMovie');
-const favoriteTv = require('./handling/favouriteTv');
+const favoriteMov = require('./favourite/favouriteMovie');
+const favoriteTv = require('./favourite/favouriteTv');
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
 tmdb.data.hentTmdbInformasjon();
 
@@ -102,20 +102,15 @@ io.on('connection', async (socket) => {
     }
     logger.log({level: 'warn',message:'No result found'})
   })
-});
-
-io.on('connection', async (socket) => {
   socket.on("favoriteMovie", async (args) => {
-    favoriteMov.addFavourite(args, socket.handshake.session.userId);
+    const test =  await favoriteMov.addFavourite(args, socket.handshake.session.userId);
+    console.log(test.information)
     socket.emit('favoritedMovie');
  });
   socket.on('unFavoriteMovie', async (args) => {
     favoriteMov.removeFavorite(args, socket.handshake.session.userId);
     socket.emit('unfavoritedMovie');
   });
-})
-
-io.on('connection', async (socket) => {
   socket.on("favoriteTv", async (args) => {
     favoriteTv.addFavourite(args, socket.handshake.session.userId);
     socket.emit('favoritedTv');
@@ -124,6 +119,6 @@ io.on('connection', async (socket) => {
     favoriteTv.removeFavorite(args, socket.handshake.session.userId);
     socket.emit('unfavoritedTv');
   });
-})
+});
 //"Lytter" serveren
 server.listen(port, () => logger.log({level: 'info', message: `Application is now listening on port ${port}`}));

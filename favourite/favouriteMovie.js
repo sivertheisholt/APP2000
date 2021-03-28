@@ -1,9 +1,9 @@
 const Film = require('../database/filmSchema');
 const Bruker = require('../database/brukerSchema');
 const logger = require('../logging/logger');
-const tmdb = require('./tmdbHandler');
-const ValidationHandler = require('./ValidationHandler');
-const movieAdder = require('./movieAdder')
+const tmdb = require('../handling/tmdbHandler');
+const ValidationHandler = require('../handling/ValidationHandler');
+const movieHandler = require('../handling/movieHandler')
 
 //Sjekker om bruker har filmen som favoritt
 async function checkIfFavorited(movieId, user) {
@@ -48,9 +48,10 @@ async function addFavourite(movieId, userId) {
         return new ValidationHandler(false, 'User was not found');
     }
     //Sjekker om bruker allerede har filmen som favoritt
-    const isFavorited = await checkIfFavorited(movieId, user);
-    if(isFavorited.status)
+    const isFavorited = await checkIfFavorited(movieId, user.information);
+    if(isFavorited.status) {
         return new ValidationHandler(true, isFavorited.information);
+    }
     //Prøver å oppdatere bruker
     try {
         logger.log({level: 'debug', message: `Updating user with id ${userId} in the database`}); 
@@ -60,7 +61,7 @@ async function addFavourite(movieId, userId) {
         return new ValidationHandler(false, 'Could not update user');
     }
     //Sjekker om film er lagret i database
-    const isSaved = await movieAdder.checkIfSaved(movieId);
+    const isSaved = await movieHandler.checkIfSaved(movieId);
     if(isSaved.status)
         return new ValidationHandler(true,isSaved.information);
     //Skaffer film informasjon
@@ -70,7 +71,7 @@ async function addFavourite(movieId, userId) {
         return new ValidationHandler(false, 'Could not retrieve movie information');
     }
     //Legger til film i database
-    const addToDatabaseResult = await movieAdder.addToDatabase(movieInfo);
+    const addToDatabaseResult = await movieHandler.addToDatabase(movieInfo);
     if(!addToDatabaseResult.status)
         return new ValidationHandler(false, addToDatabaseResult.information);
     return new ValidationHandler(true, `Favourite successfully added`);

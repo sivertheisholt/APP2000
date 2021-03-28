@@ -1,9 +1,9 @@
 const Tv = require('../database/tvSchema');
 const Bruker = require('../database/brukerSchema');
-const ValidationHandler = require('./ValidationHandler');
+const ValidationHandler = require('../handling/ValidationHandler');
 const logger = require('../logging/logger');
-const tmdb = require('./tmdbHandler');
-const tvAdder = require('../handling/tvAdder')
+const tmdb = require('../handling/tmdbHandler');
+const tvHandler = require('../handling/tvHandler')
 
 //Skaffer serie fra database
 async function getFromDatabase(tvId) {
@@ -44,9 +44,21 @@ async function addFavourite(tvId, userId) {
     const user = await getUserFromId(userId);
     if(!user.status)
         return false;
-    user.information.updateOne({$push: {tvFavourites: tvId}}).exec();
+    //Sjekker om bruker allerede har filmen som favoritt
+    const isFavorited = await checkIfFavorited(tvId, user.information);
+    if(isFavorited.status) {
+        return new ValidationHandler(true, isFavorited.information);
+    }
+    //Prøver å oppdatere bruker
+    try {
+        logger.log({level: 'debug', message: `Updating user with id ${userId} in the database`}); 
+        user.information.updateOne({$push: {tvFavourites: tvId}}).exec();
+    } catch(err) {
+        logger.log({level: 'error', message: `Could not update user with id ${userId} in the database! Error: ${err}`}); 
+        return new ValidationHandler(false, 'Could not update user');
+    }
     //Sjekker om serie er lagret i database
-    const isSaved = await tvAdder.checkIfSaved(tvId);
+    const isSaved = await tvHandler.checkIfSaved(tvId);
     if(isSaved.status)
         return new ValidationHandler(true,isSaved.information);
     //Skaffer film informasjon
@@ -56,7 +68,7 @@ async function addFavourite(tvId, userId) {
         return new ValidationHandler(false, 'Could not retrieve tv-show information');
     }
     //Legger til film i database
-    const addToDatabaseResult = await tvAdder.addToDatabase(serieInfo);
+    const addToDatabaseResult = await tvHandler.addToDatabase(serieInfo);
     if(!addToDatabaseResult.status)
         return new ValidationHandler(false, addToDatabaseResult.information);
     return new ValidationHandler(true, `Favourite successfully added`);

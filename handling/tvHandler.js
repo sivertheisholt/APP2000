@@ -1,5 +1,6 @@
 const logger = require("../logging/logger");
 const ValidationHandler = require("./ValidationHandler");
+const Tv = require('../database/tvSchema');
 
 //Sjekker om serie eksisterer i databasen
 async function checkIfSaved(tvId) {
