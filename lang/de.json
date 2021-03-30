@@ -1,0 +1,17 @@
+{
+    "NAV_HOME": "Zuhause",
+    "NAV_ABOUT": "Über",
+    "NAV_EXPLORE": "Erkunden",
+    "NAV_MOVIES": "Filme",
+    "NAV_TVSHOWS": "Fernsehshows",
+    "NAV_MORE": "Mehr",
+    "NAV_UPCOMING": "Bevorstehende",
+    "NAV_CONTACT": "Kontakt",
+    "NAV_SEARCH": "Search...",
+    "NAV_SIGNIN": "Anmelden",
+    "NAV_ACCOUNT": "Konto",
+    "NAV_MYACCOUNT": "Mein Konto",
+    "NAV_FAVORITES": "Favoriten",
+    "NAV_LOGOUT": "Ausloggen",
+    "MODAL_SIGNUP": "Anmelden"
+}

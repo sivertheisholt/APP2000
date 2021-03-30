@@ -6,15 +6,24 @@ const Session = require("../database/sessionSchema")
 const asyncExpress = require('../handling/expressUtils');
 const charts = require('../handling/chartMaker');
 const logger = require('../logging/logger');
+const { readableHighWaterMark } = require('../logging/logger');
+const { set, curryRight } = require('lodash');
+
+router.all('*', function (req, res, next) {
+  var locale = 'en';
+  req.setLocale(locale);
+  res.locals.language = locale;
+  next();
+});
 
 //Sender videre basert på directory
 router.use('/mediainfo', require('./mediainfo'));
 router.use('/auth', require('./userAuth'));
-router.use('/infosider', require('./info'));
+router.use(`*/infosider`, require('./info'));
 router.use('/user', require('./dashboard'));
 
 //Startsiden kjører her
-router.get("/", asyncExpress (async (req, res, next) => {
+router.get("/:currentLang(''||no||de||en)", asyncExpress (async (req, res, next) => {
   logger.log({level: 'debug' ,message:'Request received for /'})
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon(); //Skaffer tmdb info
   let finalListMovies = []; //Lager en tom array
@@ -23,6 +32,8 @@ router.get("/", asyncExpress (async (req, res, next) => {
   let maxTvshows = 10;
   let error = null;
   let errorType = null;
+  let currentLang = req.params.currentLang;
+  req.setLocale(currentLang);
 
   logger.log({level: 'debug' ,message:'Creating slider information for movies'})
   for(const movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
@@ -58,7 +69,6 @@ router.get("/", asyncExpress (async (req, res, next) => {
   const session = await Session.findOne({_id: req.sessionID});
   //Lager chart objekt
   let options = await charts.data.makeTrendingChart();
-
   //skaffer error
   if(req.query.error) {
     error = req.query.error;
@@ -73,8 +83,14 @@ router.get("/", asyncExpress (async (req, res, next) => {
     discoverTvshows: finalListTvshows,
     trendingChart: JSON.stringify(options),
     error: JSON.stringify(error),
-    errorType: JSON.stringify(errorType)
+    errorType: JSON.stringify(errorType),
   });
+}));
+
+router.get("/nor", asyncExpress (async (req, res, next) => {
+  console.log('lorem');
+res.render("index", {
+});
 }));
 
 module.exports = router;

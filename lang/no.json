@@ -1,0 +1,17 @@
+{
+    "NAV_HOME": "Hjem",
+    "NAV_ABOUT": "Om",
+    "NAV_EXPLORE": "Utforsk",
+    "NAV_MOVIES": "Filmer",
+    "NAV_TVSHOWS": "Tv-serier",
+    "NAV_MORE": "Mer",
+    "NAV_UPCOMING": "Kommende",
+    "NAV_CONTACT": "Kontakt",
+    "NAV_SEARCH": "Søk...",
+    "NAV_SIGNIN": "Logg Inn",
+    "NAV_ACCOUNT": "Konto",
+    "NAV_MYACCOUNT": "Min Konto",
+    "NAV_FAVORITES": "Favoritter",
+    "NAV_LOGOUT": "Logg Ut",
+    "MODAL_SIGNUP": "Meld Deg Opp"
+}

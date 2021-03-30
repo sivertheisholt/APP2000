@@ -13,6 +13,8 @@ const search = require("./handling/searchHandler");
 const logger = require('./logging/logger');
 const favoriteMov = require('./favourite/favouriteMovie');
 const favoriteTv = require('./favourite/favouriteTv');
+const i18n = require('i18n');
+
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
 tmdb.data.hentTmdbInformasjon();
 
@@ -58,7 +60,18 @@ var sessionExpress = session({
   },
 });
 
+i18n.configure({
+  locales: ['en', 'de', 'no'],
+  directory: './lang',
+  defaultLocale: 'en'
+});
+
+
+
+app.use(i18n.init);
+
 var sharedsession = require('express-socket.io-session');
+
 
 app.use(sessionExpress);
 

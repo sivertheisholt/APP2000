@@ -1,0 +1,17 @@
+{
+    "NAV_HOME": "Home",
+    "NAV_ABOUT": "About",
+    "NAV_EXPLORE": "Explore",
+    "NAV_MOVIES": "Movies",
+    "NAV_TVSHOWS": "Tv-Shows",
+    "NAV_MORE": "More",
+    "NAV_UPCOMING": "Upcoming",
+    "NAV_CONTACT": "Contact",
+    "NAV_SEARCH": "Search...",
+    "NAV_SIGNIN": "Sign In",
+    "NAV_ACCOUNT": "Account",
+    "NAV_MYACCOUNT": "My Account",
+    "NAV_FAVORITES": "Favorites",
+    "NAV_LOGOUT": "Log Out",
+    "MODAL_SIGNUP": "Signup"
+}
