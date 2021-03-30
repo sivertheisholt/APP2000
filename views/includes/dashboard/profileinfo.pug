@@ -1,7 +1,8 @@
 script.
     var usern = {[usern]};
 .uk-card.uk-card-default.uk-card-body
-    p Profile information
+    p #{__("DASHBOARD_PROFILE_INFO_TITLE")}
+    p #{__("DASHBOARD_PROFILE_INFO_DESC")}
     form(action='/user/changeUsername' method='post')
         .uk-margin
             .uk-inline
@@ -9,12 +10,12 @@ script.
                 input.uk-input(type='text' name='username' placeholder=`${usern.username}`)
         .uk-margin
             .uk-inline
-                button.uk-button.uk-button-default.uk-margin-right(type='submit') Enter
-    p Upload profile picture by clicking the button below
+                button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_ENTER")}
+    p #{__("DASHBOARD_PROFILE_INFO_UPLOAD_TEXT")}
     form(action='/user/upload-avatar' method='post' enctype='multipart/form-data')
         .uk-margin 
             .uk-inline
                  input(type='file' name='avatar')
         .uk-margin 
             .uk-inline
-                button.uk-button.uk-button-default.uk-margin-right(type='submit') Upload
+                button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("UPLOAD_BUTTON")}

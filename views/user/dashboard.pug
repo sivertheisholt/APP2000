@@ -9,13 +9,13 @@ body
                 img.center.avatar(src=`${usern.avatar}` alt='')
                 ul.uk-tab-left.dashboard-menu(uk-tab='connect: #component-tab-left; animation: uk-animation-fade')
                     li  
-                        a(href='#') Change Password
+                        a(href='#') #{__("DASHBOARD_SWITCHER_CHANGE_PASSWORD")}
                     li
-                        a(href='#') Favorites
+                        a(href='#') #{__("DASHBOARD_SWITCHER_FAVORITES")}
                     li
-                        a(href='#') Statistics
+                        a(href='#') #{__("DASHBOARD_SWITCHER_STATISTICS")}
                     li
-                        a(href='#') Profile
+                        a(href='#') #{__("DASHBOARD_SWITCHER_PROFILE")}
             .uk-width-3-4
                 ul#component-tab-left.uk-switcher
                     li
