@@ -9,66 +9,94 @@ const movieFavorite = require('../favourite/favouriteMovie');
 const movieHandler = require('../handling/movieHandler');
 const tvFavorite = require('../favourite/favouriteTv');
 const tvHandler = require('../handling/tvHandler');
+const reviewGetter = require('../review/reviewGetter');
+const userHandler = require('../handling/userHandler')
+const logger = require('../logging/logger')
 
 //Filminfo siden kjører her
 
+function getPersons(cast) {
+  let personArray = [];
+  for(const item of cast){
+    personArray.push(tmdb.data.getPersonByID(item.id));
+  }
+  return personArray;
+}
+
+function getUsernames(reviews) {
+  let userArray = [];
+  for(const item of reviews){
+    userArray.push(userHandler.getUserFromId(item.userId))
+  }
+  return userArray;
+}
 
 router.get("/filminfo/:id",  asyncExpress (async (req, res, next) => {
+  logger.log({level: 'debug', message: 'Finding session..'});
   var session = await Session.findOne({_id: req.sessionID});
-  var user = await Bruker.findOne({_id: req.session.userId});
-  let filminfo = await tmdb.data.getMovieInfoByID(req.url.slice(10));
-  let castinfo = await tmdb.data.getMovieCastByID(req.url.slice(10));
-  let videos = await tmdb.data.getMovieVideosByID(req.url.slice(10));
-  let listOfPersons = [];
+  logger.log({level: 'debug', message: 'Getting user..'});
+  var user = await userHandler.getUserFromId(req.session.userId);
   var isMovFav = false;
-  for(const item of castinfo.cast){
-    listOfPersons.push(await tmdb.data.getPersonByID(item.id));
+  logger.log({level: 'debug', message: 'Getting castinfo..'});
+  let castinfolet = await tmdb.data.getMovieCastByID(req.url.slice(10));
+  logger.log({level: 'debug', message: 'Getting reviews..'});
+  let reviews = await reviewGetter.getApprovedReviews(req.url.slice(10), "movie");
+  
+  logger.log({level: 'debug', message: 'Getting movieinfo, tailers, lists of persons & making object..'});
+  let film = {
+    filminfo: await tmdb.data.getMovieInfoByID(req.url.slice(10)),
+    castinfo: castinfolet,
+    videos: await tmdb.data.getMovieVideosByID(req.url.slice(10)),
+    listOfPersons: await Promise.all(getPersons(castinfolet.cast)),
+    reviews: reviews.information
   }
+  logger.log({level: 'debug', message: 'Getting username..'});
+  film.reviews.username = await Promise.all(getUsernames(film.reviews));
+
+  logger.log({level: 'debug', message: 'Checking if favorited..'});
   if(session){
-    isMovFav = await movieFavorite.checkIfFavorited(filminfo.id,(await movieFavorite.getUserFromId(req.session.userId)).information);
+    isMovFav = await movieFavorite.checkIfFavorited(film.filminfo.id,(await movieFavorite.getUserFromId(req.session.userId)).information);
   }
- 
+
+logger.log({level: 'debug', message: 'Rendering page..'});
 res.render("mediainfo/filminfo", {
+  film:film,
   username: session ? true : false,
-  filminformasjon:filminfo,
-  castinfo:castinfo,
-  videos:videos,
-  listOfPersons:listOfPersons,
-  user: user,
+  user: user.information,
   isMovFav: JSON.stringify(isMovFav.status)
 });
 }));
 
-/* router.get("/filminfo",  asyncExpress (async (req, res, next) => {
-res.render("mediainfo/filminfo", {
-  filminformasjon:req.session.film
-});
-})); */
-
 //Serieinfo siden kjører her
 router.get("/serieinfo/:id",  asyncExpress (async (req, res, next) => {
+  logger.log({level: 'debug', message: 'Finding session..'});
   var session = await Session.findOne({_id: req.sessionID});
+  logger.log({level: 'debug', message: 'Getting user..'});
   var user = await Bruker.findOne({_id: req.session.userId});
-  let serieinfo = await tmdb.data.getSerieInfoByID(req.url.slice(10));
-  let castinfo = await tmdb.data.getSerieCastByID(req.url.slice(10));
-  let videos = await tmdb.data.getSerieVideosByID(req.url.slice(10));
-  let listOfPersons = [];
+  logger.log({level: 'debug', message: 'Getting castinfo..'});
+  let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(10));
   var isTvFav = false;
-
-  for(const item of castinfo.cast){
-    //let person = await tmdb.data.getPersonByID(item.id);
-    listOfPersons.push(await tmdb.data.getPersonByID(item.id));
+  logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
+  let serie = {
+    serieinfo: await tmdb.data.getSerieInfoByID(req.url.slice(10)),
+    castinfo: castinfolet,
+    videos: await tmdb.data.getSerieVideosByID(req.url.slice(10)) ,
+    listOfPersons: await Promise.all(getPersons(castinfolet.cast))
   }
+  logger.log({level: 'debug', message: 'Getting list of persons'});
+  for(const item of serie.castinfo.cast){
+    //let person = await tmdb.data.getPersonByID(item.id);
+    serie.listOfPersons.push(await tmdb.data.getPersonByID(item.id));
+  }
+  logger.log({level: 'debug', message: 'Checking if favorited..'});
   if(session){
-     isTvFav = await tvFavorite.checkIfFavorited(serieinfo.id,(await tvFavorite.getUserFromId(req.session.userId)).information);
+     isTvFav = await tvFavorite.checkIfFavorited(serie.serieinfo.id,(await tvFavorite.getUserFromId(req.session.userId)).information);
   }
   //let person = await tmdb.data.getPersonByID(personID);
+  logger.log({level: 'debug', message: 'Rendering page..'});
 res.render("mediainfo/serieinfo", {
+  serie: serie,
   username: session ? true : false,
-  serieinformasjon:serieinfo,
-  castinfo:castinfo,
-  videos:videos,
-  listOfPersons:listOfPersons,
   user: user,
   isTvFav: JSON.stringify(isTvFav.status)
 });

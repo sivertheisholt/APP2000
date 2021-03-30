@@ -87,8 +87,8 @@ var methods = {
     getMovieVideosByID: async function (movieID) {
         return await tmdb.getMovieVideosByID(movieID);
     },
-    getMovieCastByID: async function (movieID) {
-        return await tmdb.getMovieCastByID(movieID);
+    getMovieCastByID:  function (movieID) {
+        return tmdb.getMovieCastByID(movieID);
     },
     getRecommendationsMovie: async function(movieId) {
         return await tmdb.getRecommendationsMovie(movieId);

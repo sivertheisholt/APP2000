@@ -1,7 +1,4 @@
-- var filminformasjon = filminformasjon;
-- var castinfo = castinfo;
-- var videos = videos;
-- var listOfPersons = listOfPersons;
+- var film = film;
 - var videoTrailers = [];
 - var genres = [];
 - var actors = [];
@@ -13,36 +10,37 @@
 
 script.
     var isMovFav = !{isMovFav};
-each item in filminformasjon.genres
+
+each item in film.filminfo.genres
   - genres += item.name + " ";
   - if(counter == 1)
    - break;
   - counter++;
 
-each item in castinfo.crew
+each item in film.castinfo.crew
   - if(item.job == 'Director')
     - director = item.name;
     - break;
 
-each item in castinfo.crew
+each item in film.castinfo.crew
   - if(item.job == 'Screenplay')
     - screenplay = item.name;
     - break;
 
-each item in castinfo.cast 
+each item in film.castinfo.cast 
   - if (item.known_for_department == 'Acting')
     - var info = {id:item.id, navn:item.name, character:item.character, picture:'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' + item.profile_path, imdbID:""}
     - if(item.profile_path == null)
         - info.picture = '/images/imgactors/altpicture.svg'
     - actors.push(info);
 
-each item in videos.results
+each item in film.videos.results
   - if(item.type == "Trailer" && item.site == "YouTube")
     - videoTrailers.push(item.key);
     - break;
 
 each actor in actors
-  each person in listOfPersons 
+  each person in film.listOfPersons 
     - if(actor.id == person.id)
       - actor.imdbID = person.imdb_id;
 include ../includes/head.pug
@@ -50,24 +48,24 @@ include ../includes/nav.pug
 
 
 body
-  .overlay(style=`background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/${filminformasjon.poster_path})`)
+  .overlay(style=`background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/${film.filminfo.poster_path})`)
     .container
       // Grid
       div(uk-grid='').film_oversikt
         // Poster image
         .uk-width-1-2.uk-flex-middle.filminfo_img
-          img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${filminformasjon.poster_path}` alt='')
+          img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${film.filminfo.poster_path}` alt='')
         // Informasjon on film
         .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
-              h2= filminformasjon.title
-                a(href='#' width="40" id="heart-movie-favorite" data-movieid=`${filminformasjon.id}` height ="40" uk-icon='heart')
+              h2= film.filminfo.title
+                a(href='#' width="40" id="heart-movie-favorite" data-movieid=`${film.filminfo.id}` height ="40" uk-icon='heart')
                 a(href='#'  width="40" height ="40" uk-icon='star')
-              h3= `${filminformasjon.release_date} ${genres}`
-              h3= `${filminformasjon.runtime} Minutes`
-              h1= `${filminformasjon.vote_average*10}%`
+              h3= `${film.filminfo.release_date} ${genres}`
+              h3= `${film.filminfo.runtime} Minutes`
+              h1= `${film.filminfo.vote_average*10}%`
               h2 Overview
-              p= filminformasjon.overview
+              p= film.filminfo.overview
               .direc(uk-grid='')
                 .uk-width-1-2
                   p Director
@@ -106,20 +104,21 @@ body
 
           ul.uk-switcher.uk-margin
             li
-              article.uk-comment.uk-comment-primary.uk-margin-top
-                header.uk-comment-header
-                  .uk-grid-medium.uk-flex-middle(uk-grid='')
-                    .uk-width-auto
-                      img.uk-comment-avatar(src='images/avatar.jpg' width='80' height='80' alt='')
-                    .uk-width-expand
-                      h4.uk-comment-title.uk-margin-remove
-                        a.uk-link-reset(href='#') Author
-                      ul.uk-comment-meta.uk-subnav.uk-subnav-divider.uk-margin-remove-top
-                        li
-                          a(href='#') 12 days ago
-                .uk-comment-body
-                  p
-                    | Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              each item in film.reviews
+                article.uk-comment.uk-comment-primary.uk-margin-top
+                  header.uk-comment-header
+                    .uk-grid-medium.uk-flex-middle(uk-grid='')
+                      .uk-width-auto
+                        img.uk-comment-avatar(src='images/avatar.jpg' width='80' height='80' alt='')
+                      .uk-width-expand
+                        h4.uk-comment-title.uk-margin-remove
+                          a.uk-link-reset(href='#') Author
+                        ul.uk-comment-meta.uk-subnav.uk-subnav-divider.uk-margin-remove-top
+                          li
+                            a(href='#') 12 days ago
+                  .uk-comment-body
+                    p
+                      | Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             li
               iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
     include ../includes/footer.pug

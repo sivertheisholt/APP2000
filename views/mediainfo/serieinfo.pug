@@ -1,7 +1,4 @@
-- var serieinformasjon = serieinformasjon;
-- var castinfo = castinfo;
-- var videos = videos;
-- var listOfPersons = listOfPersons;
+- var serie = serie;
 - var videoTrailers = [];
 - var genres = [];
 - var actors = [];
@@ -10,21 +7,21 @@
 - var creators = [];
 script.
     var isTvFav = !{isTvFav};
-each item in serieinformasjon.created_by 
+each item in serie.serieinfo.created_by 
   - creators.push(item.name);
 
-each item in serieinformasjon.genres
+each item in serie.serieinfo.genres
   - genres += item.name + " ";
   - if(counter == 1)
    - break;
   - counter++;
 
-each item in castinfo.crew
+each item in serie.castinfo.crew
   - if(item.job == 'Executive Producer')
     - execProducer = item.name;
     - break;
 
-each item in castinfo.cast 
+each item in serie.castinfo.cast 
   - if (item.known_for_department == 'Acting')
     - var info = {id:item.id, navn:item.name, character:item.character, picture:'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' + item.profile_path, imdbID:""}
     - if(item.profile_path == null)
@@ -32,11 +29,11 @@ each item in castinfo.cast
     - actors.push(info);
 
 each actor in actors
-  each person in listOfPersons 
+  each person in serie.listOfPersons 
     - if(actor.id == person.id)
       - actor.imdbID = person.imdb_id;
 
-each item in videos.results
+each item in serie.videos.results
   - if(item.type == "Trailer" && item.site == "YouTube")
     - videoTrailers.push(item.key);
     - break;
@@ -44,24 +41,24 @@ each item in videos.results
 include ../includes/head.pug
 include ../includes/nav.pug
 body
-  .overlay(style=`background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/${serieinformasjon.poster_path})`)
+  .overlay(style=`background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/${serie.serieinfo.poster_path})`)
     .container
       // Grid
       div(uk-grid='').film_oversikt
         // Poster image
         .uk-width-1-2.uk-flex-middle.filminfo_img
-          img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${serieinformasjon.poster_path}` alt='')
+          img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${serie.serieinfo.poster_path}` alt='')
         // Informasjon on film
         .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
-              h2= serieinformasjon.name
-                a(href='#' width="40" id="heart-tv-favorite" data-tvid=`${serieinformasjon.id}` height ="40" uk-icon='heart')
+              h2= serie.serieinfo.name
+                a(href='#' width="40" id="heart-tv-favorite" data-tvid=`${serie.serieinfo.id}` height ="40" uk-icon='heart')
                 a(href='#'  width="40" height ="40" uk-icon='star')
-              h3= `${serieinformasjon.first_air_date.substring(0,4)} - ${serieinformasjon.last_air_date.substring(0,4)} ${genres}`
-              h3= `${serieinformasjon.number_of_seasons} Seasons`
-              h1= `${serieinformasjon.vote_average*10}%`
+              h3= `${serie.serieinfo.first_air_date.substring(0,4)} - ${serie.serieinfo.last_air_date.substring(0,4)} ${genres}`
+              h3= `${serie.serieinfo.number_of_seasons} Seasons`
+              h1= `${serie.serieinfo.vote_average*10}%`
               h2 Overview
-              p= serieinformasjon.overview
+              p= serie.serieinfo.overview
               .direc(uk-grid='')
                 .uk-width-1-2
                   p Executive Producer
