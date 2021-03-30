@@ -1,12 +1,12 @@
-a.uk-button.uk-button-default.login-btn(href='#modal-center' uk-toggle='') Sign in
+a.uk-button.uk-button-default.nav-buttons(href='#modal-center' uk-toggle='') #{__("NAV_SIGNIN")}
 #modal-center.uk-flex-top(uk-modal='')
     .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
         button.uk-modal-close-default(type='button' uk-close='')
         ul.uk-subnav.uk-subnav-pill(uk-switcher='animation: uk-animation-fade')
             li#loginButton
-                a(href='#') Login
+                a(href='#') #{__("NAV_SIGNIN")}
             li#signupButton
-                a(href='#') Signup
+                a(href='#') #{__("MODAL_SIGNUP")}
         ul.uk-switcher.uk-margin
             li#loginForm
                 .uk-grid.uk-width-1-1.uk-flex-nowrap

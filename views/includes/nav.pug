@@ -5,24 +5,24 @@
         .desktop-nav
           ul.uk-navbar-nav
             li.uk-active
-              a(href='/') Home
+              a(href='/') #{__("NAV_HOME")}
             li
-              a(href='/infosider/about') About
+              a(href='/infosider/about') #{__("NAV_ABOUT")}
             li
-              a(href='#') Explore
+              a(href='#' uk-icon="icon: menu" ) #{__("NAV_EXPLORE")}
               .uk-navbar-dropdown
                 ul.uk-nav.uk-navbar-dropdown-nav
                   li
-                    a(href='/mediainfo/movies') Movies
+                    a(href='/mediainfo/movies') #{__("NAV_MOVIES")}
                   li
-                    a(href='/mediainfo/tvshows') TV-Shows
+                    a(href='/mediainfo/tvshows') #{__("NAV_TVSHOWS")}
                   li.uk-nav-divider
-                  .uk-nav-header More
+                  .uk-nav-header #{__("NAV_MORE")}
                   li
-                    a(href='/mediainfo/upcomingmovies') Upcoming Movies
+                    a(href='/mediainfo/upcomingmovies') #{__("NAV_UPCOMING")}
                   li.uk-nav-divider
                   li
-                    a(href='#') Contact
+                    a(href='#') #{__("NAV_CONTACT")}
         .mobile-nav
           .nav-overlay.uk-navbar-item
             .hamburger
@@ -32,22 +32,37 @@
           .menu
             ul
               li
-                a(href='/') Home
+                a(href='/') #{__("NAV_HOME")}
               li
-                a(href='/mediainfo/movies') Movies
+                a(href='/mediainfo/movies') #{__("NAV_MOVIES")}
               li
-                a(href='/mediainfo/tvshows') TV-Shows
+                a(href='/mediainfo/tvshows') #{__("NAV_TVSHOWS")}
               li
-                a(href='/mediainfo/upcomingmovies') Upcoming Movies
+                a(href='/mediainfo/upcomingmovies') #{__("NAV_UPCOMING")}
               li
-                a(href='#') Contact
+                a(href='#') #{__("NAV_CONTACT")}
             img(src='/images/logo/footerlogo.png' alt='' width='200px' height='200px')
-        .nav-overlay.uk-navbar-item
+        .uk-navbar-center
           form.uk-search.uk-search-default.uk-width-1-1
               span(uk-search-icon='')
               input#searchBox.uk-search-input(type='text' placeholder='Search...')
-        .nav-overlay.uk-navbar-item
+        .uk-navbar-right
           if username
             include loggedin.pug
           else
             include loggedout.pug
+          .uk-inline
+            button.uk-button.uk-button-default(type='button').lang.nav-buttons Norsk
+            div(uk-dropdown='mode: click; boundary: ! .uk-button-group; boundary-align: true;').lang-wrapper
+              ul.uk-nav.uk-dropdown-nav.select
+                li.menu-item.uk-active
+                  a(href='/no') Norsk
+                li.menu-item
+                  a(href='/en') English
+                li.menu-item
+                  a(href='/de') Deutsche
+                li.menu-item
+                  a(href='#') Français
+                li.menu-item
+                  a(href='#') русский
+            
