@@ -36,13 +36,13 @@ async function updateUser(user, options) {
 
 async function getFieldsFromUserById(userId, fields) {
     logger.log({level: 'debug', message: `Getting user ${userId} with ${fields}`});
-    return user.findOne({_id: userId}).select(fields).then((doc, err) => {
+    return Bruker.findOne({_id: userId}).select(fields).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error getting user with fields ${fields}! Error: ${err}`});
             return new ValidationHandler(false, 'Could not retrieve user fields');
         }
         logger.log({level: 'info', message: `User with id ${userId} was successfully found with ${fields}`});
-        return new ValidationHandler(true, 'User successfully retrieved');
+        return new ValidationHandler(true, doc);
     });
 }
 
