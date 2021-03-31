@@ -17,10 +17,10 @@ body
             .uk-grid.uk-child-width-1-4#mediaCard
             .uk-grid.uk-width-1-1.uk-button.uk-button-default.uk-align-center
                 a#loadMore(onclick="load(upcomingMovies, event)")
-                    span.text Load More
+                    span.text #{__("UPCOMING_LOAD_MORE_BUTTON")}
                 #noMoreMedia
                     a(href="#")
-                        span.text No more movies, click to go to top.
+                        span.text #{__("UPCOMING_NO_MORE_MOVIES_BUTTON")}
 
 
 

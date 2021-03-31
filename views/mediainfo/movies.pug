@@ -25,7 +25,7 @@ body
                 ul
                     a Release Date Ascending
                 ul
-                    a Title (A-Z)
+                    a(id='az' onclick='sortByName();' onClick="window.location.reload();") Title (A-Z)
                 ul
                     a Title (Z-A)
             .upcoming-text-align
@@ -52,3 +52,4 @@ body
 
 include ../includes/footer.pug
     script(src="/javascript/mediainfo/media.js")
+    script(src="/javascript/mediainfo/movieFilter.js")

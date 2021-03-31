@@ -62,17 +62,17 @@ body
                 a(href='#' width="40" id="heart-movie-favorite" data-movieid=`${film.filminfo.id}` height ="40" uk-icon='heart')
                 a(href='#'  width="40" height ="40" uk-icon='star')
               h3= `${film.filminfo.release_date} ${genres}`
-              h3= `${film.filminfo.runtime} Minutes`
+              h3= `${film.filminfo.runtime} #{__("MOVIEINFO_MINUTES")}` 
               h1= `${film.filminfo.vote_average*10}%`
-              h2 Overview
+              h2 #{__("MOVIEINFO_OVERVIEW")}
               p= film.filminfo.overview
               .direc(uk-grid='')
                 .uk-width-1-2
-                  p Director
+                  p #{__("MOVIEINFO_DIRECTOR")}
                   a(href='')
                     b= `${director}`
                 .uk-width-1-2
-                  p Screenplay
+                  p #{__("MOVIEINFO_SCREENWRITER")}
                   a(href='')
                     b= `${screenplay}` 
       // Slider
@@ -98,9 +98,9 @@ body
             
           ul(uk-tab='')
             li
-              a(href='#') Reviews
+              a(href='#') #{__("MOVIEINFO_TAB_REVIEWS")}
             li
-              a(href='#') Media
+              a(href='#') #{__("MOVIEINFO_TAB_MEDIA")}
 
           ul.uk-switcher.uk-margin
             li
