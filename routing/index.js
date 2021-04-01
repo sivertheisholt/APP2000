@@ -43,6 +43,7 @@ router.use("*/mediainfo", require('./mediainfo'));
 router.use("*/auth", require('./userAuth'));
 router.use("*/infosider", require('./info'));
 router.use("*/user", require('./dashboard'));
+router.use("*/actor", require('./actorinfo'));
 
 //Startsiden kjører her
 router.get("/*", asyncExpress (async (req, res, next) => {
