@@ -58,13 +58,13 @@ router.get("/filminfo/:id",  asyncExpress (async (req, res, next) => {
     isMovFav = await movieFavorite.checkIfFavorited(film.filminfo.id,(await movieFavorite.getUserFromId(req.session.userId)).information);
   }
 
-logger.log({level: 'debug', message: 'Rendering page..'});
-res.render("mediainfo/filminfo", {
-  film:film,
-  username: session ? true : false,
-  user: user.information,
-  isMovFav: JSON.stringify(isMovFav.status)
-});
+  logger.log({level: 'debug', message: 'Rendering page..'});
+  res.render("mediainfo/filminfo", {
+    film:film,
+    username: session ? true : false,
+    user: user.information,
+    isMovFav: JSON.stringify(isMovFav.status)
+  });
 }));
 
 //Serieinfo siden kjører her
