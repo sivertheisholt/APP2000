@@ -6,24 +6,46 @@ const Session = require("../database/sessionSchema")
 const asyncExpress = require('../handling/expressUtils');
 const charts = require('../handling/chartMaker');
 const logger = require('../logging/logger');
-const { readableHighWaterMark } = require('../logging/logger');
-const { set, curryRight } = require('lodash');
+const fs = require('fs');
 
 router.all('*', function (req, res, next) {
+  logger.log({level: 'debug' ,message:`Setting default language to english`});
   var locale = 'en';
   req.setLocale(locale);
   res.locals.language = locale;
   next();
 });
 
+router.all("/:currentLang*", asyncExpress ((req,res,next) => {
+    logger.log({level: 'debug' ,message:'Checking if language code is set to valid code'})
+    fs.readFile("./lang/langList.json", "utf8", (err, data) => {
+        if(err) {
+            logger.log({level: 'error', message: `Error reading file from disk! Error: ${err} `})
+            res.redirect('/')
+            return;
+        }
+        for(const language of JSON.parse(data).availableLanguage) {
+            if(language == req.params.currentLang) {
+                logger.log({level: 'debug' ,message:`Found matching language code! Language code: ${req.params.currentLang}`});
+                let currentLang = req.params.currentLang;
+                req.setLocale(currentLang);
+                next();
+                return;
+            }
+        }
+        next();
+        return;
+    })
+}))
+
 //Sender videre basert på directory
-router.use('/mediainfo', require('./mediainfo'));
-router.use('/auth', require('./userAuth'));
-router.use(`*/infosider`, require('./info'));
-router.use('/user', require('./dashboard'));
+router.use("*/mediainfo", require('./mediainfo'));
+router.use("*/auth", require('./userAuth'));
+router.use("*/infosider", require('./info'));
+router.use("*/user", require('./dashboard'));
 
 //Startsiden kjører her
-router.get("/:currentLang(''||no||de||en)", asyncExpress (async (req, res, next) => {
+router.get("/*", asyncExpress (async (req, res, next) => {
   logger.log({level: 'debug' ,message:'Request received for /'})
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon(); //Skaffer tmdb info
   let finalListMovies = []; //Lager en tom array
@@ -32,8 +54,6 @@ router.get("/:currentLang(''||no||de||en)", asyncExpress (async (req, res, next)
   let maxTvshows = 10;
   let error = null;
   let errorType = null;
-  let currentLang = req.params.currentLang;
-  req.setLocale(currentLang);
 
   logger.log({level: 'debug' ,message:'Creating slider information for movies'})
   for(const movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
