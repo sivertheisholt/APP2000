@@ -61,7 +61,7 @@ var sessionExpress = session({
 });
 
 i18n.configure({
-  locales: ['en', 'de', 'no'],
+  locales: ['en', 'de', 'no', 'fr', 'ru', 'zh'],
   directory: './lang',
   defaultLocale: 'en'
 });
