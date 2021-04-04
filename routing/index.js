@@ -44,9 +44,10 @@ router.use("*/auth", require('./userAuth'));
 router.use("*/infosider", require('./info'));
 router.use("*/user", require('./dashboard'));
 router.use("*/actor", require('./actorinfo'));
+//router.use("*/testing", require('./testing'));
 
 //Startsiden kjører her
-router.get("/*", asyncExpress (async (req, res, next) => {
+router.get("/*/", asyncExpress (async (req, res, next) => {
   logger.log({level: 'debug' ,message:'Request received for /'})
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon(); //Skaffer tmdb info
   let finalListMovies = []; //Lager en tom array
