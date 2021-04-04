@@ -27,7 +27,7 @@ var methods = {
                 Promise.all(getDiscoverMovie(antallPages, `primary_release_date.lte=${currentDateFormated}`)
                     .map(promise => promise
                     .then(res => checkData(res.results)))),
-                Promise.all(getDiscoverTvshow(antallPages, `primary_release_date.gte=${currentDateFormated}`)
+                Promise.all(getDiscoverTvshow(antallPages, `first_air_date.gte=${currentDateFormated}`)
                     .map(promise => promise
                     .then(res => checkData(res.results)))),
                 Promise.all(getDiscoverTvshow(antallPages, `primary_release_date.lte=${currentDateFormated}`)
@@ -50,7 +50,7 @@ var methods = {
             })
             //Sorterer tvshows upcoming etter dato
             tmdbInformasjon.discoverTvshowsUpcoming.sort((a, b)  => {
-                return new Date(a.release_date).getTime() - new Date(b.release_date).getTime();
+                return new Date(a.first_air_date).getTime() - new Date(b.first_air_date).getTime();
             })
             tmdbInformasjonKlar = tmdbInformasjon;
             logger.log({level: 'info',message: 'All information is sucessfully collected!'});

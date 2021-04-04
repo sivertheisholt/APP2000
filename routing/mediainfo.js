@@ -124,6 +124,25 @@ router.get("/upcomingmovies",  asyncExpress (async (req, res, next) => {
   });
 }));
 
+router.get("/upcomingtv",  asyncExpress (async (req, res, next) => {
+    let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
+    let finalListUpcomingTv = [];
+    console.log(tmdbInformasjon.discoverTvshowsUpcoming)
+    for(const tv of tmdbInformasjon.discoverTvshowsUpcoming) {
+      let tempObj = {
+        id: tv.id,
+        pictureUrl: tv.poster_path,
+        title: tv.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, '-')
+      }
+      finalListUpcomingTv.push(tempObj);
+    }
+    console.log(finalListUpcomingTv);
+    res.render("mediainfo/upcomingtv", {
+      upcomingTv: JSON.stringify(finalListUpcomingTv)
+    });
+  }));
+
 router.get("/tvshows",  asyncExpress (async (req, res, next) => {
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
   let finalListTvshowsPopular = [];
