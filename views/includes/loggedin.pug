@@ -1,10 +1,12 @@
+- var urlPath = urlPath;
+
 button.uk-button.uk-button-default.nav-buttons(type='button') #{__("NAV_ACCOUNT")}
 div(uk-dropdown='animation: uk-animation-slide-top-small;')
   ul.uk-nav.uk-dropdown-nav
     li.uk-active
-      a(href='/user/dashboard') #{__("NAV_MYACCOUNT")}
+      a(href=`/${urlPath}/user/dashboard`) #{__("NAV_MYACCOUNT")}
     li
       a(href='#') #{__("NAV_FAVORITES")}
     li
-      a(href='/auth/logout') #{__("NAV_LOGOUT")}
+      a(href=`/${urlPath}/auth/logout`) #{__("NAV_LOGOUT")}
 
