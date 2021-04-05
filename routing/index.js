@@ -28,6 +28,7 @@ router.all("/:currentLang*", asyncExpress ((req,res,next) => {
             if(language === req.params.currentLang) {
                 logger.log({level: 'debug' ,message:`Found matching language code! Language code: ${req.params.currentLang}`});
                 let currentLang = req.params.currentLang;
+                res.locals.currentLang = currentLang;
                 req.setLocale(currentLang);
                 next();
                 return;
@@ -107,7 +108,7 @@ router.get("/*/", asyncExpress (async (req, res, next) => {
     trendingChart: JSON.stringify(options),
     error: JSON.stringify(error),
     errorType: JSON.stringify(errorType),
-    urlPath: req.protocol + '://' + req.get('host') + req.originalUrl
+    urlPath: res.locals.currentLang ? res.locals.currentLang : ``
   });
 }));
 
