@@ -1,2 +1,34 @@
 - var user = user;
 - var username = username;
+
+include ../includes/head.pug
+
+
+
+body
+  .overlay(style=`background-image: url(https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-preview.jpg)`)
+    .container
+      // Grid
+      div(uk-grid='').film_oversikt
+        // Poster image
+        .uk-width-1-2.uk-flex-middle.filminfo_img
+          img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/caX3KtMU42EP3VLRFFBwqIIrch5.jpg` alt='')
+        // Informasjon on film
+        .uk-width-1-2
+          .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
+              h2= 'Bruce Willis'
+              h3= 'Actor'
+              h3= '54 movies/series'
+              h1= 'Popularity'
+              h2 Biography
+              p= 'An American actor and producer. His career began in television in the 1980s and has continued both in television and film since, including comedic, dramatic, and action roles. He is well known for the role of John McClane in the Die Hard series. Willis was born in Idar-Oberstein, West Germany, the son of a Kassel-born German, Marlene, who worked in a bank, and David Willis, an American soldier. Willis is the eldest of four children. At the premiere for the film Stakeout, Willis met actress Demi Moore. They married on November 21, 1987 and had three daughters before the couple divorced on October 18, 2000. Since the divorce he has dated models Maria Bravo Rosado and Emily Sandberg; he was engaged to Brooke Burns until they broke up in 2004 after ten months together. He married Emma Heming on March 21, 2009.'
+              .direc(uk-grid='')
+                .uk-width-1-2
+                  p Gender
+                  a(href='')
+                    b= `Male`
+                .uk-width-1-2
+                  p Birthplace
+                  a(href='')
+                    b= `Shawnee, Oklahoma, USA` 
+    include ../includes/footer.pug
