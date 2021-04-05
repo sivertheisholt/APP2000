@@ -13,7 +13,6 @@ router.all('*', function (req, res, next) {
   var locale = 'en';
   req.setLocale(locale);
   res.locals.language = locale;
-  var urlPath = req.url;
   next();
 });
 
@@ -26,7 +25,7 @@ router.all("/:currentLang*", asyncExpress ((req,res,next) => {
             return;
         }
         for(const language of JSON.parse(data).availableLanguage) {
-            if(language == req.params.currentLang) {
+            if(language === req.params.currentLang) {
                 logger.log({level: 'debug' ,message:`Found matching language code! Language code: ${req.params.currentLang}`});
                 let currentLang = req.params.currentLang;
                 req.setLocale(currentLang);
@@ -69,7 +68,7 @@ router.get("/*/", asyncExpress (async (req, res, next) => {
     }
     finalListMovies.push(tempObjectMovie); //Pusher til array
     maxMovies--;
-    if(maxMovies == 0)
+    if(maxMovies === 0)
         break;
   }
   logger.log({level: 'debug' ,message:'Creating slider information for tv'})
@@ -83,7 +82,7 @@ router.get("/*/", asyncExpress (async (req, res, next) => {
     }
     finalListTvshows.push(tempObjectTvshow); //Pusher til array
     maxTvshows--;
-    if(maxTvshows == 0)
+    if(maxTvshows === 0)
         break;
   }
 
@@ -97,6 +96,7 @@ router.get("/*/", asyncExpress (async (req, res, next) => {
     error = req.query.error;
     errorType = req.query.errorType;
   }
+  //console.log(`${req.get('host').substring(0,req.get('host').length)}${req.url}`)
   //Vis siden
   logger.log({level: 'debug' ,message:'Rendering the page to the user'})
   res.render("index", {
@@ -107,7 +107,7 @@ router.get("/*/", asyncExpress (async (req, res, next) => {
     trendingChart: JSON.stringify(options),
     error: JSON.stringify(error),
     errorType: JSON.stringify(errorType),
-    urlPath: req.url
+    urlPath: req.protocol + '://' + req.get('host') + req.originalUrl
   });
 }));
 
