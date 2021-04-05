@@ -29,9 +29,9 @@ async function checkIfSaved(movieId) {
     return Film.findOne({id: movieId}).then((doc, err) => returnHandler(doc, err));
 }
 
-async function getMovieFromDatabaseById(movieId)  {
+async function getMovieById(movieId)  {
     logger.log({level: 'debug', message: `Getting movie from database with id ${movieId}`});
     return Film.findOne({id: movieId}).then((doc,err) => returnHandler(doc,err));
 }
 
-module.exports = {addToDatabase, checkIfSaved, getMovieFromDatabaseById}
+module.exports = {addToDatabase, checkIfSaved, getMovieById}
