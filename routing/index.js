@@ -18,18 +18,19 @@ router.all('*', function (req, res, next) {
   next();
 });
 
-router.all("/:currentLang*", asyncExpress ((req,res,next) => {
+router.all("/:currentLang*", asyncExpress (async (req,res,next) => {
+  let langList = await hjelpemetoder.data.lesFil("./lang/langList.json");
+  if(!langList.status){
+    next();
+    return;
+  }
+
     logger.log({level: 'debug' ,message:'Checking if language code is set to valid code'})
-    fs.readFile("./lang/langList.json", "utf8", (err, data) => {
-        if(err) {
-            logger.log({level: 'error', message: `Error reading file from disk! Error: ${err} `})
-            res.redirect('/')
-            return;
-        }
-        for(const language of JSON.parse(data).availableLanguage) {
+        for(const language of JSON.parse(langList.information).availableLanguage) {
             if(language === req.params.currentLang) {
                 logger.log({level: 'debug' ,message:`Found matching language code! Language code: ${req.params.currentLang}`});
                 let currentLang = req.params.currentLang;
+                console.log(currentLang);
                 res.locals.currentLang = currentLang;
                 req.setLocale(currentLang);
                 switch(language){
@@ -65,14 +66,16 @@ router.all("/:currentLang*", asyncExpress ((req,res,next) => {
         next();
         return;
     })
-}))
+)
 
 //Sender videre basert på directory
+router.use("*/admin", require('./admindashboard'));
 router.use("*/mediainfo", require('./mediainfo'));
 router.use("*/auth", require('./userAuth'));
 router.use("*/infosider", require('./info'));
 router.use("*/user", require('./dashboard'));
 router.use("*/actor", require('./actorinfo'));
+
 //router.use("*/testing", require('./testing'));
 
 //Startsiden kjører her

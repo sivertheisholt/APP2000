@@ -1,5 +1,8 @@
 const got = require('got');
 const logger = require('../logging/logger');
+const fs = require('fs');
+const ValidationHandler = require('./ValidationHandler');
+
 
 //Her kan dere legge inn hjelpemetoder dere vil lage
  var methods = {
@@ -81,7 +84,18 @@ const logger = require('../logging/logger');
             } else {
                 return false;
             }
-        })},
+        })
+    },
+    lesFil: async function(path){
+        return new Promise(function (resolve, reject) {
+            fs.readFile(path, 'utf8', function (err, data) {
+                if (err)
+                    reject(new ValidationHandler(false, "Something went wrong"));
+                else
+                    resolve(new ValidationHandler(true, data));
+            });
+        });
+    }
  };
  
  exports.data = methods;

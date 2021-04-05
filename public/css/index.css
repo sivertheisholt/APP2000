@@ -487,7 +487,7 @@ img.search-image-style{
 }
 
 .lang-wrapper ul li a {
-  color: white;
+  color: black;
 }
 
 .select li a {
@@ -495,9 +495,9 @@ img.search-image-style{
 }
 
 .select li:nth-child(even){
-  background-color: rgb(218, 218, 218)
+  background-color: rgb(255, 255, 255)
 }
 
 .select li:nth-child(odd){
-  background-color: rgb(160, 160, 160)
+  background-color: rgb(233, 233, 233);
 }
