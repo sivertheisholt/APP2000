@@ -13,6 +13,7 @@ router.all('*', function (req, res, next) {
   var locale = 'en';
   req.setLocale(locale);
   res.locals.language = locale;
+  var urlPath = req.url;
   next();
 });
 
@@ -106,6 +107,7 @@ router.get("/*/", asyncExpress (async (req, res, next) => {
     trendingChart: JSON.stringify(options),
     error: JSON.stringify(error),
     errorType: JSON.stringify(errorType),
+    urlPath: req.url
   });
 }));
 
