@@ -54,7 +54,10 @@ router.get("/dashboard", asyncExpress (async (req, res, next) => {
   res.render("user/dashboard", {
     username: session ? true : false,
     usern: usern,
-    allFavorites: allFavorites
+    allFavorites: allFavorites,
+    urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
+    lang: res.locals.lang,
+    langCode: res.locals.langCode
     });
 }));
 
