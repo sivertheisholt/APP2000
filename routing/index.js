@@ -13,6 +13,8 @@ router.all('*', function (req, res, next) {
   var locale = 'en';
   req.setLocale(locale);
   res.locals.language = locale;
+  res.locals.lang = 'English';
+  res.locals.langCode = 'en';
   next();
 });
 
@@ -30,6 +32,32 @@ router.all("/:currentLang*", asyncExpress ((req,res,next) => {
                 let currentLang = req.params.currentLang;
                 res.locals.currentLang = currentLang;
                 req.setLocale(currentLang);
+                switch(language){
+                  case 'en':
+                    res.locals.lang = 'English';
+                    res.locals.langCode = 'en';
+                    break;
+                  case 'no':
+                    res.locals.lang = 'Norsk';
+                    res.locals.langCode = 'no';
+                    break;
+                  case 'de':
+                    res.locals.lang = 'Deutsche';
+                    res.locals.langCode = 'de';
+                    break;
+                  case 'fr':
+                    res.locals.lang = 'Français';
+                    res.locals.langCode = 'fr';
+                    break;
+                  case 'ru':
+                    res.locals.lang = 'русский';
+                    res.locals.langCode = 'ru';
+                    break;
+                  case 'zh':
+                    res.locals.lang = '中国人';
+                    res.locals.langCode = 'zh';
+                    break;
+                }
                 next();
                 return;
             }
@@ -48,7 +76,7 @@ router.use("*/actor", require('./actorinfo'));
 //router.use("*/testing", require('./testing'));
 
 //Startsiden kjører her
-router.get("/*/", asyncExpress (async (req, res, next) => {
+router.get("/*", asyncExpress (async (req, res, next) => {
   logger.log({level: 'debug' ,message:'Request received for /'})
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon(); //Skaffer tmdb info
   let finalListMovies = []; //Lager en tom array
@@ -72,6 +100,7 @@ router.get("/*/", asyncExpress (async (req, res, next) => {
     if(maxMovies === 0)
         break;
   }
+
   logger.log({level: 'debug' ,message:'Creating slider information for tv'})
   for(const tvshow of tmdbInformasjon.discoverTvshowsPopular) { //For loop imellom hver item i discoverTvshows
     //Lager et object for hver serie
@@ -97,7 +126,7 @@ router.get("/*/", asyncExpress (async (req, res, next) => {
     error = req.query.error;
     errorType = req.query.errorType;
   }
-  //console.log(`${req.get('host').substring(0,req.get('host').length)}${req.url}`)
+
   //Vis siden
   logger.log({level: 'debug' ,message:'Rendering the page to the user'})
   res.render("index", {
@@ -108,14 +137,11 @@ router.get("/*/", asyncExpress (async (req, res, next) => {
     trendingChart: JSON.stringify(options),
     error: JSON.stringify(error),
     errorType: JSON.stringify(errorType),
-    urlPath: res.locals.currentLang ? res.locals.currentLang : ``
+    urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
+    lang: res.locals.lang,
+    langCode: res.locals.langCode
   });
 }));
 
-router.get("/nor", asyncExpress (async (req, res, next) => {
-  console.log('lorem');
-res.render("index", {
-});
-}));
 
 module.exports = router;

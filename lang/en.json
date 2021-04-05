@@ -54,5 +54,6 @@
 	"MOVIEINFO_TAB_MEDIA": "Media",
 	"TVINFO_SEASONS": "Seasons",
 	"TVINFO_EXEC_PRODUCER": "Executive Producer",
-	"TVINFO_CREATED_BY": "Created by"
+	"TVINFO_CREATED_BY": "Created by",
+	"ACTOR_BIRTHPLACE": "Birthplace"
 }

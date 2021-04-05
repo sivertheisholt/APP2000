@@ -63,7 +63,10 @@ router.get("/filminfo/:id",  asyncExpress (async (req, res, next) => {
     film:film,
     username: session ? true : false,
     user: user.information,
-    isMovFav: JSON.stringify(isMovFav.status)
+    isMovFav: JSON.stringify(isMovFav.status),
+    urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
+    lang: res.locals.lang,
+    langCode: res.locals.langCode
   });
 }));
 
@@ -98,14 +101,17 @@ res.render("mediainfo/serieinfo", {
   serie: serie,
   username: session ? true : false,
   user: user,
-  isTvFav: JSON.stringify(isTvFav.status)
+  isTvFav: JSON.stringify(isTvFav.status),
+  urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
+  lang: res.locals.lang,
+  langCode: res.locals.langCode
 });
 }));
 
-router.get("/serieinfo",  asyncExpress (async (req, res, next) => {
+/* router.get("/serieinfo",  asyncExpress (async (req, res, next) => {
   console.log('lorem');
 res.render("mediainfo/serieinfo", {});
-}));
+})); */
 
 router.get("/upcomingmovies",  asyncExpress (async (req, res, next) => {
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
@@ -120,7 +126,10 @@ router.get("/upcomingmovies",  asyncExpress (async (req, res, next) => {
     finalListUpcomingMovies.push(tempObj);
   }
   res.render("mediainfo/upcomingmovies", {
-    upcomingMovies: JSON.stringify(finalListUpcomingMovies)
+    upcomingMovies: JSON.stringify(finalListUpcomingMovies),
+    urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
+    lang: res.locals.lang,
+    langCode: res.locals.langCode
   });
 }));
 
@@ -139,7 +148,10 @@ router.get("/upcomingtv",  asyncExpress (async (req, res, next) => {
     }
     console.log(finalListUpcomingTv);
     res.render("mediainfo/upcomingtv", {
-      upcomingTv: JSON.stringify(finalListUpcomingTv)
+      upcomingTv: JSON.stringify(finalListUpcomingTv),
+      urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
+      lang: res.locals.lang,
+      langCode: res.locals.langCode
     });
   }));
 
@@ -156,7 +168,10 @@ router.get("/tvshows",  asyncExpress (async (req, res, next) => {
     finalListTvshowsPopular.push(tempObj);
   }
   res.render("mediainfo/tvshows", {
-    tvShows: JSON.stringify(finalListTvshowsPopular)
+    tvShows: JSON.stringify(finalListTvshowsPopular),
+    urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
+    lang: res.locals.lang,
+    langCode: res.locals.langCode
   });
 }));
 
@@ -173,7 +188,10 @@ router.get("/movies",  asyncExpress (async (req, res, next) => {
     finalListPopularMovies.push(tempObj);
   }
   res.render("mediainfo/movies", {
-    popularMovies: JSON.stringify(finalListPopularMovies)
+    popularMovies: JSON.stringify(finalListPopularMovies),
+    urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
+    lang: res.locals.lang,
+    langCode: res.locals.langCode
   });
 }));
 
