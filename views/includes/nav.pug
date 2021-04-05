@@ -1,27 +1,30 @@
 - var username = username;
+- var lang = lang;
+- var langCode = langCode;
+- var urlPath = urlPath;
 .nav-wrapper
   .uk-position-relative
       nav(uk-navbar='')
         .desktop-nav
           ul.uk-navbar-nav
             li.uk-active
-              a(href='/') #{__("NAV_HOME")}
+              a(href=`/${langCode}`) #{__("NAV_HOME")}
             li
-              a(href='/infosider/about') #{__("NAV_ABOUT")}
+              a(href=`/${urlPath}/infosider/about`) #{__("NAV_ABOUT")}
             li
               a(href='#' uk-icon="icon: menu" ) #{__("NAV_EXPLORE")}
               .uk-navbar-dropdown
                 ul.uk-nav.uk-navbar-dropdown-nav
                   li
-                    a(href='/mediainfo/movies') #{__("NAV_MOVIES")}
+                    a(href=`/${urlPath}/mediainfo/movies`) #{__("NAV_MOVIES")}
                   li
-                    a(href='/mediainfo/tvshows') #{__("NAV_TVSHOWS")}
+                    a(href=`/${urlPath}/mediainfo/tvshows`) #{__("NAV_TVSHOWS")}
                   li.uk-nav-divider
                   .uk-nav-header #{__("NAV_MORE")}
                   li
-                    a(href='/mediainfo/upcomingmovies') #{__("NAV_UPCOMING")}
+                    a(href=`/${urlPath}/mediainfo/upcomingmovies`) #{__("NAV_UPCOMING")}
                   li
-                    a(href='/mediainfo/upcomingtv') #{__("NAV_UPCOMING")}
+                    a(href=`/${urlPath}/mediainfo/upcomingtv`) #{__("NAV_UPCOMING")}
                   li.uk-nav-divider
                   li
                     a(href='#') #{__("NAV_CONTACT")}
@@ -34,15 +37,15 @@
           .menu
             ul
               li
-                a(href='/') #{__("NAV_HOME")}
+                a(href=`/${langCode}`) #{__("NAV_HOME")}
               li
-                a(href='/mediainfo/movies') #{__("NAV_MOVIES")}
+                a(href=`/${urlPath}/mediainfo/movies`) #{__("NAV_MOVIES")}
               li
-                a(href='/mediainfo/tvshows') #{__("NAV_TVSHOWS")}
+                a(href=`/${urlPath}/mediainfo/tvshows`) #{__("NAV_TVSHOWS")}
               li
-                a(href='/mediainfo/upcomingmovies') #{__("NAV_UPCOMING")}
+                a(href=`/${urlPath}/mediainfo/upcomingmovies`) #{__("NAV_UPCOMING")}
               li
-                a(href='/mediainfo/upcomingtv') #{__("NAV_UPCOMING")}
+                a(href=`/${urlPath}/mediainfo/upcomingtv`) #{__("NAV_UPCOMING")}
               li
                 a(href='#') #{__("NAV_CONTACT")}
             img(src='/images/logo/footerlogo.png' alt='' width='200px' height='200px')
@@ -56,7 +59,7 @@
           else
             include loggedout.pug
           .uk-inline
-            button.uk-button.uk-button-default(type='button').lang.nav-buttons Norsk
+            button.uk-button.uk-button-default(type='button').lang.nav-buttons #{lang}
             div(uk-dropdown='mode: click; boundary: ! .uk-button-group; boundary-align: true;').lang-wrapper
               ul.uk-nav.uk-dropdown-nav.select
                 li.menu-item.uk-active
@@ -66,7 +69,9 @@
                 li.menu-item
                   a(href='/de') Deutsche
                 li.menu-item
-                  a(href='#') Français
+                  a(href='/fr') Français
                 li.menu-item
-                  a(href='#') русский
+                  a(href='/ru') русский
+                li.menu-item
+                  a(href='/zh') 中国人
             
