@@ -9,11 +9,9 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const socketIO = require('socket.io');
 const tmdb = require('./handling/tmdbHandler');
-const search = require("./handling/searchHandler");
 const logger = require('./logging/logger');
-const favoriteMov = require('./favourite/favouriteMovie');
-const favoriteTv = require('./favourite/favouriteTv');
 const i18n = require('i18n');
+const socketRouter = require('./socket/socketRouter');
 
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
 tmdb.data.hentTmdbInformasjon();
@@ -66,12 +64,9 @@ i18n.configure({
   defaultLocale: 'en'
 });
 
-
-
 app.use(i18n.init);
 
 var sharedsession = require('express-socket.io-session');
-
 
 app.use(sessionExpress);
 
@@ -97,41 +92,7 @@ io.on('connection', async (socket) => {
   //Logger at ny bruker logget på nettsiden
   logger.log({level: 'info',message: `New user just connected`});
 
-  //Metode som kjører dersom bruker logger ut av nettsiden
-  socket.on('disconnect', () => {
-    logger.log({level: 'info',message: `User disconnected`});
-  })
-
-  //Skaffer info fra search baren på index.js
-  socket.on("userInputSearch", async (userInputSearch) => {
-    if(userInputSearch.length < 2)
-        return;
-    logger.log({level: 'debug',message: `User searching for movie: ${userInputSearch}`});
-    const results = await search(userInputSearch); //henter info
-    if(results) {
-        logger.log({level: 'debug',message: `Movie respons from API: ${results}`});
-        socket.emit('resultatFilm', results); //Sender info til klient
-        return;
-    }
-    logger.log({level: 'warn',message:'No result found'})
-  })
-  socket.on("favoriteMovie", async (args) => {
-    const test =  await favoriteMov.addFavourite(args, socket.handshake.session.userId);
-    console.log(test.information)
-    socket.emit('favoritedMovie');
- });
-  socket.on('unFavoriteMovie', async (args) => {
-    favoriteMov.removeFavorite(args, socket.handshake.session.userId);
-    socket.emit('unfavoritedMovie');
-  });
-  socket.on("favoriteTv", async (args) => {
-    favoriteTv.addFavourite(args, socket.handshake.session.userId);
-    socket.emit('favoritedTv');
- });
-  socket.on('unfavoriteTv', async (args) => {
-    favoriteTv.removeFavorite(args, socket.handshake.session.userId);
-    socket.emit('unfavoritedTv');
-  });
+  socketRouter(socket);
 });
 //"Lytter" serveren
 server.listen(port, () => logger.log({level: 'info', message: `Application is now listening on port ${port}`}));
