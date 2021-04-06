@@ -144,6 +144,10 @@ router.post('/upload-avatar', (req, res) => {
     const defaultDest = '/uploads/default.png';
     Bruker.findOne({_id: req.session.userId}, async (err, bruker) => {
         uploadHandle(req, res, function(err){
+            if(req.file == undefined){
+                logger.log({level: 'error', message: `Error: ${err}`});
+                return res.redirect('/user/dashboard?error=No file found&errorType=dashboardUploadAvatar');
+            }
             if(err){
                 logger.log({level: 'error', message: `Error: ${err}`});
                 return res.redirect('/user/dashboard?error=Wrong file type&errorType=dashboardUploadAvatar');
