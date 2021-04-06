@@ -58,6 +58,21 @@ Tmdb.prototype.getPersonByID = function getPersonByID(personID) {
         return resultHandler(res);
     })
 }
+Tmdb.prototype.getPersonLinksByID = function getPersonLinksByID(personID) {
+    var url = `https://api.themoviedb.org/3/person/${personID}/external_ids?api_key=${this.token}`;
+    return fetch(url).then(res => {
+        makeLog(res, url);
+        return resultHandler(res);
+    })
+}
+Tmdb.prototype.getPersonCombinedCreditsByID = function getPersonCombinedCreditsByID(personID) {
+    var url = `https://api.themoviedb.org/3/person/${personID}/combined_credits?api_key=${this.token}`;
+    console.log(url);
+    return fetch(url).then(res => {
+        makeLog(res, url);
+        return resultHandler(res);
+    })
+}
 Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID) {
     var url = `https://api.themoviedb.org/3/tv/${serieID}?api_key=${this.token}`;
     return fetch(url).then(res => {

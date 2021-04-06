@@ -55,5 +55,16 @@
 	"MOVIEINFO_TAB_MEDIA": "Médias",
 	"TVINFO_SEASONS": "Saisons",
 	"TVINFO_EXEC_PRODUCER": "Producteur exécutif",
-	"TVINFO_CREATED_BY": "Créé par"
+	"TVINFO_CREATED_BY": "Créé par",
+	"ACTOR_BIRTHPLACE": "Lieu de naissance",
+	"ACTOR_BIOGRAPHY": "Biographie",
+	"ACTOR_MOSTKNOWN": "Le plus connu pour",
+	"ACTOR_GENDER": "Le sexe",
+	"ACTOR_STATUS": "Statut",
+	"ACTOR_POPULARITY": "Popularité",
+	"ACTOR_LINKS": "Liens",
+	"ACTOR_APPEARS_IN": "Apparaît dans",
+	"ACTOR_MOVIE": "Film",
+	"ACTOR_TV": "émission de télévision",
+	"ACTOR_SCORE": "But"
 }

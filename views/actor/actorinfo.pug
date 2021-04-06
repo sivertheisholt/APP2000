@@ -1,34 +1,116 @@
 - var user = user;
 - var username = username;
+- var actor = actor;
+- var credits = credits;
+
+- var gender = 'Other';
+- var status = 'Alive';
+- var popularity = '';
+
+
+- if (actor.actorinfo.gender == 2)
+    - gender = 'Male';
+- else if (actor.actorinfo.gender == 1)
+    - gender = 'Female'; 
+- if (actor.actorinfo.deathday != null)
+    - status = 'Died ' + actor.actorinfo.deathday;
+- popularity = Math.round(actor.actorinfo.popularity) + '%'
 
 include ../includes/head.pug
+include ../includes/nav.pug
 
 
 
 body
-  .overlay(style=`background-image: url(https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-preview.jpg)`)
-    .container
-      // Grid
-      div(uk-grid='').film_oversikt
-        // Poster image
-        .uk-width-1-2.uk-flex-middle.filminfo_img
-          img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/caX3KtMU42EP3VLRFFBwqIIrch5.jpg` alt='')
-        // Informasjon on film
-        .uk-width-1-2
-          .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
-              h2= 'Bruce Willis'
-              h3= 'Actor'
-              h3= '54 movies/series'
-              h1= 'Popularity'
-              h2 Biography
-              p= 'An American actor and producer. His career began in television in the 1980s and has continued both in television and film since, including comedic, dramatic, and action roles. He is well known for the role of John McClane in the Die Hard series. Willis was born in Idar-Oberstein, West Germany, the son of a Kassel-born German, Marlene, who worked in a bank, and David Willis, an American soldier. Willis is the eldest of four children. At the premiere for the film Stakeout, Willis met actress Demi Moore. They married on November 21, 1987 and had three daughters before the couple divorced on October 18, 2000. Since the divorce he has dated models Maria Bravo Rosado and Emily Sandberg; he was engaged to Brooke Burns until they broke up in 2004 after ten months together. He married Emma Heming on March 21, 2009.'
-              .direc(uk-grid='')
+    .overlayA(style=`background-image: url(/images/backgrounds/greybackground.jpg)`)
+        .container
+            // Grid
+            div(uk-grid='').film_oversikt
+                // Poster image
+                .uk-width-1-2.uk-flex-middle.filminfo_img
+                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${actor.actorinfo.profile_path}` alt='')
+                // Informasjon on film
                 .uk-width-1-2
-                  p Gender
-                  a(href='')
-                    b= `Male`
-                .uk-width-1-2
-                  p Birthplace
-                  a(href='')
-                    b= `Shawnee, Oklahoma, USA` 
-    include ../includes/footer.pug
+                    .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
+                        h2= `${actor.actorinfo.name}`
+                        .close
+                            h3(style='float: center;') #{__("ACTOR_MOSTKNOWN")} 
+                            h3(style='float: center;')=`${actor.actorinfo.known_for_department}`
+                        h4 #{__("ACTOR_POPULARITY")}
+                        h1= `${popularity}`
+                        h2 #{__("ACTOR_BIOGRAPHY")}
+                        p= `${actor.actorinfo.biography}`
+                        .direc(uk-grid='')
+                            .uk-width-1-3
+                                p Gender
+                                a(href='')
+                                    b= `${gender}`
+                            .uk-width-1-3
+                                p #{__("ACTOR_BIRTHPLACE")}
+                                a(href='')
+                                    b= `${actor.actorinfo.place_of_birth}`
+                            .uk-width-1-3
+                                p #{__("ACTOR_STATUS")} 
+                                a(href='')
+                                    b= `${status}`
+                            .uk-width-2-2
+                                p #{__("ACTOR_LINKS")} 
+                                - if (actor.links.imdb_id != null)
+                                    a(href=`https://www.imdb.com/name/${actor.links.imdb_id}/`)
+                                        img(data-src='/images/logo/imdblogo.svg' width='50' height='40' alt='' uk-img='') 
+                                - if (actor.links.facebook_id != null)
+                                    a(href=`https://www.facebook.com/${actor.links.facebook_id}/`)
+                                        img(data-src='/images/logo/facebooklogo.png' width='40' height='35' alt='' uk-img='')
+                                - if (actor.links.twitter_id != null)
+                                    a(href=`https://twitter.com/${actor.links.twitter_id}/`)
+                                        img(data-src='/images/logo/twitterlogo.png' width='40' height='40' alt='' uk-img='')
+                                - if (actor.links.instagram_id != null)
+                                    a(href=`https://www.instagram.com/${actor.links.instagram_id}/`)
+                                        img(data-src='/images/logo/instagramlogo.png' width='40' height='40' alt='' uk-img='')
+    .containerA    
+        h2 #{__("ACTOR_APPEARS_IN")} 
+        ul(uk-accordion='collapsible: false')
+            each item in credits.cast
+                - if (item.media_type == 'movie')
+                    li
+                        a.uk-accordion-title(href='#')=`${item.title}`
+                        .uk-accordion-content
+                            .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
+                                .uk-card-media-left.uk-cover-container
+                                    a(href=`https://filmatoryeksamen.herokuapp.com/mediainfo/filminfo/${item.id}`)
+                                        img(src=`https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces${item.poster_path}` alt='' uk-cover='')
+                                    canvas(width='600' height='400')
+                                div
+                                    .uk-card-body
+                                        a(href=`https://filmatoryeksamen.herokuapp.com/mediainfo/filminfo/${item.id}`)
+                                            h3.uk-card-title=`${item.title}`
+                                        p #{__("ACTOR_MOVIE")} 
+                                        p=`${item.character}`
+                                        p=`${item.release_date}`
+                                        .close
+                                            p #{__("ACTOR_SCORE")}:
+                                            p=`${item.vote_average*10}%`
+                                        p=`${item.overview}`
+                - else if (item.media_type == 'tv')
+                    li
+                        a.uk-accordion-title(href='#')=`${item.name}`
+                        .uk-accordion-content
+                            .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
+                                .uk-card-media-left.uk-cover-container
+                                    a(href=`https://filmatoryeksamen.herokuapp.com/mediainfo/serieinfo/${item.id}`)
+                                        img(src=`https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces${item.poster_path}` alt='' uk-cover='')
+                                    canvas(width='600' height='400')
+                                div
+                                    .uk-card-body
+                                        a(href=`https://filmatoryeksamen.herokuapp.com/mediainfo/serieinfo/${item.id}`)
+                                            h3.uk-card-title=`${item.name}`
+                                        p #{__("ACTOR_TV")} 
+                                        p=`${item.character}`
+                                        p=`${item.first_air_date}`
+                                        .close
+                                            p #{__("ACTOR_SCORE")}:
+                                            p=`${item.vote_average*10}%`
+                                        p=`${item.overview}`
+
+                                    
+        include ../includes/footer.pug
