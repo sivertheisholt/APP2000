@@ -55,5 +55,16 @@
 	"MOVIEINFO_TAB_MEDIA": "Средства массовой информации",
 	"TVINFO_SEASONS": "Времена года",
 	"TVINFO_EXEC_PRODUCER": "Исполнительный продюсер",
-	"TVINFO_CREATED_BY": "Создан"
+	"TVINFO_CREATED_BY": "Создан",
+	"ACTOR_BIRTHPLACE": "Место рождения",
+	"ACTOR_BIOGRAPHY": "биография",
+	"ACTOR_MOSTKNOWN": "Наиболее известен",
+	"ACTOR_GENDER": "Пол",
+	"ACTOR_STATUS": "Статус",
+	"ACTOR_POPULARITY": "Популярность",
+	"ACTOR_LINKS": "Ссылки",
+	"ACTOR_APPEARS_IN": "Появляется в",
+	"ACTOR_MOVIE": "Кино",
+	"ACTOR_TV": "ТВ шоу",
+	"ACTOR_SCORE": "Счет"
 }

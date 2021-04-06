@@ -56,5 +56,15 @@
     "TVINFO_SEASONS": "Sesonger",
 	"TVINFO_EXEC_PRODUCER": "Produsent",
 	"TVINFO_CREATED_BY": "Laget av",
-    "ACTOR_BIRTHPLACE": "Fødselsted"
+    "ACTOR_BIRTHPLACE": "Fødselsted",
+	"ACTOR_BIOGRAPHY": "Biografi",
+	"ACTOR_MOSTKNOWN": "Mest kjent for",
+	"ACTOR_GENDER": "Kjønn",
+	"ACTOR_STATUS": "Status",
+	"ACTOR_POPULARITY": "Popularitet",
+	"ACTOR_LINKS": "Lenker",
+	"ACTOR_APPEARS_IN": "Sett i",
+	"ACTOR_MOVIE": "Film",
+	"ACTOR_TV": "Serie",
+	"ACTOR_SCORE": "Poeng"
 }

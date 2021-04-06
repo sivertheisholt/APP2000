@@ -323,6 +323,49 @@ img.search-image-style{
 }
 
 /*********************************/
+/*          actorinfo.pug        */
+/*********************************/
+
+.overlayA{
+  background-position: center 40%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 1000px;
+  position: relative;
+}
+
+.overlayA h4 {
+  color: white;
+}
+.overlayA h4 {
+  margin-top: 20px;
+  margin-bottom: 2px;
+}
+
+.overlayA img {
+  padding-left: 10px;
+}
+
+.containerA {
+  max-width: 1280px;
+  margin: 0px auto;
+  padding: 0 20px;
+  min-height: 100%;
+  margin-top: 20px;
+}
+.close h3 {
+  white-space: nowrap;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.close p {
+  white-space: nowrap;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+/*********************************/
 /* Filminfo.pug / Serieinfo.pug  */
 /*********************************/
 

@@ -110,7 +110,13 @@ var methods = {
     },
     getPersonByID: async function (personID) {
         return await tmdb.getPersonByID(personID);
-    }
+    },
+    getPersonLinksByID: async function (personID) {
+        return await tmdb.getPersonLinksByID(personID);
+    },
+    getPersonCombinedCreditsByID: async function (personID) {
+        return await tmdb.getPersonCombinedCreditsByID(personID);
+    },
 };
 
 async function checkData(results) {
