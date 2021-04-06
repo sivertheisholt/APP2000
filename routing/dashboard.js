@@ -57,7 +57,8 @@ router.get("/dashboard", asyncExpress (async (req, res, next) => {
     allFavorites: allFavorites,
     urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
     lang: res.locals.lang,
-    langCode: res.locals.langCode
+    langCode: res.locals.langCode,
+    admin: usern.administrator
     });
 }));
 

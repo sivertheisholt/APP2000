@@ -1,5 +1,5 @@
 - var urlPath = urlPath;
-
+- var admin = admin;
 button.uk-button.uk-button-default.nav-buttons(type='button') #{__("NAV_ACCOUNT")}
 div(uk-dropdown='animation: uk-animation-slide-top-small;')
   ul.uk-nav.uk-dropdown-nav
@@ -9,4 +9,7 @@ div(uk-dropdown='animation: uk-animation-slide-top-small;')
       a(href='#') #{__("NAV_FAVORITES")}
     li
       a(href=`/${urlPath}/auth/logout`) #{__("NAV_LOGOUT")}
+    if admin
+      li
+        a(href=`/admin/admindashboard`) #{__("NAV_ADMIN_DASHBOARD")}
 

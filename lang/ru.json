@@ -13,6 +13,7 @@
 	"NAV_MYACCOUNT": "Мой аккаунт",
 	"NAV_FAVORITES": "Избранное",
 	"NAV_LOGOUT": "Выйти",
+	"NAV_ADMIN_DASHBOARD": "Панель администратора",
 	"MODAL_SIGNUP": "Зарегистрироваться",
 	"BUTTON_ENTER": "Входить",
 	"MODAL_FORGOT_PASSWORD_BUTTON": "Forgot Password",

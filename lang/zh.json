@@ -13,6 +13,7 @@
 	"NAV_MYACCOUNT": "我的账户",
 	"NAV_FAVORITES": "收藏夹",
 	"NAV_LOGOUT": "登出",
+	"NAV_ADMIN_DASHBOARD": "管理员仪表板",
 	"MODAL_SIGNUP": "注册",
 	"BUTTON_ENTER": "进入",
 	"MODAL_FORGOT_PASSWORD_BUTTON": "忘记密码",

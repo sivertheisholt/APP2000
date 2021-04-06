@@ -40,6 +40,10 @@ const brukerSchema = new mongoose.Schema({
   avatar: {
     type: String,
     default: '/uploads/default.png'
+  },
+  administrator: {
+    type: Boolean,
+    default: false
   }
 });
 
