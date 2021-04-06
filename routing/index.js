@@ -6,7 +6,7 @@ const Session = require("../database/sessionSchema")
 const asyncExpress = require('../handling/expressUtils');
 const charts = require('../handling/chartMaker');
 const logger = require('../logging/logger');
-const Bruker = require('../database/brukerSchema');
+const Bruker = require('../handling/userHandler');
 
 router.all('*', function (req, res, next) {
   logger.log({level: 'debug' ,message:`Setting default language to english`});
@@ -130,7 +130,7 @@ router.get("/*", asyncExpress (async (req, res, next) => {
     errorType = req.query.errorType;
   }
 
-  let user = await Bruker.findOne({_id: req.session.userId});
+  let user = await Bruker.getUser({_id: req.session.userId});
 
   //Vis siden
   logger.log({level: 'debug' ,message:'Rendering the page to the user'})
@@ -145,7 +145,7 @@ router.get("/*", asyncExpress (async (req, res, next) => {
     urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
     lang: res.locals.lang,
     langCode: res.locals.langCode,
-    admin: user.administrator
+    admin: user.information.administrator
   });
 }));
 
