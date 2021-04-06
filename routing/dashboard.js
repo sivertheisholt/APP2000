@@ -10,6 +10,8 @@ const Session = require("../database/sessionSchema");
 const Bruker = require('../database/brukerSchema');
 const bcrypt = require("bcrypt");
 const fs = require("fs");
+const logger = require('../logging/logger');
+const brukerTest = require('../handling/userHandler');
 
 
 router.get("/dashboard", asyncExpress (async (req, res, next) => {
@@ -17,11 +19,13 @@ router.get("/dashboard", asyncExpress (async (req, res, next) => {
   var usern = await Bruker.findOne({_id: req.session.userId});
   let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.session.userId)).information;
   let favoriteTvs = (await favoriteTv.getAllTvFavourites(req.session.userId)).information;
-  console.log(favoriteTvs);
   let tempListFavoriteMovies = [];
   let finalListFavoriteMovies = [];
   let tempListFavoriteTvShow = [];
   let finalListFavoriteTvShow = [];
+  let error = null;
+  let errorType = null;
+  
   
   for(const item of favoriteMovies){
     tempListFavoriteMovies.push(await favoriteMovie.getFromDatabase(item));
@@ -48,6 +52,11 @@ router.get("/dashboard", asyncExpress (async (req, res, next) => {
       finalListFavoriteTvShow.push(tempObj);
   }
   let allFavorites= finalListFavoriteMovies.concat(finalListFavoriteTvShow);
+  if(req.query.error) {
+    error = req.query.error;
+    errorType = req.query.errorType;
+  }
+
   if(!session){
     res.redirect("/");
   }
@@ -58,7 +67,9 @@ router.get("/dashboard", asyncExpress (async (req, res, next) => {
     urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
     lang: res.locals.lang,
     langCode: res.locals.langCode,
-    admin: usern.administrator
+    admin: usern.administrator,
+    error: JSON.stringify(error),
+    errorType: JSON.stringify(errorType)
     });
 }));
 
@@ -70,15 +81,21 @@ router.post("/dashboardChangePassword", asyncExpress ((req, res, next) => { //Gr
         }
         //Sjekker at passord tilfredstiller krav
         if(!(hjelpeMetoder.data.validatePassword(pugBody.dashboardNewPassword))){
-            return res.status(400).send({message: 'Password is not properly formatted'});
+            logger.log({level: 'debug', message: `Password is not properly formatted!`}); 
+            res.redirect('/user/dashboard?error=Password is not properly formatted&errorType=dashboardChangePassword');
+            return;
         }
         //Vi gjør en sjekk at alle feltene er fylt inn
         if(!(pugBody.dashboardNewPassword && pugBody.dashboardNewPasswordRepeat)) {
-            return res.status(400).send({error: "Data is not properly formatted"}); //Vi returnerer res (result) og sier at dataen ikke er riktig
+            logger.log({level: 'debug', message: `All form inputs are not filled!`}); 
+            res.redirect('/user/dashboard?error=Data is not properly formatted&errorType=dashboardChangePassword');
+            return;
         }
         //Vi gjør en sjekk at passord 1 er lik passord 2 (Repeat password)
         if(!(pugBody.dashboardNewPassword == pugBody.dashboardNewPasswordRepeat)) {
-            return res.status(400).send({error: "Passwords do not match"}); //Denne må endres, viser bare en error melding dersom de ikke matcher for nå
+            logger.log({level: 'debug', message: `Passwords do not match each other!`}); 
+            res.redirect('/user/dashboard?error=Passwords do not match&errorType=dashboardChangePassword');
+            return;
         }
         //Nå må vi lage ny salt for å hashe passord
         const salt = await bcrypt.genSalt(10); //Her kommer await (Se async) inn (Nå venter vi til bcrypt er ferdig)
@@ -87,26 +104,36 @@ router.post("/dashboardChangePassword", asyncExpress ((req, res, next) => { //Gr
         bruker.password = await bcrypt.hash(pugBody.dashboardNewPassword, salt);
         bruker.save((err, result) => {
             if(err) {
-                return res.status(400).json({error: 'Reset password error'});
+                logger.log({level: 'error', message: `Could not change password! Error: ${err}`});
+                res.redirect('/user/dashboard?error=Could not save password to user&errorType=dashboardChangePassword');
+                return;
             } else {
-                return res.status(200).json({message: 'Your password has been changed'});
+                logger.log({level: 'debug', message: `Password has been changed!`});
+                res.redirect('/user/dashboard');
+                return;
             }
         })
     })
 }));
 
-router.post("/changeUsername", (req, res, next) => { //Grunnen til at vi bruker async er fordi det å hashe tar tid, vi vil ikke at koden bare skal fortsette
+router.post("/changeUsername", (req, res, next) => {
     const pugBody = req.body; //Skaffer body fra form
     Bruker.findOne({_id: req.session.userId}, async (err, bruker) => {
         if(err) {
-            return res.status(400).json({message: 'Error'});
+            logger.log({level: 'error', message: `Error: ${err}`});
+            res.redirect('/user/dashboard?error=Something went wrong&errorType=dashboardChangeUsername');
+            return;
         }
         bruker.username = pugBody.username;
         bruker.save((err, result) => {
             if(err) {
-                return res.status(400).json({error: 'Username Error'});
+                logger.log({level: 'error', message: `Could not change username! Error: ${err}`});
+                res.redirect('/user/dashboard?error=Could not change username&errorType=dashboardChangeUsername');
+                return;
             } else {
-                return res.status(200).json({message: 'Your username has been changed'});
+                logger.log({level: 'debug', message: `Username has been changed! Error: ${err}`});
+                res.redirect('/user/dashboard');
+                return;
             }
         })
     })
@@ -114,26 +141,34 @@ router.post("/changeUsername", (req, res, next) => { //Grunnen til at vi bruker 
 
 router.post('/upload-avatar', (req, res) => {
     const dest = '/uploads/';
+    const defaultDest = '/uploads/default.png';
     Bruker.findOne({_id: req.session.userId}, async (err, bruker) => {
         uploadHandle(req, res, function(err){
             if(err){
-                console.log(err);
+                logger.log({level: 'error', message: `Error: ${err}`});
+                return res.redirect('/user/dashboard?error=Wrong file type&errorType=dashboardUploadAvatar');
             }
             if(!req.file.filename){
-                console.log(err);
+                logger.log({level: 'error', message: `Could not get image! Error: ${err}`});
+                return res.redirect('/user/dashboard?error=Wrong file type&errorType=dashboardUploadAvatar');
             } else {
-                fs.unlink('./public' + bruker.avatar, function (err){
-                    if(err){
-                        console.log(err);
-                    }
-                });
+                if(bruker.avatar != defaultDest){
+                    fs.unlink('./public' + bruker.avatar, function (err){
+                        if(err){
+                            logger.log({level: 'error', message: `Could not find old image! Error: ${err}`});
+                            return res.redirect('/user/dashboard?error=Something went wrong&errorType=dashboardUploadAvatar');
+                        }
+                    });
+                }
+
                 bruker.avatar = dest + req.file.filename;
                 bruker.save((err, result) => {
                     if(err) {
-                        return res.status(400).json({error: 'Avatar error'});
+                        logger.log({level: 'error', message: `Error in saving avatar to user! Error: ${err}`});
+                        return res.redirect('/user/dashboard?error=Cant save avatar to user&errorType=dashboardUploadAvatar');
                     } else {
-                        return res.status(200).json({message: 'Your avatar has been changed'});
-                        
+                        logger.log({level: 'debug', message: `Avatar has been changed!`});
+                        return res.redirect('/user/dashboard');
                     }
                 })
             }

@@ -462,6 +462,42 @@ img.search-image-style{
   line-height: 1.5;
 }
 
+#dashboard-avatar-error{
+  background-color: rgb(211, 123, 123);
+  border: 1px solid black;
+  padding: 5px;
+  font-size: smaller;
+  border-radius: 20px;
+  width: 250px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  display: none;
+}
+
+#dashboard-username-error{
+  background-color: rgb(211, 123, 123);
+  border: 1px solid black;
+  font-size: smaller;
+  padding: 5px;
+  border-radius: 20px;
+  width: 250px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  display: none;
+}
+
+#dashboard-password-error{
+  background-color: rgb(211, 123, 123);
+  border: 1px solid black;
+  padding: 5px;
+  font-size: smaller;
+  width: 250px;
+  border-radius: 20px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  display: none;
+}
+
 .avatar{
   width: 40px;
   height: 40px;

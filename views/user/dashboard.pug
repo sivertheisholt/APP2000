@@ -1,6 +1,8 @@
 include ../includes/head.pug
 include ../includes/nav.pug
-
+script.
+    var error = !{error}
+    var errorType = !{errorType}
 body
     .container
         h2.uk-heading-small.uk-heading-divider.uk-margin-medium-bottom Dashboard
@@ -28,3 +30,22 @@ body
                         include ../includes/dashboard/profileinfo.pug
 
 include ../includes/footer.pug
+script.
+    if(error != undefined) {
+        console.log(error);
+        console.log(errorType);
+        switch(errorType) {
+            case "dashboardChangePassword": 
+                document.getElementById("dashboard-password-error").style.display='block';
+                document.getElementById("dashboard-password-error").innerHTML += 'ERROR: ' + error;
+                break;
+            case "dashboardChangeUsername":
+                document.getElementById("dashboard-username-error").style.display='block';
+                document.getElementById("dashboard-username-error").innerHTML += 'ERROR: ' + error;
+                break;
+            case "dashboardUploadAvatar":
+                document.getElementById("dashboard-avatar-error").style.display='block';
+                document.getElementById("dashboard-avatar-error").innerHTML += 'ERROR: ' + error;
+                break;
+        }
+    }
