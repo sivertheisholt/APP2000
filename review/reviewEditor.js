@@ -1,6 +1,7 @@
 const ReviewPending = require('../database/pendingReviewSchema');
 const ReviewApproved = require('../database/approvedReviewSchema');
 const ReviewDenied = require('../database/deniedReviewSchema');
+const reviewGetter = require('../review/reviewGetter');
 const logger = require('../logging/logger');
 const ValidationHandler = require('../handling/ValidationHandler');
 
@@ -69,10 +70,30 @@ function deleteDenied(reviewId) {
     })
 }
 
-
-
-function editReview(reviewId) {
-    
+async function editReview(reviewId, text, stars) {
+    const checkIdResult = await checkId(reviewId);
+    if(!checkIdResult.status) {
+        return checkIdResult;
+    }
+    //Skaffer review
+    const approvedReview = await reviewGetter.getApprovedReviewById(reviewId);
+    if(!approvedReview.status) {
+        return approvedReview;
+    }
+    const saveChangeResult = await saveApproved(new CloneReview(
+        approvedReview.userId,
+        approvedReview.movieId,
+        approvedReview.tvId,
+        text,
+        stars
+    ))
+    if(!saveChangeResult.status) {
+        return saveChangeResult;
+    }
+    const deleteOldResult = await deleteApproved(reviewId);
+    if(!deleteOldResult.status) {
+        return deleteOldResult;
+    }
 }
 
 function checkId(reviewId) {
@@ -149,4 +170,4 @@ async function approveReview(reviewId) {
     return new ValidationHandler(true, `Review with id ${reviewId} was sucessfully approved`);
 }
 
-module.exports = {approveReview, denyReview};
+module.exports = {approveReview, denyReview, editReview};
