@@ -12,6 +12,8 @@ const bcrypt = require("bcrypt");
 const fs = require("fs");
 const logger = require('../logging/logger');
 const brukerTest = require('../handling/userHandler');
+const movieHandler = require('../handling/movieHandler');
+const tvHandler = require('../handling/tvHandler');
 
 
 router.get("/dashboard", asyncExpress (async (req, res, next) => {
@@ -28,7 +30,7 @@ router.get("/dashboard", asyncExpress (async (req, res, next) => {
   
   
   for(const item of favoriteMovies){
-    tempListFavoriteMovies.push(await favoriteMovie.getFromDatabase(item));
+    tempListFavoriteMovies.push(await (await movieHandler.getMovieById(item)).information);
   }
   for(const item of tempListFavoriteMovies){
     let tempObj = {
@@ -40,7 +42,7 @@ router.get("/dashboard", asyncExpress (async (req, res, next) => {
       finalListFavoriteMovies.push(tempObj);
   }
   for(const item of favoriteTvs){
-    tempListFavoriteTvShow.push(await favoriteTv.getFromDatabase(item));
+    tempListFavoriteTvShow.push(await (await tvHandler.getShowById(item)).information);
   }
   for(const item of tempListFavoriteTvShow){
     let tempObj = {

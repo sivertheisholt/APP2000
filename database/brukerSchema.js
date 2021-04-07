@@ -26,16 +26,20 @@ const brukerSchema = new mongoose.Schema({
     default: ''
   },
   movieFavourites: {
-      type: Array
+      type: Array,
+      default: null
   },
   tvFavourites: {
-    type: Array
+    type: Array,
+    default: null
   },
   moviesWatched: {
-      type: Array
+      type: Array,
+      default: null
   },
   tvsWatched: {
-      type: Array
+      type: Array,
+      default: null
   },
   avatar: {
     type: String,

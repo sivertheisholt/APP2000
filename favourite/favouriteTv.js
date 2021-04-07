@@ -1,29 +1,15 @@
-const Tv = require('../database/tvSchema');
-const Bruker = require('../database/brukerSchema');
+const userHandler = require('../handling/userHandler')
 const ValidationHandler = require('../handling/ValidationHandler');
 const logger = require('../logging/logger');
 const tmdb = require('../handling/tmdbHandler');
 const tvHandler = require('../handling/tvHandler')
 
-//Skaffer serie fra database
-async function getFromDatabase(tvId) {
-    logger.log({level: 'debug', message: `Getting tv-show with id ${tvId} from the database...`});
-    const tv = await Tv.findOne({id: tvId});
-    if(tv) {
-        logger.log({level: 'debug', message: `Tv-show with id ${tvId} was successfully found from the datbase`});
-        return new ValidationHandler(true, tv);
-    }
-    logger.log({level: 'debug', message: `Can't find tv-show with id ${tvId} in the database`}); 
-    return new ValidationHandler(false, `Can't find tv-show in database`);
-}
-
 //Skaffer alle seriene som er i favoritt til brukeren
 async function getAllTvFavourites(userId) {
-    const user = await Bruker.findOne({_id: userId});
-    if(!user)
-        return new ValidationHandler(false, `Can't find user in database`);
-    // @ts-ignore
-    return new ValidationHandler(true, user.tvFavourites);
+    const userResult = await userHandler.getUserFromId(userId);
+    if(!userResult.status)
+        return userResult;
+    return new ValidationHandler(true, userResult.information.tvFavourites);
 }
 
 //Sjekker om bruker har filmen som favoritt
@@ -41,26 +27,22 @@ async function checkIfFavorited(tvId, user) {
 
 //Legger til serie i database
 async function addFavourite(tvId, userId) {
-    const user = await getUserFromId(userId);
+    logger.log({level: 'debug', message: `Adding tv-show with id ${tvId} to ${userId}'s favourite list`}); 
+    const user = await userHandler.getUserFromId(userId);
     if(!user.status)
-        return false;
+        return user;
     //Sjekker om bruker allerede har filmen som favoritt
     const isFavorited = await checkIfFavorited(tvId, user.information);
-    if(isFavorited.status) {
-        return new ValidationHandler(true, isFavorited.information);
-    }
+    if(isFavorited.status)
+        return isFavorited;
     //Prøver å oppdatere bruker
-    try {
-        logger.log({level: 'debug', message: `Updating user with id ${userId} in the database`}); 
-        user.information.updateOne({$push: {tvFavourites: tvId}}).exec();
-    } catch(err) {
-        logger.log({level: 'error', message: `Could not update user with id ${userId} in the database! Error: ${err}`}); 
-        return new ValidationHandler(false, 'Could not update user');
-    }
+    const updateUserResult = await userHandler.updateUser(user.information, {$push: {tvFavourites: tvId}});
+    if(!updateUserResult.status)
+        return updateUserResult;
     //Sjekker om serie er lagret i database
     const isSaved = await tvHandler.checkIfSaved(tvId);
     if(isSaved.status)
-        return new ValidationHandler(true,isSaved.information);
+        return isSaved;
     //Skaffer film informasjon
     const serieInfo = await tmdb.data.getSerieInfoByID(tvId);
     if(!serieInfo) {
@@ -70,30 +52,17 @@ async function addFavourite(tvId, userId) {
     //Legger til film i database
     const addToDatabaseResult = await tvHandler.addToDatabase(serieInfo);
     if(!addToDatabaseResult.status)
-        return new ValidationHandler(false, addToDatabaseResult.information);
+        return addToDatabaseResult;
     return new ValidationHandler(true, `Favourite successfully added`);
 }
 
-async function getUserFromId(userId) {
-    const user = await Bruker.findOne({_id: userId});
-    if(!user)
-        return new ValidationHandler(false, `Can't find user in database`);
-    return new ValidationHandler(true, user);
-}
-
 async function removeFavorite(tvId, userId) {
-    const user = await getUserFromId(userId);
-    if(!user.status) {
-        logger.log({level: 'debug', message: `User with id ${userId} was not found`}); 
-        return new ValidationHandler(false, 'User was not found');
-    }
-    //Prøver å oppdatere bruker
-    try {
-        logger.log({level: 'debug', message: `Updating user with id ${userId} in the database`}); 
-        user.information.updateOne({$pull: {tvFavourites: tvId}}).exec();
-    } catch(err) {
-        logger.log({level: 'error', message: `Could not update user with id ${userId} in the database! Error: ${err}`}); 
-        return new ValidationHandler(false, 'Could not update user');
-    }
+    const userResult = await userHandler.getUserFromId(userId);
+    if(!userResult)
+        return userResult;
+    const userUpdateResult = await userHandler.updateUser(userResult.information, {$pull: {tvFavourites: tvId}});
+    if(!userUpdateResult.status)
+        return userUpdateResult;
+    return new ValidationHandler(true, `Successfully removed favourite tv from user database`)
 }
-module.exports = {addFavourite, getUserFromId, removeFavorite, getAllTvFavourites, getFromDatabase, checkIfFavorited};
+module.exports = {addFavourite, removeFavorite, getAllTvFavourites, checkIfFavorited};

@@ -55,7 +55,7 @@ router.get("/filminfo/:id",  asyncExpress (async (req, res, next) => {
 
   logger.log({level: 'debug', message: 'Checking if favorited..'});
   if(session){
-    isMovFav = await movieFavorite.checkIfFavorited(film.filminfo.id,(await movieFavorite.getUserFromId(req.session.userId)).information);
+    isMovFav = await movieFavorite.checkIfFavorited(film.filminfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
   }
 
   logger.log({level: 'debug', message: 'Rendering page..'});
@@ -93,7 +93,7 @@ router.get("/serieinfo/:id",  asyncExpress (async (req, res, next) => {
   }
   logger.log({level: 'debug', message: 'Checking if favorited..'});
   if(session){
-     isTvFav = await tvFavorite.checkIfFavorited(serie.serieinfo.id,(await tvFavorite.getUserFromId(req.session.userId)).information);
+     isTvFav = await tvFavorite.checkIfFavorited(serie.serieinfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
   }
   //let person = await tmdb.data.getPersonByID(personID);
   logger.log({level: 'debug', message: 'Rendering page..'});

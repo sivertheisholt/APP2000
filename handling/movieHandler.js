@@ -4,7 +4,7 @@ const ValidationHandler = require("./ValidationHandler");
 
 function returnHandler(doc, err) {
     if(err) {
-        logger.log({level: 'error', message: `There was en error when working with the database! Error: ${err}`});
+        logger.log({level: 'error', message: `There was en error when working with the movie database! Error: ${err}`});
         return new ValidationHandler(false, 'Something unexpected happen when working with the database');
     }
     if(doc === null) {

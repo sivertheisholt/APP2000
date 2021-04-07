@@ -17,12 +17,12 @@ function returnHandler(doc, err) {
 
 //Sjekker om serie eksisterer i databasen
 async function checkIfSaved(tvId) {
-    logger.log({level: 'debug', message: `Checking if tv-show is already saved in database! TvId: ${tvId} `});
+    logger.log({level: 'debug', message: `Checking if tv-show is already saved in database! TvId: ${tvId}`});
     return Tv.findOne({id: tvId}).then((doc,err) => returnHandler(doc,err));
 }
 
 async function getShowById(tvId) {
-    logger.log({level:'debug', message: 'Getting tv-show from database with id ${movieId}'});
+    logger.log({level:'debug', message: `Getting tv-show from database with id ${tvId}`});
     return Tv.findOne({id: tvId}).then((doc,err) => returnHandler(doc,err));
 }
 

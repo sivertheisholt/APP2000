@@ -12,6 +12,7 @@ const tmdb = require('./handling/tmdbHandler');
 const logger = require('./logging/logger');
 const i18n = require('i18n');
 const socketRouter = require('./socket/socketRouter');
+const sharedsession = require('express-socket.io-session');
 
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
 tmdb.data.hentTmdbInformasjon();
@@ -58,16 +59,17 @@ var sessionExpress = session({
   },
 });
 
+//Konfiguerer språk
 i18n.configure({
   locales: ['en', 'de', 'no', 'fr', 'ru', 'zh'],
   directory: './lang',
   defaultLocale: 'en'
 });
 
+//Forteller at app skal bruke i18n - Språk
 app.use(i18n.init);
 
-var sharedsession = require('express-socket.io-session');
-
+//Forteller at app skal bruke sessionExpress middlewasre
 app.use(sessionExpress);
 
 //Denne sier at vi skal bruke bodyParser som gjør om body til json
@@ -85,13 +87,14 @@ app.use((err, req, res, next) => {
     logger.log({level: 'error',message: `Express threw an error! Error: ${err}`});
 });
 
+//Kobler sammen session med io
 io.use(sharedsession(sessionExpress));
 
 //Setter opp socket.io
-io.on('connection', async (socket) => {
+io.on('connection', (socket) => {
   //Logger at ny bruker logget på nettsiden
   logger.log({level: 'info',message: `New user just connected`});
-
+  //Sender over til fil som fungerer som en router
   socketRouter(socket);
 });
 //"Lytter" serveren
