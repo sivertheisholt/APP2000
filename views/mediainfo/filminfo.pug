@@ -8,9 +8,10 @@
 - var user = user;
 - var username = username;
 
+
 script.
     var isMovFav = !{isMovFav};
-
+    console.log(username);
 each item in film.filminfo.genres
   - genres += item.name + " ";
   - if(counter == 1)
@@ -59,10 +60,13 @@ body
         .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
               h2= film.filminfo.title
-                a(href='#' width="40" id="heart-movie-favorite" data-movieid=`${film.filminfo.id}` height ="40" uk-icon='heart')
+                a(href='#' width="40" id="heart-movie-favorite" data-movieid=`${film.filminfo.id}` height ="40" uk-icon='heart').tooltip
+                  if !username
+                    .bottom
+                      p Log in to add this to your favorites
                 a(href='#'  width="40" height ="40" uk-icon='star')
               h3= `${film.filminfo.release_date} ${genres}`
-              h3= `${film.filminfo.runtime} #{__("MOVIEINFO_MINUTES")}` 
+              h3= `${film.filminfo.runtime} #{__("MOVIEINFO_MINUTES")}`
               h1= `${film.filminfo.vote_average*10}%`
               h2 #{__("MOVIEINFO_OVERVIEW")}
               p= film.filminfo.overview
