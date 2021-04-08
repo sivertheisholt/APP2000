@@ -1,8 +1,8 @@
 script.
-    var tvShows = !{tvShows}
+    var popularMedia = !{tvShows}
     function load(){
         document.getElementById('mediaCard').innerHTML += "";
-        for (const media of tvShows.slice(0,16)){
+        for (const media of popularMedia.slice(0,16)){
             document.getElementById('mediaCard').innerHTML += mediaCard(media);
         }
     }
@@ -16,19 +16,19 @@ body
     .container.uk-grid.uk-margin-top
         .filter-wrap.ukgrid.uk-width-1-4.upcoming-no-padding
             button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by
-            div.upcoming-scroll-bar(uk-dropdown='mode: click')
+            div.tv-shows-filter-list.upcoming-scroll-bar(uk-dropdown='mode: click')
                 ul
-                    a Popularity Descending
+                    a(id="popularMediaDesc") Popularity Descending
                 ul
-                    a Popularity Ascending
+                    a(id='popularMediaAsc') Popularity Ascending
                 ul
-                    a Release Date Descending
+                    a(id='popularMediaSortByDateDesc') Release Date Descending
                 ul
-                    a Release Date Ascending
+                    a(id='popularMediaSortByDateAsc') Release Date Ascending
                 ul
-                    a Title (A-Z)
+                    a(id='popularMediaSortByTitleAZ') Title (A-Z)
                 ul
-                    a Title (Z-A)
+                    a(id='popularMediaSortByTitleZA') Title (Z-A)
             .upcoming-text-align
                 h3 Filter by genre
                 ul.uk-list
@@ -43,7 +43,7 @@ body
         .upcomingMovies.uk-grid.uk-width-3-4
             .uk-grid.uk-child-width-1-4#mediaCard
             .uk-grid.uk-width-1-1.uk-button.uk-button-default.uk-align-center
-                a#loadMore(onclick="load(tvShows, event)")
+                a#loadMore(onclick="load(currentMediaDisplayed, event)")
                     span.text Load More
                 #noMoreMedia
                     a(href="#")
@@ -53,4 +53,4 @@ script.
     
 
 include ../includes/footer.pug
-    script(src="/javascript/mediainfo/media.js")
+script(src="/javascript/mediainfo/media.js")

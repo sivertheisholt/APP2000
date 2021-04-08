@@ -12,6 +12,7 @@ const tvHandler = require('../handling/tvHandler');
 const reviewGetter = require('../review/reviewGetter');
 const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
+const filter = require('../handling/filter');
 
 //Filminfo siden kjører her
 
@@ -146,7 +147,6 @@ router.get("/upcomingtv",  asyncExpress (async (req, res, next) => {
       }
       finalListUpcomingTv.push(tempObj);
     }
-    console.log(finalListUpcomingTv);
     res.render("mediainfo/upcomingtv", {
       upcomingTv: JSON.stringify(finalListUpcomingTv),
       urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
@@ -163,10 +163,12 @@ router.get("/tvshows",  asyncExpress (async (req, res, next) => {
       id: tv.id,
       pictureUrl: tv.poster_path,
       title: tv.name,
-      releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, "-")
+      releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, "-"),
+      genre: tv.genre_ids
     }
     finalListTvshowsPopular.push(tempObj);
   }
+  console.log(finalListTvshowsPopular);
   res.render("mediainfo/tvshows", {
     tvShows: JSON.stringify(finalListTvshowsPopular),
     urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
@@ -183,7 +185,8 @@ router.get("/movies",  asyncExpress (async (req, res, next) => {
       id: movie.id,
       pictureUrl: movie.poster_path,
       title: movie.title,
-      releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-')
+      releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-'),
+      genres: movie.genre_ids
     }
     finalListPopularMovies.push(tempObj);
   }
