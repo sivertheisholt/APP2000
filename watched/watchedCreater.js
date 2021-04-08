@@ -2,7 +2,13 @@ const ValidationHandler = require("../handling/ValidationHandler");
 const logger = require("../logging/logger");
 const userHandler = require("../handling/userHandler");
 
-//Legger til watched i databasen
+/**
+ * Legger til watched i databasen
+ * @param {String} userId 
+ * @param {Number} mediaId 
+ * @param {'movie'|'tv'} mediaType 
+ * @returns ValidationHandler
+ */
 async function addToWatched(userId, mediaId, mediaType) {
     logger.log({level: 'debug', message: `Adding media with id ${mediaId} to ${userId}'s watched list`}); 
     const userResult = await userHandler.getUserFromId(userId);
@@ -18,7 +24,13 @@ async function addToWatched(userId, mediaId, mediaType) {
     return new ValidationHandler(true, `Successfully added media`);
 }
 
-//Oppdaterer databasen
+/**
+ * Oppdaterer databasen
+ * @param {Object} user 
+ * @param {Number} mediaId 
+ * @param {'movie'|'tv'} mediaType 
+ * @returns ValidationHandler
+ */
 async function updateDatabase(user, mediaId, mediaType) {
     switch(mediaType) {
         case 'movie':
@@ -28,7 +40,13 @@ async function updateDatabase(user, mediaId, mediaType) {
     }
 }
 
-//Sjekker om bruker allerede har media i listen
+/**
+ * Sjekker om bruker allerede har media i listen
+ * @param {Object} user 
+ * @param {Number} mediaId 
+ * @param {'movie'|'tv'} mediaType 
+ * @returns ValidationHandler
+ */
 async function checkIfWatched(user, mediaId, mediaType) {
     switch(mediaType) {
         case 'movie':
@@ -38,7 +56,12 @@ async function checkIfWatched(user, mediaId, mediaType) {
     }
 }
 
-//Går imellom watched list til bruker og sjekker om mediaId ligger i listen
+/**
+ * Går imellom watched list til bruker og sjekker om mediaId ligger i listen
+ * @param {Array} userWatched 
+ * @param {Number} mediaId 
+ * @returns ValidationHandler
+ */
 function iterateArray(userWatched, mediaId) {
     for(const media of userWatched) {
         if(media == mediaId) {
