@@ -1,11 +1,12 @@
 const Tmdb = require("../api/tmdb");
 const tmdbHandler = require("../handling/tmdbHandler");
 const hjelpemetode = require("../handling/hjelpeMetoder");
+const ValidationHandler = require("./ValidationHandler");
 
 /**
  * Søker etter film ved hjelp av tittel
  * @param {String} title 
- * @returns Resultat
+ * @returns ValidationHandler
  */
 async function searchForMovie(title) {
     const result = await tmdbHandler.data.getMovieInfo(title); //Henter info fra api
@@ -20,7 +21,7 @@ async function searchForMovie(title) {
         fiveResults.push(movie); //Pusher
         counter++; //++
     }
-    return fiveResults; //Returnerer resultat
+    return new ValidationHandler(true, fiveResults); //Returnerer resultat
 }
 
 module.exports = searchForMovie; //eksporterer funksjonen

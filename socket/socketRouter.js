@@ -3,6 +3,10 @@ const disconnect = require("./disconnect");
 const liveSearch = require("./liveSearch");
 const favourite = require("./favourite");
 
+/**
+ * Fungerer som en "hub" - Sender videre til riktig fil/funksjon
+ * @param {Object} socket 
+ */
 function routeFunction(socket) {
     socket.on('disconnect', () => {
         disconnect(socket);
