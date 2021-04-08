@@ -6,8 +6,10 @@ const tmdb = new Tmdb(process.env.TMDB_TOKEN); //Lager et nytt tmdb objekt
 let tmdbInformasjonKlar;
 
 var methods = {
-    //hentTmdbInformasjon metoden henter informasjon fra The Movie Database API'en
-    //Legger informasjonen inn i variabelen tmdbInformasjonKlar
+    /**
+     * Henter informasjon fra The Movie Database API'en
+     * Legger informasjonen inn i variabelen tmdbInformasjonKlar
+     */
     hentTmdbInformasjon: async function () {
         try {
             logger.log({level: 'info', message: 'Starting collection of tmdb information...'});
@@ -58,12 +60,18 @@ var methods = {
             logger.log({level: 'error' ,message: `Something unexpected happen while collecting tmdb information! Error: ${err}`});
         }
     },
-
-    //returnerTmdbInformasjon metoden returnerer informasjonen fra tmdbInformasjonKlar
+    /**
+     * 
+     * @returns Object - variabelen tmdbInformasjonKlar
+     */
     returnerTmdbInformasjon: function () {
         return tmdbInformasjonKlar
     },
-    //getMovieInfo metoden skaffer info om en film ved å søke etter tittel
+    /**
+     * Skaffer discover movies fra genras
+     * @param {Array} genreList 
+     * @returns Object
+     */
     getDiscoverMoviesWithGenres: async function(genreList) {
         let string = "";
         for(const genre of genreList) {
@@ -72,53 +80,129 @@ var methods = {
         string.substr(string.length);
         return tmdb.getDiscoverMovies(string);
     },
+    /**
+     * Skaffer trending movies
+     * @returns Object
+     */
     getTrendingMovies: function() {
         return tmdb.getTrendingMovies();
     },
+    /**
+     * Skaffer genras for filmer
+     * @returns Object
+     */
     getGenreMovie: function() {
         return tmdb.getGenresMovie();
     },
+    /**
+     * Skaffer film informasjon fra tittel
+     * @param {String} movieTitle 
+     * @returns Object
+     */
     getMovieInfo: function (movieTitle) {
         return tmdb.getMovieResults(movieTitle);
     },
+    /**
+     * Skaffer film informasjon fra film ID
+     * @param {Number} movieID 
+     * @returns Object
+     */
     getMovieInfoByID: function (movieID) {
         return tmdb.getMovieInfoByID(movieID);
     },
+    /**
+     * Skaffer film videor fra ID
+     * @param {Number} movieID 
+     * @returns Object
+     */
     getMovieVideosByID: function (movieID) {
         return tmdb.getMovieVideosByID(movieID);
     },
+    /**
+     * Skaffer film cast fra ID
+     * @param {Number} movieID 
+     * @returns Object
+     */
     getMovieCastByID: function (movieID) {
         return tmdb.getMovieCastByID(movieID);
     },
+    /**
+     * Skaffer recommended filmer fra en annen film
+     * @param {Number} movieId 
+     * @returns Object
+     */
     getRecommendationsMovie: function(movieId) {
         return tmdb.getRecommendationsMovie(movieId);
     },
+    /**
+     * Skaffer serie cast fra ID
+     * @param {Number} serieID 
+     * @returns Object
+     */
     getSerieCastByID: function (serieID) {
         return tmdb.getSerieCastByID(serieID);
     },
+    /**
+     * Skaffer info fra ID
+     * @param {Number} serieID 
+     * @returns Object
+     */
     getSerieInfoByID: function (serieID) {
         return tmdb.getSerieInfoByID(serieID);
     },
+    /**
+     * Skaffer serie videor fra ID
+     * @param {Number} serieID 
+     * @returns Object
+     */
     getSerieVideosByID: function (serieID) {
         return tmdb.getSerieVideosByID(serieID);
     },
+    /**
+     * Skaffer trending serier
+     * @returns Object
+     */
     getTrendingTv: function() {
         return tmdb.getTrendingTv();
     },
+    /**
+     * Skaffer genras for serier
+     * @returns Object
+     */
     getGenreTv: function() {
         return tmdb.getGenresTv();
     },
+    /**
+     * Skaffer person fra ID
+     * @param {Number} personID 
+     * @returns Object 
+     */
     getPersonByID: function (personID) {
         return tmdb.getPersonByID(personID);
     },
+    /**
+     * Skaffer person linker fra ID
+     * @param {Number} personID 
+     * @returns Object
+     */
     getPersonLinksByID: function (personID) {
         return tmdb.getPersonLinksByID(personID);
     },
+    /**
+     * Skaffer person kombinert credit fra ID
+     * @param {Number} personID 
+     * @returns Object
+     */
     getPersonCombinedCreditsByID: function (personID) {
         return tmdb.getPersonCombinedCreditsByID(personID);
     },
 };
 
+/**
+ * Går igjennom array og sjekker om alle bilder loader
+ * @param {Array} results 
+ * @returns En ny promise
+ */
 async function checkData(results) {
     let promiseArray = [];
     for(const result of results) {
@@ -133,6 +217,12 @@ async function checkData(results) {
     }
     return (await Promise.all(promiseArray)).filter(Boolean)
 }
+/**
+ * Skaffer discover movies fra sidetall og med ekstra parameter
+ * @param {Number} page 
+ * @param {String} params 
+ * @returns Array med promises
+ */
 function getDiscoverMovie(page, params) {
     let promiseArray = [];
     for(let i = 1; i <= page; i++) {
@@ -140,6 +230,12 @@ function getDiscoverMovie(page, params) {
     }
     return promiseArray;
 }
+/**
+ * Skaffer discover tv shows fra sidetall og med ekstra parameter
+ * @param {Number} page 
+ * @param {String} params 
+ * @returns Array med promises
+ */
 function getDiscoverTvshow(page, params) {
     let promiseArray = [];
     for(let i = 1; i <= page; i++) {

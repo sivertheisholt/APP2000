@@ -4,90 +4,122 @@ const ReviewDenied = require('../database/deniedReviewSchema');
 const logger = require('../logging/logger');
 const ValidationHandler = require('../handling/ValidationHandler');
 
-//Skaffer alle pending reviews for en film/tv
-async function getPendingReviews(id, type) {
-    logger.log({level: 'debug', message: `Getting pending reviews with id ${id} of type ${type}`})
-    const result =  await getReviewsFromDatabase(id, type, 'pending')
+/**
+ * Skaffer alle pending reviews for en film/tv
+ * @param {Number} mediaId 
+ * @param {'tv'|'movie'} type 
+ * @returns ValidationHandler
+ */
+async function getPendingReviews(mediaId, type) {
+    logger.log({level: 'debug', message: `Getting pending reviews with id ${mediaId} of type ${type}`})
+    const result =  await getReviewsFromDatabase(mediaId, type, 'pending')
     if(!result.status) {
         return new ValidationHandler(false, result.information);
     }
     return checkResult(result.information);
 }
 
-//Skaffer alle approved reviews for en film/tv
-async function getApprovedReviews(id, type) {
-    logger.log({level: 'debug', message: `Getting approved reviews with id ${id} of type ${type}`});
-    const result = await getReviewsFromDatabase(id, type, 'approved');
+/**
+ * Skaffer alle approved reviews for en film/tv
+ * @param {Number} mediaId 
+ * @param {'tv'|'movie'} type 
+ * @returns ValidationHandler
+ */
+async function getApprovedReviews(mediaId, type) {
+    logger.log({level: 'debug', message: `Getting approved reviews with id ${mediaId} of type ${type}`});
+    const result = await getReviewsFromDatabase(mediaId, type, 'approved');
     if(!result.status) {
         return new ValidationHandler(false, result.information);
     }
     return checkResult(result.information);
 }
 
-//Skaffer alle denied reviews for en film/tv
-async function getDeniedReviews(id, type) {
-    logger.log({level: 'debug', message: `Getting denied reviews with id ${id} of type ${type}`});
-    const result = await getReviewsFromDatabase(id, type, 'denied');
+/**
+ * Skaffer alle denied reviews for en film/tv
+ * @param {Number} mediaId 
+ * @param {'tv'|'movie'} type
+ * @returns ValidationHandler
+ */
+async function getDeniedReviews(mediaId, type) {
+    logger.log({level: 'debug', message: `Getting denied reviews with id ${mediaId} of type ${type}`});
+    const result = await getReviewsFromDatabase(mediaId, type, 'denied');
     if(!result.status) {
         return new ValidationHandler(false, result.information);
     }
     return checkResult(result.information);
 }
 
-//Skaffer pending review
-async function getPendingReviewById(id) {
-    logger.log({level: 'debug', message: `Getting pending review with id ${id}`});
-    const result = await getReviewFromDatabase(id, 'denied');
+/**
+ * Skaffer pending review fra ID
+ * @param {String} reviewId 
+ * @returns ValidationHandler
+ */
+async function getPendingReviewById(reviewId) {
+    logger.log({level: 'debug', message: `Getting pending review with id ${reviewId}`});
+    const result = await getReviewFromDatabase(reviewId, 'denied');
     if(!result.status) {
         return new ValidationHandler(false, result.information);
     }
     return checkResult(result.information);
 }
 
-//Skaffer approved review
-async function getApprovedReviewById(id) {
-    logger.log({level: 'debug', message: `Getting approved review with id ${id}`});
-    const result = await getReviewFromDatabase(id, 'approved');
+/**
+ * Skaffer approved review fra ID
+ * @param {String} reviewId 
+ * @returns ValidationHandler
+ */
+async function getApprovedReviewById(reviewId) {
+    logger.log({level: 'debug', message: `Getting approved review with id ${reviewId}`});
+    const result = await getReviewFromDatabase(reviewId, 'approved');
     if(!result.status) {
         return new ValidationHandler(false, result.information);
     }
     return checkResult(result.information);
 }
 
-//Skaffer denied review
-async function getDeniedReviewById(id) {
-    logger.log({level: 'debug', message: `Getting denied review with id ${id}`});
-    const result = await getReviewFromDatabase(id, 'denied');
+//
+/**
+ * Skaffer denied review fra ID
+ * @param {String} reviewId 
+ * @returns ValidationHandler
+ */
+async function getDeniedReviewById(reviewId) {
+    logger.log({level: 'debug', message: `Getting denied review with id ${reviewId}`});
+    const result = await getReviewFromDatabase(reviewId, 'denied');
     if(!result.status) {
         return new ValidationHandler(false, result.information);
     }
     return checkResult(result.information);
 }
 
-//Requester reviews fra database
-async function getReviewsFromDatabase(id, type, collection) {
+/**
+ * Henter reviews fra database
+ * @param {Number} mediaId 
+ * @param {'tv'|'movie'} type 
+ * @param {'pending'|'approved'|'denied'} collection 
+ * @returns ValidationHandler
+ */
+async function getReviewsFromDatabase(mediaId, type, collection) {
     try {
         switch(type) {
             case 'movie': 
                 switch(collection) {
                     case 'pending':
-                        return new ValidationHandler(true, await ReviewPending.find({movieId: id}));
+                        return new ValidationHandler(true, await ReviewPending.find({movieId: mediaId}));
                     case 'approved':
-                        return new ValidationHandler(true, await ReviewApproved.find({movieId: id}));
+                        return new ValidationHandler(true, await ReviewApproved.find({movieId: mediaId}));
                     case 'denied':
-                        return new ValidationHandler(true, await ReviewDenied.find({movieId: id}));
+                        return new ValidationHandler(true, await ReviewDenied.find({movieId: mediaId}));
                 } 
-                break;
             case 'tv': 
                 switch(collection) {
                     case 'pending':
-                        return new ValidationHandler(true, await ReviewPending.find({tvId: id}));
+                        return new ValidationHandler(true, await ReviewPending.find({tvId: mediaId}));
                     case 'approved':
-                        return new ValidationHandler(true, await ReviewApproved.find({tvId: id}));
+                        return new ValidationHandler(true, await ReviewApproved.find({tvId: mediaId}));
                     case 'denied':
-                        return new ValidationHandler(true, await ReviewDenied.find({tvId: id}));
+                        return new ValidationHandler(true, await ReviewDenied.find({tvId: mediaId}));
                 }
-                break;
         }
     } catch(err) {
         logger.log({level: 'error', message: `Something unexpected happen while trying to get information! Error: ${err}`})
@@ -96,16 +128,21 @@ async function getReviewsFromDatabase(id, type, collection) {
     
 }
 
-//Requester review fra database
-async function getReviewFromDatabase(id, collection) {
+/**
+ * Henter en review fra database
+ * @param {String} reviewId 
+ * @param {'pending'|'approved'|'denied'} collection 
+ * @returns ValidationHandler
+ */
+async function getReviewFromDatabase(reviewId, collection) {
     try {
         switch(collection) {
             case 'pending':
-                return new ValidationHandler(true, await ReviewPending.find({_id: id}));
+                return new ValidationHandler(true, await ReviewPending.find({_id: reviewId}));
             case 'approved':
-                return new ValidationHandler(true, await ReviewApproved.find({_id: id}));
+                return new ValidationHandler(true, await ReviewApproved.find({_id: reviewId}));
             case 'denied':
-                return new ValidationHandler(true, await ReviewDenied.find({_id: id}));
+                return new ValidationHandler(true, await ReviewDenied.find({_id: reviewId}));
         } 
     } catch(err) {
         logger.log({level: 'error', message: `Something unexpected happen while trying to get information! Error: ${err}`})
@@ -113,7 +150,12 @@ async function getReviewFromDatabase(id, collection) {
     }
 }
 
-//Sjekker resultat fra database
+/**
+ * Sjekker resultat fra database
+ * @param {Object} result 
+ * @param {String|Number} id 
+ * @returns 
+ */
 function checkResult(result, id) {
     if(!result) {
         logger.log({level: 'debug', message: `Could not find any result with id ${id}`});

@@ -4,15 +4,12 @@ const logger = require('../logging/logger');
 const tmdb = require('../handling/tmdbHandler');
 const tvHandler = require('../handling/tvHandler')
 
-//Skaffer alle seriene som er i favoritt til brukeren
-async function getAllTvFavourites(userId) {
-    const userResult = await userHandler.getUserFromId(userId);
-    if(!userResult.status)
-        return userResult;
-    return new ValidationHandler(true, userResult.information.tvFavourites);
-}
-
-//Sjekker om bruker har filmen som favoritt
+/**
+ * Sjekker om bruker har tv som favoritt
+ * @param {Number} tvId 
+ * @param {Object} user 
+ * @returns ValidationHandler
+ */
 async function checkIfFavorited(tvId, user) {
     logger.log({level: 'debug', message: `Checking if movie is already favourited for user! TvId: ${tvId} - UserId: ${user._id} `});
     for(const tv of user.tvFavourites) {
@@ -25,7 +22,24 @@ async function checkIfFavorited(tvId, user) {
     return new ValidationHandler(false, `Tv-show is not favourited`);
 }
 
-//Legger til serie i database
+/**
+ * Skaffer alle tv som er i favoritt til brukeren
+ * @param {String} userId 
+ * @returns ValidationHandler
+ */
+ async function getAllTvFavourites(userId) {
+    const userResult = await userHandler.getUserFromId(userId);
+    if(!userResult.status)
+        return userResult;
+    return new ValidationHandler(true, userResult.information.tvFavourites);
+}
+
+/**
+ * Legger til tv i database
+ * @param {Number} tvId 
+ * @param {String} userId 
+ * @returns ValidationHandler
+ */
 async function addFavourite(tvId, userId) {
     logger.log({level: 'debug', message: `Adding tv-show with id ${tvId} to ${userId}'s favourite list`}); 
     const user = await userHandler.getUserFromId(userId);
@@ -56,6 +70,12 @@ async function addFavourite(tvId, userId) {
     return new ValidationHandler(true, `Favourite successfully added`);
 }
 
+/**
+ * Fjerner favoritt fra bruker
+ * @param {Number} tvId 
+ * @param {String} userId 
+ * @returns ValidationHandler
+ */
 async function removeFavorite(tvId, userId) {
     const userResult = await userHandler.getUserFromId(userId);
     if(!userResult)

@@ -2,6 +2,13 @@ const ValidationHandler = require("../handling/ValidationHandler");
 const logger = require("../logging/logger");
 const userHandler = require("../handling/userHandler");
 
+/**
+ * Sletter watched fra bruker
+ * @param {String} userId 
+ * @param {Number} mediaId 
+ * @param {'tv'|'movie'} mediaType 
+ * @returns ValidationHandler
+ */
 async function deleteWatched(userId, mediaId, mediaType) {
     logger.log({level: 'debug', message:`Deleting media with id ${mediaId} from user ${userId}`})
     const userResult = await userHandler.getUserFromId(userId);
@@ -14,6 +21,13 @@ async function deleteWatched(userId, mediaId, mediaType) {
     return new ValidationHandler(true, `Successfully removed media from list`);
 }
 
+/**
+ * Sletter fra databasen
+ * @param {Object} user 
+ * @param {Number} mediaId 
+ * @param {'tv'|'movie'} mediaType 
+ * @returns ValidationHandler
+ */
 async function deleteFromDatabase(user, mediaId, mediaType) {
     switch(mediaType) {
         case 'movie':

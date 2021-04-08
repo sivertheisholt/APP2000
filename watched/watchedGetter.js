@@ -1,11 +1,21 @@
 const userHandler = require("../handling/userHandler");
 
-async function getWatchedMovies(userId) {
-    return await userHandler.getFieldsFromUserById(userId, 'moviesWatched');
+/**
+ * Skaffer watched filmer fra bruker
+ * @param {String} userId 
+ * @returns ValidationHandler
+ */
+function getWatchedMovies(userId) {
+    return userHandler.getFieldsFromUserById(userId, 'moviesWatched');
 }
 
-async function getWatchedTvs(userId) {
-    return  await userHandler.getFieldsFromUserById(userId, 'tvsWatched');
+/**
+ * Skaffer watched serier fra bruker
+ * @param {String} userId 
+ * @returns ValidationHandler
+ */
+function getWatchedTvs(userId) {
+    return userHandler.getFieldsFromUserById(userId, 'tvsWatched');
 }
 
 module.exports = {getWatchedMovies, getWatchedTvs}

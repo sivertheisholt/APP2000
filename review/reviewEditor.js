@@ -5,6 +5,9 @@ const reviewGetter = require('../review/reviewGetter');
 const logger = require('../logging/logger');
 const ValidationHandler = require('../handling/ValidationHandler');
 
+/**
+ * Klasse for  å klone review
+ */
 class CloneReview {
     constructor(userId, movieId, tvId, text, stars) {
         this.userId = userId;
@@ -15,6 +18,11 @@ class CloneReview {
     }
 }
 
+/**
+ * Lagrer approved review til database
+ * @param {Object} review 
+ * @returns ValidationHandler
+ */
 function saveApproved(review) {
     return new ReviewApproved(review).save().then((doc, err) => {
         if(err) {
@@ -25,6 +33,13 @@ function saveApproved(review) {
         return new ValidationHandler(true, 'Review was successfully approved to the database');
     })
 }
+
+/**
+ * Lagrer denied review til database
+ * @param {Object} review 
+ * @param {String} feedback
+ * @returns ValidationHandler
+ */
 function saveDenied(review, feedback) {
     review.feedback = feedback;
     return new ReviewDenied(review).save().then((doc, err) => {
@@ -37,6 +52,11 @@ function saveDenied(review, feedback) {
     })
 }
 
+/**
+ * Sletter pending review fra databasen
+ * @param {String} reviewId 
+ * @returns ValidationHandler
+ */
 function deletePending(reviewId) {
     return ReviewPending.deleteOne({_id: reviewId}).then((doc, err) => {
         if(err) {
@@ -48,6 +68,11 @@ function deletePending(reviewId) {
     })
 }
 
+/**
+ * Sletter approved review fra databasen
+ * @param {String} reviewId 
+ * @returns ValidationHandler
+ */
 function deleteApproved(reviewId) {
     return ReviewApproved.deleteOne({_id: reviewId}).then((doc, err) => {
         if(err) {
@@ -59,6 +84,11 @@ function deleteApproved(reviewId) {
     })
 }
 
+/**
+ * Sletter denied review fra databasen 
+ * @param {String} reviewId 
+ * @returns ValidationHandler
+ */
 function deleteDenied(reviewId) {
     return ReviewDenied.deleteOne({_id: reviewId}).then((doc, err) => {
         if(err) {
@@ -70,6 +100,13 @@ function deleteDenied(reviewId) {
     })
 }
 
+/**
+ * Endrer review og lagrer i databasen
+ * @param {String} reviewId 
+ * @param {String} text 
+ * @param {Number} stars 
+ * @returns ValidationHandler
+ */
 async function editReview(reviewId, text, stars) {
     const checkIdResult = await checkId(reviewId);
     if(!checkIdResult.status) {
@@ -80,6 +117,7 @@ async function editReview(reviewId, text, stars) {
     if(!approvedReview.status) {
         return approvedReview;
     }
+    //Lager kopi av review og lagrer i databasen
     const saveChangeResult = await saveApproved(new CloneReview(
         approvedReview.userId,
         approvedReview.movieId,
@@ -90,12 +128,18 @@ async function editReview(reviewId, text, stars) {
     if(!saveChangeResult.status) {
         return saveChangeResult;
     }
+    //Sletter gammel review
     const deleteOldResult = await deleteApproved(reviewId);
     if(!deleteOldResult.status) {
         return deleteOldResult;
     }
 }
 
+/**
+ * Sjekker om ID er valid
+ * @param {String} reviewId 
+ * @returns ValidationHandler
+ */
 function checkId(reviewId) {
     //Sjekker om reviewId matcher
     if (!reviewId.match(/^[0-9a-fA-F]{24}$/)) {
@@ -105,6 +149,12 @@ function checkId(reviewId) {
     return new ValidationHandler(true, `${reviewId} is a valid ObjectId`);
 }
 
+/**
+ * Deny pending review
+ * @param {String} reviewId 
+ * @param {String} feedback 
+ * @returns ValidationHandler
+ */
 async function denyReview(reviewId, feedback) {
     const checkIdResult = await checkId(reviewId);
     if(!checkIdResult.status) {
@@ -137,6 +187,11 @@ async function denyReview(reviewId, feedback) {
     return new ValidationHandler(true, `Review with id ${reviewId} was sucessfully denied`);
 }
 
+/**
+ * Approve pending review
+ * @param {String} reviewId 
+ * @returns ValidationHandler
+ */
 async function approveReview(reviewId) {
     //Sjekker id
     const checkIdResult = await checkId(reviewId);

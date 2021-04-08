@@ -1,9 +1,15 @@
 const winston = require('winston');
 
+/**
+ * Lager customFormat
+ */
 const customFormat = winston.format.printf(({level, message, timestamp}) => {
     return `[${level.toUpperCase()}][${timestamp}]: ${message}`
 })
 
+/**
+ * Lager en ny logger med vår egne instillinger
+ */
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.combine(
