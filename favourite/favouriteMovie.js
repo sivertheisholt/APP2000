@@ -4,7 +4,12 @@ const tmdb = require('../handling/tmdbHandler');
 const ValidationHandler = require('../handling/ValidationHandler');
 const movieHandler = require('../handling/movieHandler')
 
-//Sjekker om bruker har filmen som favoritt
+/**
+ * Sjekker om bruker har filmen som favoritt
+ * @param {Number} movieId 
+ * @param {Object} user 
+ * @returns ValidationHandler
+ */
 async function checkIfFavorited(movieId, user) {
     logger.log({level: 'debug', message: `Checking if movie is already favourited for user! MovieId: ${movieId} - UserId: ${user._id} `});
     for(const movie of user.movieFavourites) {
@@ -17,7 +22,11 @@ async function checkIfFavorited(movieId, user) {
     return new ValidationHandler(false, `Movie is not favourited`);
 }
 
-//Skaffer alle filmene som er i favoritt til brukeren
+/**
+ * Skaffer alle filmene som er i favoritt til brukeren
+ * @param {String} userId 
+ * @returns ValidationHandler
+ */
 async function getAllMovieFavourites(userId) {
     const userResult = await userHandler.getUserFromId(userId);
     if(!userResult.status)
@@ -25,7 +34,12 @@ async function getAllMovieFavourites(userId) {
     return new ValidationHandler(true, userResult.information.movieFavourites);
 }
 
-//Legger til film i database
+/**
+ * Legger til film i database
+ * @param {Number} movieId 
+ * @param {String} userId 
+ * @returns ValidationHandler
+ */
 async function addFavourite(movieId, userId) {
     logger.log({level: 'debug', message: `Adding movie with id ${movieId} to ${userId}'s favourite list`}); 
     const user = await userHandler.getUserFromId(userId);
@@ -56,6 +70,12 @@ async function addFavourite(movieId, userId) {
     return new ValidationHandler(true, `Favourite successfully added`);
 }
 
+/**
+ * Fjerner favoritt fra bruker
+ * @param {Number} movieId 
+ * @param {String} userId 
+ * @returns ValidationHandler
+ */
 async function removeFavorite(movieId, userId) {
     const userResult = await userHandler.getUserFromId(userId);
     if(!userResult)
