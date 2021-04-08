@@ -95,7 +95,19 @@ const ValidationHandler = require('./ValidationHandler');
                     resolve(new ValidationHandler(true, data));
             });
         });
-    }
+    },
+    /**
+     * Formaterer tall til hele tusen/millioner/milliarder - Gov
+     * @param {Number} int 
+     * @returns tall i hele tusen/millioner/milliarder
+     */
+    tallFormatering: function(int) {
+        if (int < 999999)
+            return `${Math.round(int / 1000)}K`
+        if (int < 999999999)
+            return `${Math.round(int / 1000000)}M`
+        return `${Math.round(int / 1000000000)}B`
+    },
  };
  
  exports.data = methods;

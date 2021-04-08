@@ -60,11 +60,16 @@ body
         .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
               h2= film.filminfo.title
-                a(href='#' width="40" id="heart-movie-favorite" data-movieid=`${film.filminfo.id}` height ="40" uk-icon='heart').tooltip
+                a(href='#' id="heart-movie-favorite" data-movieid=`${film.filminfo.id}`).tooltip
+                  img(src='/images/icons/heart-border.png' id='heart-movie-img' width="40" height ="40")
                   if !username
                     .bottom
                       p Log in to add this to your favorites
-                a(href='#'  width="40" height ="40" uk-icon='star')
+                a(href='#' id="bookmark-movie-watched" data-movieid=`${film.filminfo.id}`).tooltip
+                  img(src='/images/icons/bookmark-border.png' id='bookmark-movie-img' width="40" height ="40")
+                  if !username
+                    .bottom
+                      p Log in to add this to your watchlist
               h3= `${film.filminfo.release_date} ${genres}`
               h3= `${film.filminfo.runtime} #{__("MOVIEINFO_MINUTES")}`
               h1= `${film.filminfo.vote_average*10}%`

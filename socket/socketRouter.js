@@ -11,16 +11,16 @@ function routeFunction(socket) {
         liveSearch(socket, userInputSearch);
     })
     socket.on("favoriteMovie", (args) => {
-        favourite.favouriteMovie(socket, args);
+        favourite.addFavoriteMovie(socket, args);
      });
       socket.on('unFavoriteMovie', (args) => {
-        favourite.unFavouriteMovie(socket, args);
+        favourite.delFavoriteMovie(socket, args);
       });
       socket.on("favoriteTv", (args) => {
-        favourite.favouriteTv(socket, args);
+        favourite.addFavoriteTv(socket, args);
      });
       socket.on('unfavoriteTv', (args) => {
-        favourite.unFavouriteTv(socket, args);
+        favourite.delFavoriteTv(socket, args);
       });
 }
 

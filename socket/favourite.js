@@ -2,7 +2,7 @@ const favoriteMov = require('../favourite/favouriteMovie');
 const favoriteTv = require('../favourite/favouriteTv');
 const logger = require('../logging/logger');
 
-async function favouriteMovie(socket, args) {
+async function addFavoriteMovie(socket, args) {
     const result = await favoriteMov.addFavourite(args, socket.handshake.session.userId);
     if(!result.status) {
         logger.log({level: 'error', message: `Something unexpected happen when adding favourite movie! Error: ${result.information}`});
@@ -10,7 +10,7 @@ async function favouriteMovie(socket, args) {
     }
     socket.emit('favoritedMovie');
 }
-async function unFavouriteMovie(socket, args) {
+async function delFavoriteMovie(socket, args) {
     const result = await favoriteMov.removeFavorite(args, socket.handshake.session.userId);
     if(!result.status) {
         logger.log({level: 'error', message: `Something unexpected happen when removing favourite movie! Error: ${result.information}`});
@@ -18,7 +18,7 @@ async function unFavouriteMovie(socket, args) {
     }
     socket.emit('unfavoritedMovie');
 }
-async function favouriteTv(socket, args) {
+async function addFavoriteTv(socket, args) {
     const result = await favoriteTv.addFavourite(args, socket.handshake.session.userId);
     if(!result.status) {
         logger.log({level: 'error', message: `Something unexpected happen when removing favourite tvshow! Error: ${result.information}`});
@@ -26,7 +26,7 @@ async function favouriteTv(socket, args) {
     }
     socket.emit('favoritedTv');
 }
-async function unFavouriteTv(socket, args) {
+async function delFavoriteTv(socket, args) {
     const result = await favoriteTv.removeFavorite(args, socket.handshake.session.userId);
     if(!result.status) {
         logger.log({level: 'error', message: `Something unexpected happen when removing favourite tvshow! Error: ${result.information}`});
@@ -35,4 +35,4 @@ async function unFavouriteTv(socket, args) {
     socket.emit('unfavoritedTv');
 }
 
-module.exports = {favouriteMovie, unFavouriteMovie, favouriteTv, unFavouriteTv}
+module.exports = {addFavoriteMovie, delFavoriteMovie, addFavoriteTv, delFavoriteTv}
