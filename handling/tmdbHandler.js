@@ -70,52 +70,52 @@ var methods = {
             string += `${genre},`
         }
         string.substr(string.length);
-        return await tmdb.getDiscoverMovies(string);
+        return tmdb.getDiscoverMovies(string);
     },
-    getTrendingMovies: async function() {
-        return await tmdb.getTrendingMovies();
+    getTrendingMovies: function() {
+        return tmdb.getTrendingMovies();
     },
-    getGenreMovie: async function() {
-        return await tmdb.getGenresMovie();
+    getGenreMovie: function() {
+        return tmdb.getGenresMovie();
     },
-    getMovieInfo: async function (movieTitle) {
-        return await tmdb.getMovieResults(movieTitle);
+    getMovieInfo: function (movieTitle) {
+        return tmdb.getMovieResults(movieTitle);
     },
-    getMovieInfoByID: async function (movieID) {
-        return await tmdb.getMovieInfoByID(movieID);
+    getMovieInfoByID: function (movieID) {
+        return tmdb.getMovieInfoByID(movieID);
     },
-    getMovieVideosByID: async function (movieID) {
-        return await tmdb.getMovieVideosByID(movieID);
+    getMovieVideosByID: function (movieID) {
+        return tmdb.getMovieVideosByID(movieID);
     },
-    getMovieCastByID:  function (movieID) {
+    getMovieCastByID: function (movieID) {
         return tmdb.getMovieCastByID(movieID);
     },
-    getRecommendationsMovie: async function(movieId) {
-        return await tmdb.getRecommendationsMovie(movieId);
+    getRecommendationsMovie: function(movieId) {
+        return tmdb.getRecommendationsMovie(movieId);
     },
-    getSerieCastByID: async function (serieID) {
-        return await tmdb.getSerieCastByID(serieID);
+    getSerieCastByID: function (serieID) {
+        return tmdb.getSerieCastByID(serieID);
     },
-    getSerieInfoByID: async function (serieID) {
-        return await tmdb.getSerieInfoByID(serieID);
+    getSerieInfoByID: function (serieID) {
+        return tmdb.getSerieInfoByID(serieID);
     },
-    getSerieVideosByID: async function (serieID) {
-        return await tmdb.getSerieVideosByID(serieID);
+    getSerieVideosByID: function (serieID) {
+        return tmdb.getSerieVideosByID(serieID);
     },
-    getTrendingTv: async function() {
-        return await tmdb.getTrendingTv();
+    getTrendingTv: function() {
+        return tmdb.getTrendingTv();
     },
-    getGenreTv: async function() {
-        return await tmdb.getGenresTv();
+    getGenreTv: function() {
+        return tmdb.getGenresTv();
     },
-    getPersonByID: async function (personID) {
-        return await tmdb.getPersonByID(personID);
+    getPersonByID: function (personID) {
+        return tmdb.getPersonByID(personID);
     },
-    getPersonLinksByID: async function (personID) {
-        return await tmdb.getPersonLinksByID(personID);
+    getPersonLinksByID: function (personID) {
+        return tmdb.getPersonLinksByID(personID);
     },
-    getPersonCombinedCreditsByID: async function (personID) {
-        return await tmdb.getPersonCombinedCreditsByID(personID);
+    getPersonCombinedCreditsByID: function (personID) {
+        return tmdb.getPersonCombinedCreditsByID(personID);
     },
 };
 
