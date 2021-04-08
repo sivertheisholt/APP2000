@@ -1,12 +1,8 @@
 const express = require('express');
 const hjelpemetoder = require('../handling/hjelpeMetoder');
-const tmdb = require('../handling/tmdbHandler');
 const router = express.Router();
-const Session = require("../database/sessionSchema")
 const asyncExpress = require('../handling/expressUtils');
-const charts = require('../handling/chartMaker');
 const logger = require('../logging/logger');
-const Bruker = require('../handling/userHandler');
 
 router.all('*', function (req, res, next) {
   logger.log({level: 'debug' ,message:`Setting default language to english`});
