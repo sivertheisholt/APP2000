@@ -4,7 +4,6 @@ const hjelpeMetoder = require('../handling/hjelpeMetoder');
 const router = express.Router();
 const asyncExpress = require('../handling/expressUtils');
 const Session = require("../database/sessionSchema");
-const Bruker = require('../database/brukerSchema');
 const movieFavorite = require('../favourite/favouriteMovie');
 const movieHandler = require('../handling/movieHandler');
 const tvFavorite = require('../favourite/favouriteTv');
@@ -13,6 +12,7 @@ const reviewGetter = require('../review/reviewGetter');
 const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
 const filter = require('../handling/filter');
+const Bruker = require('../handling/userHandler');
 
 //Filminfo siden kjører her
 
@@ -57,6 +57,7 @@ router.get("/filminfo/:id",  asyncExpress (async (req, res, next) => {
   logger.log({level: 'debug', message: 'Checking if favorited..'});
   if(session){
     isMovFav = await movieFavorite.checkIfFavorited(film.filminfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
+    console.log(isMovFav);
   }
 
   logger.log({level: 'debug', message: 'Rendering page..'});
@@ -76,7 +77,7 @@ router.get("/serieinfo/:id",  asyncExpress (async (req, res, next) => {
   logger.log({level: 'debug', message: 'Finding session..'});
   var session = await Session.findOne({_id: req.sessionID});
   logger.log({level: 'debug', message: 'Getting user..'});
-  var user = await Bruker.findOne({_id: req.session.userId});
+  let user = await Bruker.getUser({_id: req.session.userId});
   logger.log({level: 'debug', message: 'Getting castinfo..'});
   let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(10));
   var isTvFav = false;
@@ -101,7 +102,7 @@ router.get("/serieinfo/:id",  asyncExpress (async (req, res, next) => {
 res.render("mediainfo/serieinfo", {
   serie: serie,
   username: session ? true : false,
-  user: user,
+  user: user.status,
   isTvFav: JSON.stringify(isTvFav.status),
   urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
   lang: res.locals.lang,
@@ -156,6 +157,10 @@ router.get("/upcomingtv",  asyncExpress (async (req, res, next) => {
   }));
 
 router.get("/tvshows",  asyncExpress (async (req, res, next) => {
+  logger.log({level: 'debug', message: 'Finding session..'});
+  let session = await Session.findOne({_id: req.sessionID});
+  logger.log({level: 'debug', message: 'Getting user..'});
+  let user = await Bruker.getUser({_id: req.session.userId});
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
   let finalListTvshowsPopular = [];
   for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
@@ -170,6 +175,8 @@ router.get("/tvshows",  asyncExpress (async (req, res, next) => {
   }
   console.log(finalListTvshowsPopular);
   res.render("mediainfo/tvshows", {
+    username: session ? true : false,
+    admin: user.information.administrator,
     tvShows: JSON.stringify(finalListTvshowsPopular),
     urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
     lang: res.locals.lang,
@@ -178,6 +185,10 @@ router.get("/tvshows",  asyncExpress (async (req, res, next) => {
 }));
 
 router.get("/movies",  asyncExpress (async (req, res, next) => {
+  logger.log({level: 'debug', message: 'Finding session..'});
+  let session = await Session.findOne({_id: req.sessionID});
+  logger.log({level: 'debug', message: 'Getting user..'});
+  let user = await Bruker.getUser({_id: req.session.userId});
   let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
   let finalListPopularMovies = [];
   for(const movie of tmdbInformasjon.discoverMoviesPopular) {
@@ -191,6 +202,8 @@ router.get("/movies",  asyncExpress (async (req, res, next) => {
     finalListPopularMovies.push(tempObj);
   }
   res.render("mediainfo/movies", {
+    username: session ? true : false,
+    admin: user.information.administrator,
     popularMovies: JSON.stringify(finalListPopularMovies),
     urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
     lang: res.locals.lang,
