@@ -1,7 +1,9 @@
 const ReviewPending = require('../database/pendingReviewSchema');
 const logger = require('../logging/logger');
 const ValidationHandler = require('../handling/ValidationHandler');
-//Hovedklassen for reviews
+/**
+ * Hovedklassen for reviews
+ */
 class Review {
     constructor(userId, text, stars) {
         this.userId = userId;
@@ -10,7 +12,9 @@ class Review {
     }
 }
 
-//Klasse for review av tv
+/**
+ * Klasse for review av tv
+ */
 class ReviewTv extends Review {
     constructor(userId, tvId, text, stars) {
         super(userId, text, stars)
@@ -18,7 +22,9 @@ class ReviewTv extends Review {
     }
 }
 
-//Klasse for review av movie
+/**
+ * Klasse for review av movie
+ */
 class ReviewMovie extends Review {
     constructor(userId, movieId, text, stars) {
         super(userId, text, stars)
@@ -28,17 +34,21 @@ class ReviewMovie extends Review {
 
 /**
  * Lager review og lagrer i databasen
- * @param {ReviewTv|ReviewMovie} review - En av underklassene til Review
+ * @param {ReviewTv|ReviewMovie} review En av underklassene til Review
  */
 async function makeReview(review) {
     const databaseReturn = await addToDatabase(review);
     if(!databaseReturn.status) {
-        return new ValidationHandler(false, databaseReturn.information);
+        return databaseReturn;
     }
     logger.log({level:'info', message: `Review was successfully created for user ${review.userId}`});
 }
 
-//Legger review til i databasen
+/**
+ * Lagrer review i databasen
+ * @param {ReviewTv|ReviewMovie} reviewInfo 
+ * @returns ValidationHandler
+ */
 function addToDatabase(reviewInfo) {
     logger.log({level: 'info', message: 'Adding review to database'})
     const review = new ReviewPending(reviewInfo);
