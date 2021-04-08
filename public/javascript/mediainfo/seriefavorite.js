@@ -1,24 +1,16 @@
 var socket = io.connect();
 let serieEle = document.getElementById('heart-tv-favorite');
 let tvId = serieEle.getAttribute('data-tvid');
-
+let heartTvImg = document.getElementById('heart-tv-img');
 console.log(isTvFav);
 
 document.addEventListener('DOMContentLoaded', function () {
     if(isTvFav){
-        serieEle.style.backgroundColor = 'blue';
+        heartTvImg.src = "/images/icons/heart-filled.png";
     } else {
-        serieEle.style.backgroundColor = 'transparent';
+        heartTvImg.src = '/images/icons/heart-border.png';
     }
 });
-
-socket.on('connect', function () {
-    console.log('Connected to the server.')
-});
-
-socket.on('disconnect', function () {
-    console.log('Disconnected to the server.')
-}); 
 
 serieEle.addEventListener("click", function(){
     if(isTvFav){

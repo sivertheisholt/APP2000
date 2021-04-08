@@ -1,24 +1,15 @@
 var socket = io.connect();
 let movieEle = document.getElementById('heart-movie-favorite');
 let movieid = movieEle.getAttribute('data-movieid');
-
-console.log(isMovFav);
+let heartMovieImg = document.getElementById('heart-movie-img');
 
 document.addEventListener('DOMContentLoaded', function () {
     if(isMovFav){
-        movieEle.style.backgroundColor = 'blue';
+        heartMovieImg.src = "/images/icons/heart-filled.png";
     } else {
-        movieEle.style.backgroundColor = 'transparent';
+        heartMovieImg.src = '/images/icons/heart-border.png';
     }
-}); 
-
-socket.on('connect', function () {
-    console.log('Connected to the server.')
 });
-
-socket.on('disconnect', function () {
-    console.log('Disconnected to the server.')
-}); 
 
 movieEle.addEventListener("click", function(){
     if(isMovFav){
