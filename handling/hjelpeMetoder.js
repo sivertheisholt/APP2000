@@ -101,7 +101,7 @@ const ValidationHandler = require('./ValidationHandler');
     /**
      * Sjekker om passord er valid
      * @param {String} password 
-     * @returns 
+     * @returns boolean
      */
     validatePassword: function(password){
         try{
