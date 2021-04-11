@@ -11,7 +11,7 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-center' uk-toggle='') #{_
             li#loginForm
                 .uk-grid.uk-width-1-1.uk-flex-nowrap
                     .uk-aling-center
-                        form(action='/auth/login' method='post')
+                        form(action=`/${urlPath}/auth/login` method='post')
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon(uk-icon='icon: user')
@@ -31,7 +31,7 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-center' uk-toggle='') #{_
             li#signupForm
                 .uk-grid.uk-width-1-1.uk-flex-nowrap
                     .uk-aling-center
-                        form(action='/auth/signup' method='post')
+                        form(action=`/${urlPath}/auth/signup` method='post')
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon(uk-icon='icon: user')
@@ -58,7 +58,7 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-center' uk-toggle='') #{_
         .uk-grid.uk-width-1-1.uk-flex-nowrap
             .uk-aling-center
                 h3 #{__("MODAL_PASSWORD_RECOVERY")}
-                    form(action='/auth/forgottenPassword' method='post')
+                    form(action=`/${urlPath}/auth/forgottenPassword` method='post')
                         .uk-margin-bottom
                             .uk-inline
                                 input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailForgottenPassword' placeholder='Email' required)

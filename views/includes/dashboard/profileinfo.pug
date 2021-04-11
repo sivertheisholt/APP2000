@@ -3,7 +3,7 @@ script.
 .uk-card.uk-card-default.uk-card-body
     p #{__("DASHBOARD_PROFILE_INFO_TITLE")}
     p #{__("DASHBOARD_PROFILE_INFO_DESC")}
-    form(action='/user/changeUsername' method='post')
+    form(action=`/${urlPath}/user/changeUsername` method='post')
         .uk-margin
             .uk-inline
                 span.uk-form-icon(uk-icon='icon: user')
@@ -13,7 +13,7 @@ script.
             .uk-inline
                 button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_ENTER")}
     p #{__("DASHBOARD_PROFILE_INFO_UPLOAD_TEXT")}
-    form(action='/user/upload-avatar' method='post' enctype='multipart/form-data')
+    form(action=`/${urlPath}/user/upload-avatar` method='post' enctype='multipart/form-data')
         .uk-margin 
             .uk-inline
                  input(type='file' name='avatar')

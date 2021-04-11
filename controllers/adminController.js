@@ -12,6 +12,7 @@ exports.admin_get_dashboard = async function(req, res) {
     }
     res.render("admin/admindashboard", {
       username: session ? true : false,
-      admin: userResult.information.administrator
+      admin: userResult.information.administrator,
+      urlPath: res.locals.currentLang
     });
 }

@@ -27,30 +27,30 @@ exports.userAuth_post_signup = async function(req,res ) {
     //Sjekker at mail tilfredsstiller krav
     if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
         logger.log({level: 'debug', message: `Email ${pugBody.email} is not properly formatted!`}); 
-        res.redirect('/?error=Email is not properly formatted&errorType=signup');
+        res.redirect(`/${res.locals.currentLang}/homepage?error=Email is not properly formatted&errorType=signup`);
         return;
     }
     if(await Bruker.findOne({email: pugBody.email})) {
         logger.log({level: 'debug', message: `Email ${pugBody.email} is already taken!`});
-        res.redirect('/?error=Email is already taken&errorType=signup');
+        res.redirect(`/${res.locals.currentLang}/homepage?error=Email is already taken&errorType=signup`);
         return;
     }
     //Sjekker at passord tilfredstiller krav
     if(!(hjelpeMetoder.data.validatePassword(pugBody.password))){
         logger.log({level: 'debug', message: `Password is not properly formatted!`}); 
-        res.redirect('/?error=Password is not properly formatted&errorType=signup');
+        res.redirect(`/${res.locals.currentLang}/homepage?error=Password is not properly formatted&errorType=signup`);
         return;
     }
     //Vi gjør en sjekk at alle feltene er fylt inn
     if(!(pugBody.email && pugBody.password && pugBody.passwordRepeat)) {
         logger.log({level: 'debug', message: `All form inputs are not filled!`}); 
-        res.redirect('/?error=Data is not properly formatted&errorType=signup');
+        res.redirect(`/${res.locals.currentLang}/homepage?error=Data is not properly formatted&errorType=signup`);
         return;
     }
     //Vi gjør en sjekk at passord 1 er lik passord 2 (Repeat password)
     if(!(pugBody.password == pugBody.passwordRepeat)) {
         logger.log({level: 'debug', message: `Passwords do not match each other!`}); 
-        res.redirect('/?error=Passwords do not match&errorType=signup');
+        res.redirect(`/${res.locals.currentLang}/homepage?error=Passwords do not match&errorType=signup`);
         return;
     }
 
@@ -84,21 +84,21 @@ exports.userAuth_post_forgottenPassword = function(req, res) {
     Bruker.findOne({email: pugBody.emailForgottenPassword}, (err, bruker) => {
         if(!bruker) {
             logger.log({level: 'error', message: `User with email ${pugBody.emailForgottenPassword} does not exist`}); 
-            res.redirect('/?error=User with this email does not exist&errorType=forgottenPassword');
+            res.redirect(`/${res.locals.currentLang}?error=User with this email does not exist&errorType=forgottenPassword`);
             return;
         }
         if(err) {
             logger.log({level: 'error', message: `Something went wrong when finding user! Error: ${err}`});
-            res.redirect('/?error=Something went wrong&errorType=forgottenPassword');
+            res.redirect(`/${res.locals.currentLang}/homepage?error=Something went wrong&errorType=forgottenPassword`);
         }
         const token = jwt.sign({_id: bruker._id}, process.env.RESET_PASSWORD_KEY, {expiresIn:'60m'});
         return bruker.updateOne({resetLink: token}, function(err, success) {
             if(err) {
                 logger.log({level: 'error', message: `Something unexpected happen! Error: ${err}`}); 
-                res.redirect('/?error=Reset password link error&errorType=forgottenPassword');
+                res.redirect(`/${res.locals.currentLang}/homepage?error=Reset password link error&errorType=forgottenPassword`);
                 return;
             } else {
-                let link = `http://${process.env.CLIENT_URL}/auth/resetpassword/${token}`
+                let link = `/${res.locals.currentLang}/auth/resetpassword/${token}`
                 logger.log({level: 'debug', message: `Link ${link} sent`}); 
                 mailer({
                     from: process.env.EMAIL,
@@ -128,12 +128,12 @@ exports.userAuth_get_login = async function(req,res ) {
             return;
         } else {
             logger.log({level: 'debug', message: `Invalid password for ${bruker._id}`}); 
-            res.redirect('/?error=Invalid Password&errorType=login');
+            res.redirect(`/${res.locals.currentLang}/homepage?error=Invalid Password&errorType=login`);
             return;
         }
     } else {
         logger.log({level: 'debug', message: `User does not exist`}); 
-        res.redirect('/?error=User does not exist&errorType=login');
+        res.redirect(`/${res.locals.currentLang}/homepage?error=User does not exist&errorType=login`);
         return;
     }
 }
