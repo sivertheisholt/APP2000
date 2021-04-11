@@ -14,6 +14,6 @@ router.get("/upcomingtv",  asyncExpress(tvController.tv_get_upcoming));
 
 router.get("/tvshows",  asyncExpress(tvController.tv_get_list));
 
-router.get("/movies",  asyncExpress(tvController.tv_get_list));
+router.get("/movies",  asyncExpress(filmController.film_get_list));
 
 module.exports = router;
