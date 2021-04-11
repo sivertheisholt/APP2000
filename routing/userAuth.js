@@ -1,5 +1,4 @@
 const express = require('express');
-const Bruker = require('../database/brukerSchema');
 const router = express.Router();
 const asyncExpress = require('../handling/expressUtils');
 

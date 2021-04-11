@@ -1,11 +1,8 @@
-const express = require('express');
 const Bruker = require('../database/brukerSchema');
-const router = express.Router();
 const bcrypt = require("bcrypt");
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
 var mailer = require('../handling/mailer');
 const jwt = require('jsonwebtoken');
-const asyncExpress = require('../handling/expressUtils');
 const logger = require('../logging/logger');
 
 exports.userAuth_get_logout = async function(req, res) {
