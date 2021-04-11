@@ -65,10 +65,10 @@ async function checkIfWatched(user, mediaId, mediaType) {
 function iterateArray(userWatched, mediaId) {
     for(const media of userWatched) {
         if(media == mediaId) {
-            return new ValidationHandler(true, 'User already got tv favourited!')
+            return new ValidationHandler(true, 'User already got tv in watchlist!')
         }
     }
-    return new ValidationHandler(false, 'User does not have media favourited!')
+    return new ValidationHandler(false, 'User does not have media in watchlist!')
 }
 
-module.exports = {addToWatched}
+module.exports = {addToWatched, checkIfWatched}

@@ -6,7 +6,8 @@
 - var execProducer;
 - var creators = [];
 script.
-    var isTvFav = !{isTvFav};
+    let isTvFav = !{isTvFav};
+    let isTvWatched = !{isTvWatched};
 each item in serie.serieinfo.created_by 
   - creators.push(item.name);
 
@@ -52,12 +53,12 @@ body
         .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
               h2= serie.serieinfo.name
-                a(href='#' id="heart-tv-favorite" data-tvid=`${serie.serieinfo.id}`).tooltip
+                a(href='#' id="heart-tv-favorite" data-favorite-tvid=`${serie.serieinfo.id}`).tooltip
                   img(src='/images/icons/heart-border.png' id='heart-tv-img' width="40" height ="40")
                   if !username
                     .bottom
                       p Log in to add this to your favorites
-                a(href='#' id="bookmark-tv-watched").tooltip
+                a(href='#' id="bookmark-tv-watched" data-watched-tvid=`${serie.serieinfo.id}`).tooltip
                   img(src='/images/icons/bookmark-border.png' id='bookmark-tv-img' width="40" height ="40")
                   if !username
                     .bottom
@@ -123,4 +124,4 @@ body
               iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
 
       include ../includes/footer.pug
-      script(src="/javascript/mediainfo/seriefavorite.js")
+      script(src="/javascript/mediainfo/addtv.js")

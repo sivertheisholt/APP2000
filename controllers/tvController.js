@@ -5,6 +5,7 @@ const tvFavorite = require('../favourite/favouriteTv');
 const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
 const Bruker = require('../handling/userHandler');
+const watchedCreater = require('../watched/watchedCreater');
 
 exports.tv_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Finding session..'});
@@ -12,7 +13,7 @@ exports.tv_get_info = async function(req, res) {
     let user = await Bruker.getUser({_id: req.session.userId});
     logger.log({level: 'debug', message: 'Getting castinfo..'});
     let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(10));
-    var isTvFav = false;
+    let isTvFav, isTvWatched = false;
     logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
     let serie = {
         serieinfo: await tmdb.data.getSerieInfoByID(req.url.slice(10)),
@@ -28,6 +29,7 @@ exports.tv_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Checking if favorited..'});
     if(session){
         isTvFav = await tvFavorite.checkIfFavorited(serie.serieinfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
+        isTvWatched = await watchedCreater.checkIfWatched((await userHandler.getUserFromId(req.session.userId)).information, serie.serieinfo.id, 'tv');
     }
     //let person = await tmdb.data.getPersonByID(personID);
     logger.log({level: 'debug', message: 'Rendering page..'});
@@ -36,6 +38,7 @@ exports.tv_get_info = async function(req, res) {
         username: session ? true : false,
         user: user.status,
         isTvFav: JSON.stringify(isTvFav.status),
+        isTvWatched: JSON.stringify(isTvWatched.status),
         urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
         lang: res.locals.lang,
         langCode: res.locals.langCode

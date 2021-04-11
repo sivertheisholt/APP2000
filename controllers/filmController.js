@@ -6,12 +6,15 @@ const reviewGetter = require('../review/reviewGetter');
 const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
 const Bruker = require('../handling/userHandler');
+const watchedCreater = require('../watched/watchedCreater');
 
 exports.film_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Finding session..'});
     var session = await Session.findOne({_id: req.sessionID});
     var user = await userHandler.getUserFromId(req.session.userId);
-    var isMovFav = false;
+    let isMovFav, isMovWatched = false;
+
+
     logger.log({level: 'debug', message: 'Getting castinfo..'});
     let castinfolet = await tmdb.data.getMovieCastByID(req.url.slice(10));
     logger.log({level: 'debug', message: 'Getting reviews..'});
@@ -31,7 +34,7 @@ exports.film_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Checking if favorited..'});
     if(session){
         isMovFav = await movieFavorite.checkIfFavorited(film.filminfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
-        console.log(isMovFav);
+        isMovWatched = await watchedCreater.checkIfWatched((await userHandler.getUserFromId(req.session.userId)).information, film.filminfo.id, 'movie');
     }
 
     logger.log({level: 'debug', message: 'Rendering page..'});
@@ -40,6 +43,7 @@ exports.film_get_info = async function(req, res) {
         username: session ? true : false,
         user: user.information,
         isMovFav: JSON.stringify(isMovFav.status),
+        isMovWatched: JSON.stringify(isMovWatched.status),
         urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
         lang: res.locals.lang,
         langCode: res.locals.langCode

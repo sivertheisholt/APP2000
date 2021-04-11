@@ -10,8 +10,8 @@
 
 
 script.
-    var isMovFav = !{isMovFav};
-    console.log(username);
+    let isMovFav = !{isMovFav};
+    let isMovWatched = !{isMovWatched};
 each item in film.filminfo.genres
   - genres += item.name + " ";
   - if(counter == 1)
@@ -60,12 +60,12 @@ body
         .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
               h2= film.filminfo.title
-                a(href='#' id="heart-movie-favorite" data-movieid=`${film.filminfo.id}`).tooltip
+                a(href='#' id="heart-movie-favorite" data-favorite-movieid=`${film.filminfo.id}`).tooltip
                   img(src='/images/icons/heart-border.png' id='heart-movie-img' width="40" height ="40")
                   if !username
                     .bottom
                       p Log in to add this to your favorites
-                a(href='#' id="bookmark-movie-watched" data-movieid=`${film.filminfo.id}`).tooltip
+                a(href='#' id="bookmark-movie-watched" data-watched-movieid=`${film.filminfo.id}`).tooltip
                   img(src='/images/icons/bookmark-border.png' id='bookmark-movie-img' width="40" height ="40")
                   if !username
                     .bottom
@@ -131,5 +131,5 @@ body
             li
               iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
     include ../includes/footer.pug
-    script(src="/javascript/mediainfo/moviefavorite.js")
+    script(src="/javascript/mediainfo/addmovie.js")
     

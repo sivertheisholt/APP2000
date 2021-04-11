@@ -2,13 +2,14 @@ const disconnect = require("./disconnect");
 const liveSearch = require("./liveSearch");
 const favourite = require("./favourite");
 const filter = require("./filter");
+const watchlist = require('./watchlist');
 
 const sockets = {
     disconnect: disconnect,
     userInputSearch: liveSearch,
     favoriteMovie: favourite.addFavoriteMovie,
     unFavoriteMovie: favourite.delFavoriteMovie,
-    favoriteTv: favourite.addFavoriteTv,
+    addFavoriteTv: favourite.addFavoriteTv,
     delFavoriteTv: favourite.delFavoriteTv,
     popularMediaDesc: filter.popularMediaDesc,
     popularMediaAsc: filter.popularMediaAsc,
@@ -16,6 +17,10 @@ const sockets = {
     popularMediaSortByDateAsc: filter.popularMediaSortByDateAsc,
     popularMediaSortByTitleAZ: filter.popularMediaSortByTitleAZ,
     popularMediaSortByTitleZA: filter.popularMediaSortByTitleZA,
+    addWatchedMovie: watchlist.addMovieToWatchlist,
+    removeWatchedMovie: watchlist.removeMovieFromWatchlist,
+    addWatchedTv: watchlist.addTvToWatchlist,
+    removeWatchedTv: watchlist.removeTvFromWatchlist
 }
 
 /**
