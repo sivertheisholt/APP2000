@@ -10,46 +10,64 @@ const movieHandler = require('../handling/movieHandler');
 const tvHandler = require('../handling/tvHandler');
 const Bruker = require('../handling/userHandler');
 const BrukerDB = require('../database/brukerSchema');
+const watchedGetter = require('../watched/watchedGetter');
 
 exports.user_get_dashboard = async function(req, res) {
     var session = await Session.findOne({_id: req.sessionID});
     var user = await Bruker.getUser({_id: req.session.userId});
     let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.session.userId)).information;
     let favoriteTvs = (await favoriteTv.getAllTvFavourites(req.session.userId)).information;
-    let tempListFavoriteMovies = [];
-    let finalListFavoriteMovies = [];
-    let tempListFavoriteTvShow = [];
-    let finalListFavoriteTvShow = [];
+    let watchedMovies = (await watchedGetter.getWatchedMovies(req.session.userId)).information.moviesWatched;
+    let watchedTvs = (await watchedGetter.getWatchedTvs(req.session.userId)).information.tvsWatched;
+    let allFavorites = [];
+    let allWatched = [];
     let error = null;
     let errorType = null;
 
     for(const item of favoriteMovies){
-        tempListFavoriteMovies.push(await (await movieHandler.getMovieById(item)));
-    }
-
-    for(const item of tempListFavoriteMovies){
+        let result = await (await movieHandler.getMovieById(item));
         let tempObj = {
-            id: item.information.id,
-            pictureUrl: item.information.poster_path,
-            title: item.information.original_title,
-            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(item.information.release_date, ', ')
+            id: result.information.id,
+            pictureUrl: result.information.poster_path,
+            title: result.information.original_title,
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.release_date, ', ')
         }
-        finalListFavoriteMovies.push(tempObj);
-    }
-    for(const item of favoriteTvs){
-        tempListFavoriteTvShow.push(await (await tvHandler.getShowById(item)));
+        allFavorites.push(tempObj);
     }
     
-    for(const item of tempListFavoriteTvShow){
+    for(const item of favoriteTvs){
+        let result = await (await tvHandler.getShowById(item));
         let tempObj = {
-            id: item.information.id,
-            pictureUrl: item.information.poster_path,
-            title: item.information.name,
-            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(item.information.first_air_date, ', ')
+            id: result.information.id,
+            pictureUrl: result.information.poster_path,
+            title: result.information.name,
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.first_air_date, ', ')
         }
-        finalListFavoriteTvShow.push(tempObj);
+        allFavorites.push(tempObj);
     }
-    let allFavorites= finalListFavoriteMovies.concat(finalListFavoriteTvShow);
+
+    for(const item of watchedMovies){
+        let result = await(await movieHandler.getMovieById(item));
+        let tempObj = {
+            id: result.information.id,
+            pictureUrl: result.information.poster_path,
+            title: result.information.title,
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.release_date, ', ')
+        }
+        allWatched.push(tempObj);
+    }
+
+    for(const item of watchedTvs){
+        let result = await (await tvHandler.getShowById(item));
+        let tempObj = {
+            id: result.information.id,
+            pictureUrl: result.information.poster_path,
+            title: result.information.name,
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.first_air_date, ', ')
+        }
+        allWatched.push(tempObj);
+    }
+
     if(req.query.error) {
         error = req.query.error;
         errorType = req.query.errorType;
@@ -64,6 +82,7 @@ exports.user_get_dashboard = async function(req, res) {
         user: user.information,
         admin: user.information.administrator,
         allFavorites: allFavorites,
+        allWatched: allWatched,
         urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
         lang: res.locals.lang,
         langCode: res.locals.langCode,

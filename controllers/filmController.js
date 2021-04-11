@@ -7,12 +7,14 @@ const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
 const Bruker = require('../handling/userHandler');
 const watchedCreater = require('../watched/watchedCreater');
+const ValidationHandler = require('../handling/ValidationHandler');
 
 exports.film_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Finding session..'});
     var session = await Session.findOne({_id: req.sessionID});
     var user = await userHandler.getUserFromId(req.session.userId);
-    let isMovFav, isMovWatched = false;
+    let isMovFav = new ValidationHandler(false, "");
+    let isMovWatched = new ValidationHandler(false, "");
 
 
     logger.log({level: 'debug', message: 'Getting castinfo..'});
@@ -42,8 +44,8 @@ exports.film_get_info = async function(req, res) {
         film:film,
         username: session ? true : false,
         user: user.information,
-        isMovFav: JSON.stringify(isMovFav.status),
-        isMovWatched: JSON.stringify(isMovWatched.status),
+        isMovFav: isMovFav.status,
+        isMovWatched: isMovWatched.status,
         urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
         lang: res.locals.lang,
         langCode: res.locals.langCode

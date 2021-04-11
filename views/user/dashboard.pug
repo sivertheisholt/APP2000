@@ -11,39 +11,44 @@ body
                 img.center.avatar(src=`${user.avatar}` alt='')
                 ul.uk-tab-left.dashboard-menu(uk-tab='connect: #component-tab-left; animation: uk-animation-fade')
                     li  
-                        a(href='#') #{__("DASHBOARD_SWITCHER_CHANGE_PASSWORD")}
+                        a(href='') #{__("DASHBOARD_SWITCHER_CHANGE_PASSWORD")}
                     li
-                        a(href='#') #{__("DASHBOARD_SWITCHER_FAVORITES")}
+                        a(href='') #{__("DASHBOARD_SWITCHER_FAVORITES")}
                     li
-                        a(href='#') #{__("DASHBOARD_SWITCHER_STATISTICS")}
+                        a(href='') #{__("DASHBOARD_SWITCHER_WATCHLIST")}
                     li
-                        a(href='#') #{__("DASHBOARD_SWITCHER_PROFILE")}
+                        a(href='') #{__("DASHBOARD_SWITCHER_STATISTICS")}
+                    li
+                        a(href='') #{__("DASHBOARD_SWITCHER_PROFILE")}
             .uk-width-3-4
                 ul#component-tab-left.uk-switcher
                     li
                         include ../includes/dashboard/changepassword.pug
-                    li 
+                    li
                         include ../includes/dashboard/favorites.pug
                     li
+                        include ../includes/dashboard/watchlist.pug
+                    li
                         include ../includes/dashboard/statistics.pug
-                    li 
+                    li
                         include ../includes/dashboard/profileinfo.pug
 
 include ../includes/footer.pug
 script.
     if(error != undefined) {
-        console.log(error);
-        console.log(errorType);
         switch(errorType) {
-            case "dashboardChangePassword": 
+            case "dashboardChangePassword":
                 document.getElementById("dashboard-password-error").style.display='block';
                 document.getElementById("dashboard-password-error").innerHTML += 'ERROR: ' + error;
+                //UIkit.switcher('#dashboard-switcher').show(0);
                 break;
             case "dashboardChangeUsername":
                 document.getElementById("dashboard-username-error").style.display='block';
                 document.getElementById("dashboard-username-error").innerHTML += 'ERROR: ' + error;
+                //UIkit.switcher('#dashboard-switcher').show(3);
                 break;
             case "dashboardUploadAvatar":
+                //UIkit.switcher('#dashboard-switcher').show(3);
                 document.getElementById("dashboard-avatar-error").style.display='block';
                 document.getElementById("dashboard-avatar-error").innerHTML += 'ERROR: ' + error;
                 break;

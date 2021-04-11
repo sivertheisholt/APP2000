@@ -6,6 +6,7 @@ const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
 const Bruker = require('../handling/userHandler');
 const watchedCreater = require('../watched/watchedCreater');
+const ValidationHandler = require('../handling/ValidationHandler');
 
 exports.tv_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Finding session..'});
@@ -13,7 +14,8 @@ exports.tv_get_info = async function(req, res) {
     let user = await Bruker.getUser({_id: req.session.userId});
     logger.log({level: 'debug', message: 'Getting castinfo..'});
     let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(10));
-    let isTvFav, isTvWatched = false;
+    let isTvFav = new ValidationHandler(false, "");
+    let isTvWatched = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
     let serie = {
         serieinfo: await tmdb.data.getSerieInfoByID(req.url.slice(10)),

@@ -1,6 +1,9 @@
 const ValidationHandler = require("../handling/ValidationHandler");
 const logger = require("../logging/logger");
 const userHandler = require("../handling/userHandler");
+const movieHandler = require('../handling/movieHandler');
+const tvHandler = require('../handling/tvHandler');
+const tmdb = require('../handling/tmdbHandler');
 
 /**
  * Legger til watched i databasen
@@ -20,6 +23,7 @@ async function addToWatched(userId, mediaId, mediaType) {
     const updateDatabaseResult = await updateDatabase(userResult.information, mediaId, mediaType);
     if(!updateDatabaseResult.status)
         return updateDatabaseResult
+    addMediaToDB(mediaId, mediaType);
     logger.log({level: 'debug', message: `Media ${mediaId} successfully added to user ${userId}`}); 
     return new ValidationHandler(true, `Successfully added media`);
 }
@@ -69,6 +73,49 @@ function iterateArray(userWatched, mediaId) {
         }
     }
     return new ValidationHandler(false, 'User does not have media in watchlist!')
+}
+
+async function addMediaToDB(mediaId, mediaType) {
+    //Legger til film/tvshow informasjon i databasen
+    if(mediaType == 'tv'){
+        const isSaved = await tvHandler.checkIfSaved(mediaId);
+        if(isSaved.status){
+            return isSaved;
+        }
+        //Skaffer tv informasjon
+        const serieInfo = await tmdb.data.getSerieInfoByID(mediaId);
+        if(!serieInfo) {
+            logger.log('error', `Could not retrieve information for tv-show with id ${mediaId}`)
+            return new ValidationHandler(false, 'Could not retrieve tv-show information');
+        }
+        //Legger til tv i database
+        const addToDatabaseResult = await tvHandler.addToDatabase(serieInfo);
+        if(!addToDatabaseResult.status)
+            return addToDatabaseResult;
+        return new ValidationHandler(true, `Favourite successfully added`);
+        
+        } else if(mediaType == 'movie'){
+        const isSaved = await movieHandler.checkIfSaved(mediaId);
+        if(isSaved.status){
+            return isSaved;
+        }
+        const movieInfo = await tmdb.data.getMovieInfoByID(mediaId);
+        if(!movieInfo) {
+            logger.log('error', `Could not retrieve information for movie with id ${mediaId}`)
+            return new ValidationHandler(false, 'Could not retrieve movie information');
+        }
+        //Legger til film i database
+        const addToDatabaseResult = await movieHandler.addToDatabase(movieInfo);
+        if(!addToDatabaseResult.status)
+            return addToDatabaseResult;
+        return new ValidationHandler(true, `Favourite successfully added`);
+    } else {
+        logger.log('error', `Could not find mediatype with type ${mediaType}`);
+        return new ValidationHandler(false, 'Could not find mediatype');
+    }
+    
+    //Skaffer film informasjon
+   
 }
 
 module.exports = {addToWatched, checkIfWatched}
