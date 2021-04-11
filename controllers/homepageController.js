@@ -7,8 +7,12 @@ const hjelpemetoder = require('../handling/hjelpeMetoder');
 
 exports.homepage = async function(req, res) {
     let tmdbInformasjon = tmdb.data.returnerTmdbInformasjon();
+    let finalListTvshows = []; //Lager en tom array
     let finalListMovies = [];
     let maxMovies = 10;
+    let maxTvshows = 10;
+    let error = null;
+    let errorType = null;
     logger.log({level: 'debug' ,message:'Creating slider information for movies'});
     for(const movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
         //Lager et object for hver movie
@@ -23,8 +27,7 @@ exports.homepage = async function(req, res) {
         if(maxMovies === 0)
             break;
     }
-    let finalListTvshows = []; //Lager en tom array
-    let maxTvshows = 10;
+
     logger.log({level: 'debug' ,message:'Creating slider information for tv'})
     for(const tvshow of tmdbInformasjon.discoverTvshowsPopular) { //For loop imellom hver item i discoverTvshows
         //Lager et object for hver serie
@@ -39,8 +42,6 @@ exports.homepage = async function(req, res) {
         if(maxTvshows === 0)
             break;
     }
-    let error = null;
-    let errorType = null;
     const session = await Session.findOne({_id: req.sessionID});
     let user = await userhandler.getUserFromId(req.session.userId);
     let options = await charts.data.makeTrendingChart();

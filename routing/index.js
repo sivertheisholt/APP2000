@@ -57,8 +57,6 @@ router.all("/:currentLang*", asyncExpress (async (req,res,next) => {
             return;
           }
       }
-      next();
-      return;
     })
 )
 
