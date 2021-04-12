@@ -17,16 +17,15 @@ exports.set_language = async function(req, res, next) {
       res.send('Something wrong happen!')
       return;
     }
-    //hjelpemetoder.data.getAllLangCodes();
     logger.log({level: 'debug' ,message:'Checking if language code is set to valid code'})
     for(const language of await JSON.parse(langList.information).availableLanguage) {
-        if(language.id === req.params.currentLang) {
+        if(language.id == req.params.currentLang) {
             logger.log({level: 'debug' ,message:`Found matching language code! Language code: ${req.params.currentLang}`});
             res.locals.currentLang = req.params.currentLang;
             req.setLocale(req.params.currentLang);
             res.locals.lang = language.originalname;
             res.locals.langCode = language.id;
-            next();
+            break;
         }
     }
     next();

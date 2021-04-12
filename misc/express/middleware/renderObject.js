@@ -2,7 +2,6 @@ const sessionHandler = require('../../../handling/sessionHandler.js');
 const userhandler = require('../../../handling/userHandler.js');
 
 exports.renderObject = async function (req, res, next) {
-    console.log('Setting default settings');
     const renderObject = {};
     const sessionResult = await sessionHandler.getSessionFromId(req.sessionId);
     if(sessionResult.status) {
