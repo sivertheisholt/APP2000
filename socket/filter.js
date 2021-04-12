@@ -29,6 +29,18 @@ async function popularMediaSortByTitleZA(socket, args) {
     socket.emit('displayFilteredMedia', args);
 }
 
+async function filterByGenre(socket, args) {
+    let filteredList = [];
+    for (let i in args.arr){
+        if(args.arr[i].genre.includes(parseInt(args.genreId))){
+            filteredList.push(args.arr[i]);
+        }
+    }
+    socket.emit('displayFilteredMedia', filteredList);
+}
 
 
-module.exports = {popularMediaDesc, popularMediaAsc, popularMediaSortByDateDesc, popularMediaSortByDateAsc, popularMediaSortByTitleAZ, popularMediaSortByTitleZA}
+
+
+
+module.exports = {popularMediaDesc, popularMediaAsc, popularMediaSortByDateDesc, popularMediaSortByDateAsc, popularMediaSortByTitleAZ, popularMediaSortByTitleZA, filterByGenre}

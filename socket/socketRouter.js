@@ -17,6 +17,7 @@ const sockets = {
     popularMediaSortByDateAsc: filter.popularMediaSortByDateAsc,
     popularMediaSortByTitleAZ: filter.popularMediaSortByTitleAZ,
     popularMediaSortByTitleZA: filter.popularMediaSortByTitleZA,
+    filterByGenre: filter.filterByGenre,
     addWatchedMovie: watchlist.addMovieToWatchlist,
     removeWatchedMovie: watchlist.removeMovieFromWatchlist,
     addWatchedTv: watchlist.addTvToWatchlist,

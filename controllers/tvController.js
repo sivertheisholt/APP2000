@@ -50,7 +50,6 @@ exports.tv_get_info = async function(req, res) {
 exports.tv_get_upcoming = async function(req, res) {
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListUpcomingTv = [];
-    console.log(tmdbInformasjon.discoverTvshowsUpcoming)
     for(const tv of tmdbInformasjon.discoverTvshowsUpcoming) {
       let tempObj = {
         id: tv.id,
@@ -85,7 +84,6 @@ exports.tv_get_list = async function(req,res) {
         }
         finalListTvshowsPopular.push(tempObj);
     }
-    console.log(finalListTvshowsPopular);
     res.render("mediainfo/tvshows", {
         username: session ? true : false,
         admin: user.information.administrator,

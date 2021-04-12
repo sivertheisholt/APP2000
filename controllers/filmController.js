@@ -85,7 +85,7 @@ exports.film_get_list = async function(req, res) {
         pictureUrl: movie.poster_path,
         title: movie.title,
         releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-'),
-        genres: movie.genre_ids
+        genre: movie.genre_ids
         }
         finalListPopularMovies.push(tempObj);
     }

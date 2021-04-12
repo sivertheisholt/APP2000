@@ -1,5 +1,5 @@
 script.
-    var popularMedia = !{popularMovies}
+    var popularMedia = !{popularMovies};
     function load(){
         document.getElementById('mediaCard').innerHTML += "";
             for (const media of popularMedia.slice(0,16)){
@@ -13,33 +13,64 @@ include ../includes/nav.pug
 
 body
     .container.uk-grid.uk-margin-top
-        .filter-wrap.ukgrid.uk-width-1-4.upcoming-no-padding
-            button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by
-            div.movies-filter-list.upcoming-scroll-bar(uk-dropdown='mode: click')
-                ul
-                    a(id="popularMediaDesc") Popularity Descending
-                ul
-                    a(id='popularMediaAsc') Popularity Ascending
-                ul
-                    a(id='popularMediaSortByDateDesc') Release Date Descending
-                ul
-                    a(id='popularMediaSortByDateAsc') Release Date Ascending
-                ul
-                    a(id='popularMediaSortByTitleAZ') Title (A-Z)
-                ul
-                    a(id='popularMediaSortByTitleZA') Title (Z-A)
-            .upcoming-text-align
-                h3 Filter by genre
-                ul.uk-list
-                    li
-                        a Action
-                    li
-                        a Adventure
-                    li
-                        a Animation
-                    li
-                        a Comedy
-        .upcomingMovies.uk-grid.uk-width-3-4
+        .uk-grid.uk-width-1-1.uk-margin-auto
+            h2 Sadd
+                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by
+                div.movies-filter-list.upcoming-scroll-bar(uk-dropdown='mode: click')
+                    ul
+                        a(id="popularMediaDesc") Popularity Descending
+                    ul
+                        a(id='popularMediaAsc') Popularity Ascending
+                    ul
+                        a(id='popularMediaSortByDateDesc') Release Date Descending
+                    ul
+                        a(id='popularMediaSortByDateAsc') Release Date Ascending
+                    ul
+                        a(id='popularMediaSortByTitleAZ') Title (A-Z)
+                    ul
+                        a(id='popularMediaSortByTitleZA') Title (Z-A)
+            h2 Sort by genre
+                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by
+                div.media-genre-list.upcoming-scroll-bar(uk-dropdown='mode: click')
+                    ul
+                        a(id='28') Action
+                    ul
+                        a(id='12') Adventure
+                    ul
+                        a(id='16') Animation
+                    ul
+                        a(id='35') Comedy
+                    ul
+                        a(id='80') Crime
+                    ul
+                        a(id='99') Documentary
+                    ul
+                        a(id='18') Drama
+                    ul
+                        a(id='10751') Family
+                    ul
+                        a(id='14') Fantasy
+                    ul
+                        a(id='36') History
+                    ul
+                        a(id='27') Horror
+                    ul
+                        a(id='10402') Music
+                    ul
+                        a(id='9648') Mystery
+                    ul
+                        a(id='10749') Romance
+                    ul
+                        a(id='878') Science Fiction
+                    ul
+                        a(id='10770') TV Movie
+                    ul
+                        a(id='53') Thriller
+                    ul
+                        a(id='10752') War
+                    ul
+                        a(id='37') Western
+        .upcomingMovies.uk-grid.uk-width-1-1
             .uk-grid.uk-child-width-1-4#mediaCard
             .uk-grid.uk-width-1-1.uk-button.uk-button-default.uk-align-center
                 a#loadMore(onclick="load(currentMediaDisplayed, event)")

@@ -18,10 +18,15 @@ document.querySelectorAll('.movies-filter-list ul a').forEach(item => {
     })
 });
 
+document.querySelectorAll('.media-genre-list ul a').forEach(item => {
+    item.addEventListener('click', event => {
+        socket.emit('filterByGenre', {arr: popularMedia, genreId: item.id});
+    })
+});
+
 socket.on('displayFilteredMedia', function(args){
     currentMediaDisplayed = args;
     document.getElementById('mediaCard').innerHTML = "";
-    let length = args.length;
     for(let i = 0; i < 16; i++){
         document.getElementById('mediaCard').innerHTML += mediaCard(args[i]);
     }
