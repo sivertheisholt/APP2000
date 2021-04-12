@@ -21,44 +21,21 @@ router.all("/:currentLang*", asyncExpress (async (req,res,next) => {
     res.send('Something wrong happen!')
     return;
   }
+  hjelpemetoder.data.getAllLangCodes();
   logger.log({level: 'debug' ,message:'Checking if language code is set to valid code'})
-      for(const language of  await JSON.parse(langList.information).availableLanguage) {
-          if(language === req.params.currentLang) {
+      for(const language of await JSON.parse(langList.information).availableLanguage) {
+          if(language.id === req.params.currentLang) {
               logger.log({level: 'debug' ,message:`Found matching language code! Language code: ${req.params.currentLang}`});
               res.locals.currentLang = req.params.currentLang;
               req.setLocale(req.params.currentLang);
-              switch(language){
-                case 'en':
-                  res.locals.lang = 'English';
-                  res.locals.langCode = 'en';
-                  break;
-                case 'no':
-                  res.locals.lang = 'Norsk';
-                  res.locals.langCode = 'no';
-                  break;
-                case 'de':
-                  res.locals.lang = 'Deutsche';
-                  res.locals.langCode = 'de';
-                  break;
-                case 'fr':
-                  res.locals.lang = 'Français';
-                  res.locals.langCode = 'fr';
-                  break;
-                case 'ru':
-                  res.locals.lang = 'русский';
-                  res.locals.langCode = 'ru';
-                  break;
-                case 'zh':
-                  res.locals.lang = '中国人';
-                  res.locals.langCode = 'zh';
-                  break;
-              }
+              res.locals.lang = language.originalname;
+              res.locals.langCode = language.id;
             next();
             return;
           }
       }
     })
-)
+);
 
 router.use("/:currentLanguage", require('./indexRouter'));
 

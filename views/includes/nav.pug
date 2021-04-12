@@ -2,6 +2,7 @@
 - var lang = lang;
 - var langCode = langCode;
 - var urlPath = urlPath;
+- var langs = langs;
 .nav-wrapper
   .uk-position-relative
       nav(uk-navbar='')
@@ -62,16 +63,6 @@
             button.uk-button.uk-button-default(type='button').lang.nav-buttons #{lang}
             div(uk-dropdown='mode: click; boundary: ! .uk-button-group; boundary-align: true;').lang-wrapper
               ul.uk-nav.uk-dropdown-nav.select
-                li.menu-item
-                  a(href='/no/homepage') Norsk
-                li.menu-item
-                  a(href='/en/homepage') English
-                li.menu-item
-                  a(href='/de/homepage') Deutsche
-                li.menu-item
-                  a(href='/fr/homepage') Français
-                li.menu-item
-                  a(href='/ru/homepage') русский
-                li.menu-item
-                  a(href='/zh/homepage') 中国人
-            
+                each item in langs
+                  li.menu-item
+                    a(href=`/${item.id}/homepage`) #{item.originalname}

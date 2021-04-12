@@ -1,3 +1,1 @@
-{
-    "availableLanguage": ["en", "no", "de", "fr", "ru", "zh"]
-}
+{"availableLanguage":[{"name":"norwegian","id":"no","originalname":"Norsk"},{"name":"english","id":"en","originalname":"English"},{"name":"german","id":"de","originalname":"Deutche"},{"name":"french","id":"fr","originalname":"Français"},{"name":"russian","id":"ru","originalname":"русский"},{"name":"chinese","id":"zh","originalname":"中国人"}]}
