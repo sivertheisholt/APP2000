@@ -2,6 +2,7 @@ const got = require('got');
 const logger = require('../logging/logger');
 const fs = require('fs');
 const ValidationHandler = require('./ValidationHandler');
+const { stringify } = require('querystring');
 
 
 //Her kan dere legge inn hjelpemetoder dere vil lage
@@ -152,6 +153,32 @@ const ValidationHandler = require('./ValidationHandler');
             return `${Math.round(int / 1000000)}M`
         return `${Math.round(int / 1000000000)}B`
     },
+    getAllLangCodes: async function(){
+        let langCodes = [];
+        let languageJson = await methods.lesFil("./lang/langList.json");
+        for(const language of await JSON.parse(languageJson.information).availableLanguage) {
+            langCodes.push(language.id);
+        }
+        return langCodes;
+    },
+    validateNewLang: function(input){
+        const re = /[A-Za-z]/;
+        if(input.admindashlangcode.length !== 2){
+            return new ValidationHandler(false, 'Has to be 2 characters');
+        }
+        if(!re.test(input.admindashlangcode)){
+            return new ValidationHandler(false, 'Langcode has to be letters');
+        }
+        if(!re.test(input.admindashlangname)){
+            return new ValidationHandler(false, 'Langcode has to be letters');
+        }
+        var langObj = {
+            "name": input.admindashlangname.toLowerCase(),
+            "id": input.admindashlangcode.toLowerCase(),
+            "originalname": input.admindashlangoriginalname.charAt(0).toUpperCase() + input.admindashlangoriginalname.slice(1)
+          }
+        return new ValidationHandler(true, langObj);
+    }
  };
  
  exports.data = methods;
