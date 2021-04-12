@@ -3,9 +3,9 @@ const userhandler = require('../../../handling/userHandler.js');
 
 exports.renderObject = async function (req, res, next) {
     const renderObject = {};
-    const sessionResult = await sessionHandler.getSessionFromId(req.sessionId);
+    const sessionResult = await sessionHandler.getSessionFromId(req.sessionID);
     if(sessionResult.status) {
-        const userResult = await userhandler.getUserFromId(req.sessionId);
+        const userResult = await userhandler.getUserFromId(req.session.userId);
         if(!userResult.status)
             throw new Error(userResult.information);
         renderObject.admin = userResult.information.admin
