@@ -37,7 +37,7 @@ socket.on('favoritedMovie', function(){
 
 socket.on('unfavoritedMovie', function(){
     location.reload();
-})
+});
 
 movieEleBookmark.addEventListener("click", function(){
     if(isMovWatched){
@@ -53,4 +53,4 @@ socket.on('movieAddedToWatchlist', function(){
 
 socket.on('movieRemovedFromWatchlist', function(){
     location.reload();
-})
+});

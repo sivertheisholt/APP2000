@@ -50,6 +50,7 @@ exports.tv_get_info = async function(req, res) {
 exports.tv_get_upcoming = async function(req, res) {
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListUpcomingTv = [];
+    let url = 'mediainfo/serieinfo';
     for(const tv of tmdbInformasjon.discoverTvshowsUpcoming) {
       let tempObj = {
         id: tv.id,
@@ -63,7 +64,8 @@ exports.tv_get_upcoming = async function(req, res) {
       upcomingTv: JSON.stringify(finalListUpcomingTv),
       urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
       lang: res.locals.lang,
-      langCode: res.locals.langCode
+      langCode: res.locals.langCode,
+      url: url
     });
 }
 
@@ -74,6 +76,7 @@ exports.tv_get_list = async function(req,res) {
     let user = await Bruker.getUser({_id: req.session.userId});
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListTvshowsPopular = [];
+    let url = 'mediainfo/serieinfo';
     for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
         let tempObj = {
         id: tv.id,
@@ -90,7 +93,8 @@ exports.tv_get_list = async function(req,res) {
         tvShows: JSON.stringify(finalListTvshowsPopular),
         urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
         lang: res.locals.lang,
-        langCode: res.locals.langCode
+        langCode: res.locals.langCode,
+        url: url
     });
 }
 
