@@ -11,8 +11,7 @@ exports.homepage = async function(req, res) {
     let finalListMovies = [];
     let maxMovies = 10;
     let maxTvshows = 10;
-    let error = null;
-    let errorType = null;
+
     logger.log({level: 'debug' ,message:'Creating slider information for movies'});
     for(const movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
         //Lager et object for hver movie
@@ -42,24 +41,10 @@ exports.homepage = async function(req, res) {
         if(maxTvshows === 0)
             break;
     }
-    const session = await Session.findOne({_id: req.sessionID});
-    let user = await userhandler.getUserFromId(req.session.userId);
     let options = await charts.data.makeTrendingChart();
-    if(req.query.error) {
-        error = req.query.error;
-        errorType = req.query.errorType;
-    }
-    res.render("index", {
-        //Sender variabler til pug filen
-        username: session ? true : false,
-        discoverMovies: finalListMovies,
-        discoverTvshows: finalListTvshows,
-        trendingChart: JSON.stringify(options),
-        error: JSON.stringify(error),
-        errorType: JSON.stringify(errorType),
-        urlPath: res.locals.currentLang,
-        lang: res.locals.lang,
-        langCode: res.locals.langCode,
-        admin: user.information.administrator
-    });
+
+    req.renderObject.discoverMovies = finalListMovies;
+    req.renderObject.discoverTvshows = finalListTvshows;
+    req.renderObject.trendingChart = JSON.stringify(options);
+    res.render("index", req.renderObject);
 }
