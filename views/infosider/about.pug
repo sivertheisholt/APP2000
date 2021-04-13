@@ -18,37 +18,46 @@ body
                     p.uk-text-large 1023
                     p linjer med kode
                 div 
-                    p.uk-text-large Lorem, ipsum.
-                    p Lorem ipsum dolor sit amet.
+                    p.uk-text-large 29 302
+                    p Serier
                 div
-                    p.uk-text-large Lorem, ipsum.
-                    p Lorem ipsum dolor sit.
+                    p.uk-text-large 382 120 493
+                    p Filmer.
 
-
-        .uk-child-width-1-1.uk-grid=''
+        .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2' uk-grid='')
+            .uk-card-media-left.uk-cover-container
+                img(src='/images/about-movies.jpg' alt='' style='height:380px;')
+                canvas(width='600' height='0')
             div
-                .uk-card.uk-card-default
-                    .uk-card-media-top.about-page-center-image
-                        img(src='/images/about-movies.jpg' alt='')
                     .uk-card-body
-                        h3.uk-card-title Media Top
+                        h3.uk-card-title Filmatory Group Inc.
                         p
-                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-                        | Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quo maxime odio, reprehenderit illum, dolor iure optio cupiditate iste fugiat mollitia molestiae illo ea culpa! Reprehenderit eos libero animi non!
-
+                        | Launched in 2021 by a group of movie geeks who wanted to make watching movies more social.
+                        | The group 
 
         .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
-            .uk-card-media-left.uk-cover-container
-                img(src='/images/about-movies.jpg' alt='' uk-cover='')
-                canvas(width='200' height='400')
-        div
-            .uk-card-body
-            h3.uk-card-title Media Left
-            p
-                | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+            .uk-card-media-right.uk-cover-container(class='uk-flex-last@s')
+                img(src='/images/about-10101.jpg' alt='' style='height:380px;')
+                canvas(width='600' height='0')
+            div
+                .uk-card-body
+                    h3.uk-card-title Building the website
+                    p
+                    | This website uses API's from TMDI to gather information about any tv-show, movie and actor.
+                    | It uses MongoDB as the database, node.js functions and is coded in pug with UIkit.
 
-
-
+        .uk-heading-small.uk-text-center.about-page-margin Contact
+        form
+            fieldset.uk-fieldset
+                legend.uk-legend Contact form
+                
+                .uk-margin
+                input.uk-input(type='text' placeholder='Heading')
+                .uk-margin
+                textarea.uk-textarea(rows='5' placeholder='Message')
+                .uk-margin.uk-grid-small.uk-child-width-auto.uk-grid
+                button.uk-button.uk-button-default.uk-width-1-1.uk-margin-small-bottom Send
+                .uk-margin.uk-grid-small.uk-child-width-auto.uk-grid
 
 
 
