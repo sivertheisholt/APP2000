@@ -71,7 +71,10 @@ body
                     .bottom
                       p Log in to add this to your watchlist
               h3= `${film.filminfo.release_date} ${genres}`
-              h3= `${film.filminfo.runtime} #{__("MOVIEINFO_MINUTES")}`
+              .close
+                h3(style='float: center;')=`${film.filminfo.runtime}` 
+                h3(style='float: center;') #{__("MOVIEINFO_MINUTES")}
+              br
               h1= `${film.filminfo.vote_average*10}%`
               h2 #{__("MOVIEINFO_OVERVIEW")}
               p= film.filminfo.overview
