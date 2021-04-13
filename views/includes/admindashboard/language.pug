@@ -1,14 +1,44 @@
+- var langs = langs;
 .admin-dashboard-container
     ul(uk-accordion='multiple: true')
         li
             a.uk-accordion-title(href='#') Add
             .uk-accordion-content
-                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                form(action=`/${urlPath}/admin/addlanguage` method='post')
+                    .uk-margin
+                        p Name of the language translated(e.g. if you are translating swedish, the original name is Svenska)
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangoriginalname' placeholder='Original name')
+                    .uk-margin
+                        p Name of the language in english(e.g. if you are translating swedish, the name is swedish)
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangname' placeholder='Name')
+                    .uk-margin
+                        p Language code of the language(e.g. if you are translating swedish, the code is se)
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangcode' placeholder='Language code')
+                    button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_SAVE")}
+
         li
             a.uk-accordion-title(href='#') Edit
             .uk-accordion-content
-                p Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor reprehenderit.
+                form
+                    p Choose which language to edit
+                    fieldset.uk-fieldset
+                        legend.uk-legend
+                        .uk-margin
+                            select(id="admin-lang-selectbox-edit" name='hello' onchange='getLang()').uk-select
+                                option(selected='selected' id='admin-lang-option-desc') Select language
+                                    each item in langs
+                                        option(id='admindash-lang-select' data-lang-id=`${item.id}`) #{item.name}
+                        .uk-margin
+                            textarea#admin-lang-textarea-content(rows='40' cols='125' style='display: none;')
+                        button.uk-button.uk-button-default.uk-margin-right(type='submit' id='admin-lang-save-btn') #{__("BUTTON_SAVE")}
+                        button.uk-button.uk-button-default.uk-margin-right(id='admin-lang-cancle-btn') #{__("BUTTON_CANCEL")}
+                                
+
         li
             a.uk-accordion-title(href='#') Delete
             .uk-accordion-content
-                p Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat proident.
+                form(action=`/${urlPath}/admin/deletelanguage` method='post')
+                    .uk-margin
+                        p Type the language you wish to delete
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangdelete' placeholder='Language name')
+                    button.uk-button.uk-button-default.uk-margin-right(type='submit' id='admin-lang-delete-btn') #{__("BUTTON_DELETE")}

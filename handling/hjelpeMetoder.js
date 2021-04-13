@@ -181,6 +181,27 @@ const { stringify } = require('querystring');
     },
     expressIgnoreJavascript: function (url) {
         return url.startsWith('/javascript');
+    },
+    validateDeleteLang: async function(input){
+        let languageJson = await methods.lesFil("./lang/langList.json");
+        let langs = await JSON.parse(languageJson.information);
+        let newLangList = [];
+        let langToDelete;
+        for(let i = 0; i < langs.availableLanguage.length; i++){
+            if(langs.availableLanguage[i].name === input){
+                langToDelete = langs.availableLanguage[i];
+                langs.availableLanguage.splice(i, i);
+                newLangList = JSON.stringify(langs);
+                fs.writeFile('./lang/langList.json', newLangList, 'utf8', (err) => {
+                    if(err){
+                        return new ValidationHandler(false, 'Could not delete language');
+                    }
+                    console.log('overwritten');
+                });
+                return new ValidationHandler(true, langToDelete);
+            }
+        }
+        return new ValidationHandler(false, 'No matching language found');
     }
  };
  

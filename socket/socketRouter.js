@@ -3,6 +3,7 @@ const liveSearch = require("./liveSearch");
 const favourite = require("./favourite");
 const filter = require("./filter");
 const watchlist = require('./watchlist');
+const admin = require('./admin');
 
 const sockets = {
     disconnect: disconnect,
@@ -21,7 +22,9 @@ const sockets = {
     addWatchedMovie: watchlist.addMovieToWatchlist,
     removeWatchedMovie: watchlist.removeMovieFromWatchlist,
     addWatchedTv: watchlist.addTvToWatchlist,
-    removeWatchedTv: watchlist.removeTvFromWatchlist
+    removeWatchedTv: watchlist.removeTvFromWatchlist,
+    getLanguage: admin.getLanguage,
+    saveLanguage: admin.saveLanguage
 }
 
 /**

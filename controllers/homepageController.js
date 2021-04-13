@@ -9,10 +9,7 @@ exports.homepage = async function(req, res) {
     let finalListMovies = [];
     let maxMovies = 10;
     let maxTvshows = 10;
-
     logger.log({level: 'debug' ,message:'Creating slider information for movies'});
-    let langList = await hjelpemetoder.data.lesFil("./lang/langList.json");
-    let langs = await JSON.parse(langList.information).availableLanguage;
     for(const movie of tmdbInformasjon.discoverMoviesPopular) { //For loop imellom hver item i discoverMovies
         //Lager et object for hver movie
         let tempObjectMovie = {
@@ -43,7 +40,6 @@ exports.homepage = async function(req, res) {
     }
     let options = await charts.data.makeTrendingChart();
     
-    req.renderObject.langs = langs;
     req.renderObject.discoverMovies = finalListMovies;
     req.renderObject.discoverTvshows = finalListTvshows;
     req.renderObject.trendingChart = JSON.stringify(options);

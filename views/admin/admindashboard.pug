@@ -4,7 +4,7 @@ include ../includes/nav.pug
 body
     .container
         h2.uk-heading-xsmall.uk-heading-divider.uk-margin-medium-bottom.uk-text-center.uk-margin-medium-top Administrator Dashboard
-        ul.uk-subnav.uk-subnav-pill.uk-flex.uk-flex-center(uk-switcher='')
+        ul.uk-subnav.uk-subnav-pill.uk-flex.uk-flex-center(uk-switcher='' id='admin-switcher')
             li
                 a(href='#') Reviews
             li
@@ -37,3 +37,4 @@ body
                 include ../includes/admindashboard/quotecheck.pug
 
 include ../includes/footer.pug
+script(src="/javascript/admindashboard/admin.js")
