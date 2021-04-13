@@ -9,9 +9,6 @@ const watchedCreater = require('../watched/watchedCreater');
 const ValidationHandler = require('../handling/ValidationHandler');
 
 exports.tv_get_info = async function(req, res) {
-    logger.log({level: 'debug', message: 'Finding session..'});
-    var session = await Session.findOne({_id: req.sessionID});
-    let user = await Bruker.getUser({_id: req.session.userId});
     logger.log({level: 'debug', message: 'Getting castinfo..'});
     let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(10));
     let isTvFav = new ValidationHandler(false, "");
@@ -35,22 +32,15 @@ exports.tv_get_info = async function(req, res) {
     }
     //let person = await tmdb.data.getPersonByID(personID);
     logger.log({level: 'debug', message: 'Rendering page..'});
-    res.render("mediainfo/serieinfo", {
-        serie: serie,
-        username: session ? true : false,
-        user: user.status,
-        isTvFav: JSON.stringify(isTvFav.status),
-        isTvWatched: JSON.stringify(isTvWatched.status),
-        urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
-        lang: res.locals.lang,
-        langCode: res.locals.langCode
-    });
+    req.renderObject.serie = serie;
+    req.renderObject.isTvFav = JSON.stringify(isTvFav.status);
+    req.renderObject.isTvWatched = JSON.stringify(isTvWatched.status);
+    res.render("mediainfo/serieinfo", req.renderObject);
 }
 
 exports.tv_get_upcoming = async function(req, res) {
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListUpcomingTv = [];
-    let url = 'mediainfo/serieinfo';
     for(const tv of tmdbInformasjon.discoverTvshowsUpcoming) {
       let tempObj = {
         id: tv.id,
@@ -60,23 +50,13 @@ exports.tv_get_upcoming = async function(req, res) {
       }
       finalListUpcomingTv.push(tempObj);
     }
-    res.render("mediainfo/upcomingtv", {
-      upcomingTv: JSON.stringify(finalListUpcomingTv),
-      urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
-      lang: res.locals.lang,
-      langCode: res.locals.langCode,
-      url: url
-    });
+    req.renderObject.upcomingTv = JSON.stringify(finalListUpcomingTv);
+    res.render("mediainfo/upcomingtv", req.renderObject);
 }
 
 exports.tv_get_list = async function(req,res) {
-    logger.log({level: 'debug', message: 'Finding session..'});
-    let session = await Session.findOne({_id: req.sessionID});
-    logger.log({level: 'debug', message: 'Getting user..'});
-    let user = await Bruker.getUser({_id: req.session.userId});
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListTvshowsPopular = [];
-    let url = 'mediainfo/serieinfo';
     for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
         let tempObj = {
         id: tv.id,
@@ -87,15 +67,8 @@ exports.tv_get_list = async function(req,res) {
         }
         finalListTvshowsPopular.push(tempObj);
     }
-    res.render("mediainfo/tvshows", {
-        username: session ? true : false,
-        admin: user.information.administrator,
-        tvShows: JSON.stringify(finalListTvshowsPopular),
-        urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
-        lang: res.locals.lang,
-        langCode: res.locals.langCode,
-        url: url
-    });
+    req.renderObject.tvShows = JSON.stringify(finalListTvshowsPopular);
+    res.render("mediainfo/tvshows", req.renderObject);
 }
 
 function getPersons(cast) {

@@ -176,8 +176,11 @@ const { stringify } = require('querystring');
             "name": input.admindashlangname.toLowerCase(),
             "id": input.admindashlangcode.toLowerCase(),
             "originalname": input.admindashlangoriginalname.charAt(0).toUpperCase() + input.admindashlangoriginalname.slice(1)
-          }
+        }
         return new ValidationHandler(true, langObj);
+    },
+    expressIgnoreJavascript: function (url) {
+        return url.startsWith('/javascript');
     }
  };
  

@@ -17,6 +17,7 @@ exports.set_language = async function(req, res, next) {
       res.send('Something wrong happen!')
       return;
     }
+    res.locals.langs = await JSON.parse(langList.information).availableLanguage;
     logger.log({level: 'debug' ,message:'Checking if language code is set to valid code'})
     for(const language of await JSON.parse(langList.information).availableLanguage) {
         if(language.id == req.params.currentLang) {

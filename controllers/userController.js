@@ -2,27 +2,21 @@ const hjelpeMetoder = require('../handling/hjelpeMetoder');
 const favoriteMovie = require('../favourite/favouriteMovie');
 const favoriteTv = require('../favourite/favouriteTv');
 const uploadHandle = require('../handling/uploadHandler');
-const Session = require("../database/sessionSchema");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
 const logger = require('../logging/logger');
 const movieHandler = require('../handling/movieHandler');
 const tvHandler = require('../handling/tvHandler');
-const Bruker = require('../handling/userHandler');
 const BrukerDB = require('../database/brukerSchema');
 const watchedGetter = require('../watched/watchedGetter');
 
 exports.user_get_dashboard = async function(req, res) {
-    var session = await Session.findOne({_id: req.sessionID});
-    var user = await Bruker.getUser({_id: req.session.userId});
     let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.session.userId)).information;
     let favoriteTvs = (await favoriteTv.getAllTvFavourites(req.session.userId)).information;
     let watchedMovies = (await watchedGetter.getWatchedMovies(req.session.userId)).information.moviesWatched;
     let watchedTvs = (await watchedGetter.getWatchedTvs(req.session.userId)).information.tvsWatched;
     let allFavorites = [];
     let allWatched = [];
-    let error = null;
-    let errorType = null;
 
     for(const item of favoriteMovies){
         let result = await (await movieHandler.getMovieById(item));
@@ -68,27 +62,9 @@ exports.user_get_dashboard = async function(req, res) {
         allWatched.push(tempObj);
     }
 
-    if(req.query.error) {
-        error = req.query.error;
-        errorType = req.query.errorType;
-    }
-
-    if(!session){
-        res.redirect("/");
-    }
-
-    res.render("user/dashboard", {
-        username: session ? true : false,
-        user: user.information,
-        admin: user.information.administrator,
-        allFavorites: allFavorites,
-        allWatched: allWatched,
-        urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
-        lang: res.locals.lang,
-        langCode: res.locals.langCode,
-        error: JSON.stringify(error),
-        errorType: JSON.stringify(errorType)
-    });
+    req.renderObject.allFavorites = allFavorites;
+    req.renderObject.allWatched = allWatched;
+    res.render("user/dashboard", req.renderObject);
 }
 
 exports.user_post_changepassword = async function(req, res) {

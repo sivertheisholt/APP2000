@@ -10,9 +10,6 @@ const watchedCreater = require('../watched/watchedCreater');
 const ValidationHandler = require('../handling/ValidationHandler');
 
 exports.film_get_info = async function(req, res) {
-    logger.log({level: 'debug', message: 'Finding session..'});
-    var session = await Session.findOne({_id: req.sessionID});
-    var user = await userHandler.getUserFromId(req.session.userId);
     let isMovFav = new ValidationHandler(false, "");
     let isMovWatched = new ValidationHandler(false, "");
 
@@ -39,22 +36,16 @@ exports.film_get_info = async function(req, res) {
     }
 
     logger.log({level: 'debug', message: 'Rendering page..'});
-    res.render("mediainfo/filminfo", {
-        film:film,
-        username: session ? true : false,
-        user: user.information,
-        isMovFav: isMovFav.status,
-        isMovWatched: isMovWatched.status,
-        urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
-        lang: res.locals.lang,
-        langCode: res.locals.langCode
-    });
+    req.renderObject.film = film;
+    req.renderObject.user = user.information;
+    req.renderObject.isMovFav = isMovFav.status;
+    req.renderObject.isMovWatched = isMovWatched.status;
+    res.render("mediainfo/filminfo", req.renderObject)
 }
 
 exports.film_get_upcoming = async function(req, res) {
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListUpcomingMovies = [];
-    let url = 'mediainfo/filminfo';
     for(const movie of tmdbInformasjon.discoverMoviesUpcoming) {
       let tempObj = {
         id: movie.id,
@@ -64,23 +55,13 @@ exports.film_get_upcoming = async function(req, res) {
       }
       finalListUpcomingMovies.push(tempObj);
     }
-    res.render("mediainfo/upcomingmovies", {
-      upcomingMovies: JSON.stringify(finalListUpcomingMovies),
-      urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
-      lang: res.locals.lang,
-      langCode: res.locals.langCode,
-      url: url
-    });
+    req.renderObject.upcomingMovies = JSON.stringify(finalListUpcomingMovies);
+    res.render("mediainfo/upcomingmovies", req.renderObject);
 }
 
 exports.film_get_list = async function(req, res) {
-    logger.log({level: 'debug', message: 'Finding session..'});
-    let session = await Session.findOne({_id: req.sessionID});
-    logger.log({level: 'debug', message: 'Getting user..'});
-    let user = await Bruker.getUser({_id: req.session.userId});
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListPopularMovies = [];
-    let url = 'mediainfo/filminfo';
     for(const movie of tmdbInformasjon.discoverMoviesPopular) {
         let tempObj = {
         id: movie.id,
@@ -91,15 +72,8 @@ exports.film_get_list = async function(req, res) {
         }
         finalListPopularMovies.push(tempObj);
     }
-    res.render("mediainfo/movies", {
-        username: session ? true : false,
-        admin: user.information.administrator,
-        url: url,
-        popularMovies: JSON.stringify(finalListPopularMovies),
-        urlPath: res.locals.currentLang ? res.locals.currentLang : ``,
-        lang: res.locals.lang,
-        langCode: res.locals.langCode
-    });
+    req.renderObject.popularMovies = JSON.stringify(finalListPopularMovies);
+    res.render("mediainfo/movies", req.renderObject);
 }
 
 function getPersons(cast) {
