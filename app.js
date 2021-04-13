@@ -10,9 +10,10 @@ const mongoose = require('mongoose');
 const socketIO = require('socket.io');
 const tmdb = require('./handling/tmdbHandler');
 const logger = require('./logging/logger');
-const i18n = require('i18n');
 const socketRouter = require('./socket/socketRouter');
 const sharedsession = require('express-socket.io-session');
+const languageConfig = require('./lang/config');
+
 
 //Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
 tmdb.data.hentTmdbInformasjon();
@@ -59,15 +60,9 @@ var sessionExpress = session({
   },
 });
 
-//Konfiguerer språk
-i18n.configure({
-  locales: ['en', 'de', 'no', 'fr', 'ru', 'zh'],
-  directory: './lang',
-  defaultLocale: 'en'
-});
 
 //Forteller at app skal bruke i18n - Språk
-app.use(i18n.init);
+app.use(languageConfig.configure_language);
 
 //Forteller at app skal bruke sessionExpress middlewasre
 app.use(sessionExpress);
