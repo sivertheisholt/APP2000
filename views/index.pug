@@ -1,6 +1,4 @@
 script.
-    var error = !{error}
-    var errorType = !{errorType}
     var trendingChart = !{trendingChart}
 include includes/head.pug
 include includes/nav.pug
@@ -26,8 +24,10 @@ body
     include includes/footer.pug
     script(src="/javascript/index/chart.js")
     script(src="/javascript/index/liveSearch.js")
-script.
-    if(error != undefined) {
+- if(error)
+    script.
+        var error = !{error}
+        var errorType = !{errorType}
         switch(errorType) {
             case "signup": 
                 UIkit.modal("#modal-center").show();
@@ -52,4 +52,3 @@ script.
             default:
                 UIkit.modal("#modal-center").hide();
         }
-    }
