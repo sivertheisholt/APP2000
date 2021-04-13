@@ -1,7 +1,5 @@
 const logger = require("../logging/logger");
 const tmdb = require("../handling/tmdbHandler");
-const Session = require("../database/sessionSchema")
-const userhandler = require('../handling/userHandler');
 const charts = require('../handling/chartMaker');
 const hjelpemetoder = require('../handling/hjelpeMetoder');
 

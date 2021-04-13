@@ -30,14 +30,13 @@ exports.film_get_info = async function(req, res) {
     film.reviews.username = await Promise.all(getUsernames(film.reviews));
 
     logger.log({level: 'debug', message: 'Checking if favorited..'});
-    if(session){
+    if(req.renderObject.session){
         isMovFav = await movieFavorite.checkIfFavorited(film.filminfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
         isMovWatched = await watchedCreater.checkIfWatched((await userHandler.getUserFromId(req.session.userId)).information, film.filminfo.id, 'movie');
     }
 
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.film = film;
-    req.renderObject.user = user.information;
     req.renderObject.isMovFav = isMovFav.status;
     req.renderObject.isMovWatched = isMovWatched.status;
     res.render("mediainfo/filminfo", req.renderObject)

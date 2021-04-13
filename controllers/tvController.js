@@ -26,7 +26,7 @@ exports.tv_get_info = async function(req, res) {
         serie.listOfPersons.push(await tmdb.data.getPersonByID(item.id));
     }
     logger.log({level: 'debug', message: 'Checking if favorited..'});
-    if(session){
+    if(req.renderObject.session){
         isTvFav = await tvFavorite.checkIfFavorited(serie.serieinfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
         isTvWatched = await watchedCreater.checkIfWatched((await userHandler.getUserFromId(req.session.userId)).information, serie.serieinfo.id, 'tv');
     }
