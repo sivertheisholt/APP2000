@@ -46,6 +46,19 @@ body
                     | This website uses API's from TMDI to gather information about any tv-show, movie and actor.
                     | It uses MongoDB as the database, node.js functions and is coded in pug with UIkit.
 
+        .uk-heading-small.uk-text-center.about-page-margin Contact
+        form
+            fieldset.uk-fieldset
+                legend.uk-legend Contact form
+                
+                .uk-margin
+                input.uk-input(type='text' placeholder='Heading')
+                .uk-margin
+                textarea.uk-textarea(rows='5' placeholder='Message')
+                .uk-margin.uk-grid-small.uk-child-width-auto.uk-grid
+                button.uk-button.uk-button-default.uk-width-1-1.uk-margin-small-bottom Send
+                .uk-margin.uk-grid-small.uk-child-width-auto.uk-grid
+
 
 
     include ../includes/footer.pug
