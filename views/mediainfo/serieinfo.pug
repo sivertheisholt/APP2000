@@ -91,7 +91,7 @@ body
               ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s uk-grid-match')
                 each item in actors
                   li
-                    a(href=`https://filmatoryeksamen.herokuapp.com/actor/${item.id}`)
+                    a(href=`/${urlPath}/actor/${item.id}`)
                       .uk-card.uk-card-default
                         .uk-card-media-top
                           img(src=`${item.picture}` alt='' width='100%')
