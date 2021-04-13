@@ -71,7 +71,10 @@ body
                     .bottom
                       p Log in to add this to your watchlist
               h3= `${film.filminfo.release_date} ${genres}`
-              h3= `${film.filminfo.runtime} #{__("MOVIEINFO_MINUTES")}`
+              .close
+                h3(style='float: center;')=`${film.filminfo.runtime}` 
+                h3(style='float: center;') #{__("MOVIEINFO_MINUTES")}
+              br
               h1= `${film.filminfo.vote_average*10}%`
               h2 #{__("MOVIEINFO_OVERVIEW")}
               p= film.filminfo.overview
@@ -92,7 +95,7 @@ body
               ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s uk-grid-match')
                 each item in actors
                   li
-                    a(href=`https://filmatoryeksamen.herokuapp.com/actor/${item.id}`)
+                    a(href=`/${urlPath}/actor/${item.id}`)
                       .uk-card.uk-card-default
                         .uk-card-media-top
                           img(src=`${item.picture}` alt='' width='100%')

@@ -64,7 +64,13 @@ body
                     .bottom
                       p Log in to add this to your watchlist
               h3= `${serie.serieinfo.first_air_date.substring(0,4)} - ${serie.serieinfo.last_air_date.substring(0,4)} ${genres}`
-              h3= `${serie.serieinfo.number_of_seasons} #{__("TVINFO_SEASONS")}`
+              .close
+                h3(style='float: center;')=`${serie.serieinfo.number_of_seasons}`
+                -  if (serie.serieinfo.number_of_seasons == 1)
+                  h3(style='float: center;') #{__("TVINFO_SEASON")}
+                - else
+                  h3(style='float: center;') #{__("TVINFO_SEASONS")}
+                br
               h1= `${serie.serieinfo.vote_average*10}%`
               h2 #{__("MOVIEINFO_OVERVIEW")}
               p= serie.serieinfo.overview
@@ -85,7 +91,7 @@ body
               ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s uk-grid-match')
                 each item in actors
                   li
-                    a(href=`https://filmatoryeksamen.herokuapp.com/actor/${item.id}`)
+                    a(href=`/${urlPath}/actor/${item.id}`)
                       .uk-card.uk-card-default
                         .uk-card-media-top
                           img(src=`${item.picture}` alt='' width='100%')
