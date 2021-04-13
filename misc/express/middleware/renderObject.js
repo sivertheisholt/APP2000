@@ -8,7 +8,7 @@ exports.renderObject = async function (req, res, next) {
         const userResult = await userhandler.getUserFromId(req.session.userId);
         if(!userResult.status)
             throw new Error(userResult.information);
-        renderObject.admin = userResult.information.admin;
+        renderObject.admin = userResult.information.administrator;
         renderObject.user = userResult.information;
     } else {
         renderObject.admin = undefined;
