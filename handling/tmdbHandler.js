@@ -1,7 +1,8 @@
 require('dotenv').config();
 const Tmdb = require('../api/tmdb.js');
 const logger = require('../logging/logger.js');
-const hjelp = require('./hjelpeMetoder')
+const hjelp = require('./hjelpeMetoder');
+const ValidationHandler = require('./ValidationHandler.js');
 const tmdb = new Tmdb(process.env.TMDB_TOKEN); //Lager et nytt tmdb objekt
 let tmdbInformasjonKlar;
 
@@ -56,8 +57,10 @@ var methods = {
             })
             tmdbInformasjonKlar = tmdbInformasjon;
             logger.log({level: 'info',message: 'All information is sucessfully collected!'});
+            return new ValidationHandler(true, 'All information is sucessfully collected!');
         } catch(err) {
             logger.log({level: 'error' ,message: `Something unexpected happen while collecting tmdb information! Error: ${err}`});
+            return new ValidationHandler(false, 'Couldnt get start information from API');
         }
     },
     /**

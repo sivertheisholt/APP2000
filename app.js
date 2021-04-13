@@ -1,96 +1,48 @@
-// @ts-nocheck
 require('dotenv').config();
-const path = require("path");
 const http = require("http");
-const bodyParser = require('body-parser');
 const express = require("express");
 let session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const socketIO = require('socket.io');
-const tmdb = require('./handling/tmdbHandler');
 const logger = require('./logging/logger');
-const socketRouter = require('./socket/socketRouter');
-const sharedsession = require('express-socket.io-session');
-const languageConfig = require('./lang/config');
-
-
-//Her starter vi innsamling av data og setter klar et objekt som holder alt av lettvinn info
-tmdb.data.hentTmdbInformasjon();
-
-//Her kobler vi opp databasen
-logger.log({level: 'info',message: 'Establishing connection to database'});
-mongoose
-  .connect(process.env.MONGO_DB_URL || "mongodb://localhost:27017/app", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-  .then((_) => logger.log({level: 'info', message: 'Successfully connected to database!'}))
-  .catch((err) => logger.log({level: 'error', message: `Cant connect to database! Error: ${err}`}));
-
-//Setter port
-const port = process.env.PORT || 3000;
-
-//Lager default path til public, dette er da på klientsiden
-const publicPath = path.join(__dirname, "/public");
+const start = require('./misc/initializer/startup');
 
 //Lager objektet app
 const app = express();
-
+//Setter port
+const port = process.env.PORT || 3000;
 //Denne lager serveren, "starter den".
 let server = http.createServer(app);
-
 //kobler sammen socketIo og server
 let io = socketIO(server);
 
-//Setter express til å bruke pug
-app.set("view engine", "pug");
+async function startServer() {
+  const makeInformationResult = await start.makeInformation();
+  if(!makeInformationResult.status) {
+    //DO SOMETHING
+  }
+  const connectDatabaseResult = await start.connectToDatabase(mongoose);
+  if(!connectDatabaseResult.status) {
+    //DO SOMETHING
+  }
 
-//Forteller express hvordan public path som skal brukes
-app.use(express.static(publicPath));
+  //Konfigurer session
+  session = await start.configureSession(mongoose, session, MongoStore);
 
-//Fortelle express at pakken session skal brukes
-var sessionExpress = session({
-  secret: process.env.SESSION_SECRET, //her burde det brukes .env
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: mongoose.connection,
-    touchAfter: 12 * 3600 // time period in seconds
-  }),
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24 //Setter cookies til å slettes etter 1 day
-  },
-});
+  //Konfigurer app
+  const configureAppResult = await start.configureApp(app, session, express);
+  if(!configureAppResult.status) {
+    //DO SOMETHING
+  }
+  //Konfigurer socket
+  start.configureIo(io, session);
 
+  //Start socket
+  start.startRouting(app, io);
+  
+  //"Lytter" serveren
+  server.listen(port, () => logger.log({level: 'info', message: `Application is now listening on port ${port}`}));
+}
 
-//Forteller at app skal bruke i18n - Språk
-app.use(languageConfig.configure_language);
-
-//Forteller at app skal bruke sessionExpress middlewasre
-app.use(sessionExpress);
-
-//Denne sier at vi skal bruke bodyParser som gjør om body til json
-app.use(bodyParser.json()); 
-
-//Samme som over bare application/xwww-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true })); 
-
-//Bruk routes
-app.use(require('./routing'));
-
-//Error handling
-app.use((err, req, res, next) => {
-    res.send("Something wrong happen! Please try again later");
-    logger.log({level: 'error',message: `Express threw an error! Error: ${err}`});
-});
-
-//Kobler sammen session med io
-io.use(sharedsession(sessionExpress));
-
-//Setter opp socket.io
-io.on('connection', (socket) => {
-  //Logger at ny bruker logget på nettsiden
-  logger.log({level: 'info',message: `New user just connected`});
-  //Sender over til fil som fungerer som en router
-  socketRouter(socket);
-});
-//"Lytter" serveren
-server.listen(port, () => logger.log({level: 'info', message: `Application is now listening on port ${port}`}));
+startServer()
