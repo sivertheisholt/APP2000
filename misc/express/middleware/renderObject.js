@@ -17,8 +17,8 @@ exports.renderObject = async function (req, res, next) {
     renderObject.error = null;
     renderObject.errorType = null;
     if(req.query.error) {
-        renderObject.error = req.query.error;
-        renderObject.errorType = req.query.errorType;
+        renderObject.error = JSON.stringify(req.query.error);
+        renderObject.errorType = JSON.stringify(req.query.errorType);
     }
     renderObject.urlPath = res.locals.currentLang;
     renderObject.lang = res.locals.lang;
