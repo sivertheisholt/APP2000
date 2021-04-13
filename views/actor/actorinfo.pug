@@ -77,12 +77,12 @@ body
                         .uk-accordion-content
                             .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
                                 .uk-card-media-left.uk-cover-container
-                                    a(href=`https://filmatoryeksamen.herokuapp.com/mediainfo/filminfo/${item.id}`)
+                                    a(href=`/${urlPath}/mediainfo/filminfo/${item.id}`)
                                         img(src=`https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces${item.poster_path}` alt='' uk-cover='')
                                     canvas(width='600' height='400')
                                 div
                                     .uk-card-body
-                                        a(href=`https://filmatoryeksamen.herokuapp.com/mediainfo/filminfo/${item.id}`)
+                                        a(href=`/${urlPath}/mediainfo/filminfo/${item.id}`)
                                             h3.uk-card-title=`${item.title}`
                                         p #{__("ACTOR_MOVIE")} 
                                         p=`${item.character}`
@@ -97,12 +97,12 @@ body
                         .uk-accordion-content
                             .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
                                 .uk-card-media-left.uk-cover-container
-                                    a(href=`https://filmatoryeksamen.herokuapp.com/mediainfo/serieinfo/${item.id}`)
+                                    a(href=`/${urlPath}/mediainfo/serieinfo/${item.id}`)
                                         img(src=`https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces${item.poster_path}` alt='' uk-cover='')
                                     canvas(width='600' height='400')
                                 div
                                     .uk-card-body
-                                        a(href=`https://filmatoryeksamen.herokuapp.com/mediainfo/serieinfo/${item.id}`)
+                                        a(href=`/${urlPath}/mediainfo/serieinfo/${item.id}`)
                                             h3.uk-card-title=`${item.name}`
                                         p #{__("ACTOR_TV")} 
                                         p=`${item.character}`
