@@ -54,6 +54,7 @@
 	"MOVIEINFO_TAB_REVIEWS": "Reviews",
 	"MOVIEINFO_TAB_MEDIA": "Medien",
     "TVINFO_SEASONS": "Jahreszeiten",
+	"TVINFO_SEASON": "Staffel",
 	"TVINFO_EXEC_PRODUCER": "Ausführender Produzent",
 	"TVINFO_CREATED_BY": "Erstellt von",
     "ACTOR_BIRTHPLACE": "Geburtsort",
