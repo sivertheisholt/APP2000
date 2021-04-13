@@ -9,6 +9,9 @@ const ValidationHandler = require("./ValidationHandler");
  */
 async function searchForMovie(title) {
     const result = await tmdbHandler.data.getMovieInfo(title); //Henter info fra api
+    if(result.length == 0) {
+        return new ValidationHandler(false, 'No results');
+    }
     let counter = 0; //Teller
     let fiveResults = []; //temparray
     //Looper imellom
