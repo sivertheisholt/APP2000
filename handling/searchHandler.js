@@ -1,4 +1,3 @@
-const Tmdb = require("../api/tmdb");
 const tmdbHandler = require("../handling/tmdbHandler");
 const hjelpemetode = require("../handling/hjelpeMetoder");
 const ValidationHandler = require("./ValidationHandler");
