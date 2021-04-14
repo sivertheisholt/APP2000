@@ -43,6 +43,7 @@ exports.film_get_info = async function(req, res) {
 }
 
 exports.film_get_upcoming = async function(req, res) {
+    let url = 'mediainfo/filminfo';
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListUpcomingMovies = [];
     for(const movie of tmdbInformasjon.discoverMoviesUpcoming) {
@@ -54,11 +55,13 @@ exports.film_get_upcoming = async function(req, res) {
       }
       finalListUpcomingMovies.push(tempObj);
     }
+    req.renderObject.url = url;
     req.renderObject.upcomingMovies = JSON.stringify(finalListUpcomingMovies);
     res.render("mediainfo/upcomingmovies", req.renderObject);
 }
 
 exports.film_get_list = async function(req, res) {
+    let url = 'mediainfo/filminfo';
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListPopularMovies = [];
     for(const movie of tmdbInformasjon.discoverMoviesPopular) {
@@ -72,6 +75,7 @@ exports.film_get_list = async function(req, res) {
         finalListPopularMovies.push(tempObj);
     }
     req.renderObject.popularMovies = JSON.stringify(finalListPopularMovies);
+    req.renderObject.url = url;
     res.render("mediainfo/movies", req.renderObject);
 }
 

@@ -3,13 +3,14 @@
 button.uk-button.uk-button-default.nav-buttons(type='button') #{__("NAV_ACCOUNT")}
 div(uk-dropdown='animation: uk-animation-slide-top-small;')
   ul.uk-nav.uk-dropdown-nav
-    li.uk-active
+    if admin
+      li
+        a(href=`/${urlPath}/admin/admindashboard`) #{__("NAV_ADMIN_DASHBOARD")}
+    li
       a(href=`/${urlPath}/user/dashboard`) #{__("NAV_MYACCOUNT")}
     li
       a(href='#') #{__("NAV_FAVORITES")}
     li
       a(href=`/${urlPath}/auth/logout`) #{__("NAV_LOGOUT")}
-    if admin
-      li
-        a(href=`/${urlPath}/admin/admindashboard`) #{__("NAV_ADMIN_DASHBOARD")}
+
 

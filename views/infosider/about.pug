@@ -1,5 +1,3 @@
-- var i18n = i18n;
-
 include ../includes/head.pug
 include ../includes/nav.pug
 
@@ -47,18 +45,20 @@ body
                     | It uses MongoDB as the database, node.js functions and is coded in pug with UIkit.
 
         .uk-heading-small.uk-text-center.about-page-margin Contact
-        form
+        form(action=`/${urlPath}/infosider/contactform` method='post')
             fieldset.uk-fieldset
-                legend.uk-legend Contact form
-                
-                .uk-margin
-                input.uk-input(type='text' placeholder='Heading')
-                .uk-margin
-                textarea.uk-textarea(rows='5' placeholder='Message')
-                .uk-margin.uk-grid-small.uk-child-width-auto.uk-grid
-                button.uk-button.uk-button-default.uk-width-1-1.uk-margin-small-bottom Send
-                .uk-margin.uk-grid-small.uk-child-width-auto.uk-grid
-
+                legend.uk-legend                        
+                    .uk-margin
+                        label Title
+                        input.uk-input(type='text' placeholder='Title' name='contacttitle')
+                    .uk-margin
+                        label E-mail
+                        input.uk-input(type='text' placeholder='Mail' name='contactmail')
+                    .uk-margin
+                        label Message
+                        textarea.uk-textarea(rows='5' placeholder='Message' name='contacttext')
+                    .uk-margin
+                        button.uk-button.uk-button-default.uk-margin(type='submit') #{__("BUTTON_ENTER")}
 
 
     include ../includes/footer.pug

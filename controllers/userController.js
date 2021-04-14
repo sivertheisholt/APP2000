@@ -16,7 +16,10 @@ exports.user_get_dashboard = async function(req, res) {
     let watchedMovies = (await watchedGetter.getWatchedMovies(req.session.userId)).information.moviesWatched;
     let watchedTvs = (await watchedGetter.getWatchedTvs(req.session.userId)).information.tvsWatched;
     let allFavorites = [];
+    let tvFavorites = [];
+    let movieFavorites = [];
     let allWatched = [];
+
 
     for(const item of favoriteMovies){
         let result = await (await movieHandler.getMovieById(item));
@@ -27,6 +30,7 @@ exports.user_get_dashboard = async function(req, res) {
             releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.release_date, ', ')
         }
         allFavorites.push(tempObj);
+        movieFavorites.push(tempObj);
     }
     
     for(const item of favoriteTvs){
@@ -38,6 +42,7 @@ exports.user_get_dashboard = async function(req, res) {
             releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.first_air_date, ', ')
         }
         allFavorites.push(tempObj);
+        tvFavorites.push(tempObj);
     }
 
     for(const item of watchedMovies){
@@ -61,7 +66,8 @@ exports.user_get_dashboard = async function(req, res) {
         }
         allWatched.push(tempObj);
     }
-
+    req.renderObject.tvFavorites = tvFavorites;
+    req.renderObject.movieFavorites = movieFavorites;
     req.renderObject.allFavorites = allFavorites;
     req.renderObject.allWatched = allWatched;
     res.render("user/dashboard", req.renderObject);
