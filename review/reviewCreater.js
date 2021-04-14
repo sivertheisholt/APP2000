@@ -42,6 +42,7 @@ async function makeReview(review) {
         return databaseReturn;
     }
     logger.log({level:'info', message: `Review was successfully created for user ${review.userId}`});
+    return databaseReturn;
 }
 
 /**
