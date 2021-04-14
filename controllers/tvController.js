@@ -39,6 +39,7 @@ exports.tv_get_info = async function(req, res) {
 }
 
 exports.tv_get_upcoming = async function(req, res) {
+    let url = 'mediainfo/serieinfo';
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListUpcomingTv = [];
     for(const tv of tmdbInformasjon.discoverTvshowsUpcoming) {
@@ -50,11 +51,13 @@ exports.tv_get_upcoming = async function(req, res) {
       }
       finalListUpcomingTv.push(tempObj);
     }
+    req.renderObject.url = url;
     req.renderObject.upcomingTv = JSON.stringify(finalListUpcomingTv);
     res.render("mediainfo/upcomingtv", req.renderObject);
 }
 
 exports.tv_get_list = async function(req,res) {
+    let url = 'mediainfo/serieinfo';
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
     let finalListTvshowsPopular = [];
     for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
@@ -67,6 +70,7 @@ exports.tv_get_list = async function(req,res) {
         }
         finalListTvshowsPopular.push(tempObj);
     }
+    req.renderObject.url = url;
     req.renderObject.tvShows = JSON.stringify(finalListTvshowsPopular);
     res.render("mediainfo/tvshows", req.renderObject);
 }
