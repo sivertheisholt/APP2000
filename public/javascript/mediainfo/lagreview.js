@@ -1,4 +1,3 @@
-var socket = io.connect();
 let postReview = document.getElementById('reviewPoster');
 let reviewText = document.getElementById('reviewText');
 let stars = document.getElementById('stars');
