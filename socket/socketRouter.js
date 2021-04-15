@@ -4,7 +4,8 @@ const favourite = require("./favourite");
 const filter = require("./filter");
 const watchlist = require('./watchlist');
 const admin = require('./admin');
-const review = require('./lagReview')
+const review = require('./lagReview');
+const quote = require('./quote');
 
 const sockets = {
     disconnect: disconnect,
@@ -26,8 +27,8 @@ const sockets = {
     removeWatchedTv: watchlist.removeTvFromWatchlist,
     getLanguage: admin.getLanguage,
     saveLanguage: admin.saveLanguage,
-    lagReview: review
-
+    lagReview: review,
+    submitQuote: quote.submitQuoteMovie
 }
 
 /**

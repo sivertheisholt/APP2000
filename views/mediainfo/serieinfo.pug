@@ -109,7 +109,8 @@ body
               a(href='#') #{__("MOVIEINFO_TAB_REVIEWS")}
             li
               a(href='#') #{__("MOVIEINFO_TAB_MEDIA")}
-
+            li
+              a(href='#') Quotes
           ul.uk-switcher.uk-margin
             li
               article.uk-comment.uk-comment-primary.uk-margin-top
@@ -128,6 +129,19 @@ body
                     | Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             li
               iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
-
+            li
+              #serieinfo-quote-form
+                .uk-margin
+                  input.uk-input.uk-form-width-large.uk-margin-right(type='text' data-quote-tvid=`${serie.serieinfo.id}` id='serieinfo-quote-input' placeholder='Quote' value='')
+                  button.uk-button.uk-button-default(type='submit' id='serieinfo-quote-button') #{__("BUTTON_ENTER")}
+              #serieinfo-quote-result
+              .uk-grid-small.uk-grid-match.uk-margin-top(class='uk-child-width-1-3@m' uk-grid='')
+                div
+                  .uk-card.uk-card-secondary.uk-card-body
+                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                div
+                  .uk-card.uk-card-secondary.uk-card-body
+                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
       include ../includes/footer.pug
       script(src="/javascript/mediainfo/addtv.js")
+      script(src="/javascript/mediainfo/addquotetv.js")
