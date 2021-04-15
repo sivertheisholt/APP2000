@@ -9,12 +9,13 @@ const ValidationHandler = require('../handling/ValidationHandler');
  * Klasse for  å klone review
  */
 class CloneReview {
-    constructor(userId, movieId, tvId, text, stars) {
+    constructor(userId, movieId, tvId, text, stars, date) {
         this.userId = userId;
         this.movieId = movieId;
         this.tvId = tvId;
         this.stars = stars;
         this.text = text;
+        this.date = date;
     }
 }
 
@@ -123,7 +124,8 @@ async function editReview(reviewId, text, stars) {
         approvedReview.movieId,
         approvedReview.tvId,
         text,
-        stars
+        stars,
+        approvedReview.date
     ))
     if(!saveChangeResult.status) {
         return saveChangeResult;
@@ -173,7 +175,8 @@ async function denyReview(reviewId, feedback) {
         pendingReview.movieId,
         pendingReview.tvId,
         pendingReview.text,
-        pendingReview.stars
+        pendingReview.stars,
+        Date.now
     ), feedback);
     if(!saveDeniedResult.status) {
         return new ValidationHandler(false, saveDeniedResult.information);
@@ -209,7 +212,8 @@ async function approveReview(reviewId) {
         pendingReview.movieId,
         pendingReview.tvId,
         pendingReview.text,
-        pendingReview.stars
+        pendingReview.stars,
+        pendingReview.date
     ));
     if(!saveApprovedResult.status) {
         return new ValidationHandler(false, saveApprovedResult.information);

@@ -18,6 +18,17 @@ const approvedReviewSchema = new mongoose.Schema({
     },
     stars: {
         type: Number
+    },
+    date: {
+        type: Date,
+    },
+    author: {
+        type: String,
+        default: 'user'
+    },
+    avatar: {
+        type: String,
+        default: '/uploads/default.png'
     }
 });
 

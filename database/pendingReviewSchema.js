@@ -18,6 +18,10 @@ const pendingReviewSchema = new mongoose.Schema({
     },
     stars: {
         type: Number
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
 

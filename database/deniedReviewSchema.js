@@ -21,6 +21,10 @@ const deniedReviewSchema = new mongoose.Schema({
     },
     feedback: {
         type: String
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
 

@@ -24,7 +24,8 @@ exports.film_get_info = async function(req, res) {
         castinfo: castinfolet,
         videos: await tmdb.data.getMovieVideosByID(req.url.slice(10)),
         listOfPersons: await Promise.all(getPersons(castinfolet.cast)),
-        reviews: reviews.information
+        //reviews: reviews.information
+        reviews: dateFixer(reviews.information)
     }
     logger.log({level: 'debug', message: 'Getting username..'});
     film.reviews.username = await Promise.all(getUsernames(film.reviews));
@@ -37,6 +38,10 @@ exports.film_get_info = async function(req, res) {
 
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.film = film;
+    if (req.renderObject.user != undefined){
+        req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
+    }
+    req.renderObject.movieId = JSON.stringify(req.url.slice(10));
     req.renderObject.isMovFav = isMovFav.status;
     req.renderObject.isMovWatched = isMovWatched.status;
     res.render("mediainfo/filminfo", req.renderObject)
@@ -93,4 +98,16 @@ function getUsernames(reviews) {
         userArray.push(userHandler.getUserFromId(item.userId))
     }
     return userArray;
+}
+
+function dateFixer(reviews){
+    let dateArray = [];
+    for(let item of reviews){
+        var x = item.date.toUTCString()
+        x= x.replace(/T|:\d\dZ/g,' ')
+        item.formattedDate = x
+        console.log(item.date)
+        dateArray.push(item)
+    }
+    return dateArray;
 }

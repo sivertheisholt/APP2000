@@ -3,6 +3,7 @@ const ReviewApproved = require('../database/approvedReviewSchema');
 const ReviewDenied = require('../database/deniedReviewSchema');
 const logger = require('../logging/logger');
 const ValidationHandler = require('../handling/ValidationHandler');
+const userHandler = require('../handling/userHandler');
 
 /**
  * Skaffer alle pending reviews for en film/tv
@@ -31,7 +32,17 @@ async function getApprovedReviews(mediaId, type) {
     if(!result.status) {
         return new ValidationHandler(false, result.information);
     }
-    return checkResult(result.information);
+    for (let i = 0; i < result.information.length; i++){
+        const userResult = await userHandler.getUserFromId(result.information[i].userId);
+        if (result.information[i].userId == userResult.information._id) {
+            result.information[i].author = userResult.information.username;
+            result.information[i].avatar = userResult.information.avatar;
+            continue;
+        }
+    }
+    console.log(result);
+    let nisse = checkResult(result.information);
+    return nisse;
 }
 
 /**

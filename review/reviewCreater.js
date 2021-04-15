@@ -37,10 +37,16 @@ class ReviewMovie extends Review {
  * @param {ReviewTv|ReviewMovie} review En av underklassene til Review
  */
 async function makeReview(review) {
+    console.log(review);
+    if (review.text === ""){
+        return new ValidationHandler(false, 'Your review needs some content!');
+    }
+
     const databaseReturn = await addToDatabase(review);
     if(!databaseReturn.status) {
         return databaseReturn;
     }
+    console.log(databaseReturn);
     logger.log({level:'info', message: `Review was successfully created for user ${review.userId}`});
     return databaseReturn;
 }
