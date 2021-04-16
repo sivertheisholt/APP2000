@@ -1,5 +1,6 @@
 const hjelpemetoder = require('../handling/hjelpeMetoder');
 const fs = require('fs');
+const reviewEditor = require('../review/reviewEditor');
 
 async function getLanguage(socket, langId) {
     let language = await hjelpemetoder.data.lesFil(`./lang/${langId}.json`);
@@ -18,4 +19,16 @@ async function saveLanguage(socket, args){
     socket.emit('savedLanguage');
 }
 
-module.exports = {getLanguage, saveLanguage}
+
+async function approveReview(socket, reviewId) {
+    let result = await reviewEditor.approveReview(reviewId);
+    socket.emit('approveReviewResult', result);
+}
+
+async function denyReview(socket, review) {
+    let result = await reviewEditor.denyReview(review.reviewId, review.reason);
+    console.log(result);
+    socket.emit('denyReviewResult', result);
+}
+
+module.exports = {getLanguage, saveLanguage,approveReview,denyReview}

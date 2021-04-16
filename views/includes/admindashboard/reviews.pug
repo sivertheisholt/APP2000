@@ -1,9 +1,45 @@
+- var pendingReviews = pendingReviews;
 .admin-dashboard-container
-    ul(uk-accordion='multiple: true')
+    ul(uk-accordion='multiple: true' id='admin-review-accordion')
         li
             a.uk-accordion-title(href='#') Approval
             .uk-accordion-content
-                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                .uk-card.uk-card-default.uk-card-small.uk-margin.uk-flex.uk-flex-column.uk-margin-auto(class='uk-width-1-2@m')
+                    .uk-card-header.uk-text-center
+                        p Enter review id
+                        input.uk-input.uk-form-width-medium(type='text' placeholder='ReviewID' id='admin-review-id' )
+                    .uk-card-body.uk-text-center
+                        p Reason for denial
+                        textarea(id='admin-review-denial-reason' rows='4' cols='20')
+                    .uk-card-body.uk-margin.uk-flex.uk-flex-column.uk-width-1-1
+                            button.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-approve') Approve
+                            button.uk-button.uk-button-default.uk-button-small.uk-margin-top(type='submit' id='admin-review-deny') Deny
+                    #admin-review-output
+                each item in pendingReviews
+                    #admin-review-form
+                        .uk-card.uk-card-default.uk-margin(class='uk-width-1-1@m')
+                            .uk-card-header.admin-review-header
+                                .uk-grid-small.uk-flex-middle(uk-grid='')
+                                    .uk-width-expand.uk-grid
+                                        h3.uk-margin-remove-bottom Mediaid:
+                                        if (item.serieId == null)
+                                            a(href=`/${urlPath}/mediainfo/filminfo/${item.movieId}`)
+                                                h3.uk-card-title.uk-margin-remove-bottom= item.movieId
+                                        if (item.filmId == null)
+                                            a(href=`/${urlPath}/mediainfo/serieinfo/${item.tvId}`)
+                                                h3.uk-card-title.uk-margin-remove-bottom= item.tvId
+                                        h3.uk-text-small.uk-margin-remove-bottom.uk-align-right ReviewId:
+                                            p.uk-text-meta.uk-margin-remove-bottom.uk-align-right= item.reviewId
+                                        p.uk-text-meta.uk-margin-top
+                                            p= item.date
+                            .uk-card-body.admin-review-body
+                                .uk-grid
+                                    p.uk-text-bold Quote:
+                                    p= item.text
+                                .uk-grid
+                                    p.uk-text-bold Given rating:
+                                    p= item.rating
+
         li
             a.uk-accordion-title(href='#') Edit
             .uk-accordion-content

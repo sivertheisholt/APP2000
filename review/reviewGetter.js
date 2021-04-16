@@ -162,6 +162,30 @@ async function getReviewFromDatabase(reviewId, collection) {
 }
 
 /**
+ * Henter alle reviews fra databasen
+ * @param {'pending'|'approved'|'denied'} collection 
+ * @returns ValidationHandler
+ */
+
+async function getAllReviewFromDatabase(collection) {
+    try {
+        switch(collection) {
+            case 'pending':
+                return new ValidationHandler(true, await ReviewPending.find());
+            case 'approved':
+                return new ValidationHandler(true, await ReviewApproved.find());
+            case 'denied':
+                return new ValidationHandler(true, await ReviewDenied.find());
+        } 
+    } catch(err) {
+        logger.log({level: 'error', message: `Something unexpected happen while trying to get information! Error: ${err}`})
+        return new ValidationHandler(false, `Something unexpected happen while trying to get information! Error: ${err}`);
+    }
+}
+
+
+
+/**
  * Sjekker resultat fra database
  * @param {Object} result 
  * @param {String|Number} id 
@@ -175,4 +199,4 @@ function checkResult(result, id) {
     return new ValidationHandler(true, result);
 }
 
-module.exports = {getPendingReviews, getApprovedReviews, getDeniedReviews,getPendingReviewById, getApprovedReviewById,getDeniedReviewById}
+module.exports = {getPendingReviews, getApprovedReviews, getDeniedReviews,getPendingReviewById, getApprovedReviewById,getDeniedReviewById,getAllReviewFromDatabase}

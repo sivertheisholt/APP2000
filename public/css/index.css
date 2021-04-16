@@ -47,6 +47,10 @@ img.center {
   padding: 0px;
 }
 
+.remove-margin {
+  margin: 0px;
+}
+
 .avatar{
   width: 40px;
   height: 40px;
@@ -591,6 +595,25 @@ img.search-image-style{
   padding: 0 20px;
   min-height: 100%;
 }
+
+#admin-review-approve{
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+#admin-review-deny{
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+#admin-review-approve:hover{
+  background-color: rgb(96, 255, 136);
+}
+
+#admin-review-deny:hover{
+  background-color: rgb(255, 97, 97);
+}
+
 
 /*********************************/
 /* Tooltip */

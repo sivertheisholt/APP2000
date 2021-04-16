@@ -1,9 +1,22 @@
-const userHandler = require('../handling/userHandler');
-const Session = require("../database/sessionSchema");
 const hjelpemetoder = require('../handling/hjelpeMetoder');
 const fs = require("fs");
+const reviewGetter = require('../review/reviewGetter');
 
 exports.admin_get_dashboard = async function(req, res) {
+  let reviews = await reviewGetter.getAllReviewFromDatabase('pending');
+  let pendingReviews = [];
+  for(const re of reviews.information){
+    let reviewObj = {
+      reviewId: re._id,
+      rating: re.stars,
+      date: re.date,
+      text: re.text,
+      movieId: re.movieId,
+      tvId: re.tvId
+    }
+    pendingReviews.push(reviewObj);
+  }
+  req.renderObject.pendingReviews = pendingReviews;
   res.render("admin/admindashboard", req.renderObject);
 }
 
@@ -12,6 +25,8 @@ exports.admin_post_addlanguage = async function(req, res) {
   let languageJson = await hjelpemetoder.data.lesFil("./lang/langList.json");
   let langs = JSON.parse(languageJson.information);
   let langObj = hjelpemetoder.data.validateNewLang(pugBody);
+
+
   if(!langObj.status){
     return res.redirect(`/${res.locals.currentLang}/admin/admindashboard?error=${langObj.information}&errorType=adminDashboardCreateLanguage`);
   }
