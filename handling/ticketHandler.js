@@ -1,6 +1,6 @@
 const logger = require("../logging/logger");
 const ValidationHandler = require("./ValidationHandler");
-const Ticket = require("../database/ticketSchema");
+const Ticket = require("../database/pendingTicketSchema");
 
 function returnHandler(doc, err) {
     if(err) {

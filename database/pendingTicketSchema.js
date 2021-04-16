@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 //Vi lager et nytt schema
-const ticketSchema = new mongoose.Schema({
+const pendingTicketSchema = new mongoose.Schema({
     mail: {
         type: String
     },
@@ -10,11 +10,7 @@ const ticketSchema = new mongoose.Schema({
     },
     text: {
         type: String
-    },
-    status: {
-        type: Boolean,
-        default: false
     }
 });
 
-module.exports = mongoose.model('ticket', ticketSchema); //ES6 Module
+module.exports = mongoose.model('pendingTicket', pendingTicketSchema); //ES6 Module

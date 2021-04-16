@@ -57,6 +57,10 @@ img.center {
   border: 1px rgb(75, 75, 75) solid;
 }
 
+.letter-break{
+  word-break: break-all;
+}
+
 /*********************************/
 /* Navbar */
 /*********************************/

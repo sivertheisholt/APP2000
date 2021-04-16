@@ -29,6 +29,7 @@ const sockets = {
     saveLanguage: admin.saveLanguage,
     approveReview: admin.approveReview,
     denyReview: admin.denyReview,
+    respondTicket: admin.respondTicket,
     lagReview: review,
     submitQuote: quote.submitQuoteMovie
 }
