@@ -4,9 +4,11 @@ let stars = document.getElementById('stars');
 let reviewResult = document.getElementById('serieinfo-review-result');
 let reviewForm = document.getElementById('serieinfo-review-form');
 
-
+/**
+ * Setter sammen variabler fra review fra serieinfo til et objekt
+ * @returns objekt
+ */
 function lagObjekt() {
-    console.log(userID);
     var objekt = {};
     objekt.tekst = reviewText.value;
     objekt.stars = stars.value;
@@ -15,9 +17,7 @@ function lagObjekt() {
 
     return objekt;
 }
-
 postReview.addEventListener("click", ()=>{
-    console.log('Hei jeg er her ørjan!')
     socket.emit('makeATvReview', lagObjekt());
 });
 
@@ -26,5 +26,4 @@ socket.on('makeTvReview_result', (result)=>{
     if (result.status){
         reviewForm.style.display='none';
     }
-    
 })

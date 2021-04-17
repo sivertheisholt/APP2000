@@ -13,9 +13,7 @@ exports.tv_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Getting castinfo..'});
     let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(11));
     logger.log({level: 'debug', message: 'Getting reviews..'});
-    console.log('*******************************************************');
     let reviews = await reviewGetter.getApprovedReviews(req.url.slice(11), "tv");
-    console.log('*******************************************************');
     let isTvFav = new ValidationHandler(false, "");
     let isTvWatched = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
@@ -36,7 +34,6 @@ exports.tv_get_info = async function(req, res) {
         isTvFav = await tvFavorite.checkIfFavorited(serie.serieinfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
         isTvWatched = await watchedCreater.checkIfWatched((await userHandler.getUserFromId(req.session.userId)).information, serie.serieinfo.id, 'tv');
     }
-    //let person = await tmdb.data.getPersonByID(personID);
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.serie = serie;
     if (req.renderObject.user != undefined){

@@ -20,8 +20,6 @@ postReview.addEventListener("click", ()=>{
 });
 
 socket.on('makeAMovieReview_result', (result)=>{
-    console.log(result);
-    console.log('!!!!!!!!!!!!!!!!!!!!!');
     reviewResult.innerHTML=result.information;
     if (result.status){
         reviewForm.style.display='none';
