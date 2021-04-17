@@ -73,6 +73,5 @@
 	"ACTOR_APPEARS_IN": "Appears in",
 	"ACTOR_MOVIE": "Movie",
 	"ACTOR_TV": "TV show",
-	"ACTOR_SCORE": "Score",
-	"DASHBOARD_DESC_WATCHLIST": "DASHBOARD_DESC_WATCHLIST"
+	"ACTOR_SCORE": "Score"
 }
