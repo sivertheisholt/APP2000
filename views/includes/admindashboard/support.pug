@@ -1,6 +1,32 @@
+- var pendingTickets = pendingTickets;
 .admin-dashboard-container    
     ul(uk-accordion='multiple: true')
         li
             a.uk-accordion-title(href='#') Tickets
             .uk-accordion-content
-                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
+                    .uk-card-header.uk-text-center
+                        p.uk-text-bolder Enter ticket id
+                        input.uk-input.uk-form-width-medium(type='text' placeholder='TicketID' id='admin-ticket-id' )
+                    .uk-card-body.uk-text-center
+                        p.uk-text-bolder Response to ticket
+                    .uk-grid.uk-width-1-1.uk-margin-auto.remove-padding
+                        textarea.uk-margin-auto.remove-padding(id='admin-ticket-response' rows='6' cols='50')
+                    .uk-card-body.uk-text-center
+                        button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-ticket-send') Send
+                    #admin-ticket-result.uk-card-body.uk-text-center
+                each item in pendingTickets 
+                    .uk-card.uk-card-default.uk-margin(class='uk-width-1-1@m')
+                        .uk-card-header.admin-review-header
+                            .uk-grid-small.uk-flex-middle(uk-grid='')
+                                .uk-grid.uk-margin-auto.uk-width-1-1
+                                    .test.uk-text-center(class='uk-width-1-2@m')
+                                        p.uk-margin-remove-bottom.uk-text-bolder TicketID:
+                                        p.uk-margin-bottom.letter-break= item.ticketId
+                                    .test.uk-text-center(class='uk-width-1-2@m')
+                                        p.uk-margin-remove-bottom.uk-text-bolder From:
+                                        p.uk-margin-bottom.letter-break= item.mail
+                        .uk-card-body.admin-review-body
+                            .uk-grid
+                                p.uk-text-bold Case:
+                                p= item.text

@@ -13,7 +13,7 @@ async function addTicket(ticket){
 }
 
 async function updateDatabase(ticket) {
-    return await ticketHandler.addToDatabase(ticket, {$push: {mail: ticket.mail, title: ticket.title, text: ticket.text}});
+    return await ticketHandler.addToDatabase(ticket);
 }
 
 module.exports = {addTicket}

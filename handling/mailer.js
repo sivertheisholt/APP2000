@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 const logger = require('../logging/logger');
+const ValidationHandler = require('../handling/ValidationHandler');
 
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
@@ -20,9 +21,10 @@ let sendMail = (mailOptions) => {
   transporter.sendMail(mailOptions,(err, info) => {
     if(err){
       logger.log({level: 'error', message: `Could not send email! Error: ${err}`});
-      return console.log(err);
+      return new ValidationHandler(false, 'Could not send response mail');
     } else {
       logger.log({level: 'debug', message: `Email sent: ${info.response}`});
+      return new ValidationHandler(true, info.response);
     }
   })
 }

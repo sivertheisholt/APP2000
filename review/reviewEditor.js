@@ -176,7 +176,7 @@ async function denyReview(reviewId, feedback) {
         pendingReview.tvId,
         pendingReview.text,
         pendingReview.stars,
-        Date.now
+        Date.now()
     ), feedback);
     if(!saveDeniedResult.status) {
         return new ValidationHandler(false, saveDeniedResult.information);

@@ -27,6 +27,9 @@ const sockets = {
     removeWatchedTv: watchlist.removeTvFromWatchlist,
     getLanguage: admin.getLanguage,
     saveLanguage: admin.saveLanguage,
+    approveReview: admin.approveReview,
+    denyReview: admin.denyReview,
+    respondTicket: admin.respondTicket,
     lagReview: review,
     submitQuote: quote.submitQuoteMovie
 }
