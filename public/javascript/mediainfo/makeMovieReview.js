@@ -16,13 +16,14 @@ function lagObjekt() {
 }
 
 postReview.addEventListener("click", ()=>{
-    socket.emit('lagReview', lagObjekt());
+    socket.emit('makeAMovieReview', lagObjekt());
 });
 
-socket.on('lagreview_result', (result)=>{
+socket.on('makeAMovieReview_result', (result)=>{
+    console.log(result);
+    console.log('!!!!!!!!!!!!!!!!!!!!!');
     reviewResult.innerHTML=result.information;
     if (result.status){
         reviewForm.style.display='none';
     }
-    
-})
+});
