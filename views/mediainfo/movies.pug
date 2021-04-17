@@ -15,9 +15,9 @@ include ../includes/head.pug
 include ../includes/nav.pug
 
 body
-    .container.uk-grid.uk-margin-top
-        .uk-grid.uk-width-1-1.uk-margin-auto
-            h2 Sadd
+    .container.uk-grid.uk-margin-top.uk-padding-remove
+        .uk-margin-auto.uk-padding-remove.uk-grid.uk-text-center
+            h2 Sort
                 button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by
                 div.movies-filter-list.upcoming-scroll-bar(uk-dropdown='mode: click')
                     ul
@@ -33,7 +33,7 @@ body
                     ul
                         a(id='popularMediaSortByTitleZA') Title (Z-A)
             h2 Sort by genre
-                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by
+                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by genre
                 div.media-genre-list.upcoming-scroll-bar(uk-dropdown='mode: click')
                     ul
                         a(id='28') Action
@@ -73,8 +73,8 @@ body
                         a(id='10752') War
                     ul
                         a(id='37') Western
-        .upcomingMovies.uk-grid.uk-width-1-1
-            .uk-grid.uk-child-width-1-4#mediaCard
+        .upcomingMovies.uk-grid.uk-width-1-1.uk-margin-remove.uk-padding-remove
+            .uk-grid.uk-child-width-1-4.uk-margin-remove.uk-padding-remove#mediaCard
             .uk-grid.uk-width-1-1.uk-button.uk-button-default.uk-align-center
                 a#loadMore(onclick="load(currentMediaDisplayed, event)")
                     span.text Load More

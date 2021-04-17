@@ -298,13 +298,25 @@ img.search-image-style{
   overflow: hidden;
   overflow-y: scroll;
   height: 150px;
-  min-width: 155px;
+  max-width: 50px;
+  font-size: 20px;
   margin: 0 auto;
-  padding: 0px;
+  padding: 10px;
+
 }
 
 .upcoming-scroll-bar ul {
-  margin-top: 20px;
+  padding: 0px;
+}
+
+
+.upcoming-scroll-bar ul a {
+  color: #666;
+  text-decoration: none;
+}
+
+.upcoming-scroll-bar ul:hover {
+  background-color: rgb(230, 230, 230);
 }
 
 .filter-wrap {
@@ -628,6 +640,10 @@ img.search-image-style{
 
 #admin-review-deny:hover{
   background-color: rgb(255, 97, 97);
+}
+
+#admin-edit-edit-review-form{
+  display: none;
 }
 
 
