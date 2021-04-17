@@ -2,6 +2,7 @@ const tmdb = require('../handling/tmdbHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
 const Session = require("../database/sessionSchema");
 const tvFavorite = require('../favourite/favouriteTv');
+const reviewGetter = require('../review/reviewGetter');
 const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
 const Bruker = require('../handling/userHandler');
@@ -10,15 +11,20 @@ const ValidationHandler = require('../handling/ValidationHandler');
 
 exports.tv_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Getting castinfo..'});
-    let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(10));
+    let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(11));
+    logger.log({level: 'debug', message: 'Getting reviews..'});
+    console.log('*******************************************************');
+    let reviews = await reviewGetter.getApprovedReviews(req.url.slice(11), "tv");
+    console.log('*******************************************************');
     let isTvFav = new ValidationHandler(false, "");
     let isTvWatched = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
     let serie = {
-        serieinfo: await tmdb.data.getSerieInfoByID(req.url.slice(10)),
+        serieinfo: await tmdb.data.getSerieInfoByID(req.url.slice(11)),
         castinfo: castinfolet,
-        videos: await tmdb.data.getSerieVideosByID(req.url.slice(10)) ,
-        listOfPersons: await Promise.all(getPersons(castinfolet.cast))
+        videos: await tmdb.data.getSerieVideosByID(req.url.slice(11)) ,
+        listOfPersons: await Promise.all(getPersons(castinfolet.cast)),
+        reviews: dateFixer(reviews.information)
     }
     logger.log({level: 'debug', message: 'Getting list of persons'});
     for(const item of serie.castinfo.cast){
@@ -33,6 +39,11 @@ exports.tv_get_info = async function(req, res) {
     //let person = await tmdb.data.getPersonByID(personID);
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.serie = serie;
+    if (req.renderObject.user != undefined){
+        console.log('Hei sivert!');
+        req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
+    }
+    req.renderObject.tvId = JSON.stringify(req.url.slice(11));
     req.renderObject.isTvFav = JSON.stringify(isTvFav.status);
     req.renderObject.isTvWatched = JSON.stringify(isTvWatched.status);
     res.render("mediainfo/serieinfo", req.renderObject);
@@ -89,4 +100,16 @@ function getUsernames(reviews) {
         userArray.push(userHandler.getUserFromId(item.userId))
     }
     return userArray;
+}
+
+function dateFixer(reviews){
+    let dateArray = [];
+    for(let item of reviews){
+        var x = item.date.toUTCString()
+        x= x.replace(/T|:\d\dZ/g,' ')
+        item.formattedDate = x
+        console.log(item.date)
+        dateArray.push(item)
+    }
+    return dateArray;
 }

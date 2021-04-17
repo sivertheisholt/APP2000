@@ -4,7 +4,8 @@ const favourite = require("./favourite");
 const filter = require("./filter");
 const watchlist = require('./watchlist');
 const admin = require('./admin');
-const review = require('./lagReview');
+const movieReview = require('./makeAMovieReview');
+const tvReview = require('./makeATvReview');
 const quote = require('./quote');
 
 const sockets = {
@@ -30,7 +31,8 @@ const sockets = {
     approveReview: admin.approveReview,
     denyReview: admin.denyReview,
     respondTicket: admin.respondTicket,
-    lagReview: review,
+    makeAMovieReview: movieReview,
+    makeATvReview: tvReview,
     submitQuote: quote.submitQuoteMovie
 }
 

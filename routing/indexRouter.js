@@ -8,5 +8,5 @@ router.use("/infosider", require('./info'));
 router.use("/user", require('./dashboard'));
 router.use("/actor", require('./actorinfo'));
 router.use("/homepage", require('./homepage'));
-
+router.use("/testing", require('./testing'));
 module.exports = router;
