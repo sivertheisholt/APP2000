@@ -24,7 +24,6 @@ exports.film_get_info = async function(req, res) {
         castinfo: castinfolet,
         videos: await tmdb.data.getMovieVideosByID(req.url.slice(10)),
         listOfPersons: await Promise.all(getPersons(castinfolet.cast)),
-        //reviews: reviews.information
         reviews: dateFixer(reviews.information)
     }
     logger.log({level: 'debug', message: 'Getting username..'});

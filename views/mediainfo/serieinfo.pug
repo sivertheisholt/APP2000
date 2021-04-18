@@ -8,6 +8,8 @@
 script.
     let isTvFav = !{isTvFav};
     let isTvWatched = !{isTvWatched};
+    let userID = !{userId};
+    let serie_Id = !{tvId};
 each item in serie.serieinfo.created_by 
   - creators.push(item.name);
 
@@ -113,20 +115,36 @@ body
               a(href='#') Quotes
           ul.uk-switcher.uk-margin
             li
-              article.uk-comment.uk-comment-primary.uk-margin-top
-                header.uk-comment-header
-                  .uk-grid-medium.uk-flex-middle(uk-grid='')
-                    .uk-width-auto
-                      img.uk-comment-avatar(src='images/avatar.jpg' width='80' height='80' alt='')
-                    .uk-width-expand
-                      h4.uk-comment-title.uk-margin-remove
-                        a.uk-link-reset(href='#') Author
-                      ul.uk-comment-meta.uk-subnav.uk-subnav-divider.uk-margin-remove-top
-                        li
-                          a(href='#') 12 days ago
-                .uk-comment-body
-                  p
-                    | Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              - if(session)
+                #serieinfo-review-form
+                  select.uk-select(id="stars")
+                    option 1
+                    option 2
+                    option 3
+                    option 4
+                    option 5
+                  textarea.uk-textarea(id="reviewText")
+                  a.uk-button.uk-button-default(id="reviewPoster")
+                    p='Post kommentar'
+                #serieinfo-review-result
+              - else
+                p='Log in to leave a comment!'
+              each item in serie.reviews
+                article.uk-comment.uk-comment-primary.uk-margin-top
+                  header.uk-comment-header
+                    .uk-grid-medium.uk-flex-middle(uk-grid='')
+                      .uk-width-auto
+                        img.uk-comment-avatar(src=`${item.avatar}` width='80' height='80' alt='')
+                      .uk-width-expand
+                        h4.uk-comment-title.uk-margin-remove
+                          a.uk-link-reset(href='#')=`${item.author}`
+                        ul.uk-comment-meta.uk-subnav.uk-subnav-divider.uk-margin-remove-top
+                          li
+                            a(href='#')=`${item.formattedDate}`
+                          li
+                            p=`${item.stars} Stars`
+                  .uk-comment-body
+                    p=`${item.text}`
             li
               iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
             li
@@ -144,4 +162,5 @@ body
                     p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
       include ../includes/footer.pug
       script(src="/javascript/mediainfo/addtv.js")
+      script(src="/javascript/mediainfo/makeTvReview.js")
       script(src="/javascript/mediainfo/addquotetv.js")

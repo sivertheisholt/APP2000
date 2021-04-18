@@ -1,10 +1,14 @@
 include ../includes/head.pug
 include ../includes/nav.pug
 
+script.
+    var error = !{error}
+    var errorType = !{errorType}
+
 body
     
     .container
-        .uk-heading-medium.uk-text-center.about-page-margin About us
+        .uk-heading-medium.uk-text-center.about-page-margin About
 
 
         .uk-width-1-1
@@ -43,22 +47,31 @@ body
                     p
                     | This website uses API's from TMDI to gather information about any tv-show, movie and actor.
                     | It uses MongoDB as the database, node.js functions and is coded in pug with UIkit.
-
-        .uk-heading-small.uk-text-center.about-page-margin Contact
+        #contact-form
+        .uk-heading-small.uk-text-center Contact
         form(action=`/${urlPath}/infosider/contactform` method='post')
             fieldset.uk-fieldset
-                legend.uk-legend                        
+                legend.uk-legend.uk-width-1-3.uk-margin-auto.uk-card.uk-card-body          
                     .uk-margin
-                        label Title
-                        input.uk-input(type='text' placeholder='Title' name='contacttitle')
+                        label.uk-text-medium Title
+                        input.uk-input(type='text' name='contacttitle')
                     .uk-margin
-                        label E-mail
-                        input.uk-input(type='text' placeholder='Mail' name='contactmail')
+                        label.uk-text-medium E-mail
+                        input.uk-input(type='text' name='contactmail')
                     .uk-margin
-                        label Message
-                        textarea.uk-textarea(rows='5' placeholder='Message' name='contacttext')
+                        label.uk-text-medium Message
+                        textarea.uk-textarea(rows='5' name='contacttext')
                     .uk-margin
-                        button.uk-button.uk-button-default.uk-margin(type='submit') #{__("BUTTON_ENTER")}
+                        button.uk-button.uk-button-default.uk-.uk-width-medium.uk-margin(type='submit') #{__("BUTTON_ENTER")}
+                    #about-contact-error
 
-
-    include ../includes/footer.pug
+include ../includes/footer.pug
+script.
+    if(error != undefined) {
+        switch(errorType) {
+            case "aboutContactForm":
+                document.getElementById("about-contact-error").style.display='block';
+                document.getElementById("about-contact-error").innerHTML += 'ERROR: ' + error;
+                break;
+        }
+    }
