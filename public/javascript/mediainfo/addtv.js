@@ -12,9 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         heartTvImg.src = '/images/icons/heart-border.png';
     }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
     if(isTvWatched){
         bookmarkTvImg.src = "/images/icons/bookmark-filled.png";
     } else {
@@ -24,32 +21,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 tvFavoriteEle.addEventListener("click", function(){
     if(isTvFav){
+        isTvFav = false;
+        heartTvImg.src = '/images/icons/heart-border.png';
         socket.emit('delFavoriteTv', tvId);
     } else {
+        isTvFav = true;
+        heartTvImg.src = "/images/icons/heart-filled.png";
         socket.emit('addFavoriteTv', tvId);
     }
 });
 
-socket.on('favoritedTv', function(){
-    location.reload();
-});
-
-socket.on('unfavoritedTv', function(){
-    location.reload();
-})
-
 tvBookmarkEle.addEventListener("click", function(){
     if(isTvWatched){
+        isTvWatched = false;
+        bookmarkTvImg.src = '/images/icons/bookmark-border.png';
         socket.emit('removeWatchedTv', tvId);
     } else {
+        isTvFav = true;
+        bookmarkTvImg.src = "/images/icons/bookmark-filled.png";
         socket.emit('addWatchedTv', tvId);
     }
 });
-
-socket.on('tvAddedToWatchlist', function(){
-    location.reload();
-});
-
-socket.on('tvRemovedFromWatchlist', function(){
-    location.reload();
-})

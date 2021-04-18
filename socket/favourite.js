@@ -14,7 +14,6 @@ async function addFavoriteMovie(socket, movieId) {
         logger.log({level: 'error', message: `Something unexpected happen when adding favourite movie! Error: ${result.information}`});
         return result;
     }
-    socket.emit('favoritedMovie');
 }
 /**
  * Sletter film fra favoritt hos bruker
@@ -28,7 +27,6 @@ async function delFavoriteMovie(socket, movieId) {
         logger.log({level: 'error', message: `Something unexpected happen when removing favourite movie! Error: ${result.information}`});
         return result;
     }
-    socket.emit('unfavoritedMovie');
 }
 /**
  * Legger til serie i favoritt hos bruker
@@ -42,7 +40,6 @@ async function addFavoriteTv(socket, tvId) {
         logger.log({level: 'error', message: `Something unexpected happen when removing favourite tvshow! Error: ${result.information}`});
         return result;
     }
-    socket.emit('favoritedTv');
 }
 /**
  * Sletter serie i favoritt hos bruker
@@ -56,7 +53,6 @@ async function delFavoriteTv(socket, tvId) {
         logger.log({level: 'error', message: `Something unexpected happen when removing favourite tvshow! Error: ${result.information}`});
         return result;
     }
-    socket.emit('unfavoritedTv');
 }
 
 module.exports = {addFavoriteMovie, delFavoriteMovie, addFavoriteTv, delFavoriteTv}

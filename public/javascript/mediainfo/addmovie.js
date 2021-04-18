@@ -13,9 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         heartMovieImg.src = '/images/icons/heart-border.png';
     }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
     if(isMovWatched){
         bookmarkMovieImg.src = "/images/icons/bookmark-filled.png";
     } else {
@@ -25,32 +22,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 movieEleFav.addEventListener("click", function(){
     if(isMovFav){
+        isMovFav = false;
+        heartMovieImg.src = '/images/icons/heart-border.png';
         socket.emit('unFavoriteMovie', movieid);
     } else {
+        isMovFav = true;
+        heartMovieImg.src = "/images/icons/heart-filled.png";
         socket.emit('favoriteMovie', movieid);
     }
-});  
-
-socket.on('favoritedMovie', function(){
-    location.reload();
-});
-
-socket.on('unfavoritedMovie', function(){
-    location.reload();
 });
 
 movieEleBookmark.addEventListener("click", function(){
     if(isMovWatched){
+        isMovWatched = false;
+        bookmarkMovieImg.src = '/images/icons/bookmark-border.png';
         socket.emit('removeWatchedMovie', movieid);
     } else {
+        isMovWatched = true;
+        bookmarkMovieImg.src = "/images/icons/bookmark-filled.png";
         socket.emit('addWatchedMovie', movieid);
     }
 }); 
-
-socket.on('movieAddedToWatchlist', function(){
-    location.reload();
-});
-
-socket.on('movieRemovedFromWatchlist', function(){
-    location.reload();
-});
