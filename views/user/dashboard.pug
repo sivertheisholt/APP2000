@@ -5,11 +5,11 @@ script.
     var errorType = !{errorType}
 body
     .container
-        h2.uk-heading-small.uk-heading-divider.uk-margin-medium-bottom Dashboard
+        h2.uk-heading-small.uk-heading-divider.uk-margin-medium-bottom #{__("DASHBOARD_TITLE")}
         div(uk-grid='')
             .uk-width-1-4
                 img.center.avatar(src=`${user.avatar}` alt='')
-                ul.uk-tab-left.dashboard-menu(uk-tab='connect: #component-tab-left; animation: uk-animation-fade')
+                ul.uk-tab-left.dashboard-menu(uk-tab='connect: #component-tab-left; animation: uk-animation-fade' id='dashboard-switcher')
                     li  
                         a(href='') #{__("DASHBOARD_SWITCHER_CHANGE_PASSWORD")}
                     li
@@ -36,19 +36,19 @@ body
 include ../includes/footer.pug
 script.
     if(error != undefined) {
-        switch(errorType) {
+        switch(errorType){
             case "dashboardChangePassword":
+                //UIkit.switcher('#dashboard-switcher').show(0);
                 document.getElementById("dashboard-password-error").style.display='block';
                 document.getElementById("dashboard-password-error").innerHTML += 'ERROR: ' + error;
-                //UIkit.switcher('#dashboard-switcher').show(0);
                 break;
             case "dashboardChangeUsername":
+                //UIkit.switcher('#dashboard-switcher').show(4);
                 document.getElementById("dashboard-username-error").style.display='block';
                 document.getElementById("dashboard-username-error").innerHTML += 'ERROR: ' + error;
-                //UIkit.switcher('#dashboard-switcher').show(3);
                 break;
             case "dashboardUploadAvatar":
-                //UIkit.switcher('#dashboard-switcher').show(3);
+                //UIkit.switcher('#dashboard-switcher').show(4);
                 document.getElementById("dashboard-avatar-error").style.display='block';
                 document.getElementById("dashboard-avatar-error").innerHTML += 'ERROR: ' + error;
                 break;

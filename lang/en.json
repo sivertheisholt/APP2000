@@ -46,6 +46,9 @@
 	"DASHBOARD_CHANGE_PASSWORD_LIST_THREE": "- Atleast 1 number",
 	"DASHBOARD_CHANGE_PASSWORD_LIST_FOUR": "- Atleast 1 uppercase letter and 1 lowercase letter",
 	"DASHBOARD_FAVORITES_DESC": "Add a movie or tv-show to your favorites and it will be shown here!",
+	"DASHBOARD_FAVORITES_ALL": "All",
+	"DASHBOARD_FAVORITES_MOVIES": "Movies",
+	"DASHBOARD_FAVORITES_TVSHOWS": "Tv-Shows",
 	"DASHBOARD_WATCHLIST_DESC": "Add a movie or tv-show to your watchlist and you can view them here!",
 	"DASHBOARD_PROFILE_INFO_TITLE": "Profile information",
 	"DASHBOARD_PROFILE_INFO_DESC": "Create a username here",
@@ -77,5 +80,12 @@
 	"ACTOR_APPEARS_IN": "Appears in",
 	"ACTOR_MOVIE": "Movie",
 	"ACTOR_TV": "TV show",
-	"ACTOR_SCORE": "Score"
+	"ACTOR_SCORE": "Score",
+	"HOMEPAGE_MOVIE_SLIDER_TITLE": "Discover Movies",
+	"HOMEPAGE_TV_SLIDER_TITLE": "Discover Tv-Shows",
+	"HOMEPAGE_CARD_TITLE": "Join Filmatory Today!",
+	"HOMEPAGE_CARD_DESC": "With a membership you will be able to rate movies and make your own lists. Signing up is easy, free and fun.",
+	"HOMEPAGE_CARD_ITEM_1": "Social",
+	"HOMEPAGE_CARD_ITEM_2": "Free",
+	"HOMEPAGE_CARD_ITEM_3": "Secure"
 }
