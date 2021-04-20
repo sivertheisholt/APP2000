@@ -1,6 +1,5 @@
 - var username = session;
 - var lang = lang;
-- var langCode = langCode;
 - var urlPath = urlPath;
 - var langs = langs;
 .nav-wrapper
@@ -9,7 +8,7 @@
         .desktop-nav
           ul.uk-navbar-nav
             li
-              a(href=`/${langCode}/homepage`) #{__("NAV_HOME")}
+              a(href=`/${urlPath}/homepage`) #{__("NAV_HOME")}
             li
               a(href=`/${urlPath}/infosider/about`) #{__("NAV_ABOUT")}
             li
@@ -26,9 +25,6 @@
                     a(href=`/${urlPath}/mediainfo/upcomingmovies`) #{__("NAV_UPCOMING_MOVIE")}
                   li
                     a(href=`/${urlPath}/mediainfo/upcomingtv`) #{__("NAV_UPCOMING_TV")}
-                  li.uk-nav-divider
-                  li
-                    a(href=`/${urlPath}/infosider/about#contact-form`) #{__("NAV_CONTACT")}
         .mobile-nav
           .nav-overlay.uk-navbar-item
             .hamburger
@@ -38,7 +34,7 @@
           .menu
             ul
               li
-                a(href=`/${langCode}`) #{__("NAV_HOME")}
+                a(href=`/${urlPath}/homepage`) #{__("NAV_HOME")}
               li
                 a(href=`/${urlPath}/mediainfo/movies`) #{__("NAV_MOVIES")}
               li
@@ -47,8 +43,6 @@
                 a(href=`/${urlPath}/mediainfo/upcomingmovies`) #{__("NAV_UPCOMING_MOVIE")}
               li
                 a(href=`/${urlPath}/mediainfo/upcomingtv`) #{__("NAV_UPCOMING_TV")}
-              li
-                a(href=`/${urlPath}/infosider/about#contact-form`) #{__("NAV_CONTACT")}
             img(src='/images/logo/footerlogo.png' alt='' width='200px' height='200px')
         .uk-navbar-center
           form.uk-search.uk-search-default.uk-width-1-1
