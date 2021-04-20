@@ -1,10 +1,10 @@
 const logger = require("../logging/logger");
-const Quote = require('../database/quoteSchema');
+const PendingQuote = require('../database/pendingQuoteSchema');
 const ValidationHandler = require("./ValidationHandler");
 
 function addToDatabase(quote) {
     logger.log({level: 'debug', message: `Adding quote to database from id: ${quote.id}...`});
-    const q = new Quote(quote);
+    const q = new PendingQuote(quote);
     return q.save().then((doc, err) => returnHandler(doc, err));
 }
 

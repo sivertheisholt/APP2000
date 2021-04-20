@@ -2,7 +2,8 @@ const logger = require("../logging/logger");
 const quoteHandler = require('../handling/quoteHandler');
 const ValidationHandler = require("../handling/ValidationHandler");
 const userHandler = require('../handling/userHandler');
-const Quote = require('../database/quoteSchema');
+const PendingQuote = require('../database/pendingQuoteSchema');
+const ApprovedQuote = require('../database/pendingQuoteSchema');
 
 async function addQuote(quoteObj, mediaType){
     logger.log({level: 'debug', message: `Adding quote from user ${quoteObj.id} to ${quoteObj.mediaId}`}); 
@@ -31,22 +32,22 @@ async function updateDatabase(quote, mediaType){
 async function getQuotesFromMediaIdApproved(mediaId, mediaType){
     switch(mediaType) {
         case 'movie':
-            return new ValidationHandler(true, await Quote.find({movieId: mediaId, status: true}));
+            return new ValidationHandler(true, await ApprovedQuote.find({movieId: mediaId, status: true}));
         case 'tv':
-            return new ValidationHandler(true, await Quote.find({tvId: mediaId, status: true}));
+            return new ValidationHandler(true, await ApprovedQuote.find({tvId: mediaId, status: true}));
     }
 }
 
 async function getQuotesFromMediaIdPending(mediaId, mediaType){
     switch(mediaType) {
         case 'movie':
-            return new ValidationHandler(true, await Quote.find({movieId: mediaId, status: false}));
+            return new ValidationHandler(true, await PendingQuote.find({movieId: mediaId, status: false}));
         case 'tv':
-            return new ValidationHandler(true, await Quote.find({tvId: mediaId, status: false}));
+            return new ValidationHandler(true, await PendingQuote.find({tvId: mediaId, status: false}));
     }
 }
 
 
 
 
-module.exports = {addQuote, getQuotesFromMediaIdApproved}
+module.exports = {addQuote, getQuotesFromMediaIdApproved, getQuotesFromMediaIdPending}
