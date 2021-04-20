@@ -15,9 +15,9 @@ include ../includes/nav.pug
 
 body
     .container.uk-grid.uk-margin-top
-        .upcomingMovies.uk-grid.uk-width-1-1
-            .uk-grid.uk-child-width-1-4#mediaCard
-            .uk-grid.uk-width-1-1.uk-button.uk-button-default.uk-align-center
+        .upcomingMovies.uk-grid(class='uk-width-1-1@s')
+            .uk-grid(class='uk-child-width-1-4@s')#mediaCard
+            .uk-grid.uk-button.uk-button-default.uk-align-center(class='uk-width-1-2@s')
                 a#loadMore(onclick="load(upcomingTv, event)")
                     span.text #{__("UPCOMING_LOAD_MORE_BUTTON")}
                 #noMoreMedia
