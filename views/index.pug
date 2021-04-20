@@ -30,22 +30,19 @@ body
         var errorType = !{errorType}
         switch(errorType) {
             case "signup": 
-                UIkit.modal("#modal-center").show();
-                document.getElementById("loginButton").className = "";
-                document.getElementById("signupButton").className = "uk-active";
-                document.getElementById("loginForm").className = "";
-                document.getElementById("signupForm").className = "uk-active";
-                document.getElementById("loginButton").ariaExpanded="false";
+                UIkit.modal("#modal-login-signup").show();
+                UIkit.switcher('#switcher-login-signup').show(1);
                 document.getElementById("signup-error").style.display='block';
                 document.getElementById("signup-error").innerHTML += 'ERROR: ' + error;
                 break;
             case "login":
-                UIkit.modal("#modal-center").show();
+                UIkit.modal("#modal-login-signup").show();
+                UIkit.switcher('#switcher-login-signup').show(0);
                 document.getElementById("login-error").style.display='block';
                 document.getElementById("login-error").innerHTML += 'ERROR: ' + error;
                 break;
             case "forgottenPassword":
-                UIkit.modal("#modal-center").show();
+                UIkit.modal("#modal-forgot-password").show();
                 document.getElementById("forgot-error").style.display='block';
                 document.getElementById("forgot-error").innerHTML += 'ERROR: ' + error;
                 break;

@@ -84,7 +84,7 @@ exports.userAuth_post_forgottenPassword = function(req, res) {
     Bruker.findOne({email: pugBody.emailForgottenPassword}, (err, bruker) => {
         if(!bruker) {
             logger.log({level: 'error', message: `User with email ${pugBody.emailForgottenPassword} does not exist`}); 
-            res.redirect(`/${res.locals.currentLang}?error=User with this email does not exist&errorType=forgottenPassword`);
+            res.redirect(`/${res.locals.currentLang}/homepage?error=User with this email does not exist&errorType=forgottenPassword`);
             return;
         }
         if(err) {
@@ -98,7 +98,7 @@ exports.userAuth_post_forgottenPassword = function(req, res) {
                 res.redirect(`/${res.locals.currentLang}/homepage?error=Reset password link error&errorType=forgottenPassword`);
                 return;
             } else {
-                let link = `/${res.locals.currentLang}/auth/resetpassword/${token}`
+                let link = `/${res.locals.currentLang}/homepage/auth/resetpassword/${token}`
                 logger.log({level: 'debug', message: `Link ${link} sent`}); 
                 mailer({
                     from: process.env.EMAIL,

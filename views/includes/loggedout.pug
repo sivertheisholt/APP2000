@@ -1,8 +1,8 @@
-a.uk-button.uk-button-default.nav-buttons(href='#modal-center' uk-toggle='') #{__("NAV_SIGNIN")}
-#modal-center.uk-flex-top(uk-modal='')
+a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='') #{__("NAV_SIGNIN")}
+#modal-login-signup.uk-flex-top(uk-modal='')
     .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
         button.uk-modal-close-default(type='button' uk-close='')
-        ul.uk-subnav.uk-subnav-pill(uk-switcher='animation: uk-animation-fade')
+        ul.uk-subnav.uk-subnav-pill(uk-switcher='animation: uk-animation-fade' id='switchertest')
             li#loginButton
                 a(href='#') #{__("NAV_SIGNIN")}
             li#signupButton
@@ -24,10 +24,11 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-center' uk-toggle='') #{_
                             .uk-margin
                                 .uk-inline
                                     button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_ENTER")}
-                                    a.uk-text-small(href='#modal-example' uk-toggle='') #{__("MODAL_FORGOT_PASSWORD_BUTTON")}
+                                    a.uk-text-small(href='#modal-forgot-password' uk-toggle='') #{__("MODAL_FORGOT_PASSWORD_BUTTON")}
                     .uk-text-center.uk-width-1-2.uk-margin-auto
-                        h3.uk-card-title #{__("MODAL_SIGN_IN_TITLE")}
-                        p.uk-text-small #{__("MODAL_SIGN_IN_DESC")}
+                        p.uk-text-bold #{__("MODAL_SIGN_IN_TITLE")}
+                        p.uk-text-small #{__("MODAL_SIGN_IN_DESC1")}
+                        p.uk-text-small #{__("MODAL_SIGN_IN_DESC2")}
             li#signupForm
                 .uk-grid.uk-width-1-1.uk-flex-nowrap
                     .uk-aling-center
@@ -49,10 +50,13 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-center' uk-toggle='') #{_
                                 .uk-inline
                                     button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_ENTER")}
                     .uk-text-center.uk-width-1-2.uk-margin-auto
-                        h3.uk-card-title #{__("MODAL_SIGN_UP_TITLE")}
-                        p.uk-text-small #{__("MODAL_SIGN_UP_DESC")}
+                        p.uk-text-bold #{__("MODAL_SIGN_UP_TITLE")}
+                        p.uk-text-small #{__("MODAL_SIGN_UP_DESC1")}
+                        p.uk-text-small #{__("MODAL_SIGN_UP_DESC2")}
+                        p.uk-text-small #{__("MODAL_SIGN_UP_DESC3")}
+                        p.uk-text-small #{__("MODAL_SIGN_UP_DESC4")}
 
-#modal-example(uk-modal='')
+#modal-forgot-password(uk-modal='')
     .uk-modal-dialog.uk-modal-body.uk-margin-auto.uk-margin-auto-vertical
         button.uk-modal-close-default(type='button' uk-close='')
         .uk-grid.uk-width-1-1.uk-flex-nowrap
