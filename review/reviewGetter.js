@@ -149,11 +149,11 @@ async function getReviewFromDatabase(reviewId, collection) {
     try {
         switch(collection) {
             case 'pending':
-                return new ValidationHandler(true, await ReviewPending.find({_id: reviewId}));
+                return new ValidationHandler(true, await ReviewPending.findOne({_id: reviewId}));
             case 'approved':
-                return new ValidationHandler(true, await ReviewApproved.find({_id: reviewId}));
+                return new ValidationHandler(true, await ReviewApproved.findOne({_id: reviewId}));
             case 'denied':
-                return new ValidationHandler(true, await ReviewDenied.find({_id: reviewId}));
+                return new ValidationHandler(true, await ReviewDenied.findOne({_id: reviewId}));
         } 
     } catch(err) {
         logger.log({level: 'error', message: `Something unexpected happen while trying to get information! Error: ${err}`})

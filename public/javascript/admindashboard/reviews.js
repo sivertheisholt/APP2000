@@ -52,7 +52,7 @@ reviewEditCancelBtn.addEventListener("click", ()=>{
 });
 
 /**
- * EventListener for å hente anmeldelser
+ * EventListener for å endre anmeldelse
  */
 reviewEditSubmitBtn.addEventListener("click", ()=>{
     socket.emit('editReview', {reviewId: reviewEditReviewId.value, newText: reviewEditNewText.value, newRating: reviewEditNewRating.value});

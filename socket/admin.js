@@ -43,7 +43,7 @@ async function approveReview(socket, reviewId){
 /**
  * Avslår en anmeldelse
  * @param {Object} socket 
- * @param {int, String} review 
+ * @param {Object} review 
  */
 async function denyReview(socket, review){
     let result = await reviewEditor.denyReview(review.reviewId, review.reason);
@@ -53,7 +53,7 @@ async function denyReview(socket, review){
 /**
  * Henter anmeldelser basert på filmId og type media(film/tv)
  * @param {Object} socket 
- * @param {int, String} media 
+ * @param {Object} media 
  */
 async function getReviewsFromMedia(socket, media){
     let result = await reviewGetter.getApprovedReviews(media.mediaId, media.type);
@@ -73,10 +73,9 @@ async function respondTicket(socket, ticket){
 /**
  * Redigerer en anmeldelse
  * @param {Object} socket 
- * @param {int, String, int} review 
+ * @param {Object} review 
  */
 async function editReview(socket, review){
-    console.log(review);
     let result = await reviewEditor.editReview(review.reviewId, review.newText,review.newRating);
     socket.emit('editReviewResult', result);
 }

@@ -121,12 +121,12 @@ async function editReview(reviewId, text, stars) {
     }
     //Lager kopi av review og lagrer i databasen
     const saveChangeResult = await saveApproved(new CloneReview(
-        approvedReview.userId,
-        approvedReview.movieId,
-        approvedReview.tvId,
+        approvedReview.information.userId,
+        approvedReview.information.movieId,
+        approvedReview.information.tvId,
         text,
         stars,
-        approvedReview.date
+        approvedReview.information.date
     ));
 
     if(!saveChangeResult.status) {
