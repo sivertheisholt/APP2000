@@ -15,10 +15,19 @@ exports.userAuth_get_logout = async function(req, res) {
 
 exports.userAuth_get_resetpassword = async function(req, res) {
     logger.log({level: 'debug', message: `Request received for /resetpassword/:token`}); 
-    let token = req.params.token
-    res.render("auth/resetpassword", {
-        token: token
-    });
+    let token = req.params.token;
+    req.renderObject.token = token;
+    res.render("auth/resetpassword", req.renderObject);
+}
+
+exports.userAuth_get_resetpassword_success = async function(req, res) {
+    logger.log({level: 'debug', message: `Request received for /resetpassword/success`}); 
+    res.render("auth/resetpasswordsuccess", req.renderObject);
+}
+
+exports.userAuth_get_resetpassword_error = async function(req, res) {
+    logger.log({level: 'debug', message: `Request received for /resetpassword/error`}); 
+    res.render("auth/resetpassworderror", req.renderObject);
 }
 
 exports.userAuth_post_signup = async function(req,res ) {
@@ -98,7 +107,7 @@ exports.userAuth_post_forgottenPassword = function(req, res) {
                 res.redirect(`/${res.locals.currentLang}/homepage?error=Reset password link error&errorType=forgottenPassword`);
                 return;
             } else {
-                let link = `/${res.locals.currentLang}/homepage/auth/resetpassword/${token}`
+                let link = `localhost:3000/${res.locals.currentLang}/auth/resetpassword/${token}`
                 logger.log({level: 'debug', message: `Link ${link} sent`}); 
                 mailer({
                     from: process.env.EMAIL,
@@ -109,6 +118,7 @@ exports.userAuth_post_forgottenPassword = function(req, res) {
                     <p>${link}</p>
                     `
                 });
+                res.redirect(`/${res.locals.currentLang}/homepage`);
             }
         })
     })
@@ -142,24 +152,25 @@ exports.userAuth_post_resetpassword = function(req, res) {
     logger.log({level: 'debug', message: `Request received for /resetPassword/:token`}); 
     const resetLink = req.params.token;
     const pugBody = req.body;
+    console.log(resetLink);
     if(resetLink){
         jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, function(err, decodedData) {
             if(err) {
                 logger.log({level: 'error', message: `Incorrect token or it has expired`});
-                return;
+                return res.redirect(`/${res.locals.currentLang}/auth/resetpassworderror`);
             }
             Bruker.findOne({resetLink}, async (err, bruker) => {
                 if(err) {
                     logger.log({level: 'error', message: `Something unexpected happen when trying to find user! Error: ${err}`});
-                    return;
+                    return res.redirect(`/${res.locals.currentLang}/auth/resetpassword/${resetLink}?error=Unexpected error when trying to find user&errorType=resetPassword`);
                 }
                 if(!bruker) {
                     logger.log({level: 'error', message: `User with this token does not exist`});
-                    return res.status(400).send({error: "User with this token does not exist"}); //Denne må endres, viser bare en error melding dersom de ikke matcher for nå
+                    return res.redirect(`/${res.locals.currentLang}/auth/resetpassword/${resetLink}?error=User with this token does not exist&errorType=resetPassword`);
                 }
                 if(!(pugBody.newPassword == pugBody.newPasswordRepeat)) {
                     logger.log({level: 'debug', message: `Passwords do not match`});
-                    return res.status(400).send({error: "Passwords do not match"}); //Denne må endres, viser bare en error melding dersom de ikke matcher for nå
+                    return res.redirect(`/${res.locals.currentLang}/auth/resetpassword/${resetLink}?error=Passwords do not match&errorType=resetPassword`);
                 }
                 //Nå må vi lage ny salt for å hashe passord
                 const salt = await bcrypt.genSalt(10); //Her kommer await (Se async) inn (Nå venter vi til bcrypt er ferdig)
@@ -171,10 +182,10 @@ exports.userAuth_post_resetpassword = function(req, res) {
                 bruker.save((err, result) => {
                     if(err) {
                         logger.log({level: 'error', message: `Something unexpected happen when trying to save user to database! Error: ${err}`});
-                        return res.status(400).json({error: 'Reset password error'});
+                        return res.redirect(`/${res.locals.currentLang}/auth/resetpassword/${resetLink}?error=Could not change password&errorType=resetPassword`);
                     } else {
                         logger.log({level: 'debug', message: `Password successfully changed for user`});
-                        return res.status(200).json({message: 'Your password has been changed'});
+                        return res.redirect(`/${res.locals.currentLang}/auth/resetpasswordsuccess`);
                     }
                 })
             })

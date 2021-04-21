@@ -1,14 +1,11 @@
 const tmdb = require('../handling/tmdbHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
-const Session = require("../database/sessionSchema");
 const movieFavorite = require('../favourite/favouriteMovie');
 const reviewGetter = require('../review/reviewGetter');
 const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
-const Bruker = require('../handling/userHandler');
 const watchedCreater = require('../watched/watchedCreater');
 const ValidationHandler = require('../handling/ValidationHandler');
-
 exports.film_get_info = async function(req, res) {
     let isMovFav = new ValidationHandler(false, "");
     let isMovWatched = new ValidationHandler(false, "");
@@ -34,7 +31,6 @@ exports.film_get_info = async function(req, res) {
         isMovFav = await movieFavorite.checkIfFavorited(film.filminfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
         isMovWatched = await watchedCreater.checkIfWatched((await userHandler.getUserFromId(req.session.userId)).information, film.filminfo.id, 'movie');
     }
-
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.film = film;
     if (req.renderObject.user != undefined){

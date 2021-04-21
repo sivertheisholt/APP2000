@@ -37,7 +37,6 @@ exports.tv_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.serie = serie;
     if (req.renderObject.user != undefined){
-        console.log('Hei sivert!');
         req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
     }
     req.renderObject.tvId = JSON.stringify(req.url.slice(11));

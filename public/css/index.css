@@ -589,6 +589,18 @@ img.search-image-style{
   display: none;
 }
 
+#reset-password-error{
+  background-color: rgb(211, 123, 123);
+  border: 1px solid black;
+  padding: 5px;
+  font-size: smaller;
+  width: 250px;
+  border-radius: 20px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  display: none;
+}
+
 /*********************************/
 /* Language menu */
 /*********************************/
