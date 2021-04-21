@@ -30,9 +30,11 @@ const sockets = {
     saveLanguage: admin.saveLanguage,
     approveReview: admin.approveReview,
     denyReview: admin.denyReview,
+    getReviewsFromMedia: admin.getReviewsFromMedia,
     respondTicket: admin.respondTicket,
     makeAMovieReview: movieReview,
     makeATvReview: tvReview,
+    editReview: admin.editReview,
     submitQuote: quote.submitQuoteMovie
 }
 

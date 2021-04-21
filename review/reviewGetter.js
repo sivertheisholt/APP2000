@@ -54,7 +54,7 @@ async function getApprovedReviews(mediaId, type) {
 async function getDeniedReviews(mediaId, type) {
     logger.log({level: 'debug', message: `Getting denied reviews with id ${mediaId} of type ${type}`});
     const result = await getReviewsFromDatabase(mediaId, type, 'denied');
-    if(!result.status) {
+    if(!result.status)  {
         return new ValidationHandler(false, result.information);
     }
     return checkResult(result.information);
@@ -199,4 +199,4 @@ function checkResult(result, id) {
     return new ValidationHandler(true, result);
 }
 
-module.exports = {getPendingReviews, getApprovedReviews, getDeniedReviews,getPendingReviewById, getApprovedReviewById,getDeniedReviewById,getAllReviewFromDatabase}
+module.exports = {getPendingReviews, getApprovedReviews, getDeniedReviews,getPendingReviewById, getApprovedReviewById,getDeniedReviewById,getAllReviewFromDatabase, getReviewsFromDatabase}

@@ -1,6 +1,7 @@
 const hjelpemetoder = require('../handling/hjelpeMetoder');
 const fs = require('fs');
 const reviewEditor = require('../review/reviewEditor');
+const reviewGetter = require('../review/reviewGetter');
 const ticketEditor = require('../ticket/ticketEditor');
 
 async function getLanguage(socket, langId){
@@ -30,11 +31,24 @@ async function denyReview(socket, review){
     socket.emit('denyReviewResult', result);
 }
 
+async function getReviewsFromMedia(socket, media){
+    let result = await reviewGetter.getApprovedReviews(media.mediaId, media.type);
+    socket.emit('getReviewsFromMediaResult', result);
+}
+
 async function respondTicket(socket, ticket){
     let result = await ticketEditor.finishTicket(ticket);
     socket.emit('respondTicketResult', result);
 }
 
+async function editReview(socket, review){
+    console.log(review);
+    let result = await reviewEditor.editReview(review.reviewId, review.newText,review.newRating);
+    socket.emit('editReviewResult', result);
+}
 
 
-module.exports = {getLanguage, saveLanguage, approveReview, denyReview, respondTicket}
+
+
+
+module.exports = {getLanguage, saveLanguage, approveReview, denyReview, getReviewsFromMedia, respondTicket, editReview}

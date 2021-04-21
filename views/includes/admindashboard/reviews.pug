@@ -39,11 +39,33 @@
                                 .uk-grid
                                     p.uk-text-bold Given rating:
                                     p= item.rating
-
         li
             a.uk-accordion-title(href='#') Edit
             .uk-accordion-content
-                p Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor reprehenderit.
+                #admin-edit-get-review-form
+                    .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
+                        .uk-card-header.uk-text-center
+                            p.uk-text-bolder Enter movie/tv
+                            input.uk-input.uk-form-width-medium(type='text' placeholder='movie/tv' id='admin-review-edit-media-type' )
+                            p.uk-text-bolder Enter movie/tv id
+                            input.uk-input.uk-form-width-medium(type='text' placeholder='Movie/Tv ID' id='admin-review-edit-media-id' )
+                        .uk-card-body.uk-text-center
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-edit-get') Get
+                #admin-edit-edit-review-form
+                    .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
+                        .uk-card-header.uk-text-center
+                            p.uk-text-bolder Enter review id
+                            input.uk-input.uk-form-width-medium(type='text' placeholder='TicketID' id='admin-review-edit-reviewid' )
+                        .uk-card-body.uk-text-center
+                            p.uk-text-bolder New Rating(1-5)
+                            input.uk-input.uk-form-width-medium(type='text' placeholder='Rating' id='admin-review-edit-new-rating' )
+                        .uk-card-body.uk-grid.uk-width-1-1.uk-margin-auto.uk-text-center
+                            p.uk-text-bolder New text
+                            textarea.remove-padding(id='admin-review-edit-new-text' rows='6' cols='50')
+                        .uk-card-body.uk-text-center
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-edit-btn') Submit
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-edit-cancel') Cancel
+                #admin-edit-reviews-list
         li
             a.uk-accordion-title(href='#') Delete
             .uk-accordion-content

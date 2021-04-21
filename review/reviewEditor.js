@@ -25,6 +25,7 @@ class CloneReview {
  * @returns ValidationHandler
  */
 function saveApproved(review) {
+    console.log(review);
     return new ReviewApproved(review).save().then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error adding the review to the database! Error: ${err}`});
@@ -126,7 +127,8 @@ async function editReview(reviewId, text, stars) {
         text,
         stars,
         approvedReview.date
-    ))
+    ));
+
     if(!saveChangeResult.status) {
         return saveChangeResult;
     }
@@ -135,6 +137,7 @@ async function editReview(reviewId, text, stars) {
     if(!deleteOldResult.status) {
         return deleteOldResult;
     }
+    return new ValidationHandler(true, `Successfully edited review with id ${reviewId}`);
 }
 
 /**
