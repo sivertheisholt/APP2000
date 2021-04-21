@@ -153,6 +153,10 @@ const { stringify } = require('querystring');
             return `${Math.round(int / 1000000)}M`
         return `${Math.round(int / 1000000000)}B`
     },
+    /**
+     * Henter alle språkkodene tilgjenglig på siden
+     * @returns Språkkoder
+     */
     getAllLangCodes: async function(){
         let langCodes = [];
         let languageJson = await methods.lesFil("./lang/langList.json");
@@ -161,6 +165,11 @@ const { stringify } = require('querystring');
         }
         return langCodes;
     },
+    /**
+     * Validerer innholdet av input om det tilfredstiller kravene
+     * @param {Object} input 
+     * @returns ValidationHandler
+     */
     validateNewLang: function(input){
         const re = /[A-Za-z]/;
         if(input.admindashlangcode.length !== 2){
@@ -182,6 +191,11 @@ const { stringify } = require('querystring');
     expressIgnoreJavascript: function (url) {
         return url.startsWith('/javascript');
     },
+    /**
+     * Sjekker at språket som administrator prøver å slette er skrevet korrekt og finnes i systemet
+     * @param {String} input 
+     * @returns ValidationHandler
+     */
     validateDeleteLang: async function(input){
         let languageJson = await methods.lesFil("./lang/langList.json");
         let langs = await JSON.parse(languageJson.information);

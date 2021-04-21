@@ -3,6 +3,9 @@ const smtpTransport = require('nodemailer-smtp-transport');
 const logger = require('../logging/logger');
 const ValidationHandler = require('../handling/ValidationHandler');
 
+/**
+ * lager et gjenbrukbart transportørobjekt ved hjelp av standard SMTP-transport
+ */
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
@@ -17,6 +20,10 @@ let transporter = nodemailer.createTransport(smtpTransport({
   }
 }));
 
+/**
+ * Lagrer mail funksjonen i en variabel slik den kan brukes flere steder
+ * @param {Til, Fra, Emne, Text} mailOptions 
+ */
 let sendMail = (mailOptions) => {
   transporter.sendMail(mailOptions,(err, info) => {
     if(err){

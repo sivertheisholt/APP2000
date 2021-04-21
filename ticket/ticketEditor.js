@@ -4,6 +4,9 @@ const logger = require('../logging/logger');
 const ValidationHandler = require('../handling/ValidationHandler');
 const mailer = require('../handling/mailer');
 
+/**
+ * Klasse for tickets
+ */
 class CloneTicket {
     constructor(mail, title, text, response) {
         this.mail = mail;
@@ -13,6 +16,11 @@ class CloneTicket {
     }
 }
 
+/**
+ *  Sender tilbakemelding til brukeren og flytter ticket til ferdige tickets
+ * @param {Object} ticket 
+ * @returns ValidationHandler
+ */
 async function finishTicket(ticket) {
     //Sjekker id
     const checkIdResult = await checkId(ticket.ticketId);
@@ -50,6 +58,11 @@ async function finishTicket(ticket) {
     return new ValidationHandler(true, `Ticket with id ${ticket.ticketId} was sucessfully finished`);
 }
 
+/**
+ *  
+ * @param {Object} ticket 
+ * @returns ValidationHandler
+ */
 function saveTicket(ticket) {
     return new FinishedTicket(ticket).save().then((doc, err) => {
         if(err) {
@@ -61,6 +74,11 @@ function saveTicket(ticket) {
     })
 }
 
+/**
+ *  Sjekker om ticketId er valid
+ * @param {String} ticketId 
+ * @returns ValidationHandler
+ */
 function checkId(ticketId) {
     //Sjekker om reviewId matcher
     if (!ticketId.match(/^[0-9a-fA-F]{24}$/)) {
@@ -70,6 +88,11 @@ function checkId(ticketId) {
     return new ValidationHandler(true, `${ticketId} is a valid ObjectId`);
 }
 
+/**
+ *  Sletter ticket fra pending
+ * @param {String} ticketId 
+ * @returns ValidationHandler
+ */
 function deletePendingTicket(ticketId) {
     return PendingTicket.deleteOne({_id: ticketId}).then((doc, err) => {
         if(err) {

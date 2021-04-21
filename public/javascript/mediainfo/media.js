@@ -7,25 +7,36 @@ let currentMediaDisplayed = popularMedia;
 currentMediaDisplayed.slice(0, 16);
 var url = url;
 var urlPath = urlPath;
-
+/**
+ * Henter hvilken type sortering brukeren skal ha og sender videre til socket
+ */
 document.querySelectorAll('.tv-shows-filter-list ul a').forEach(item => {
     item.addEventListener('click', event => {
         socket.emit(item.id, popularMedia);
     })
 });
 
+/**
+ * Henter hvilken type sortering brukeren skal ha og sender videre til socket
+ */
 document.querySelectorAll('.movies-filter-list ul a').forEach(item => {
     item.addEventListener('click', event => {
         socket.emit(item.id, popularMedia);
     })
 });
 
+/**
+ * Henter hvilken type sjanger brukeren vil sortere etter og sender videre til socket
+ */
 document.querySelectorAll('.media-genre-list ul a').forEach(item => {
     item.addEventListener('click', event => {
         socket.emit('filterByGenre', {arr: popularMedia, genreId: item.id});
     })
 });
 
+/**
+ * Viser de 16 første filmene/seriene
+ */
 socket.on('displayFilteredMedia', function(args){
     currentMediaDisplayed = args;
     document.getElementById('mediaCard').innerHTML = "";
@@ -38,6 +49,11 @@ socket.on('displayFilteredMedia', function(args){
     noMoreMedia.style.display = 'none';
 });
 
+/**
+ * Lager HTML for hver film/serie som skal vises
+ * @param {Object} data 
+ * @returns HTML
+ */
 function mediaCard(data){
     return `<a href='/${urlPath}/${url}/${data.id}'
             <div class='uk-card uk-card-default upcoming-card-padding'>
@@ -45,6 +61,11 @@ function mediaCard(data){
             <div class='uk-card-body'><h3 class='uk-card-title'>${data.title}</h3><p>${data.releaseDate}</p></div></div></a>`
 }
 
+/**
+ * Knapp for å loade 16 filmer om gangen
+ * @param {Object} media 
+ * @param {event} e 
+ */
 function load(media, e){
     e.preventDefault();
     if(media.length - lastDisplayedPost < 16){

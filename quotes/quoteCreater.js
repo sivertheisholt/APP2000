@@ -5,6 +5,12 @@ const userHandler = require('../handling/userHandler');
 const PendingQuote = require('../database/pendingQuoteSchema');
 const ApprovedQuote = require('../database/pendingQuoteSchema');
 
+/**
+ *  Legger quote til angitt media
+ * @param {Object} quoteObj 
+ * @param {String} mediaType 
+ * @returns ValidationHandler
+ */
 async function addQuote(quoteObj, mediaType){
     logger.log({level: 'debug', message: `Adding quote from user ${quoteObj.id} to ${quoteObj.mediaId}`}); 
     const userResult = await userHandler.getUserFromId(quoteObj.id);
@@ -20,6 +26,12 @@ async function addQuote(quoteObj, mediaType){
     return new ValidationHandler(true, `Successfully added quote`);
 }
 
+/**
+ *  Oppdaterer databsen med ny quote
+ * @param {Object} quote 
+ * @param {String} mediaType 
+ * @returns ValidationHandler
+ */
 async function updateDatabase(quote, mediaType){
     switch(mediaType) {
         case 'movie':
@@ -29,6 +41,12 @@ async function updateDatabase(quote, mediaType){
     }
 }
 
+/**
+ *  Henter godkjente quotes fra et spesifikt media
+ * @param {int} mediaId 
+ * @param {String} mediaType 
+ * @returns ValidationHandler
+ */
 async function getQuotesFromMediaIdApproved(mediaId, mediaType){
     switch(mediaType) {
         case 'movie':
@@ -38,6 +56,12 @@ async function getQuotesFromMediaIdApproved(mediaId, mediaType){
     }
 }
 
+/**
+ *  Henter pending quotes fra et spesifikt media
+ * @param {int} mediaId 
+ * @param {String} mediaType 
+ * @returns ValidationHandler
+ */
 async function getQuotesFromMediaIdPending(mediaId, mediaType){
     switch(mediaType) {
         case 'movie':

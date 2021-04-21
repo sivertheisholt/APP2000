@@ -22,18 +22,27 @@ let reviewEditNewRating = document.getElementById('admin-review-edit-new-rating'
 let reviewEditNewText = document.getElementById('admin-review-edit-new-text');
 let reviewEditListOutput = document.getElementById('admin-edit-reviews-list');
 
+/**
+ * EventListener for godkjenning av anmeldelse
+ */
 approveBtn.addEventListener("click", ()=>{
     socket.emit('approveReview', reviewId.value);
     reviewDenialReason.value = '';
     reviewId.value = '';
 });
 
+/**
+ * EventListener for å avslå anmeldelse
+ */
 denyBtn.addEventListener("click", ()=>{
     socket.emit('denyReview', {reviewId: reviewId.value, reason: reviewDenialReason.value});
     reviewDenialReason.value = '';
     reviewId.value = '';
 });
 
+/**
+ * EventListener for å kansellere endringer
+ */
 reviewEditCancelBtn.addEventListener("click", ()=>{
     reviewEditForm.innerHTML = '';
     reviewEditForm.style.display = 'none';
@@ -42,6 +51,9 @@ reviewEditCancelBtn.addEventListener("click", ()=>{
     reviewGetEditForm.style.display = 'block';
 });
 
+/**
+ * EventListener for å hente anmeldelser
+ */
 reviewEditSubmitBtn.addEventListener("click", ()=>{
     socket.emit('editReview', {reviewId: reviewEditReviewId.value, newText: reviewEditNewText.value, newRating: reviewEditNewRating.value});
     reviewEditNewText.value = '';
@@ -49,23 +61,34 @@ reviewEditSubmitBtn.addEventListener("click", ()=>{
     reviewEditReviewId.value = '';
 });
 
+/**
+ * Viser informasjon etter du har godkjent en anmeldelse
+ */
 socket.on('approveReviewResult', (result)=>{
     //reviewForm.style.display = 'none';
     reviewOutput.innerHTML = result.information;
 });
 
+/**
+ * Viser informasjon etter du har avslått en anmeldelse
+ */
 socket.on('denyReviewResult', (result)=>{
     //reviewForm.style.display = 'none';
-    console.log("client");
     reviewOutput.innerHTML = result.information;
 });
 
+/**
+ * EventListener for å hente anmeldelse som skal redigeres
+ */
 editGetBtn.addEventListener("click", ()=>{
     socket.emit('getReviewsFromMedia', {type: reviewEditType.value, mediaId: reviewEditMediaId.value});
     reviewEditType.value = '';
     reviewEditMediaId.value = '';
 });
 
+/**
+ * Viser anmeldelser som er hentet
+ */
 socket.on('getReviewsFromMediaResult', (result)=>{
     reviewGetEditForm.style.display = 'none';
     //reviewEditForm.innerHTML = '';
@@ -83,6 +106,11 @@ socket.on('editReviewResult', (result) => {
     console.log(result);
 });
 
+/**
+ *  Lager html kort for hver anmeldelse
+ * @param {Object} data 
+ * @returns HTML
+ */
 function reviewCard(data){
     return `<article class="uk-comment uk-comment-primary">
                 <header class="uk-comment-header">

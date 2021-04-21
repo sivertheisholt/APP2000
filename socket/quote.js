@@ -1,6 +1,11 @@
 const ValidationHandler = require('../handling/ValidationHandler');
 const quoteCreater = require('../quotes/quoteCreater');
 
+/**
+ * Bruker sender en quote til en film/tv-serie til godkjenning
+ * @param {Object} socket
+ * @param {Object} quote 
+ */
 async function submitQuoteMovie(socket, quote) {
     let result;
     switch(quote.mediaType){
