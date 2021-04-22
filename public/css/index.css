@@ -199,7 +199,7 @@ img.center {
 /*********************************/
 
 footer {
-  background-image: url('https://i2.wp.com/bigradap.co.za/wp-content/uploads/2018/02/footer-background.jpg?ssl=1');
+  background-image: url('https://pngimage.net/wp-content/uploads/2018/06/footer-background-png-6.png');
   margin-top: 100px;
   height: 350px;
   width: 100%;
@@ -227,7 +227,7 @@ footer {
 }
 
 .footer-list a {
-  color: rgb(200, 200, 200);
+  color: #666;
   line-height: 40px;
   text-decoration: none;
 }
@@ -236,14 +236,19 @@ footer {
   align-self: center;
   margin: 0 auto;
   display: block;
+  
 }
 
 .socials h4 {
-  color: rgb(200, 200, 200);
+  color: #666;
 }
 
 .footer-socials-wrapper {
   text-align: center;
+}
+
+.footer-socials-wrapper a {
+  margin: 5px;
 }
 
 /*********************************/
