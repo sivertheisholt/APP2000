@@ -16,7 +16,7 @@ var methods = {
             logger.log({level: 'info', message: 'Starting collection of tmdb information...'});
             let currentDate = new Date();
             let currentDateFormated = `${currentDate.getFullYear()}-${(currentDate.getMonth()+1).toString().padStart(2, "0")}-${currentDate.getDate().toString().padStart(2,"0")}`
-            const antallPages = 1; //Antall sider som skal bli hentet
+            const antallPages = 5; //Antall sider som skal bli hentet
             let tmdbInformasjon = {
                 discoverMoviesUpcoming: [],
                 discoverMoviesPopular: [],
