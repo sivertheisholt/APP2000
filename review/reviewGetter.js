@@ -167,7 +167,7 @@ async function getReviewFromDatabase(reviewId, collection) {
  * @param {'pending'|'approved'|'denied'} collection 
  * @returns ValidationHandler
  */
-async function getReviewsFromDatabase(options, collection) {
+async function getReviewsFromDatabaseByFilter(options, collection) {
     try {
         switch(collection) {
             case 'pending':
@@ -218,4 +218,4 @@ function checkResult(result, id) {
     return new ValidationHandler(true, result);
 }
 
-module.exports = {getPendingReviews, getApprovedReviews, getDeniedReviews,getPendingReviewById, getApprovedReviewById,getDeniedReviewById, getAllReviewFromDatabase, getReviewsFromDatabase}
+module.exports = {getPendingReviews, getApprovedReviews, getDeniedReviews,getPendingReviewById, getApprovedReviewById,getDeniedReviewById, getAllReviewFromDatabase, getReviewsFromDatabase, getReviewsFromDatabaseByFilter}
