@@ -1,14 +1,21 @@
 let postReview = document.getElementById('reviewPoster');
 let reviewText = document.getElementById('reviewText');
-let stars = document.getElementById('stars');
+let stars = document.querySelectorAll('input[name="rate"]');
 let reviewResult = document.getElementById('filminfo-review-result');
 let reviewForm = document.getElementById('filminfo-review-form');
 
-
 function lagObjekt() {
+    let numberOfStars;
+    for (const star of stars) {
+        if(star.checked) {
+            numberOfStars = star.value;
+            break;
+        }
+    };
+
     var objekt = {};
     objekt.tekst = reviewText.value;
-    objekt.stars = stars.value;
+    objekt.stars = numberOfStars;
     objekt.userId = userID;
     objekt.movieId = movieId;
 

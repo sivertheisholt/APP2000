@@ -410,7 +410,76 @@ img.search-image-style{
 /* Filminfo.pug / Serieinfo.pug  */
 /*********************************/
 
+#reviewPoster{
+  margin-top: 8px;
+}
 
+#reviewPoster p{
+  padding-top: 5px;
+  margin-bottom: 5px;
+}
+
+.stars{
+  text-align: center;
+  float: left;
+}
+
+.stars input{
+  display: none;
+}
+
+.stars label{
+  float: right;
+  font-size: 40px;
+  color: lightgrey;
+  margin: 0 1px;
+  text-shadow: 1px 1px #bbb;
+}
+
+.stars label:before{
+  content: '★';
+
+}
+
+.stars input:checked ~ label{
+  color: gold;
+  text-shadow: 1px 1px #c60;
+}
+
+.stars:not(:checked) > label:hover,
+.stars:not(:checked) > label:hover ~ label{
+  color: gold;
+}
+
+.stars input:checked > label:hover,
+.stars input:checked > label:hover ~ label{
+  color: gold;
+  text-shadow: 1px 1px goldenrod;
+}
+
+.stars input:checked ~ .result:before{
+  display: block;
+}
+
+.stars #one:checked ~ .result:before{
+  content: "1 Star";
+}
+
+.stars #two:checked ~ .result:before{
+  content: "2 Stars";
+}
+
+.stars #three:checked ~ .result:before{
+  content: "3 Stars";
+}
+
+.stars #four:checked ~ .result:before{
+  content: "4 Stars";
+}
+
+.stars #five:checked ~ .result:before{
+  content: "5 Stars";
+}
 
 .direc {
   font-size: small;
