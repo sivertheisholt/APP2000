@@ -1,6 +1,7 @@
 - var allFavorites = allFavorites;
 - var tvFavorites = tvFavorites;
 - var movieFavorites = movieFavorites;
+#userfavorites
 p #{__("DASHBOARD_FAVORITES_DESC")}
     ul.uk-subnav.uk-subnav-pill(uk-switcher='')
         li
@@ -12,7 +13,7 @@ p #{__("DASHBOARD_FAVORITES_DESC")}
     ul.uk-switcher.uk-margin
         li 
             .uk-grid.uk-width-1-1
-                .uk-grid.uk-child-width-1-3
+                .uk-grid.uk-child-width-1-3.uk-grid-match
                     each item in allFavorites
                         a(href=`/${urlPath}/mediainfo/filminfo/${item.id}`)
                             .uk-card.uk-card-default.dashboard-favorite-padding
@@ -23,7 +24,7 @@ p #{__("DASHBOARD_FAVORITES_DESC")}
                                     p= item.releaseDate
         li
             .uk-grid.uk-width-1-1
-                .uk-grid.uk-child-width-1-3
+                .uk-grid.uk-child-width-1-3.uk-grid-match
                     each item in movieFavorites
                         a(href=`/${urlPath}/mediainfo/filminfo/${item.id}`)
                             .uk-card.uk-card-default.dashboard-favorite-padding
@@ -34,7 +35,7 @@ p #{__("DASHBOARD_FAVORITES_DESC")}
                                     p= item.releaseDate
         li 
             .uk-grid.uk-width-1-1
-                .uk-grid.uk-child-width-1-3
+                .uk-grid.uk-child-width-1-3.uk-grid-match
                     each item in tvFavorites
                         a(href=`/${urlPath}/mediainfo/serieinfo/${item.id}`)
                             .uk-card.uk-card-default.dashboard-favorite-padding
