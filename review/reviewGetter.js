@@ -156,8 +156,30 @@ async function getReviewFromDatabase(reviewId, collection) {
                 return new ValidationHandler(true, await ReviewDenied.findOne({_id: reviewId}));
         } 
     } catch(err) {
-        logger.log({level: 'error', message: `Something unexpected happen while trying to get information! Error: ${err}`})
-        return new ValidationHandler(false, `Something unexpected happen while trying to get information! Error: ${err}`);
+        logger.log({level: 'error', message: `Something unexpected happen while trying to get review information! Error: ${err}`})
+        return new ValidationHandler(false, `Something unexpected happen while trying to get review information! Error: ${err}`);
+    }
+}
+
+/**
+ * 
+ * @param {Object} options 
+ * @param {'pending'|'approved'|'denied'} collection 
+ * @returns ValidationHandler
+ */
+async function getReviewsFromDatabase(options, collection) {
+    try {
+        switch(collection) {
+            case 'pending':
+                return new ValidationHandler(true, await ReviewPending.find(options));
+            case 'approved':
+                return new ValidationHandler(true, await ReviewApproved.find(options));
+            case 'denied':
+                return new ValidationHandler(true, await ReviewDenied.find(options));
+        }
+    } catch(err) {
+        logger.log({level: 'error', message: `Something unexpected happen while trying to get review information! Error: ${err}`})
+        return new ValidationHandler(false, `Something unexpected happen while trying to get review information! Error: ${err}`);
     }
 }
 
@@ -166,7 +188,6 @@ async function getReviewFromDatabase(reviewId, collection) {
  * @param {'pending'|'approved'|'denied'} collection 
  * @returns ValidationHandler
  */
-
 async function getAllReviewFromDatabase(collection) {
     try {
         switch(collection) {
@@ -183,13 +204,11 @@ async function getAllReviewFromDatabase(collection) {
     }
 }
 
-
-
 /**
  * Sjekker resultat fra database
  * @param {Object} result 
  * @param {String|Number} id 
- * @returns 
+ * @returns ValidationHandler
  */
 function checkResult(result, id) {
     if(!result) {
@@ -199,4 +218,4 @@ function checkResult(result, id) {
     return new ValidationHandler(true, result);
 }
 
-module.exports = {getPendingReviews, getApprovedReviews, getDeniedReviews,getPendingReviewById, getApprovedReviewById,getDeniedReviewById,getAllReviewFromDatabase, getReviewsFromDatabase}
+module.exports = {getPendingReviews, getApprovedReviews, getDeniedReviews,getPendingReviewById, getApprovedReviewById,getDeniedReviewById, getAllReviewFromDatabase, getReviewsFromDatabase}
