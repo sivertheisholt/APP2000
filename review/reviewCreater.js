@@ -41,6 +41,9 @@ async function makeReview(review) {
     if (review.text === ""){
         return new ValidationHandler(false, 'Your review needs some content!');
     }
+    if (review.stars == undefined){
+        return new ValidationHandler(false, 'You need to select atleast 1 star to post a review!');
+    }
 
     const databaseReturn = await addToDatabase(review);
     if(!databaseReturn.status) {
