@@ -81,6 +81,8 @@
 	"ACTOR_SCORE": "Poeng",
 	"HOMEPAGE_MOVIE_SLIDER_TITLE": "Utforsk Filmer",
 	"HOMEPAGE_TV_SLIDER_TITLE": "Utforsk Tv-Serier",
+	"HOMEPAGE_MOVIE_SLIDER_RECOMMENDED_TITLE": "Anbefalte Filmer",
+	"HOMEPAGE_TV_SLIDER_RECOMMENDED_TITLE": "Anbefalte Tv-Serier",
 	"HOMEPAGE_CARD_TITLE": "Bli med på Filmatory i dag!",
 	"HOMEPAGE_CARD_DESC": "Med et medlemskap vil du kunne rangere filmer og lage dine egne lister. Det er enkelt, gratis og morsomt å registrere seg.",
 	"HOMEPAGE_CARD_ITEM_1": "Sosialt",
