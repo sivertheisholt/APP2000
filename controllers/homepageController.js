@@ -6,8 +6,8 @@ const recMediaHandler = require('../handling/recommendMovieHandler');
 
 exports.homepage = async function(req, res) {
     let tmdbInformasjon = tmdb.data.returnerTmdbInformasjon();
-    let recommendedMovies = await recMediaHandler.recommendMovie(req.user);
-    let recommendedTv = await recMediaHandler.recommendTv(req.user);
+    let recommendedMovies = await recMediaHandler.recommendMovie(req.renderObject.user);
+    let recommendedTv = await recMediaHandler.recommendTv(req.renderObject.user);
     let finalListTvshows = []; //Lager en tom array
     let finalListMovies = [];
     let finalListRecommendedMovies = [];
