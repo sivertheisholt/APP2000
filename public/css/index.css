@@ -742,6 +742,10 @@ img.search-image-style{
   display: none;
 }
 
+#admin-delete-review-form{
+  display: none;
+}
+
 
 /*********************************/
 /* Tooltip */

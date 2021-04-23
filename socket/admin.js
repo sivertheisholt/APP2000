@@ -80,8 +80,29 @@ async function editReview(socket, review){
     socket.emit('editReviewResult', result);
 }
 
+/**
+ * Henter alle reviews
+ * @param {Object} socket 
+ * @param {Object} review 
+ */
+async function getReviewListToDelete(socket, review){
+    let result = await reviewGetter.getApprovedReviews(review.mediaId, review.type);
+    socket.emit('getReviewFromMediaToDeleteResult', result);
+}
+
+/**
+ * Sletter en bestemt review
+ * @param {Object} socket 
+ * @param {int} reviewid 
+ */
+async function deleteReview(socket, reviewid){
+    let result = await reviewEditor.deleteApproved(reviewid);
+    socket.emit('deleteReviewResult', result);
+}
 
 
 
 
-module.exports = {getLanguage, saveLanguage, approveReview, denyReview, getReviewsFromMedia, respondTicket, editReview}
+
+
+module.exports = {getLanguage, saveLanguage, approveReview, denyReview, getReviewsFromMedia, respondTicket, editReview, getReviewListToDelete,deleteReview}

@@ -42,6 +42,8 @@
         li
             a.uk-accordion-title(href='#') Edit
             .uk-accordion-content
+                .uk-text-center
+                    #admin-edit-result
                 #admin-edit-get-review-form
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
@@ -69,4 +71,23 @@
         li
             a.uk-accordion-title(href='#') Delete
             .uk-accordion-content
-                p Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat proident.
+                .uk-text-center
+                    #admin-delete-review-result
+                #admin-delete-get-review-form
+                    .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
+                        .uk-card-header.uk-text-center
+                            p.uk-text-bolder Enter movie/tv
+                            input.uk-input.uk-form-width-medium(type='text' placeholder='movie/tv' id='admin-review-delete-media-type' )
+                            p.uk-text-bolder Enter movie/tv id
+                            input.uk-input.uk-form-width-medium(type='text' placeholder='Movie/Tv ID' id='admin-review-delete-media-id' )
+                        .uk-card-body.uk-text-center
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-get') Get
+                #admin-delete-review-form
+                    .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
+                        .uk-card-header.uk-text-center
+                            p.uk-text-bolder Enter review id
+                            input.uk-input.uk-form-width-medium(type='text' placeholder='ReviewID' id='admin-review-delete-reviewid' )
+                        .uk-card-body.uk-text-center
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-btn') Delete
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-cancel') Cancel
+                #admin-delete-reviews-list

@@ -232,4 +232,4 @@ async function approveReview(reviewId) {
     return new ValidationHandler(true, `Review with id ${reviewId} was sucessfully approved`);
 }
 
-module.exports = {approveReview, denyReview, editReview};
+module.exports = {approveReview, denyReview, editReview, deleteApproved};
