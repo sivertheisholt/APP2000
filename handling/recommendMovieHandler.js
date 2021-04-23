@@ -1,40 +1,70 @@
-const Bruker = require('../database/brukerSchema');
 const Movie = require('../database/filmSchema');
 const tmdb = require("../handling/tmdbHandler");
+const logger = require('../logging/logger');
+const hjelpeMetoder = require('./hjelpeMetoder');
+const ValidationHandler = require('./ValidationHandler');
 
-async function getUserWatched(userId) {
-    try {
-        const bruker = await Bruker.findOne({_id: userId});
-        if(bruker)
-            return bruker.moviesWatched;
-        return false;
-    } catch(err) {
-        console.log(err);
-        return false;
+/**
+ * Skaffer 10 recommended movies for bruker
+ * @param {Object} user 
+ */
+exports.recommendMovie = async function(user) {
+    logger.log({level: 'debug', message: 'Creating recommended movies for user'})
+    if(user.moviesWatched.length > 0) {
+        const movies = await hjelpeMetoder.data.shuffleArray(getRecommendedMovies(user.moviesWatched));
+        return new ValidationHandler(true, movies.splice(0,10));
     }
+    return new ValidationHandler(true, (await tmdb.data.getTrendingMovies()).splice(0, 10));
 }
 
-async function makeRecommended(userId) {
-    const moviesWatched = await getUserWatched(userId);
-    if(moviesWatched) {
-        let genreIdsMap = new Map();
-        for(const movie of moviesWatched) {
-            let movieInfo = await new Movie(Movie.findOne({id: movie}));
-            for(const id of movieInfo.genre_ids) {
-                if(genreIdsMap.has(id)) {
-                    genreIdsMap.set(id, {amount: genreIdsMap.get(id).amount++})
-                    continue;
-                }
-                genreIdsMap.set(id, {amount: 1});
-            }
-        }
-        let genreArray = [];
-        genreIdsMap.forEach((res => {
-            genreArray.push({id: res.key, amount: res.amount});
-        }))
-        genreArray.sort((a, b) => b.amount - a.amount);
-        return await tmdb.data.getDiscoverMoviesWithGenres([genreArray[0],genreArray[1],genreArray[2]]);
-    } else {
-        return await tmdb.data.getTrendingMovies();
+/**
+ * Skaffer 10 recommended tvs for bruker
+ * @param {Object} user 
+ */
+exports.recommendTv = async function(user) {
+    logger.log({level: 'debug', message: 'Creating recommended movies for user'})
+    if(user.tvsWatched.length > 0) {
+        const tvs = await hjelpeMetoder.data.shuffleArray(getRecommendedTvs(user.tvsWatched));
+        return new ValidationHandler(true, tvs.splice(0,10));
     }
-} 
+    return new ValidationHandler(true, (await tmdb.data.getTrendingTv()).splice(0, 10));
+}
+/**
+ * Looper igjennom movie array og skaffer info fra tmdb
+ * @param {Array} movies 
+ */
+async function getRecommendedMovies(movies) {
+    logger.log({level: 'debug', message: 'Looping thru movies'})
+    let recommendedMovies = [];
+    let counter = 10;
+    movies.reverse();
+    for(const movie of movies) {
+        if(counter == 0)
+            break;
+        const result = await tmdb.data.getRecommendationsMovie(movie);
+        for(const i of result.results) {
+            recommendedMovies.push(i);
+        }
+        counter--;
+    }
+    logger.log({level: 'debug', message: 'Returning movies'})
+    return recommendedMovies;
+}
+
+async function getRecommendedTvs(tvs) {
+    logger.log({level: 'debug', message: 'Looping thru tvs'})
+    let recommendedTvs = [];
+    let counter = 10;
+    tvs.reverse();
+    for(const tv of tvs) {
+        if(counter == 0)
+            break;
+        const result = await tmdb.data.getRecommendationsTvs(tv);
+        for(const i of result.results) {
+            recommendedTvs.push(i);
+        }
+        counter--;
+    }
+    logger.log({level: 'debug', message: 'Returning tvs'})
+    return recommendedTvs;
+}
