@@ -137,6 +137,9 @@ var methods = {
     getRecommendationsMovie: function(movieId) {
         return tmdb.getRecommendationsMovie(movieId);
     },
+    getRecommendationsTvs: function(tvId) {
+        return tmdb.getRecommendationsTvs(tvId);
+    },
     /**
      * Skaffer serie cast fra ID
      * @param {Number} serieID 

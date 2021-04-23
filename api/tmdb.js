@@ -102,6 +102,13 @@ Tmdb.prototype.getRecommendationsMovie = function getRecommendationsMovie(movieI
         return resultHandler(res);
     }) 
 }
+Tmdb.prototype.getRecommendationsTvs = function getRecommendationsTvs(tvId) {
+    var url = `https://api.themoviedb.org/3/tv/${tvId}/recommendations?api_key=${this.token}`;
+    return fetch(url).then(res => {
+        makeLog(res, url);
+        return resultHandler(res);
+    }) 
+}
 Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams) {
     var url = `https://api.themoviedb.org/3/discover/tv?api_key=${this.token}`;
     url = makeUrl(url, addParams);
