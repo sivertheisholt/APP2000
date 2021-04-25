@@ -65,7 +65,8 @@ body
                   if !username
                     .bottom
                       p Log in to add this to your watchlist
-              h3= `${serie.serieinfo.first_air_date.substring(0,4)} - ${serie.serieinfo.last_air_date.substring(0,4)} ${genres}`
+              - if(serie.serieinfo.first_air_date != undefined || serie.serieinfo.last_air_date != undefined)
+                h3= `${serie.serieinfo.first_air_date.substring(0,4)} - ${serie.serieinfo.last_air_date.substring(0,4)} ${genres}`
               .close
                 h3(style='float: center;')=`${serie.serieinfo.number_of_seasons}`
                 -  if (serie.serieinfo.number_of_seasons == 1)
