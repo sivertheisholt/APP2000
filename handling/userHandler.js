@@ -32,6 +32,22 @@ async function getUserFromId(userId) {
     return new ValidationHandler(true, user);
 }
 
+
+/**
+ *  Skaffer bruker fra email
+ * @param {String} userEmail 
+ * @returns ValidationHandler
+ */
+async function getUserFromEmail(userEmail) {
+    logger.log({level: 'debug', message: `Getting user with id ${userEmail} from database`})
+    const user = await Bruker.findOne({email: userEmail});
+    if(!user) {
+        logger.log({level: 'error', message: `User with id ${userEmail} was not found`}); 
+        return new ValidationHandler(false, `Can't find user with id ${userEmail} in database`);
+    }
+    return new ValidationHandler(true, user);
+}
+
 /**
  * Oppdaterer bruker i database
  * @param {Object} user 
@@ -68,4 +84,4 @@ async function getFieldsFromUserById(userId, fields) {
     });
 }
 
-module.exports = {getUser, getUserFromId, updateUser, getFieldsFromUserById}
+module.exports = {getUser, getUserFromId,getUserFromEmail, updateUser, getFieldsFromUserById}

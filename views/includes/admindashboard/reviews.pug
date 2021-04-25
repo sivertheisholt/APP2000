@@ -12,8 +12,8 @@
                         p Reason for denial
                         textarea(id='admin-review-denial-reason' rows='4' cols='20')
                     .uk-card-body.uk-margin.uk-flex.uk-flex-column.uk-width-1-1
-                            button.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-approve') Approve
-                            button.uk-button.uk-button-default.uk-button-small.uk-margin-top(type='submit' id='admin-review-deny') Deny
+                            button.uk-button.uk-button-default.uk-button-small.admin_green_btn(type='submit' id='admin-review-approve') Approve
+                            button.uk-button.uk-button-default.uk-button-small.uk-margin-top.admin_red_btn(type='submit' id='admin-review-deny') Deny
                     #admin-review-output
                 each item in pendingReviews
                     #admin-review-form

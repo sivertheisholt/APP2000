@@ -34,6 +34,8 @@ const sockets = {
     respondTicket: admin.respondTicket,
     getReviewListToDelete: admin.getReviewListToDelete,
     deleteReview: admin.deleteReview,
+    adminBanUser: admin.adminBanUser,
+    adminUnbanUser: admin.adminUnbanUser,
     makeAMovieReview: movieReview,
     makeATvReview: tvReview,
     editReview: admin.editReview,

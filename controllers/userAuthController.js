@@ -131,6 +131,9 @@ exports.userAuth_get_login = async function(req,res ) {
     //Nå skal vi sjekke om passordet stemmer
     if(bruker) {
         const sjekkPassword = await bcrypt.compare(pugBody.password, bruker.password); //Bruker bcrypt for å sammenligne, true/false return
+        if(bruker.banned){
+            res.redirect(`/${res.locals.currentLang}/homepage?error=This user is banned&errorType=login`);
+        }
         if (sjekkPassword) {
             logger.log({level: 'debug', message: `Setting session`}); 
             req.session.userId = bruker._id; //Setter session

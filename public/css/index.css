@@ -720,22 +720,31 @@ img.search-image-style{
   min-height: 100%;
 }
 
-#admin-review-approve{
+.admin_green_btn{
   font-size: 20px;
   border-radius: 10px;
 }
 
-#admin-review-deny{
+.admin_red_btn{
   font-size: 20px;
   border-radius: 10px;
 }
 
-#admin-review-approve:hover{
+.admin_btn{
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.admin_green_btn:hover{
   background-color: rgb(96, 255, 136);
 }
 
-#admin-review-deny:hover{
+.admin_red_btn:hover{
   background-color: rgb(255, 97, 97);
+}
+
+.admin_btn:hover{
+  background-color: rgb(159, 193, 255);
 }
 
 #admin-edit-edit-review-form{
