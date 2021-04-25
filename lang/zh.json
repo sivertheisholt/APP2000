@@ -81,6 +81,8 @@
 	"ACTOR_SCORE": "分数",
 	"HOMEPAGE_MOVIE_SLIDER_TITLE": "发现电影",
 	"HOMEPAGE_TV_SLIDER_TITLE": "探索电视节目",
+	"HOMEPAGE_MOVIE_SLIDER_RECOMMENDED_TITLE": "推荐电影",
+	"HOMEPAGE_TV_SLIDER_RECOMMENDED_TITLE": "推荐的电视节目",
 	"HOMEPAGE_CARD_TITLE": "立即加入Filmatory！",
 	"HOMEPAGE_CARD_DESC": "有了会员资格，您就可以对电影进行评分并创建自己的列表。轻松，免费，有趣地注册。",
 	"HOMEPAGE_CARD_ITEM_1": "社会的",

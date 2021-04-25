@@ -83,6 +83,8 @@
 	"ACTOR_SCORE": "Score",
 	"HOMEPAGE_MOVIE_SLIDER_TITLE": "Discover Movies",
 	"HOMEPAGE_TV_SLIDER_TITLE": "Discover Tv-Shows",
+	"HOMEPAGE_MOVIE_SLIDER_RECOMMENDED_TITLE": "Recommended Movies",
+	"HOMEPAGE_TV_SLIDER_RECOMMENDED_TITLE": "Recommended Tv-Shows",
 	"HOMEPAGE_CARD_TITLE": "Join Filmatory Today!",
 	"HOMEPAGE_CARD_DESC": "With a membership you will be able to rate movies and make your own lists. Signing up is easy, free and fun.",
 	"HOMEPAGE_CARD_ITEM_1": "Social",
