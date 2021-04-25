@@ -86,5 +86,17 @@
 	"HOMEPAGE_CARD_ITEM_1": "Sozial",
 	"HOMEPAGE_CARD_ITEM_2": "Kostenlos",
 	"HOMEPAGE_CARD_ITEM_3": "Sichern",
-	"RESETPASSWORD_TITLE": "Passwortformular zurücksetzen"
+	"RESETPASSWORD_TITLE": "Passwortformular zurücksetzen",
+	"ABOUT_TOP_HEADING": "Über",
+	"ABOUT_STATISTIC_ONE": "Registrierte Benutzer",
+	"ABOUT_STATISTIC_TWO": "Zeilen von Code",
+	"ABOUT_STATISTIC_THREE": "Fernsehshows",
+	"ABOUT_STATISTIC_FOUR": "Filme",
+	"ABOUT_CARD_ONE_TEXT": "Launched in 2021 by a group of movie geeks who wanted to make watching movies more social. The group...",
+	"ABOUT_CARD_TWO_HEADING": "Unsere Arbeit",
+	"ABOUT_CARD_TWO_TEXT": "This website uses API's from TMDI to gather information about any tv-show, movie and actor. It uses MongoDB as the database, node.js functions and is coded in pug with UIkit.",
+	"ABOUT_CONTACT_HEADING": "Kontaktiere uns",
+	"ABOUT_CONTACT_TITLE": "Titel",
+	"ABOUT_CONTACT_EMAIL": "E-mail",
+	"ABOUT_CONTACT_MESSAGE": "Botschaft"
 }
