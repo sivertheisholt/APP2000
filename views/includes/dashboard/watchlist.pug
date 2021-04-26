@@ -14,7 +14,7 @@ p #{__("DASHBOARD_WATCHLIST_DESC")}
             .uk-grid.uk-width-1-1
                 .uk-grid.uk-child-width-1-3.uk-grid-match
                     each item in allWatched
-                        a(href=`/${urlPath}/mediainfo/filminfo/${item.id}`)
+                        a(href=`/${urlPath}/mediainfo/${item.type == 'tv' ? 'serieinfo' : 'filminfo'}/${item.id}`)
                             .uk-card.uk-card-default.dashboard-favorite-padding
                                 .uk-card-media-top
                                     img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')

@@ -28,7 +28,8 @@ exports.user_get_dashboard = async function(req, res) {
             id: result.information.id,
             pictureUrl: result.information.poster_path,
             title: result.information.original_title,
-            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.release_date, ', ')
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.release_date, ', '),
+            type: 'movie'
         }
         allFavorites.push(tempObj);
         movieFavorites.push(tempObj);
@@ -40,7 +41,8 @@ exports.user_get_dashboard = async function(req, res) {
             id: result.information.id,
             pictureUrl: result.information.poster_path,
             title: result.information.name,
-            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.first_air_date, ', ')
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.first_air_date, ', '),
+            type: 'tv'
         }
         allFavorites.push(tempObj);
         tvFavorites.push(tempObj);
@@ -52,7 +54,8 @@ exports.user_get_dashboard = async function(req, res) {
             id: result.information.id,
             pictureUrl: result.information.poster_path,
             title: result.information.title,
-            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.release_date, ', ')
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.release_date, ', '),
+            type: 'movie'
         }
         allWatched.push(tempObj);
         movieWatched.push(tempObj);
@@ -64,7 +67,8 @@ exports.user_get_dashboard = async function(req, res) {
             id: result.information.id,
             pictureUrl: result.information.poster_path,
             title: result.information.name,
-            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.first_air_date, ', ')
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.first_air_date, ', '),
+            type: 'tv'
         }
         allWatched.push(tempObj);
         tvWatched.push(tempObj);
