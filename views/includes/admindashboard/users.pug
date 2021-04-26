@@ -1,10 +1,14 @@
 .admin-dashboard-container
     ul(uk-accordion='multiple: true')
         li
-            a.uk-accordion-title(href='#') Ban
+            a.uk-accordion-title(href='#') Ban/Unban
             .uk-accordion-content
-                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        li
-            a.uk-accordion-title(href='#') Unban
-            .uk-accordion-content
-                p Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor reprehenderit.
+                .uk-card.uk-card-default.uk-card-small.uk-margin.uk-flex.uk-flex-column.uk-margin-auto(class='uk-width-1-2@m')
+                    .uk-card-header.uk-text-center
+                        p Enter email of user
+                        input.uk-input.uk-form-width-medium(type='text' placeholder='Email' id='admin-user-email' )
+                    .uk-card-body.uk-margin.uk-flex.uk-flex-column.uk-width-1-1
+                            button.uk-button.uk-button-default.uk-button-small.admin_btn(type='submit' id='admin-user-ban') Ban
+                            button.uk-button.uk-button-default.uk-button-small.uk-margin-top.admin_btn(type='submit' id='admin-user-unban') Unban
+                    .uk-text-center.uk-text-meta
+                        #admin-user-output

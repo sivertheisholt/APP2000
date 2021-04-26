@@ -3,6 +3,8 @@ const fs = require('fs');
 const reviewEditor = require('../review/reviewEditor');
 const reviewGetter = require('../review/reviewGetter');
 const ticketEditor = require('../ticket/ticketEditor');
+const userHandler = require('../handling/userHandler');
+const ValidationHandler = require('../handling/ValidationHandler');
 
 
 /**
@@ -100,9 +102,36 @@ async function deleteReview(socket, reviewid){
     socket.emit('deleteReviewResult', result);
 }
 
+async function adminBanUser(socket, userEmail){
+    let result;
+    let user = await userHandler.getUserFromEmail(userEmail);
+    if(!user.information.banned){
+        result = await userHandler.updateUser(user.information, {banned: true});
+        result.information = 'User has been banned';
+    } else {
+        result = new ValidationHandler(false, 'User is already banned!');
+    }
+    socket.emit('adminBanUserResult', result);
+}
+
+async function adminUnbanUser(socket, userEmail){
+    let result;
+    let user = await userHandler.getUserFromEmail(userEmail);
+    if(user.information.banned){
+        result = await userHandler.updateUser(user.information, {banned: false});
+        result.information = 'User has been unbanned';
+    } else {
+        result = new ValidationHandler(false, 'User is already unbanned!');
+    }
+    socket.emit('adminBanUserResult', result);
+}
 
 
 
 
 
-module.exports = {getLanguage, saveLanguage, approveReview, denyReview, getReviewsFromMedia, respondTicket, editReview, getReviewListToDelete,deleteReview}
+
+
+
+
+module.exports = {getLanguage, saveLanguage, approveReview, denyReview, getReviewsFromMedia, respondTicket, editReview, getReviewListToDelete,deleteReview, adminBanUser, adminUnbanUser}

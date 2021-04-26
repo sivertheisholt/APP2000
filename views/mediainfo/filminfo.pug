@@ -34,7 +34,7 @@ each item in film.castinfo.cast
   - if (item.known_for_department == 'Acting')
     - var info = {id:item.id, navn:item.name, character:item.character, picture:'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' + item.profile_path, imdbID:""}
     - if(item.profile_path == null)
-        - info.picture = '/images/imgactors/altpicture.svg'
+        - info.picture = '/images/imgactors/altpicture.png'
     - actors.push(info);
 
 each item in film.videos.results

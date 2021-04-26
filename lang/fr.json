@@ -88,5 +88,17 @@
 	"HOMEPAGE_CARD_ITEM_1": "Social",
 	"HOMEPAGE_CARD_ITEM_2": "Libérer",
 	"HOMEPAGE_CARD_ITEM_3": "Sécurise",
-	"RESETPASSWORD_TITLE": "Réinitialiser le formulaire de mot de passe"
+	"RESETPASSWORD_TITLE": "Réinitialiser le formulaire de mot de passe",
+	"ABOUT_TOP_HEADING": "À propos",
+	"ABOUT_STATISTIC_ONE": "Utilisateurs enregistrés",
+	"ABOUT_STATISTIC_TWO": "Lignes de code",
+	"ABOUT_STATISTIC_THREE": "Émissions de télévision",
+	"ABOUT_STATISTIC_FOUR": "Films",
+	"ABOUT_CARD_ONE_TEXT": "Lancé en 2021 par un groupe de geeks de cinéma qui voulaient rendre le visionnage de films plus social. Le groupe...",
+	"ABOUT_CARD_TWO_HEADING": "Notre travail",
+	"ABOUT_CARD_TWO_TEXT": "Ce site Web utilise les API de TMDI pour recueillir des informations sur toute émission de télévision, film et acteur. Il utilise MongoDB comme base de données, les fonctions node.js et est codé en pug avec UIkit.",
+	"ABOUT_CONTACT_HEADING": "Contacter",
+	"ABOUT_CONTACT_TITLE": "Titre",
+	"ABOUT_CONTACT_EMAIL": "E-mail",
+	"ABOUT_CONTACT_MESSAGE": "Un message"
 }

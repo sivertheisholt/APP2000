@@ -45,6 +45,10 @@ const brukerSchema = new mongoose.Schema({
     type: String,
     default: '/uploads/default.png'
   },
+  banned: {
+    type: Boolean,
+    default: false
+  },
   administrator: {
     type: Boolean,
     default: false
