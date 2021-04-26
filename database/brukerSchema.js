@@ -48,6 +48,10 @@ const brukerSchema = new mongoose.Schema({
   administrator: {
     type: Boolean,
     default: false
+  },
+  lists: {
+    type: Array,
+    default: null
   }
 });
 
