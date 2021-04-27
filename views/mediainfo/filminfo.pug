@@ -86,13 +86,15 @@ body
               p= film.filminfo.overview
               .direc(uk-grid='')
                 .uk-width-1-2
-                  p #{__("MOVIEINFO_DIRECTOR")}
-                  a(href=`/${urlPath}/person/${directorId}`)
-                    b= `${director}`
+                  - if(director != undefined)
+                    p #{__("MOVIEINFO_DIRECTOR")}
+                    a(href=`/${urlPath}/person/${directorId}`)
+                      b= `${director}`
                 .uk-width-1-2
-                  p #{__("MOVIEINFO_SCREENWRITER")}
-                  a(href=`/${urlPath}/person/${screenplayId}`)
-                    b= `${screenplay}` 
+                  - if(screenplay != undefined)
+                    p #{__("MOVIEINFO_SCREENWRITER")}
+                    a(href=`/${urlPath}/person/${screenplayId}`)
+                      b= `${screenplay}` 
       // Slider
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')
