@@ -4,6 +4,7 @@
 - var actors = [];
 - var counter = 0;
 - var execProducer;
+- var execProducerId;
 - var creators = [];
 script.
     let isTvFav = !{isTvFav};
@@ -12,6 +13,7 @@ script.
     let serie_Id = !{tvId};
 each item in serie.serieinfo.created_by 
   - creators.push(item.name);
+  - creators.push(item.id);
 
 each item in serie.serieinfo.genres
   - genres += item.name + " ";
@@ -22,6 +24,7 @@ each item in serie.serieinfo.genres
 each item in serie.castinfo.crew
   - if(item.job == 'Executive Producer')
     - execProducer = item.name;
+    - execProducerId = item.id;
     - break;
 
 each item in serie.castinfo.cast 
@@ -79,13 +82,15 @@ body
               p= serie.serieinfo.overview
               .direc(uk-grid='')
                 .uk-width-1-2
-                  p #{__("TVINFO_EXEC_PRODUCER")}
-                  a(href='')
-                    b= `${execProducer}`
+                  - if (execProducer != undefined)
+                    p #{__("TVINFO_EXEC_PRODUCER")}
+                    a(href=`/${urlPath}/person/${execProducerId}`)
+                      b= `${execProducer}`
                 .uk-width-1-2
-                  p #{__("TVINFO_CREATED_BY")}
-                  a(href='')
-                    b= `${creators[0]}`
+                  - if (creators[0] != undefined)
+                    p #{__("TVINFO_CREATED_BY")}
+                    a(href=`/${urlPath}/person/${creators[1]}`)
+                      b= `${creators[0]}`
       // Slider
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')
@@ -94,7 +99,7 @@ body
               ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s uk-grid-match')
                 each item in actors
                   li
-                    a(href=`/${urlPath}/actor/${item.id}`)
+                    a(href=`/${urlPath}/person/${item.id}`)
                       .uk-card.uk-card-default
                         .uk-card-media-top
                           img(src=`${item.picture}` alt='' width='100%')

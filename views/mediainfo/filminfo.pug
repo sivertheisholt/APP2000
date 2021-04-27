@@ -4,7 +4,9 @@
 - var actors = [];
 - var counter = 0;
 - var director;
+- var directorId;
 - var screenplay;
+- var screenplayId;
 - var user = user;
 - var username = session;
 
@@ -23,11 +25,13 @@ each item in film.filminfo.genres
 each item in film.castinfo.crew
   - if(item.job == 'Director')
     - director = item.name;
+    - directorId = item.id;
     - break;
 
 each item in film.castinfo.crew
   - if(item.job == 'Screenplay')
     - screenplay = item.name;
+    - screenplayId = item.id;
     - break;
 
 each item in film.castinfo.cast 
@@ -83,11 +87,11 @@ body
               .direc(uk-grid='')
                 .uk-width-1-2
                   p #{__("MOVIEINFO_DIRECTOR")}
-                  a(href='')
+                  a(href=`/${urlPath}/person/${directorId}`)
                     b= `${director}`
                 .uk-width-1-2
                   p #{__("MOVIEINFO_SCREENWRITER")}
-                  a(href='')
+                  a(href=`/${urlPath}/person/${screenplayId}`)
                     b= `${screenplay}` 
       // Slider
       .uk-grid
@@ -97,7 +101,7 @@ body
               ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s uk-grid-match')
                 each item in actors
                   li
-                    a(href=`/${urlPath}/actor/${item.id}`)
+                    a(href=`/${urlPath}/person/${item.id}`)
                       .uk-card.uk-card-default
                         .uk-card-media-top
                           img(src=`${item.picture}` alt='' width='100%')
