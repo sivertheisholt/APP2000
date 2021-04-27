@@ -422,6 +422,7 @@ img.search-image-style{
 #mediainfo-review-stars{
   font-size: 30px;
   color: gold;
+  text-shadow: 1px 1px #bbb;
 }
 
 .stars{
