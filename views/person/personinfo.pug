@@ -61,6 +61,8 @@ body
                                 - if (person.links.facebook_id != null)
                                     a(href=`https://www.facebook.com/${person.links.facebook_id}/`)
                                         img(data-src='/images/logo/facebooklogo.png' width='40' height='35' alt='' uk-img='')
+                                a(href=`https://www.themoviedb.org/person/${person.links.id}/`)
+                                        img(data-src='/images/logo/tmdblogo.svg' width='40' height='35' alt='' uk-img='')
                                 - if (person.links.twitter_id != null)
                                     a(href=`https://twitter.com/${person.links.twitter_id}/`)
                                         img(data-src='/images/logo/twitterlogo.png' width='40' height='40' alt='' uk-img='')
