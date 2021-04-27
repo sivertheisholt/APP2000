@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 //Vi lager et nytt schema
 const listSchema = new mongoose.Schema({
     userId: {
-        type: String
+        type: String,
+        required: true,
     },
     name: {
-        type: String
+        type: String,
+        required: true,
     },
     movies: {
         type: Array,
