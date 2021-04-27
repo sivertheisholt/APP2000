@@ -151,7 +151,17 @@ body
                           li
                             a(href='#')=`${item.formattedDate}`
                           li
-                            p=`${item.stars} Stars`
+                            #mediainfo-review-stars
+                              - if (item.stars == 1)
+                                  p=`★`
+                              - if (item.stars == 2)
+                                  p=`★★`
+                              - if (item.stars == 3)
+                                  p=`★★★`
+                              - if (item.stars == 4)
+                                  p=`★★★★`
+                              - if (item.stars == 5)
+                                  p=`★★★★★`
                   .uk-comment-body
                     p=`${item.text}`
             li

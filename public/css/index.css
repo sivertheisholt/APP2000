@@ -419,6 +419,10 @@ img.search-image-style{
   margin-bottom: 5px;
 }
 
+#mediainfo-review-stars{
+  font-size: 30px;
+}
+
 .stars{
   text-align: center;
   float: left;
