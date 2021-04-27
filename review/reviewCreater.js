@@ -68,7 +68,7 @@ function addToDatabase(reviewInfo) {
             return new ValidationHandler(false, 'Could not add review to the database!');
         }
         logger.log({level: 'info', message: `Review with id ${review._id} was saved to the database`});
-        return new ValidationHandler(true, 'Review was successfully saved to the database');
+        return new ValidationHandler(true, 'Your review has seccessfully been sent for approval');
     })
 }
 
