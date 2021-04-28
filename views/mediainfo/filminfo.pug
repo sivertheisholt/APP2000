@@ -94,7 +94,8 @@ body
                   - if(screenplay != undefined)
                     p #{__("MOVIEINFO_SCREENWRITER")}
                     a(href=`/${urlPath}/person/${screenplayId}`)
-                      b= `${screenplay}` 
+                      b= `${screenplay}`
+              .fb-share-button(data-href=`/${urlPath}/mediainfo/filminfo/${film.filminfo.id}` data-layout='button_count')
       // Slider
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')
