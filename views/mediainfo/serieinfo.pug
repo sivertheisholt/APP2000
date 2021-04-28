@@ -46,6 +46,8 @@ each item in serie.videos.results
 
 include ../includes/head.pug
 include ../includes/nav.pug
+meta(property='og:image' content=`http://themoviedb.org/t/p/w600_and_h900_bestv2/${serie.serieinfo.poster_path}`)
+
 body
   .overlay(style=`background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/${serie.serieinfo.poster_path})`)
     .container
@@ -91,6 +93,7 @@ body
                     p #{__("TVINFO_CREATED_BY")}
                     a(href=`/${urlPath}/person/${creators[1]}`)
                       b= `${creators[0]}`
+                .fb-share-button.uk-align-center(data-href=`/${urlPath}/mediainfo/serieinfo/${serie.serieinfo.id}` data-layout='button_count')
       // Slider
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')

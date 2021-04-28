@@ -52,7 +52,7 @@ each actor in actors
       - actor.imdbID = person.imdb_id;
 include ../includes/head.pug
 include ../includes/nav.pug
-
+meta(property='og:image' content=`http://themoviedb.org/t/p/w600_and_h900_bestv2/${film.filminfo.poster_path}`)
 
 body
   .overlay(style=`background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/${film.filminfo.poster_path})`)
@@ -95,7 +95,7 @@ body
                     p #{__("MOVIEINFO_SCREENWRITER")}
                     a(href=`/${urlPath}/person/${screenplayId}`)
                       b= `${screenplay}`
-              .fb-share-button(data-href=`/${urlPath}/mediainfo/filminfo/${film.filminfo.id}` data-layout='button_count')
+                .fb-share-button.uk-align-center(data-href=`/${urlPath}/mediainfo/filminfo/${film.filminfo.id}` data-layout='button_count')
       // Slider
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')
