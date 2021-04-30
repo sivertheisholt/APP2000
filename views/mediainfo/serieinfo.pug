@@ -93,7 +93,8 @@ body
                     p #{__("TVINFO_CREATED_BY")}
                     a(href=`/${urlPath}/person/${creators[1]}`)
                       b= `${creators[0]}`
-                .fb-share-button.uk-align-center(data-href=`/${urlPath}/mediainfo/serieinfo/${serie.serieinfo.id}` data-layout='button_count')
+                .fb-share-button.uk-align-center(data-href='https://developers.facebook.com/docs/plugins/' data-layout='button_count' data-size='large')
+                  a.fb-xfbml-parse-ignore(target='_blank' href=`https://www.facebook.com/sharer/sharer.php?u=/${urlPath}/mediainfo/serieinfo/${serie.serieinfo.id}`) Share on facebook
       // Slider
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')
