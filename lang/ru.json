@@ -100,5 +100,6 @@
 	"ABOUT_CONTACT_HEADING": "Свяжитесь с нами",
 	"ABOUT_CONTACT_TITLE": "Заголовок",
 	"ABOUT_CONTACT_EMAIL": "Электронная почта",
-	"ABOUT_CONTACT_MESSAGE": "Сообщение"
+	"ABOUT_CONTACT_MESSAGE": "Сообщение",
+	"MEDIAINFO_SHARE_BTN": "Поделиться через фейсбук"
 }

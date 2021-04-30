@@ -102,5 +102,6 @@
 	"ABOUT_CONTACT_EMAIL": "E-mail",
 	"ABOUT_CONTACT_MESSAGE": "Melding",
 	"DASHBOARD_SWITCHER_WATCHLIST": "Sett liste",
-	"DASHBOARD_WATCHLIST_DESC": "Legg til en film eller et tv-serie i listen over  din, og du kan se dem her!"
+	"DASHBOARD_WATCHLIST_DESC": "Legg til en film eller et tv-serie i listen over  din, og du kan se dem her!",
+	"MEDIAINFO_SHARE_BTN": "Del på Facebook"
 }

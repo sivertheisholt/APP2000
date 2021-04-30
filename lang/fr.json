@@ -100,5 +100,6 @@
 	"ABOUT_CONTACT_HEADING": "Contacter",
 	"ABOUT_CONTACT_TITLE": "Titre",
 	"ABOUT_CONTACT_EMAIL": "E-mail",
-	"ABOUT_CONTACT_MESSAGE": "Un message"
+	"ABOUT_CONTACT_MESSAGE": "Un message",
+	"MEDIAINFO_SHARE_BTN": "Partager sur Facebook"
 }
