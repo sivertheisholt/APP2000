@@ -1,6 +1,8 @@
 include ../includes/head.pug
 include ../includes/nav.pug
-
+- var totalMoviesResult = totalMoviesResult;
+- var totalTvResult = totalTvResult;
+- var totalUserResult = totalUserResult;
 script.
     var error = !{error}
     var errorType = !{errorType}
@@ -14,16 +16,16 @@ body
         .uk-width-1-1
             .uk-column-1-4.uk-text-center.uk-align-center
                 div
-                    p.uk-text-large 5423
+                    p.uk-text-large= `${totalUserResult}`
                     p #{__("ABOUT_STATISTIC_ONE")}
                 div
                     p.uk-text-large 1023
                     p #{__("ABOUT_STATISTIC_TWO")}
                 div 
-                    p.uk-text-large 29 302
+                    p.uk-text-large= `${totalTvResult}`
                     p #{__("ABOUT_STATISTIC_THREE")}
                 div
-                    p.uk-text-large 382 120 493
+                    p.uk-text-large= `${totalMoviesResult}`
                     p #{__("ABOUT_STATISTIC_FOUR")}
 
         .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2' uk-grid='')

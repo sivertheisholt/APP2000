@@ -1,8 +1,17 @@
 const ticketCreator = require("../ticket/ticketCreator");
 const logger = require("../logging/logger");
 const hjelpeMetoder = require("../handling/hjelpeMetoder");
+const aboutStats = require('../misc/statistics/about_stats');
 
-exports.about_info = function(req, res) {
+exports.about_info = async function(req, res) {
+  let totalMoviesResult = await aboutStats.totalMovies();
+  let totalTvResult = await aboutStats.totalTvs();
+  let totalUserResult = await aboutStats.totalUsers();
+
+  req.renderObject.totalMoviesResult = totalMoviesResult;
+  req.renderObject.totalTvResult = totalTvResult;
+  req.renderObject.totalUserResult = totalUserResult;
+
   res.render("infosider/about", req.renderObject);
 }
 
@@ -34,5 +43,8 @@ exports.about_post_contact = function(req, res) {
     return;
   }
   ticketCreator.addTicket(ticket);
+  res.json({
+    status: 'success'
+  });
   return res.redirect(`/${res.locals.currentLang}/infosider/about`);
 }
