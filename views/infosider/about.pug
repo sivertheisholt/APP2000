@@ -3,6 +3,7 @@ include ../includes/nav.pug
 - var totalMoviesResult = totalMoviesResult;
 - var totalTvResult = totalTvResult;
 - var totalUserResult = totalUserResult;
+- var totalReviewResult = totalReviewResult;
 script.
     var error = !{error}
     var errorType = !{errorType}
@@ -19,7 +20,7 @@ body
                     p.uk-text-large= `${totalUserResult}`
                     p #{__("ABOUT_STATISTIC_ONE")}
                 div
-                    p.uk-text-large 1023
+                    p.uk-text-large= `${totalReviewResult}`
                     p #{__("ABOUT_STATISTIC_TWO")}
                 div 
                     p.uk-text-large= `${totalTvResult}`

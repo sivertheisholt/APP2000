@@ -1,6 +1,7 @@
 const Movie = require('../../database/filmSchema');
 const Tv = require('../../database/tvSchema');
 const User = require('../../database/brukerSchema');
+const ApprovedReviews = require('../../database/approvedReviewSchema');
 const logger = require('../../logging/logger');
 
 async function totalMovies() {
@@ -21,6 +22,12 @@ async function totalUsers() {
     return userResult.toString();
 }
 
+async function totalReviews(){
+    logger.log({level: 'debug', message: 'Getting total reviews in database...'});
+    let reviewResult = await ApprovedReviews.countDocuments();
+    return reviewResult.toString();
+}
 
 
-module.exports = {totalMovies, totalTvs, totalUsers}
+
+module.exports = {totalMovies, totalTvs, totalUsers, totalReviews}

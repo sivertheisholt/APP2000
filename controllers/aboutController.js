@@ -7,10 +7,12 @@ exports.about_info = async function(req, res) {
   let totalMoviesResult = await aboutStats.totalMovies();
   let totalTvResult = await aboutStats.totalTvs();
   let totalUserResult = await aboutStats.totalUsers();
+  let totalReviewResult = await aboutStats.totalReviews();
 
   req.renderObject.totalMoviesResult = totalMoviesResult;
   req.renderObject.totalTvResult = totalTvResult;
   req.renderObject.totalUserResult = totalUserResult;
+  req.renderObject.totalReviewResult = totalReviewResult;
 
   res.render("infosider/about", req.renderObject);
 }
