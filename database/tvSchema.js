@@ -5,11 +5,14 @@ const tvSchema = new mongoose.Schema({
     backdrop_path: {
         type: String,
     },
+    created_by: {
+        type: Array,
+    },
     episode_run_time: {
         type: Array,
     },
     first_air_date: {
-        type: Date,
+        type: String,
     },
     genres: {
         type: Array,
@@ -24,7 +27,7 @@ const tvSchema = new mongoose.Schema({
         type: Boolean,
     },
     last_air_date: {
-        type: Date,
+        type: String,
     },
     last_episode_to_air: {
         type: Object,

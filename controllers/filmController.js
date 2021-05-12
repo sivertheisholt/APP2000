@@ -6,6 +6,8 @@ const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
 const watchedCreater = require('../watched/watchedCreater');
 const ValidationHandler = require('../handling/ValidationHandler');
+
+
 exports.film_get_info = async function(req, res) {
     let isMovFav = new ValidationHandler(false, "");
     let isMovWatched = new ValidationHandler(false, "");
@@ -14,10 +16,10 @@ exports.film_get_info = async function(req, res) {
     let castinfolet = await tmdb.data.getMovieCastByID(req.url.slice(10));
     logger.log({level: 'debug', message: 'Getting reviews..'});
     let reviews = await reviewGetter.getApprovedReviews(req.url.slice(10), "movie");
-
     logger.log({level: 'debug', message: 'Getting movieinfo, tailers, lists of persons & making object..'});
+
     let film = {
-        filminfo: await tmdb.data.getMovieInfoByID(req.url.slice(10)),
+        filminfo: res.locals.movieInfo,
         castinfo: castinfolet,
         videos: await tmdb.data.getMovieVideosByID(req.url.slice(10)),
         listOfPersons: await Promise.all(getPersons(castinfolet.cast)),

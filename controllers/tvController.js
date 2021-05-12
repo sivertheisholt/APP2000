@@ -1,11 +1,9 @@
 const tmdb = require('../handling/tmdbHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
-const Session = require("../database/sessionSchema");
 const tvFavorite = require('../favourite/favouriteTv');
 const reviewGetter = require('../review/reviewGetter');
 const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
-const Bruker = require('../handling/userHandler');
 const watchedCreater = require('../watched/watchedCreater');
 const ValidationHandler = require('../handling/ValidationHandler');
 
@@ -17,8 +15,10 @@ exports.tv_get_info = async function(req, res) {
     let isTvFav = new ValidationHandler(false, "");
     let isTvWatched = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
+
+    console.log(res.locals.tvInfo);
     let serie = {
-        serieinfo: await tmdb.data.getSerieInfoByID(req.url.slice(11)),
+        serieinfo: res.locals.tvInfo,
         castinfo: castinfolet,
         videos: await tmdb.data.getSerieVideosByID(req.url.slice(11)) ,
         listOfPersons: await Promise.all(getPersons(castinfolet.cast)),
