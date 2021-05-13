@@ -42,11 +42,29 @@ let reviewDeleteGetForm = document.getElementById('admin-delete-get-review-form'
 let reviewDeleteResult = document.getElementById('admin-delete-review-result');
 
 /**
+ * Link id
+ */
+let reviewIdCard = document.getElementsByClassName('reviewIdClass');
+
+//Setter funksjon til paragraf til å fylle inn ID
+let bindToCard = function() {
+    reviewId.value = this.innerHTML;
+}
+
+/**
+ * EventListener for å sette inn id
+ */
+for (var i = 0; i < reviewIdCard.length; i++) {
+    reviewIdCard[i].addEventListener("click", testFunction.bind(reviewIdCard[i]));                 
+}
+
+/**
  * EventListener for godkjenning av anmeldelse
  */
 approveBtn.addEventListener("click", ()=>{
     socket.emit('approveReview', reviewId.value);
     reviewDenialReason.value = '';
+    document.getElementById(reviewId.value).innerHTML = "";
     reviewId.value = '';
 });
 
@@ -56,6 +74,7 @@ approveBtn.addEventListener("click", ()=>{
 denyBtn.addEventListener("click", ()=>{
     socket.emit('denyReview', {reviewId: reviewId.value, reason: reviewDenialReason.value});
     reviewDenialReason.value = '';
+    document.getElementById(reviewId.value).innerHTML = "";
     reviewId.value = '';
 });
 

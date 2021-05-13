@@ -16,29 +16,28 @@
                             button.uk-button.uk-button-default.uk-button-small.uk-margin-top.admin_red_btn(type='submit' id='admin-review-deny') Deny
                     #admin-review-output
                 each item in pendingReviews
-                    #admin-review-form
-                        .uk-card.uk-card-default.uk-margin(class='uk-width-1-1@m')
-                            .uk-card-header.admin-review-header
-                                .uk-grid-small.uk-flex-middle(uk-grid='')
-                                    .uk-width-expand.uk-grid
-                                        h3.uk-margin-remove-bottom Mediaid:
-                                        if (item.serieId == null)
-                                            a(href=`/${urlPath}/mediainfo/filminfo/${item.movieId}`)
-                                                h3.uk-card-title.uk-margin-remove-bottom= item.movieId
-                                        if (item.filmId == null)
-                                            a(href=`/${urlPath}/mediainfo/serieinfo/${item.tvId}`)
-                                                h3.uk-card-title.uk-margin-remove-bottom= item.tvId
-                                        h3.uk-text-small.uk-margin-remove-bottom.uk-align-right ReviewId:
-                                            p.uk-text-meta.uk-margin-remove-bottom.uk-align-right= item.reviewId
-                                        p.uk-text-meta.uk-margin-top
-                                            p= item.date
-                            .uk-card-body.admin-review-body
-                                .uk-grid
-                                    p.uk-text-bold Quote:
-                                    p= item.text
-                                .uk-grid
-                                    p.uk-text-bold Given rating:
-                                    p= item.rating
+                    .uk-card.uk-card-default.uk-margin(class='uk-width-1-1@m' id=item.reviewId)
+                        .uk-card-header.admin-review-header
+                            .uk-grid-small.uk-flex-middle(uk-grid='')
+                                .uk-width-expand.uk-grid
+                                    h3.uk-margin-remove-bottom Mediaid:
+                                    if (item.serieId == null)
+                                        a(href=`/${urlPath}/mediainfo/filminfo/${item.movieId}`)
+                                            h3.uk-card-title.uk-margin-remove-bottom= item.movieId
+                                    if (item.filmId == null)
+                                        a(href=`/${urlPath}/mediainfo/serieinfo/${item.tvId}`)
+                                            h3.uk-card-title.uk-margin-remove-bottom= item.tvId
+                                    h3.uk-text-small.uk-margin-remove-bottom.uk-align-right ReviewId:
+                                        p.uk-text-meta.uk-margin-remove-bottom.uk-align-right.reviewIdClass= item.reviewId
+                                    p.uk-text-meta.uk-margin-top
+                                        p= item.date
+                        .uk-card-body.admin-review-body
+                            .uk-grid
+                                p.uk-text-bold Quote:
+                                p= item.text
+                            .uk-grid
+                                p.uk-text-bold Given rating:
+                                p= item.rating
         li
             a.uk-accordion-title(href='#') Edit
             .uk-accordion-content
