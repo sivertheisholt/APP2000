@@ -44,18 +44,21 @@ let reviewDeleteResult = document.getElementById('admin-delete-review-result');
 /**
  * Link id
  */
-let reviewIdCard = document.getElementsByClassName('reviewIdClass');
+let reviewIdApprovalCard = document.getElementsByClassName('reviewIdApprovalClass');
 
 //Setter funksjon til paragraf til å fylle inn ID
-let bindToCard = function() {
+let bindToCardApproval = function() {
     reviewId.value = this.innerHTML;
+}
+let bindToCardDelete = function() {
+    reviewDeleteReviewId.value = this.innerHTML;
 }
 
 /**
  * EventListener for å sette inn id
  */
-for (var i = 0; i < reviewIdCard.length; i++) {
-    reviewIdCard[i].addEventListener("click", testFunction.bind(reviewIdCard[i]));                 
+for (let i = 0; i < reviewIdApprovalCard.length; i++) {
+    reviewIdApprovalCard[i].addEventListener("click", bindToCardApproval.bind(reviewIdApprovalCard[i]));                 
 }
 
 /**
@@ -132,6 +135,7 @@ socket.on('getReviewsFromMediaResult', (result)=>{
         reviewEditForm.style.display = 'block';
         for(let item of result.information){
             reviewEditListOutput.innerHTML += reviewCard(item);
+            
         }
     } else {
         reviewEditResult.innerHTML = 'No reviews found';
@@ -159,6 +163,7 @@ reviewDeleteGetBtn.addEventListener("click", ()=>{
  */
 reviewDeleteSubmitBtn.addEventListener("click", ()=>{
     socket.emit('deleteReview', reviewDeleteReviewId.value);
+    document.getElementById("deleteId" + reviewDeleteReviewId.value).innerHTML = "";
     reviewDeleteReviewId.value = '';
 });
 
@@ -180,14 +185,17 @@ socket.on('getReviewFromMediaToDeleteResult', (result) => {
         reviewDeleteGetForm.style.display = 'none';
         reviewDeleteForm.style.display = 'block';
         for(let item of result.information){
-            reviewDeleteList.innerHTML += reviewCard(item);
+            reviewDeleteList.innerHTML += reviewCardDelete(item);
+        }
+        let reviewIdDeleteCard = document.getElementsByClassName('reviewIdDeleteClass');
+        for (let i = 0; i < reviewIdDeleteCard.length; i++) {
+            reviewIdDeleteCard[i].addEventListener("click", bindToCardDelete.bind(reviewIdDeleteCard[i]));                 
         }
     }else {
         reviewDeleteGetForm.style.display = 'block';
         reviewDeleteForm.style.display = 'none';
         reviewDeleteResult.innerHTML = 'No reviews found';
     }
-
 });
 
 /**
@@ -198,14 +206,13 @@ socket.on('deleteReviewResult', (result) => {
 });
 
 
-
 /**
  *  Lager html kort for hver anmeldelse
  * @param {Object} data 
  * @returns HTML
  */
 function reviewCard(data){
-    return `<article class="uk-comment uk-comment-primary">
+    return `<article class="uk-comment uk-comment-primary" id="editId${data._id}">
                 <header class="uk-comment-header">
                     <div class="uk-grid-medium uk-flex-middle" uk-grid>
                         <div class="uk-width-auto">
@@ -213,7 +220,29 @@ function reviewCard(data){
                         </div>
                         <div class="uk-width-expand">
                             <h4 class="uk-comment-title uk-margin-remove">${data.author}</h4>
-                            <p class="uk-comment-meta uk-text-bolder">ReviewId: ${data._id}</p>
+                            <p class="uk-comment-meta uk-text-bolder reviewIdDeleteClass">ReviewId: ${data._id}</p>
+                            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                                <li>${data.date}</li>
+                                <li>Rating: ${data.stars}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+                <div class="uk-comment-body">
+                    <p>${data.text}</p>
+                </div>
+            </article>`
+}
+function reviewCardDelete(data){
+    return `<article class="uk-comment uk-comment-primary" id="deleteId${data._id}">
+                <header class="uk-comment-header">
+                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img class="uk-comment-avatar" src="${data.avatar}" width="80" height="80" alt="">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h4 class="uk-comment-title uk-margin-remove">${data.author}</h4>
+                            <p class="uk-comment-meta uk-text-bolder reviewIdDeleteClass">ReviewId: ${data._id}</p>
                             <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                 <li>${data.date}</li>
                                 <li>Rating: ${data.stars}</li>
