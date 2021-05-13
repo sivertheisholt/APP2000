@@ -33,7 +33,7 @@
                                         p= item.date
                         .uk-card-body.admin-review-body
                             .uk-grid
-                                p.uk-text-bold Quote:
+                                p.uk-text-bold Review:
                                 p= item.text
                             .uk-grid
                                 p.uk-text-bold Given rating:
@@ -46,8 +46,10 @@
                 #admin-edit-get-review-form
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
-                            p.uk-text-bolder Enter movie/tv
-                            input.uk-input.uk-form-width-medium(type='text' placeholder='movie/tv' id='admin-review-edit-media-type' )
+                            label(for="movie") Movie
+                            input(class="uk-radio uk-margin-right" type='radio' name="admin-review-edit-media-type" value="movie")
+                            label(for="tv") Tv
+                            input(class="uk-radio" type='radio' name="admin-review-edit-media-type" value="tv")
                             p.uk-text-bolder Enter movie/tv id
                             input.uk-input.uk-form-width-medium(type='text' placeholder='Movie/Tv ID' id='admin-review-edit-media-id' )
                         .uk-card-body.uk-text-center
@@ -75,12 +77,16 @@
                 #admin-delete-get-review-form
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
-                            p.uk-text-bolder Enter movie/tv
-                            input.uk-input.uk-form-width-medium(type='text' placeholder='movie/tv' id='admin-review-delete-media-type' )
+                            label(for="movie") Movie
+                            input(class="uk-radio uk-margin-right" type='radio' name="admin-review-delete-mediatype" value="movie")
+                            label(for="tv") Tv
+                            input(class="uk-radio" type='radio' name="admin-review-delete-mediatype" value="tv")
                             p.uk-text-bolder Enter movie/tv id
                             input.uk-input.uk-form-width-medium(type='text' placeholder='Movie/Tv ID' id='admin-review-delete-media-id' )
                         .uk-card-body.uk-text-center
                             button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-get') Get
+                        .uk-text-center
+                            #admin-delete-review-result
                 #admin-delete-review-form
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
