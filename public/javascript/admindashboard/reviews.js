@@ -15,7 +15,7 @@ let reviewDenialReason = document.getElementById('admin-review-denial-reason');
  * Edit
  */
 let editGetBtn = document.getElementById('admin-review-edit-get');
-let reviewEditType = document.getElementById('admin-review-edit-media-type');
+let reviewEditType = document.getElementsByName('admin-review-edit-media-type');
 let reviewEditMediaId = document.getElementById('admin-review-edit-media-id');
 let reviewGetEditForm = document.getElementById('admin-edit-get-review-form');
 let reviewEditForm = document.getElementById('admin-edit-edit-review-form');
@@ -30,11 +30,11 @@ let reviewEditResult = document.getElementById('admin-edit-result');
 /**
  * Delete
  */
+let reviewDeleteMediaType = document.getElementsByName('admin-review-delete-mediatype');
 let reviewDeleteGetBtn = document.getElementById('admin-review-delete-get');
 let reviewDeleteSubmitBtn = document.getElementById('admin-review-delete-btn');
 let reviewDeleteCancelBtn = document.getElementById('admin-review-delete-cancel');
 let reviewDeleteMediaId = document.getElementById('admin-review-delete-media-id');
-let reviewDeleteMediaType = document.getElementById('admin-review-delete-media-type');
 let reviewDeleteReviewId = document.getElementById('admin-review-delete-reviewid');
 let reviewDeleteForm = document.getElementById('admin-delete-review-form');
 let reviewDeleteList = document.getElementById('admin-delete-reviews-list');
@@ -120,9 +120,16 @@ socket.on('denyReviewResult', (result)=>{
  * EventListener for å hente anmeldelse som skal redigeres
  */
 editGetBtn.addEventListener("click", ()=>{
-    socket.emit('getReviewsFromMedia', {type: reviewEditType.value, mediaId: reviewEditMediaId.value});
-    reviewEditType.value = '';
-    reviewEditMediaId.value = '';
+    for(let i = 0; i < reviewEditType.length; i++){
+        if(reviewEditType[i].checked){
+            socket.emit('getReviewsFromMedia', {type: reviewEditType[i].value, mediaId: reviewEditMediaId.value});
+            reviewEditMediaId.innerHTML = "";
+            break;
+        } else {
+            reviewEditResult.innerHTML = "You have to select a mediatype";
+        }
+    }
+
 });
 
 /**
@@ -153,9 +160,15 @@ socket.on('editReviewResult', (result) => {
  * EventListener for å hente reviews
  */
 reviewDeleteGetBtn.addEventListener("click", ()=>{
-    socket.emit('getReviewListToDelete', {type: reviewDeleteMediaType.value, mediaId: reviewDeleteMediaId.value});
-    reviewDeleteMediaType.value = '';
-    reviewDeleteMediaId.value = '';
+    for(let i = 0; i < reviewDeleteMediaType.length; i++){
+        if(reviewDeleteMediaType[i].checked){
+            socket.emit('getReviewListToDelete', {type: reviewDeleteMediaType[i].value, mediaId: reviewDeleteMediaId.value});
+            reviewDeleteMediaId.value = '';
+            break;
+        } else {
+            reviewDeleteResult.innerHTML = "You have to select a mediatype";
+        }
+    }
 });
 
 /**
@@ -220,7 +233,8 @@ function reviewCard(data){
                         </div>
                         <div class="uk-width-expand">
                             <h4 class="uk-comment-title uk-margin-remove">${data.author}</h4>
-                            <p class="uk-comment-meta uk-text-bolder reviewIdDeleteClass">ReviewId: ${data._id}</p>
+                            <p class="uk-comment-meta"> ReviewId: </p>
+                            <p class="uk-comment-meta uk-text-bolder reviewIdDeleteClass">${data._id}</p>
                             <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                 <li>${data.date}</li>
                                 <li>Rating: ${data.stars}</li>
@@ -242,7 +256,8 @@ function reviewCardDelete(data){
                         </div>
                         <div class="uk-width-expand">
                             <h4 class="uk-comment-title uk-margin-remove">${data.author}</h4>
-                            <p class="uk-comment-meta uk-text-bolder reviewIdDeleteClass">ReviewId: ${data._id}</p>
+                            <p class="uk-comment-meta"> ReviewId:</p>
+                            <p class="uk-comment-meta uk-text-bolder reviewIdDeleteClass">${data._id}</p>
                             <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                 <li>${data.date}</li>
                                 <li>Rating: ${data.stars}</li>
