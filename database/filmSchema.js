@@ -39,7 +39,7 @@ const filmSchema = new mongoose.Schema({
         type: String,
     },
     release_date: {
-        type: Date,
+        type: String,
     },
     revenue: {
         type: Number,
