@@ -33,7 +33,7 @@ var methods = {
                 Promise.all(getDiscoverTvshow(antallPages, `first_air_date.gte=${currentDateFormated}`)
                     .map(promise => promise
                     .then(res => checkData(res.results)))),
-                Promise.all(getDiscoverTvshow(antallPages, `primary_release_date.lte=${currentDateFormated}`)
+                Promise.all(getDiscoverTvshow(antallPages, `first_air_date.gte.lte=${currentDateFormated}`)
                     .map(promise => promise
                     .then(res => checkData(res.results)))),
             ])
@@ -210,16 +210,13 @@ var methods = {
  * @returns En ny promise
  */
 async function checkData(results) {
+    logger.log({level: 'debug', message: 'Sjekker bilde'});
     let promiseArray = [];
     for(const result of results) {
         if(result.poster_path == null || result.poster_path == ""){
             continue;
-          }
-        promiseArray.push(hjelp.data.sjekkOmBildeLoader(`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${result.poster_path}`).then((r) => {
-            if(r)
-                return result
-            return false;
-        }))
+        }
+        promiseArray.push(hjelp.data.sjekkOmBildeLoader(`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${result.poster_path}`));
     }
     return (await Promise.all(promiseArray)).filter(Boolean)
 }

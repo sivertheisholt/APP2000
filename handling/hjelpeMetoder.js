@@ -118,13 +118,11 @@ const { stringify } = require('querystring');
      * @returns boolean
      */
     sjekkOmBildeLoader: function(url) {
-        return got(url, {http2: true}).then(res=>{
-            if(res.statusCode == 200) {
-                return true;
-            } else {
-                return false;
-            }
-        })  
+        try {
+            return got(url, {http2: true}).catch(err => {return false}); 
+        } catch(err) {
+            return false;
+        }
     },
     /**
      * Leser fil
