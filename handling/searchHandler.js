@@ -1,27 +1,42 @@
 const tmdbHandler = require("../handling/tmdbHandler");
-const hjelpemetode = require("../handling/hjelpeMetoder");
 const ValidationHandler = require("./ValidationHandler");
 
 /**
- * Søker etter film ved hjelp av tittel
+ * Søker etter media ved hjelp av tittel
+ * Sender tilbake 5 av hver
  * @param {String} title 
  * @returns ValidationHandler
  */
-async function searchForMovie(title) {
-    const result = await tmdbHandler.data.getMovieInfo(title); //Henter info fra api
-    if(result.length == 0) {
-        return new ValidationHandler(false, 'No results');
+async function searchForMedia(title) {
+    let tenResult = [];
+    const resultMovie = await tmdbHandler.data.getMovieInfo(title); //Henter info fra api
+    const resultTv = await tmdbHandler.data.getSerieInfo(title); //Henter info fra api
+    
+    if(resultMovie.length == 0 && resultTv.length == 0) return new ValidationHandler(false, 'No results');
+    
+    let counter = 0;
+    for(const movie of resultMovie.results) {
+        if(counter == 5) break;
+        tenResult.push({
+            id: movie.id,
+            poster_path: movie.poster_path,
+            title: movie.title,
+            overview: movie.overview
+        });
+        counter++;
     }
-    let counter = 0; //Teller
-    let fiveResults = []; //temparray
-    //Looper imellom
-    for(const movie of result.results) {
-        if(counter == 10) //Henter max 10
-            break;
-        fiveResults.push(movie); //Pusher
-        counter++; //++
-    }
-    return new ValidationHandler(true, fiveResults); //Returnerer resultat
+    counter = 0;
+    for(const tv of resultTv.results) {
+        if(counter == 5) break;
+        tenResult.push({
+            id: tv.id,
+            poster_path: tv.poster_path,
+            title: tv.name,
+            overview: tv.overview
+        });
+        counter++;
+    }    
+    return new ValidationHandler(true, tenResult); //Returnerer resultat
 }
 
-module.exports = searchForMovie; //eksporterer funksjonen
+module.exports = searchForMedia; //eksporterer funksjonen

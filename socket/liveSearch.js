@@ -11,14 +11,14 @@ const ValidationHandler = require("../handling/ValidationHandler");
 async function searchInput(socket, userInputSearch) {
     if(userInputSearch.length < 3)
         return new ValidationHandler(false, 'Skipping because less than 3 chars');
-    logger.log({level: 'debug',message: `User searching for movie: ${userInputSearch}`});
+    logger.log({level: 'debug',message: `User searching for media: ${userInputSearch}`});
     const results = await search(userInputSearch); //henter info
     if(results.status) {
-        logger.log({level: 'debug',message: `Movie respons from API: ${results}`});
-        socket.emit('resultatFilm', results.information); //Sender info til klient
+        logger.log({level: 'debug',message:'Result found! Sending to client'})
+        socket.emit('resultatMedia', results.information); //Sender info til klient
         return results;
     }
-    logger.log({level: 'warn',message:'No result found'})
+    logger.log({level: 'debug',message:'No result found'})
     return results;
 }
 
