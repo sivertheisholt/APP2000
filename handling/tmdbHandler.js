@@ -149,6 +149,14 @@ var methods = {
         return tmdb.getSerieCastByID(serieID);
     },
     /**
+     * Søker etter serie fra tittel
+     * @param {String} tvTitle 
+     * @returns Object
+     */
+    getSerieInfo: function (tvTitle) {
+        return tmdb.getSerieResults(tvTitle);
+    },
+    /**
      * Skaffer info fra ID
      * @param {Number} serieID 
      * @returns Object

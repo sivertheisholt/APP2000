@@ -23,6 +23,13 @@ Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle) {
         return resultHandler(res);
     })
 }
+Tmdb.prototype.getSerieResults = function getSerieResults(tvTitle) {
+    var url = `https://api.themoviedb.org/3/search/tv?api_key=${this.token}&query=${tvTitle.replace(/ /g, "+")}`;
+    return fetch(url).then(res => {
+        makeLog(res, url);
+        return resultHandler(res);
+    })
+}
 Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID) {
     var url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.token}`;
     return fetch(url).then(res => {
