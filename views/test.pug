@@ -1,0 +1,14 @@
+script.
+    var charts = !{charts}
+include includes/head.pug
+include includes/nav.pug
+body
+    #containerWatched(style='width:100%; height:600px;')
+    #containerFavorite(style='width:100%; height:600px;')
+    include includes/footer.pug
+script.
+    document.addEventListener('DOMContentLoaded', function () {
+        for(const chart of charts) {
+            Highcharts.chart(chart);
+        }
+    });

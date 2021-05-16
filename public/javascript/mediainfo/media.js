@@ -57,7 +57,7 @@ socket.on('displayFilteredMedia', function(args){
 function mediaCard(data){
     return `<a href='/${urlPath}/${url}/${data.id}'
             <div class='uk-card uk-card-default upcoming-card-padding'>
-            <div class='uk-card-media-top'><img src=https:\\\\www.themoviedb.org\\t\\p\\w600_and_h900_bestv2\\${data.pictureUrl.substring(1)} alt=''></div>
+            <div class='uk-card-media-top'><img src=https:\\\\www.themoviedb.org\\t\\p\\w600_and_h900_bestv2\\${data.pictureUrl} onerror="this.onerror=null; this.src='/images/no-poster-default.jpg'" alt=''></div>
             <div class='uk-card-body'><h3 class='uk-card-title'>${data.title}</h3><p>${data.releaseDate}</p></div></div></a>`
 }
 

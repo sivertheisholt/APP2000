@@ -16,10 +16,8 @@ async function searchForMovie(title) {
     let fiveResults = []; //temparray
     //Looper imellom
     for(const movie of result.results) {
-        if(counter == 10) //Henter max 5
+        if(counter == 10) //Henter max 10
             break;
-        if(!await hjelpemetode.data.sjekkOmBildeLoader(`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`))
-            continue;
         fiveResults.push(movie); //Pusher
         counter++; //++
     }

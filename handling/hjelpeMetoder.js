@@ -113,18 +113,6 @@ const { stringify } = require('querystring');
         }
     },
     /**
-     * Sjekker om bilde url laster inn
-     * @param {String} url 
-     * @returns boolean
-     */
-    sjekkOmBildeLoader: function(url) {
-        try {
-            return got(url, {http2: true}).catch(err => {return false}); 
-        } catch(err) {
-            return false;
-        }
-    },
-    /**
      * Leser fil
      * @param {String} path 
      * @returns String

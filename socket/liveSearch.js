@@ -9,8 +9,8 @@ const ValidationHandler = require("../handling/ValidationHandler");
  * @returns ValidationHandler
  */
 async function searchInput(socket, userInputSearch) {
-    if(userInputSearch.length < 2)
-        return new ValidationHandler(false, 'Skipping because less than 2 chars');
+    if(userInputSearch.length < 3)
+        return new ValidationHandler(false, 'Skipping because less than 3 chars');
     logger.log({level: 'debug',message: `User searching for movie: ${userInputSearch}`});
     const results = await search(userInputSearch); //henter info
     if(results.status) {
