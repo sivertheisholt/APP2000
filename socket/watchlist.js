@@ -1,5 +1,5 @@
-const watchEditor = require('../watched/watchedEditor');
-const watchedCreater = require('../watched/watchedCreater');
+const watchEditor = require('../systems/watchedSystem/watchedEditor');
+const watchedCreater = require('../systems/watchedSystem/watchedCreater');
 const logger = require('../logging/logger');
 
 /**

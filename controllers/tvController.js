@@ -4,7 +4,7 @@ const tvFavorite = require('../favourite/favouriteTv');
 const reviewGetter = require('../review/reviewGetter');
 const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
-const watchedCreater = require('../watched/watchedCreater');
+const watchedCreater = require('../systems/watchedSystem/watchedCreater');
 const ValidationHandler = require('../handling/ValidationHandler');
 
 exports.tv_get_info = async function(req, res) {

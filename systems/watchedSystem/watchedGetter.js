@@ -1,4 +1,4 @@
-const userHandler = require("../handling/userHandler");
+const userHandler = require("../../handling/userHandler");
 
 /**
  * Skaffer watched filmer fra bruker

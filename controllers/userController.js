@@ -8,7 +8,7 @@ const logger = require('../logging/logger');
 const movieHandler = require('../handling/movieHandler');
 const tvHandler = require('../handling/tvHandler');
 const BrukerDB = require('../database/brukerSchema');
-const watchedGetter = require('../watched/watchedGetter');
+const watchedGetter = require('../systems/watchedSystem/watchedGetter');
 
 exports.user_get_dashboard = async function(req, res) {
     let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.session.userId)).information;

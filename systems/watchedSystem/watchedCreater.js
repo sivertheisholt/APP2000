@@ -1,9 +1,9 @@
-const ValidationHandler = require("../handling/ValidationHandler");
-const logger = require("../logging/logger");
-const userHandler = require("../handling/userHandler");
-const movieHandler = require('../handling/movieHandler');
-const tvHandler = require('../handling/tvHandler');
-const tmdb = require('../handling/tmdbHandler');
+const ValidationHandler = require("../../handling/ValidationHandler");
+const logger = require("../../logging/logger");
+const userHandler = require("../../handling/userHandler");
+const movieHandler = require('../../handling/movieHandler');
+const tvHandler = require('../../handling/tvHandler');
+const tmdb = require('../../handling/tmdbHandler');
 
 /**
  * Legger til watched i databasen

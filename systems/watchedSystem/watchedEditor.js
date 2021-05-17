@@ -1,6 +1,6 @@
-const ValidationHandler = require("../handling/ValidationHandler");
-const logger = require("../logging/logger");
-const userHandler = require("../handling/userHandler");
+const ValidationHandler = require("../../handling/ValidationHandler");
+const logger = require("../../logging/logger");
+const userHandler = require("../../handling/userHandler");
 
 /**
  * Sletter watched fra bruker

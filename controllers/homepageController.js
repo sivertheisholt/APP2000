@@ -2,7 +2,7 @@ const logger = require("../logging/logger");
 const tmdb = require("../handling/tmdbHandler");
 const charts = require('../handling/chartMaker');
 const hjelpemetoder = require('../handling/hjelpeMetoder');
-const recMediaHandler = require('../handling/recommendMovieHandler');
+const recMediaHandler = require('../handling/recommendMediaHandler');
 
 exports.homepage = async function(req, res) {
     let tmdbInformasjon = tmdb.data.returnerTmdbInformasjon();
@@ -25,8 +25,7 @@ exports.homepage = async function(req, res) {
         }
         finalListMovies.push(tempObjectMovie); //Pusher til array
         maxMovies--;
-        if(maxMovies === 0)
-            break;
+        if(maxMovies === 0) break;
     }
 
     logger.log({level: 'debug' ,message:'Creating slider information for tv'})
