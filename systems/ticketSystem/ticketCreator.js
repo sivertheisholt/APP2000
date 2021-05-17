@@ -1,6 +1,6 @@
-const ticketHandler = require("../handling/ticketHandler");
-const ValidationHandler = require("../handling/ValidationHandler");
-const logger = require("../logging/logger");
+const ticketHandler = require("../../handling/ticketHandler");
+const ValidationHandler = require("../../handling/ValidationHandler");
+const logger = require("../../logging/logger");
 
 /**
  * Legger ticket til i databasen

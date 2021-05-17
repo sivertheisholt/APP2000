@@ -1,8 +1,8 @@
-const PendingTicket = require('../database/pendingTicketSchema');
-const FinishedTicket = require('../database/finishedTicketSchema');
-const logger = require('../logging/logger');
-const ValidationHandler = require('../handling/ValidationHandler');
-const mailer = require('../handling/mailer');
+const PendingTicket = require('../../database/pendingTicketSchema');
+const FinishedTicket = require('../../database/finishedTicketSchema');
+const logger = require('../../logging/logger');
+const ValidationHandler = require('../../handling/ValidationHandler');
+const mailer = require('../../handling/mailer');
 
 /**
  * Klasse for tickets

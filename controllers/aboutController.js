@@ -1,4 +1,4 @@
-const ticketCreator = require("../ticket/ticketCreator");
+const ticketCreator = require("../systems/ticketSystem/ticketCreator");
 const logger = require("../logging/logger");
 const hjelpeMetoder = require("../handling/hjelpeMetoder");
 const aboutStats = require('../misc/statistics/about_stats');

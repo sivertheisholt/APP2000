@@ -1,6 +1,6 @@
-const logger = require('../logging/logger');
-const ValidationHandler = require('../handling/ValidationHandler');
-const TicketPending = require('../database/pendingTicketSchema');
+const logger = require('../../logging/logger');
+const ValidationHandler = require('../../handling/ValidationHandler');
+const TicketPending = require('../../database/pendingTicketSchema');
 
 /**
  *  Henter alle tickets som ikke er fullførte

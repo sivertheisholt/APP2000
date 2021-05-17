@@ -2,7 +2,7 @@ const hjelpemetoder = require('../handling/hjelpeMetoder');
 const fs = require('fs');
 const reviewEditor = require('../systems/reviewSystem/reviewEditor');
 const reviewGetter = require('../systems/reviewSystem/reviewGetter');
-const ticketEditor = require('../ticket/ticketEditor');
+const ticketEditor = require('../systems/ticketSystem/ticketEditor');
 const userHandler = require('../handling/userHandler');
 const ValidationHandler = require('../handling/ValidationHandler');
 

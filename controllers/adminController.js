@@ -1,7 +1,7 @@
 const hjelpemetoder = require('../handling/hjelpeMetoder');
 const fs = require("fs");
 const reviewGetter = require('../systems/reviewSystem/reviewGetter');
-const ticketGetter = require('../ticket/ticketGetter');
+const ticketGetter = require('../systems/ticketSystem/ticketGetter');
 
 exports.admin_get_dashboard = async function(req, res) {
   let reviews = await reviewGetter.getAllReviewFromDatabase('pending');
