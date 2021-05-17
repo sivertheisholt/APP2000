@@ -1,5 +1,4 @@
-const Movie = require('../database/filmSchema');
-const tmdb = require("../handling/tmdbHandler");
+const tmdb = require("./tmdbHandler");
 const logger = require('../logging/logger');
 const hjelpeMetoder = require('./hjelpeMetoder');
 const ValidationHandler = require('./ValidationHandler');
@@ -29,6 +28,7 @@ exports.recommendTv = async function(user) {
     const tvs = await hjelpeMetoder.data.shuffleArray(getRecommendedTvs(user.tvsWatched));
     return new ValidationHandler(true, tvs.splice(0,10));
 }
+
 /**
  * Looper igjennom movie array og skaffer info fra tmdb
  * @param {Array} movies 
@@ -43,6 +43,7 @@ async function getRecommendedMovies(movies) {
             break;
         const result = await tmdb.data.getRecommendationsMovie(movie);
         for(const i of result.results) {
+            if(movie.id == i.id) continue;
             recommendedMovies.push(i);
         }
         counter--;
@@ -51,6 +52,11 @@ async function getRecommendedMovies(movies) {
     return recommendedMovies;
 }
 
+/**
+ * Looper igjennom tv array og skaffer info fra tmdb
+ * @param {Array} tvs 
+ * @returns 
+ */
 async function getRecommendedTvs(tvs) {
     logger.log({level: 'debug', message: 'Looping thru tvs'})
     let recommendedTvs = [];
@@ -61,6 +67,7 @@ async function getRecommendedTvs(tvs) {
             break;
         const result = await tmdb.data.getRecommendationsTvs(tv);
         for(const i of result.results) {
+            if(tv.id == i.id) continue;
             recommendedTvs.push(i);
         }
         counter--;
