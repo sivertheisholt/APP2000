@@ -1,6 +1,7 @@
 const ReviewPending = require('../database/pendingReviewSchema');
 const logger = require('../logging/logger');
 const ValidationHandler = require('../handling/ValidationHandler');
+const reviewGetter = require('./reviewGetter');
 /**
  * Hovedklassen for reviews
  */
@@ -37,20 +38,24 @@ class ReviewMovie extends Review {
  * @param {ReviewTv|ReviewMovie} review En av underklassene til Review
  */
 async function makeReview(review) {
-    console.log(review);
-    if (review.text === ""){
+    logger.log({level:'debug', message: `Creating new review`});
+    if (review.text === "")
         return new ValidationHandler(false, 'Your review needs some content!');
-    }
-    if (review.stars == undefined){
-        return new ValidationHandler(false, 'You need to select atleast 1 star to post a review!');
-    }
 
+    if (review.stars == undefined)
+        return new ValidationHandler(false, 'You need to select atleast 1 star to post a review!');
+
+    if(await (await reviewGetter.getApprovedReviewUser(review.userId, review.movieId == null ? review.tvId : review.movieId)).status)
+        return new ValidationHandler(false, 'User already made review for this media');
+
+    if(await (await reviewGetter.getPendingReviewUser(review.userId, review.movieId == null ? review.tvId : review.movieId)).status)
+        return new ValidationHandler(false, 'User already have a pending review for this media');
+        
     const databaseReturn = await addToDatabase(review);
     if(!databaseReturn.status) {
         return databaseReturn;
     }
-    console.log(databaseReturn);
-    logger.log({level:'info', message: `Review was successfully created for user ${review.userId}`});
+    logger.log({level:'debug', message: `Review was successfully created for user ${review.userId}`});
     return databaseReturn;
 }
 
@@ -68,7 +73,7 @@ function addToDatabase(reviewInfo) {
             return new ValidationHandler(false, 'Could not add review to the database!');
         }
         logger.log({level: 'info', message: `Review with id ${review._id} was saved to the database`});
-        return new ValidationHandler(true, 'Your review has seccessfully been sent for approval');
+        return new ValidationHandler(true, 'Review was successfully saved to the database');
     })
 }
 

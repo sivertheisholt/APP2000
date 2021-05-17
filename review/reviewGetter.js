@@ -6,6 +6,42 @@ const ValidationHandler = require('../handling/ValidationHandler');
 const userHandler = require('../handling/userHandler');
 
 /**
+ * Skaffer approved review for en bruker på et media
+ * @param {String} userId 
+ * @param {Number} mediaId 
+ * @param {'tv'|'movie'} type 
+ * @returns ValidationHandler
+ */
+async function getApprovedReviewUser(userId, mediaId, type) {
+    let movieId = type == "movie" ? mediaId : null;
+    let tvId = type == "tv" ? mediaId : null;
+    logger.log({level: 'debug', message: `Getting approved review with id ${mediaId} made by user ${userId}`})
+    const result =  await getReviewsFromDatabaseByFilter({userId: userId, movieId:movieId, tvId: tvId }, 'approved')
+    if(!result.status) {
+        return result;
+    }
+    return checkResult(result.information);
+}
+
+/**
+ * Skaffer pending review for en bruker på et media
+ * @param {String} userId 
+ * @param {Number} mediaId 
+ * @param {'tv'|'movie'} type 
+ * @returns ValidationHandler
+ */
+async function getPendingReviewUser(userId, mediaId, type) {
+    let movieId = type == "movie" ? mediaId : null;
+    let tvId = type == "tv" ? mediaId : null;
+    logger.log({level: 'debug', message: `Getting pending review with id ${mediaId} made by user ${userId}`})
+    const result = await getReviewsFromDatabaseByFilter({userId: userId, movieId:movieId, tvId: tvId}, 'pending')
+    if(!result.status) {
+        return new ValidationHandler(false, result.information);
+    }
+    return checkResult(result.information);
+}
+
+/**
  * Skaffer alle pending reviews for en film/tv
  * @param {Number} mediaId 
  * @param {'tv'|'movie'} type 
@@ -32,6 +68,7 @@ async function getApprovedReviews(mediaId, type) {
     if(!result.status) {
         return new ValidationHandler(false, result.information);
     }
+
     for (let i = 0; i < result.information.length; i++){
         const userResult = await userHandler.getUserFromId(result.information[i].userId);
         if(userResult.status){
@@ -218,4 +255,15 @@ function checkResult(result, id) {
     return new ValidationHandler(true, result);
 }
 
-module.exports = {getPendingReviews, getApprovedReviews, getDeniedReviews,getPendingReviewById, getApprovedReviewById,getDeniedReviewById, getAllReviewFromDatabase, getReviewsFromDatabase, getReviewsFromDatabaseByFilter}
+module.exports = {getPendingReviews, 
+    getApprovedReviews, 
+    getDeniedReviews,
+    getPendingReviewById, 
+    getApprovedReviewById,
+    getDeniedReviewById, 
+    getAllReviewFromDatabase, 
+    getReviewsFromDatabase, 
+    getReviewsFromDatabaseByFilter, 
+    getApprovedReviewUser,
+    getPendingReviewUser
+}
