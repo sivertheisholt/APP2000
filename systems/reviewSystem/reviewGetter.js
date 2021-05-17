@@ -1,9 +1,9 @@
-const ReviewPending = require('../database/pendingReviewSchema');
-const ReviewApproved = require('../database/approvedReviewSchema');
-const ReviewDenied = require('../database/deniedReviewSchema');
-const logger = require('../logging/logger');
-const ValidationHandler = require('../handling/ValidationHandler');
-const userHandler = require('../handling/userHandler');
+const ReviewPending = require('../../database/pendingReviewSchema');
+const ReviewApproved = require('../../database/approvedReviewSchema');
+const ReviewDenied = require('../../database/deniedReviewSchema');
+const logger = require('../../logging/logger');
+const ValidationHandler = require('../../handling/ValidationHandler');
+const userHandler = require('../../handling/userHandler');
 
 /**
  * Skaffer approved review for en bruker på et media
@@ -17,10 +17,9 @@ async function getApprovedReviewUser(userId, mediaId, type) {
     let tvId = type == "tv" ? mediaId : null;
     logger.log({level: 'debug', message: `Getting approved review with id ${mediaId} made by user ${userId}`})
     const result =  await getReviewsFromDatabaseByFilter({userId: userId, movieId:movieId, tvId: tvId }, 'approved')
-    if(!result.status) {
-        return result;
-    }
-    return checkResult(result.information);
+    if(result.information.length == 0)
+        return new ValidationHandler(false, 'No result was found')
+    return result;
 }
 
 /**
@@ -35,10 +34,9 @@ async function getPendingReviewUser(userId, mediaId, type) {
     let tvId = type == "tv" ? mediaId : null;
     logger.log({level: 'debug', message: `Getting pending review with id ${mediaId} made by user ${userId}`})
     const result = await getReviewsFromDatabaseByFilter({userId: userId, movieId:movieId, tvId: tvId}, 'pending')
-    if(!result.status) {
-        return new ValidationHandler(false, result.information);
-    }
-    return checkResult(result.information);
+    if(result.information.length == 0)
+        return new ValidationHandler(false, 'No result was found')
+    return result;
 }
 
 /**

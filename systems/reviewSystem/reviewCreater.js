@@ -1,6 +1,6 @@
-const ReviewPending = require('../database/pendingReviewSchema');
-const logger = require('../logging/logger');
-const ValidationHandler = require('../handling/ValidationHandler');
+const ReviewPending = require('../../database/pendingReviewSchema');
+const logger = require('../../logging/logger');
+const ValidationHandler = require('../../handling/ValidationHandler');
 const reviewGetter = require('./reviewGetter');
 /**
  * Hovedklassen for reviews
@@ -45,10 +45,10 @@ async function makeReview(review) {
     if (review.stars == undefined)
         return new ValidationHandler(false, 'You need to select atleast 1 star to post a review!');
 
-    if(await (await reviewGetter.getApprovedReviewUser(review.userId, review.movieId == null ? review.tvId : review.movieId)).status)
+    if(await (await reviewGetter.getApprovedReviewUser(review.userId, review.movieId == null ? review.tvId : review.movieId, review.movieId == null ? 'tv' : 'movie')).status)
         return new ValidationHandler(false, 'User already made review for this media');
 
-    if(await (await reviewGetter.getPendingReviewUser(review.userId, review.movieId == null ? review.tvId : review.movieId)).status)
+    if(await (await reviewGetter.getPendingReviewUser(review.userId, review.movieId == null ? review.tvId : review.movieId, review.movieId == null ? 'tv' : 'movie')).status)
         return new ValidationHandler(false, 'User already have a pending review for this media');
         
     const databaseReturn = await addToDatabase(review);

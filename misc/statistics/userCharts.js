@@ -1,7 +1,7 @@
 const logger = require("../../logging/logger");
 const userHandler = require("../../handling/userHandler");
 const movieHandler = require("../../handling/movieHandler");
-const reviewGetter = require("../../review/reviewGetter");
+const reviewGetter = require("../../systems/reviewSystem/reviewGetter");
 const ValidationHandler = require("../../handling/ValidationHandler");
 
 function createObjectPie() {

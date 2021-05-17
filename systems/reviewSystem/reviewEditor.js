@@ -1,9 +1,9 @@
-const ReviewPending = require('../database/pendingReviewSchema');
-const ReviewApproved = require('../database/approvedReviewSchema');
-const ReviewDenied = require('../database/deniedReviewSchema');
-const reviewGetter = require('../review/reviewGetter');
-const logger = require('../logging/logger');
-const ValidationHandler = require('../handling/ValidationHandler');
+const ReviewPending = require('../../database/pendingReviewSchema');
+const ReviewApproved = require('../../database/approvedReviewSchema');
+const ReviewDenied = require('../../database/deniedReviewSchema');
+const reviewGetter = require('./reviewGetter');
+const logger = require('../../logging/logger');
+const ValidationHandler = require('../../handling/ValidationHandler');
 
 /**
  * Klasse for  å klone review

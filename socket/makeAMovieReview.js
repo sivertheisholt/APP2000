@@ -1,4 +1,4 @@
-const reviewCreater = require('../review/reviewCreater');
+const reviewCreater = require('../systems/reviewSystem/reviewCreater');
 /**
  * kaller på review, og tar inn socket, og sender det tilbake til klienten
  * @param {*} socket 
