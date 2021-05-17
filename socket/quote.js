@@ -1,5 +1,5 @@
 const ValidationHandler = require('../handling/ValidationHandler');
-const quoteCreater = require('../quotes/quoteCreater');
+const quoteCreater = require('../systems/quoteSystem/quoteCreater');
 
 /**
  * Bruker sender en quote til en film/tv-serie til godkjenning

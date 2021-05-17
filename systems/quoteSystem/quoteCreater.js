@@ -1,9 +1,9 @@
-const logger = require("../logging/logger");
-const quoteHandler = require('../handling/quoteHandler');
-const ValidationHandler = require("../handling/ValidationHandler");
-const userHandler = require('../handling/userHandler');
-const PendingQuote = require('../database/pendingQuoteSchema');
-const ApprovedQuote = require('../database/pendingQuoteSchema');
+const logger = require("../../logging/logger");
+const quoteHandler = require('../../handling/quoteHandler');
+const ValidationHandler = require("../../handling/ValidationHandler");
+const userHandler = require('../../handling/userHandler');
+const PendingQuote = require('../../database/pendingQuoteSchema');
+const ApprovedQuote = require('../../database/pendingQuoteSchema');
 
 /**
  *  Legger quote til angitt media
