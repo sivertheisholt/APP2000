@@ -1,6 +1,6 @@
 const tmdb = require('../handling/tmdbHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
-const movieFavorite = require('../favourite/favouriteMovie');
+const movieFavorite = require('../systems/favoriteSystem/favouriteMovie');
 const reviewGetter = require('../systems/reviewSystem/reviewGetter');
 const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')

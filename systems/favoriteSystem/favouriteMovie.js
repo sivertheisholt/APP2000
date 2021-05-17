@@ -1,8 +1,8 @@
-const userHandler = require('../handling/userHandler')
-const logger = require('../logging/logger');
-const tmdb = require('../handling/tmdbHandler');
-const ValidationHandler = require('../handling/ValidationHandler');
-const movieHandler = require('../handling/movieHandler')
+const userHandler = require('../../handling/userHandler')
+const logger = require('../../logging/logger');
+const tmdb = require('../../handling/tmdbHandler');
+const ValidationHandler = require('../../handling/ValidationHandler');
+const movieHandler = require('../../handling/movieHandler')
 
 /**
  * Sjekker om bruker har filmen som favoritt

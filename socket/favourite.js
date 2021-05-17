@@ -1,5 +1,5 @@
-const favoriteMov = require('../favourite/favouriteMovie');
-const favoriteTv = require('../favourite/favouriteTv');
+const favoriteMov = require('../systems/favoriteSystem/favouriteMovie');
+const favoriteTv = require('../systems/favoriteSystem/favouriteTv');
 const logger = require('../logging/logger');
 
 /**
