@@ -26,13 +26,12 @@ exports.userStatistics = async function(user) {
     let statistics = {};
     let charts = [];
 
-    charts.push(watchedRatioChart(userResult.information.moviesWatched, userResult.information.tvsWatched));
-    charts.push(favoritedRatioChart(userResult.information.movieFavourites, userResult.information.tvFavourites));
+    charts.push(watchedRatioChart(user.moviesWatched, user.tvsWatched));
+    charts.push(favoritedRatioChart(user.movieFavourites, user.tvFavourites));
     
     statistics.charts = charts;
     statistics.runtimeMovie = calculateTotalRuntime(user.moviesWatched);
     statistics.runtimeTv = calculateTotalRuntime(user.tvsWatched);
-    statistics.reviews = (await reviewGetter.getReviewsFromDatabaseByFilter({userId: user._id})).information.length;
     return new ValidationHandler(true, statistics);
 }
 

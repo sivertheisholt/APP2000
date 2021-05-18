@@ -1,8 +1,5 @@
 include ../includes/head.pug
 include ../includes/nav.pug
-script.
-    var error = !{error}
-    var errorType = !{errorType}
 body
     .container
         h2.uk-heading-small.uk-heading-divider.uk-margin-medium-bottom #{__("DASHBOARD_TITLE")}
@@ -34,8 +31,11 @@ body
                         include ../includes/dashboard/profileinfo.pug
 
 include ../includes/footer.pug
-script.
-    if(error != undefined) {
+script(src="/javascript/userdashboard/user_stats.js")
+- if(error)
+    script.
+        var error = !{error}
+        var errorType = !{errorType}
         switch(errorType){
             case "dashboardChangePassword":
                 //UIkit.switcher('#dashboard-switcher').show(0);
@@ -53,4 +53,3 @@ script.
                 document.getElementById("dashboard-avatar-error").innerHTML += 'ERROR: ' + error;
                 break;
         }
-    }

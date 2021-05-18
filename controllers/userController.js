@@ -9,6 +9,7 @@ const movieHandler = require('../handling/movieHandler');
 const tvHandler = require('../handling/tvHandler');
 const BrukerDB = require('../database/brukerSchema');
 const watchedGetter = require('../systems/watchedSystem/watchedGetter');
+const userCharts = require('../misc/statistics/userCharts');
 
 exports.user_get_dashboard = async function(req, res) {
     let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.session.userId)).information;
@@ -21,6 +22,7 @@ exports.user_get_dashboard = async function(req, res) {
     let allWatched = [];
     let tvWatched = [];
     let movieWatched = [];
+    let userStats = await userCharts.userStatistics(req.renderObject.user);
 
     for(const item of favoriteMovies){
         let result = await (await movieHandler.getMovieById(item));
@@ -80,6 +82,7 @@ exports.user_get_dashboard = async function(req, res) {
     req.renderObject.tvWatched = tvWatched;
     req.renderObject.movieWatched = movieWatched;
     req.renderObject.allWatched = allWatched;
+    req.renderObject.userStats = JSON.stringify(userStats.information);
     res.render("user/dashboard", req.renderObject);
 }
 
