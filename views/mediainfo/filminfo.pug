@@ -61,7 +61,10 @@ body
       div(uk-grid='').film_oversikt
         // Poster image
         .uk-width-1-2.uk-flex-middle.filminfo_img
-          img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${film.filminfo.poster_path}` alt='')
+          - if (!film.filminfo.poster_path == undefined || !film.filminfo.poster_path == null)
+            img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${serie.serieinfo.poster_path}` alt='')
+          - if (film.filminfo.poster_path == undefined || film.filminfo.poster_path == null)
+            img(src=`/images/filmatory_default_poster.png` alt='')
         // Informasjon on film
         .uk-width-1-2
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
