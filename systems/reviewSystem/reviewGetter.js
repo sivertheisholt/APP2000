@@ -11,6 +11,7 @@ const userHandler = require('../../handling/userHandler');
  * @param {Number} mediaId 
  * @param {'tv'|'movie'} type 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getApprovedReviewUser(userId, mediaId, type) {
     let movieId = type == "movie" ? mediaId : null;
@@ -28,6 +29,7 @@ async function getApprovedReviewUser(userId, mediaId, type) {
  * @param {Number} mediaId 
  * @param {'tv'|'movie'} type 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getPendingReviewUser(userId, mediaId, type) {
     let movieId = type == "movie" ? mediaId : null;
@@ -44,13 +46,15 @@ async function getPendingReviewUser(userId, mediaId, type) {
  * @param {Number} mediaId 
  * @param {'tv'|'movie'} type 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getPendingReviews(mediaId, type) {
     logger.log({level: 'debug', message: `Getting pending reviews with id ${mediaId} of type ${type}`})
+    
+    //Skaffer reviews
     const result =  await getReviewsFromDatabase(mediaId, type, 'pending')
-    if(!result.status) {
-        return new ValidationHandler(false, result.information);
-    }
+    if(!result.status) return result;
+
     return checkResult(result.information);
 }
 
@@ -59,14 +63,16 @@ async function getPendingReviews(mediaId, type) {
  * @param {Number} mediaId 
  * @param {'tv'|'movie'} type 
  * @returns ValidationHandler
+ * @author Sivert - 233518, Sigve - 233511, Ørjan - 233530
  */
 async function getApprovedReviews(mediaId, type) {
     logger.log({level: 'debug', message: `Getting approved reviews with id ${mediaId} of type ${type}`});
-    const result = await getReviewsFromDatabase(mediaId, type, 'approved');
-    if(!result.status) {
-        return new ValidationHandler(false, result.information);
-    }
 
+    //Skaffer reviews
+    const result = await getReviewsFromDatabase(mediaId, type, 'approved');
+    if(!result.status) return result;
+
+    //Skaffer bruker og sammenslår info
     for (let i = 0; i < result.information.length; i++){
         const userResult = await userHandler.getUserFromId(result.information[i].userId);
         if(userResult.status){
@@ -85,13 +91,15 @@ async function getApprovedReviews(mediaId, type) {
  * @param {Number} mediaId 
  * @param {'tv'|'movie'} type
  * @returns ValidationHandler
+ * @author Sivert - 233518, Ørjan - 233530
  */
 async function getDeniedReviews(mediaId, type) {
     logger.log({level: 'debug', message: `Getting denied reviews with id ${mediaId} of type ${type}`});
+    
+    //Skaffer reviews
     const result = await getReviewsFromDatabase(mediaId, type, 'denied');
-    if(!result.status)  {
-        return new ValidationHandler(false, result.information);
-    }
+    if(!result.status) return result;
+
     return checkResult(result.information);
 }
 
@@ -99,13 +107,15 @@ async function getDeniedReviews(mediaId, type) {
  * Skaffer pending review fra ID
  * @param {String} reviewId 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getPendingReviewById(reviewId) {
     logger.log({level: 'debug', message: `Getting pending review with id ${reviewId}`});
+
+    //Skaffer review
     const result = await getReviewFromDatabase(reviewId, 'denied');
-    if(!result.status) {
-        return new ValidationHandler(false, result.information);
-    }
+    if(!result.status) return result;
+    
     return checkResult(result.information);
 }
 
@@ -113,28 +123,31 @@ async function getPendingReviewById(reviewId) {
  * Skaffer approved review fra ID
  * @param {String} reviewId 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getApprovedReviewById(reviewId) {
     logger.log({level: 'debug', message: `Getting approved review with id ${reviewId}`});
+    
+    //Skaffer review
     const result = await getReviewFromDatabase(reviewId, 'approved');
-    if(!result.status) {
-        return new ValidationHandler(false, result.information);
-    }
+    if(!result.status) return result;
+    
     return checkResult(result.information);
 }
 
-//
 /**
  * Skaffer denied review fra ID
  * @param {String} reviewId 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getDeniedReviewById(reviewId) {
     logger.log({level: 'debug', message: `Getting denied review with id ${reviewId}`});
+    
+    //Skaffer review
     const result = await getReviewFromDatabase(reviewId, 'denied');
-    if(!result.status) {
-        return new ValidationHandler(false, result.information);
-    }
+    if(!result.status) return result;
+
     return checkResult(result.information);
 }
 
@@ -144,6 +157,7 @@ async function getDeniedReviewById(reviewId) {
  * @param {'tv'|'movie'} type 
  * @param {'pending'|'approved'|'denied'} collection 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getReviewsFromDatabase(mediaId, type, collection) {
     try {
@@ -168,8 +182,8 @@ async function getReviewsFromDatabase(mediaId, type, collection) {
                 }
         }
     } catch(err) {
-        logger.log({level: 'error', message: `Something unexpected happen while trying to get information! Error: ${err}`})
-        return new ValidationHandler(false, `Something unexpected happen while trying to get information! Error: ${err}`);
+        logger.log({level: 'error', message: `Something unexpected happen while trying to get information! ${err}`})
+        return new ValidationHandler(false, `Something unexpected happen while trying to get information! ${err}`);
     }
     
 }
@@ -179,6 +193,7 @@ async function getReviewsFromDatabase(mediaId, type, collection) {
  * @param {String} reviewId 
  * @param {'pending'|'approved'|'denied'} collection 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getReviewFromDatabase(reviewId, collection) {
     try {
@@ -191,16 +206,17 @@ async function getReviewFromDatabase(reviewId, collection) {
                 return new ValidationHandler(true, await ReviewDenied.findOne({_id: reviewId}));
         } 
     } catch(err) {
-        logger.log({level: 'error', message: `Something unexpected happen while trying to get review information! Error: ${err}`})
-        return new ValidationHandler(false, `Something unexpected happen while trying to get review information! Error: ${err}`);
+        logger.log({level: 'error', message: `Something unexpected happen while trying to get review information! ${err}`})
+        return new ValidationHandler(false, `Something unexpected happen while trying to get review information! ${err}`);
     }
 }
 
 /**
- * 
+ * Henter reviews
  * @param {Object} options 
  * @param {'pending'|'approved'|'denied'} collection 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getReviewsFromDatabaseByFilter(options, collection) {
     try {
@@ -213,8 +229,8 @@ async function getReviewsFromDatabaseByFilter(options, collection) {
                 return new ValidationHandler(true, await ReviewDenied.find(options));
         }
     } catch(err) {
-        logger.log({level: 'error', message: `Something unexpected happen while trying to get review information! Error: ${err}`})
-        return new ValidationHandler(false, `Something unexpected happen while trying to get review information! Error: ${err}`);
+        logger.log({level: 'error', message: `Something unexpected happen while trying to get review information! ${err}`})
+        return new ValidationHandler(false, `Something unexpected happen while trying to get review information! ${err}`);
     }
 }
 
@@ -222,6 +238,7 @@ async function getReviewsFromDatabaseByFilter(options, collection) {
  * Henter alle reviews fra databasen
  * @param {'pending'|'approved'|'denied'} collection 
  * @returns ValidationHandler
+ * @author Ørjan - 233530
  */
 async function getAllReviewFromDatabase(collection) {
     try {
@@ -234,8 +251,8 @@ async function getAllReviewFromDatabase(collection) {
                 return new ValidationHandler(true, await ReviewDenied.find());
         } 
     } catch(err) {
-        logger.log({level: 'error', message: `Something unexpected happen while trying to get information! Error: ${err}`})
-        return new ValidationHandler(false, `Something unexpected happen while trying to get information! Error: ${err}`);
+        logger.log({level: 'error', message: `Something unexpected happen while trying to get information! ${err}`})
+        return new ValidationHandler(false, `Something unexpected happen while trying to get information! ${err}`);
     }
 }
 
@@ -244,6 +261,7 @@ async function getAllReviewFromDatabase(collection) {
  * @param {Object} result 
  * @param {String|Number} id 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 function checkResult(result, id) {
     if(!result) {

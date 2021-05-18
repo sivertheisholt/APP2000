@@ -9,15 +9,20 @@ const movieHandler = require('../../handling/movieHandler')
  * @param {Number} movieId 
  * @param {Object} user 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function checkIfFavorited(movieId, user) {
     logger.log({level: 'debug', message: `Checking if movie is already favourited for user! MovieId: ${movieId} - UserId: ${user._id} `});
+
+    //Looper mellom og sjekker om film eksisterer hos bruker
     for(const movie of user.movieFavourites) {
         if(movie == movieId) {
             logger.log({level: 'debug', message: `UserId: ${user._id} already got movie with id ${movieId} favourited`});
             return new ValidationHandler(true, `Movie is already favourited`);
         }
     }
+
+    //Suksess - Film eksisterer ikke
     logger.log({level: 'debug', message: `UserId: ${user._id} does not have movie with id ${movieId} favourited`});
     return new ValidationHandler(false, `Movie is not favourited`);
 }
@@ -26,11 +31,14 @@ async function checkIfFavorited(movieId, user) {
  * Skaffer alle filmene som er i favoritt til brukeren
  * @param {String} userId 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getAllMovieFavourites(userId) {
+    //Skaffer favoritter fra bruker
     const userResult = await userHandler.getUserFromId(userId);
-    if(!userResult.status)
-        return userResult;
+    if(!userResult.status) return userResult;
+
+    //Suksess
     return new ValidationHandler(true, userResult.information.movieFavourites);
 }
 
@@ -39,34 +47,40 @@ async function getAllMovieFavourites(userId) {
  * @param {Number} movieId 
  * @param {String} userId 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function addFavourite(movieId, userId) {
     logger.log({level: 'debug', message: `Adding movie with id ${movieId} to ${userId}'s favourite list`}); 
+    
+    //Skaffer bruker
     const user = await userHandler.getUserFromId(userId);
-    if(!user.status)
-        return user;
+    if(!user.status) return user;
+
     //Sjekker om bruker allerede har filmen som favoritt
     const isFavorited = await checkIfFavorited(movieId, user.information);
-    if(isFavorited.status)
-        return isFavorited;
+    if(isFavorited.status) return isFavorited;
+
     //Prøver å oppdatere bruker
     const updateUserResult = await userHandler.updateUser(user.information, {$push: {movieFavourites: movieId}});
-    if(!updateUserResult.status)
-        return updateUserResult;
+    if(!updateUserResult.status) return updateUserResult;
+
     //Sjekker om film er lagret i database
     const isSaved = await movieHandler.checkIfSaved(movieId);
-    if(isSaved.status)
-        return isSaved;
+    if(isSaved.status) return isSaved;
+
     //Skaffer film informasjon
     const movieInfo = await tmdb.data.getMovieInfoByID(movieId);
     if(!movieInfo) {
         logger.log('error', `Could not retrieve information for movie with id ${movieId}`)
         return new ValidationHandler(false, 'Could not retrieve movie information');
     }
+
     //Legger til film i database
     const addToDatabaseResult = await movieHandler.addToDatabase(movieInfo);
-    if(!addToDatabaseResult.status)
-        return addToDatabaseResult;
+    if(!addToDatabaseResult.status) return addToDatabaseResult;
+
+    //Suksess
+    logger.log({level: 'debug', message: `Successfully added movie with id ${movieId} to ${userId}'s favourite list`}); 
     return new ValidationHandler(true, `Favourite successfully added`);
 }
 
@@ -75,14 +89,18 @@ async function addFavourite(movieId, userId) {
  * @param {Number} movieId 
  * @param {String} userId 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function removeFavorite(movieId, userId) {
+    //Skaffer bruker
     const userResult = await userHandler.getUserFromId(userId);
-    if(!userResult)
-        return userResult;
+    if(!userResult) return userResult;
+
+    //Oppdaterer bruker
     const userUpdateResult = await userHandler.updateUser(userResult.information, {$pull: {movieFavourites: movieId}});
-    if(!userUpdateResult.status)
-        return userResult;
+    if(!userUpdateResult.status) return userResult;
+
+    //Suksess
     return new ValidationHandler(true, `Successfully removed favourite movie from user database`)
 }
 

@@ -8,16 +8,23 @@ const ListModel = require('../../database/listSchema');
  * @param {Object} user
  * @param {String} name
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 exports.createList = async function(user, name) {
     logger.log({level: 'debug', message: `Creating list for user with id ${user._id}`});
+    
+    //Lagrer liste til database
     const resultList = await saveToDatabase({
         userId: user._id,
         name: name
     });
     if(!resultList.status) return resultList;
+
+    //Oppdaterer bruker
     const userResult = await userHandler.updateUser(user, {$push: {lists: resultList.information._id}})
     if(!userResult.status) return userResult;
+    
+    //Suksess
     logger.log({level: 'debug', message: `Successfully created list with id ${resultList.information._id} for user with id ${user._id}`});
     return new ValidationHandler(true, 'Successfully created list');
 }
@@ -26,6 +33,7 @@ exports.createList = async function(user, name) {
  * Lagrer til databasen
  * @param {Object} listObject 
  * @returns ValidationHandler 
+ * @author Sivert - 233518
  */
 function saveToDatabase(listObject) {
     const list = new ListModel(listObject);

@@ -11,21 +11,30 @@ const tmdb = require('../../handling/tmdbHandler');
  * @param {Number} mediaId 
  * @param {'movie'|'tv'} mediaType 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function addToWatched(userId, mediaId, mediaType) {
-    logger.log({level: 'debug', message: `Adding media with id ${mediaId} to ${userId}'s watched list`}); 
+    logger.log({level: 'debug', message: `Adding media with id ${mediaId} to ${userId}'s watched list`});
+
+    //Skaffer bruker
     const userResult = await userHandler.getUserFromId(userId);
-    if(!userResult.status)
-        return userResult;
+    if(!userResult.status) return userResult;
+
+    //Sjekker om film er i liste
     const watchedResult = await checkIfWatched(userResult.information, mediaId, mediaType);
-    if(watchedResult.status)
-        return watchedResult;
+    if(watchedResult.status) return watchedResult;
+
+    //Oppdaterer database
     const updateDatabaseResult = await updateDatabase(userResult.information, mediaId, mediaType);
-    if(!updateDatabaseResult.status)
-        return updateDatabaseResult
-    addMediaToDB(mediaId, mediaType);
-    logger.log({level: 'debug', message: `Media ${mediaId} successfully added to user ${userId}`}); 
-    return new ValidationHandler(true, `Successfully added media`);
+    if(!updateDatabaseResult.status) return updateDatabaseResult;
+
+    //Legger til i database
+    const addToDbResult = await addMediaToDB(mediaId, mediaType);
+    if(!addToDbResult.status) return addToDbResult;
+    
+    //Suksess
+    logger.log({level: 'debug', message: `Successfully added media with id ${mediaId} to ${userId}'s watched list`});
+    return new ValidationHandler(true, `Successfully added media to watched`);
 }
 
 /**
@@ -34,13 +43,14 @@ async function addToWatched(userId, mediaId, mediaType) {
  * @param {Number} mediaId 
  * @param {'movie'|'tv'} mediaType 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
-async function updateDatabase(user, mediaId, mediaType) {
+function updateDatabase(user, mediaId, mediaType) {
     switch(mediaType) {
         case 'movie':
-            return await userHandler.updateUser(user, {$push: {moviesWatched: mediaId}});
+            return userHandler.updateUser(user, {$push: {moviesWatched: mediaId}});
         case 'tv':
-            return await userHandler.updateUser(user, {$push: {tvsWatched: mediaId}});
+            return userHandler.updateUser(user, {$push: {tvsWatched: mediaId}});
     }
 }
 
@@ -50,6 +60,7 @@ async function updateDatabase(user, mediaId, mediaType) {
  * @param {Number} mediaId 
  * @param {'movie'|'tv'} mediaType 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function checkIfWatched(user, mediaId, mediaType) {
     switch(mediaType) {
@@ -65,6 +76,7 @@ async function checkIfWatched(user, mediaId, mediaType) {
  * @param {Array} userWatched 
  * @param {Number} mediaId 
  * @returns ValidationHandler
+ * @author Sivert - 233518, Ørjan - 233530
  */
 function iterateArray(userWatched, mediaId) {
     for(const media of userWatched) {
@@ -75,47 +87,53 @@ function iterateArray(userWatched, mediaId) {
     return new ValidationHandler(false, 'User does not have media in watchlist!')
 }
 
+/**
+ * Legger til media i databasen
+ * @param {Number} mediaId 
+ * @param {'movie'|'tv'} mediaType 
+ * @returns ValidationHandler
+ * @author Sivert - 233518, Ørjan - 233530
+ */
 async function addMediaToDB(mediaId, mediaType) {
     //Legger til film/tvshow informasjon i databasen
-    if(mediaType == 'tv'){
-        const isSaved = await tvHandler.checkIfSaved(mediaId);
-        if(isSaved.status){
-            return isSaved;
-        }
-        //Skaffer tv informasjon
-        const serieInfo = await tmdb.data.getSerieInfoByID(mediaId);
-        if(!serieInfo) {
-            logger.log('error', `Could not retrieve information for tv-show with id ${mediaId}`)
-            return new ValidationHandler(false, 'Could not retrieve tv-show information');
-        }
-        //Legger til tv i database
-        const addToDatabaseResult = await tvHandler.addToDatabase(serieInfo);
-        if(!addToDatabaseResult.status)
-            return addToDatabaseResult;
-        return new ValidationHandler(true, `Favourite successfully added`);
-        
-        } else if(mediaType == 'movie'){
-        const isSaved = await movieHandler.checkIfSaved(mediaId);
-        if(isSaved.status){
-            return isSaved;
-        }
-        const movieInfo = await tmdb.data.getMovieInfoByID(mediaId);
-        if(!movieInfo) {
-            logger.log('error', `Could not retrieve information for movie with id ${mediaId}`)
-            return new ValidationHandler(false, 'Could not retrieve movie information');
-        }
-        //Legger til film i database
-        const addToDatabaseResult = await movieHandler.addToDatabase(movieInfo);
-        if(!addToDatabaseResult.status)
-            return addToDatabaseResult;
-        return new ValidationHandler(true, `Favourite successfully added`);
-    } else {
-        logger.log('error', `Could not find mediatype with type ${mediaType}`);
-        return new ValidationHandler(false, 'Could not find mediatype');
+    switch(mediaType) {
+        case 'tv':
+            //Sjekker om tv allerede eksisterer i databasen
+            const isSavedTv = await tvHandler.checkIfSaved(mediaId);
+            if(isSavedTv.status) return isSavedTv;
+
+            //Skaffer tv informasjon
+            const serieInfo = await tmdb.data.getSerieInfoByID(mediaId);
+            if(!serieInfo) {
+                logger.log('error', `Could not retrieve information for tv-show with id ${mediaId}`)
+                return new ValidationHandler(false, 'Could not retrieve tv-show information');
+            }
+
+            //Legger til tv i database
+            const addToDatabaseResultTv = await tvHandler.addToDatabase(serieInfo);
+            if(!addToDatabaseResultTv.status) return addToDatabaseResultTv;
+
+            //Suksess
+            return new ValidationHandler(true, `Favourite successfully added`);
+        case 'movie':
+            //Sjekker om film allerede eksisterer i databasen
+            const isSavedMovie = await movieHandler.checkIfSaved(mediaId);
+            if(isSavedMovie.status) return isSavedMovie;
+
+            const movieInfo = await tmdb.data.getMovieInfoByID(mediaId);
+            //Skaffer film informasjon
+            if(!movieInfo) {
+                logger.log('error', `Could not retrieve information for movie with id ${mediaId}`)
+                return new ValidationHandler(false, 'Could not retrieve movie information');
+            }
+
+            //Legger til film i database
+            const addToDatabaseResultMovie = await movieHandler.addToDatabase(movieInfo);
+            if(!addToDatabaseResultMovie.status) return addToDatabaseResultMovie;
+           
+            //Suksess
+            return new ValidationHandler(true, `Favourite successfully added`);
     }
-    
-    //Skaffer film informasjon
-   
 }
 
 module.exports = {addToWatched, checkIfWatched}

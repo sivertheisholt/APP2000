@@ -1,6 +1,6 @@
 /**
  * ValidationHandler klassen brukes for å ha en felles return metode
- * En klasse som inneholder status (Boolean) og informasjon (*)
+ * En klasse som inneholder status (Boolean) som er statusen på operasjonen og informasjon (*) som kan være hva som helst
  */
 class ValidationHandler
 {

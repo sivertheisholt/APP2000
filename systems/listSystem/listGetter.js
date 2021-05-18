@@ -7,9 +7,12 @@ const ListModel = require('../../database/listSchema');
  * Skaffer listen fra databasen ved å bruke ID
  * @param {String} listId 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 exports.getListFromId = async function(listId) {
     logger.log({level: 'debug', message: `Getting list with id ${listId}`})
+    
+    //Skaffer liste
     const result =  await ListModel.findOne(({_id: listId}));
     return checkResult(result);
 }
@@ -19,6 +22,7 @@ exports.getListFromId = async function(listId) {
  * @param {Object} result 
  * @param {String|Number} id 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
  function checkResult(result, id) {
     if(!result) {
