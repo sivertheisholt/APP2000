@@ -36,6 +36,7 @@ exports.userStatistics = async function(user) {
 }
 
 function calculateTotalRuntime(medias) {
+    if(medias.length == 0) return {hours: 0, minutes: 0};
     const minutes = medias.reduce((minutes, media) => minutes + media.runtime);
     return {
         hours: Math.floor(minutes / 60),
