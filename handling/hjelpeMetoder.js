@@ -25,14 +25,12 @@ const { stringify } = require('querystring');
     /**
      * Formaterer dato fra database fin
      * @param {Date} datoInn 
-     * @param {String} stringTilSplitting 
      * @returns String
      */
-    lagFinDatoFraDB: function(datoInn, stringTilSplitting) {
+    lagFinDatoFraDB: function(datoInn) {
         try {
-            let d = datoInn.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' });
-            d = `${d.split(stringTilSplitting)[0]} ${d.split(stringTilSplitting)[1]}`
-            return d;
+            var date = new Date(datoInn);
+            return date.toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' });
         } catch(err) {
             logger.log({level: 'error', message: `Could not format date from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`}); 
         }
