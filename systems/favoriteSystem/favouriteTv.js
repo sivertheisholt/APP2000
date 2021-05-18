@@ -9,6 +9,7 @@ const tvHandler = require('../../handling/tvHandler')
  * @param {Number} tvId 
  * @param {Object} user 
  * @returns ValidationHandler
+ * @author Ørjan - 233530
  */
 async function checkIfFavorited(tvId, user) {
     logger.log({level: 'debug', message: `Checking if movie is already favourited for user! TvId: ${tvId} - UserId: ${user._id} `});
