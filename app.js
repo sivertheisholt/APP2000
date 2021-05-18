@@ -17,14 +17,18 @@ let server = http.createServer(app);
 //kobler sammen socketIo og server
 let io = socketIO(server);
 
-async function startServer() {
+async function startSystems() {
+
+  //Skaff start informasjon fra tmdb
   const makeInformationResult = await start.makeInformation();
   if(!makeInformationResult.status) {
-    //DO SOMETHING
+    throw new Error(makeInformationResult.information);
   }
+
+  //Koble til database
   const connectDatabaseResult = await start.connectToDatabase(mongoose);
   if(!connectDatabaseResult.status) {
-    //DO SOMETHING
+    throw new Error(connectDatabaseResult.information);
   }
 
   //Konfigurer session
@@ -33,8 +37,9 @@ async function startServer() {
   //Konfigurer app
   const configureAppResult = await start.configureApp(app, session, express);
   if(!configureAppResult.status) {
-    //DO SOMETHING
+    throw new Error(configureAppResult.information);
   }
+
   //Konfigurer socket
   start.configureIo(io, session);
 
@@ -46,3 +51,21 @@ async function startServer() {
 }
 
 startServer()
+
+//Starter serveren
+function startServer() {
+  try {
+    startSystems();
+  } catch(err) {
+    logger.log({level: 'error', message: `Something unexpected happen when trying to start the server! ${err}`});
+    serverFailure();
+  }
+}
+
+//Setter en timeout på 5 minutter og prøver å restarte
+async function serverFailure() {
+  logger.log({level: 'info', message: `Trying to restart server in 5 minutes!`});
+  await new Promise(r => setTimeout(r, 1000 * 60 * 5));
+  logger.log({level: 'info', message: `Restarting systems now!`});
+  startServer();
+}
