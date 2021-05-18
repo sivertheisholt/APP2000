@@ -32,7 +32,6 @@ async function getUserFromId(userId) {
     return new ValidationHandler(true, user);
 }
 
-
 /**
  *  Skaffer bruker fra email
  * @param {String} userEmail 

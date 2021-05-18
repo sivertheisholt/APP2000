@@ -4,15 +4,9 @@ include ../includes/nav.pug
 - var totalTvResult = totalTvResult;
 - var totalUserResult = totalUserResult;
 - var totalReviewResult = totalReviewResult;
-script.
-    var error = !{error}
-    var errorType = !{errorType}
-
 body
-    
     .container
         .uk-heading-medium.uk-text-center.about-page-margin #{__("ABOUT_TOP_HEADING")}
-
 
         .uk-width-1-1
             .uk-column-1-4.uk-text-center.uk-align-center
@@ -65,12 +59,13 @@ body
                     #about-contact-error
 
 include ../includes/footer.pug
-script.
-    if(error != undefined) {
+- if (error)
+    script.
+        var error = !{error}
+        var errorType = !{errorType}
         switch(errorType) {
             case "aboutContactForm":
                 document.getElementById("about-contact-error").style.display='block';
                 document.getElementById("about-contact-error").innerHTML += 'ERROR: ' + error;
                 break;
         }
-    }
