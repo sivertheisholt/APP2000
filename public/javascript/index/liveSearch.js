@@ -32,6 +32,16 @@ function maxText(data, max){
 socket.on('resultatMedia', (resultMedia) => {
     document.getElementById('searchDiv').innerHTML = ``;
     document.getElementById('searchDiv').style.display = 'block';
+    console.log(resultMedia);
+    if(resultMedia.length === 0){
+        document.getElementById('searchDiv').innerHTML += `<div class="uk-card uk-card-default uk-grid uk-grid-collapse uk-width-1-1@s search-result">
+                                                                <div class="uk-width-expand">
+                                                                    <div class="uk-card-body">
+                                                                        <h3 class="uk-card-title uk-text-center">No results</h3>
+                                                                    </div>
+                                                                </div>
+                                                            </div>`
+    }
     for(const media of resultMedia) {
         document.getElementById('searchDiv').innerHTML += `<a href= "https://filmatoryeksamen.herokuapp.com/en/mediainfo/filminfo/${media.id}">
                                                                 <div class="uk-card uk-card-default uk-grid uk-grid-collapse uk-width-1-1@s search-result">
