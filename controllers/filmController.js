@@ -38,6 +38,7 @@ exports.film_get_info = async function(req, res) {
     if (req.renderObject.user != undefined){
         req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
     }
+    film.filminfo.release_date = hjelpeMetoder.data.lagFinDatoFraDB(film.filminfo.release_date);
     req.renderObject.movieId = JSON.stringify(req.url.slice(10));
     req.renderObject.isMovFav = isMovFav.status;
     req.renderObject.isMovWatched = isMovWatched.status;
