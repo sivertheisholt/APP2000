@@ -9,9 +9,7 @@ const socketRouter = require('../../socket/socketRouter');
 
 exports.makeInformation = async function() {
     const result = await tmdb.data.hentTmdbInformasjon();
-    if(!result.status) {
-        return new ValidationHandler(false, 'Something wrong happen when trying to get tmdb information');
-    }
+    if(!result.status) return result;
     return new ValidationHandler(true, result.information);
 }
 
