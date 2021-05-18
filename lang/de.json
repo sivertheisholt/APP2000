@@ -101,5 +101,7 @@
 	"ABOUT_CONTACT_TITLE": "Titel",
 	"ABOUT_CONTACT_EMAIL": "E-mail",
 	"ABOUT_CONTACT_MESSAGE": "Botschaft",
-	"MEDIAINFO_SHARE_BTN": "Auf Facebook teilen"
+	"MEDIAINFO_SHARE_BTN": "Auf Facebook teilen",
+	"DASHBOARD_SWITCHER_WATCHLIST": "Beobachtungsliste",
+	"DASHBOARD_WATCHLIST_DESC": "Fügen Sie einen Film oder eine Fernsehsendung zu Ihrer Beobachtungsliste hinzu und Sie können sie hier ansehen!"
 }
