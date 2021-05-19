@@ -1,6 +1,7 @@
 const logger = require('../../logging/logger');
 const ValidationHandler = require('../../handling/ValidationHandler');
 const listGetter = require('./listGetter');
+const List = require('../../database/listSchema');
 
 /**
  * Legger til movie i liste
@@ -91,6 +92,24 @@ exports.deleteMovieFromList = async function(listId, movieId) {
 }
 
 /**
+ * Sletter en liste
+ * @param {String} listId 
+ * @returns ValidationHandler
+ * @author Sivert - 233518
+ */
+exports.deleteList = async function(listId) {
+    logger.log({level: 'debug', message: `Deleting list with id: ${list._id}`});
+
+    //Sletter liste
+    const result = await deleteList(listId);
+    if(!result.status) return result;
+
+    //Suksess
+    logger.log({level: 'debug', message: `Successfully deleted list with id: ${list._id}`});
+    return new ValidationHandler(true, 'Successfully deleted list');
+}
+
+/**
  * Oppdatere databasen
  * @param {Object} list
  * @param {Object} options
@@ -99,10 +118,28 @@ exports.deleteMovieFromList = async function(listId, movieId) {
  */
 function updateList(list, options) {
     logger.log({level: 'debug', message: `Updating list with id ${list._id}`});
-    return user.updateOne(options).then((doc, err) => {
+    return List.updateOne(options).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error updating list with options ${options}! ${err}`});
             return new ValidationHandler(false, 'Could not update list');
+        } 
+        logger.log({level: 'info', message: `List with id ${list._id} was successfully updated with options ${options}`});
+        return new ValidationHandler(true, 'List successfully updated');
+    });
+}
+
+/**
+ * Sletter en liste fra databasen
+ * @param {String} listId 
+ * @returns ValidationHandler
+ * @author Sivert - 233518
+ */
+function deleteList(listId) {
+    logger.log({level: 'debug', message: `Deleting list with id: ${list._id}`});
+    return List.deleteOne({_id: listId}).then((doc, err) => {
+        if(err) {
+            logger.log({level: 'error', message: `There was an error updating list with options ${options}! ${err}`});
+            return new ValidationHandler(false, 'Could not delete list');
         } 
         logger.log({level: 'info', message: `List with id ${list._id} was successfully updated with options ${options}`});
         return new ValidationHandler(true, 'List successfully updated');
