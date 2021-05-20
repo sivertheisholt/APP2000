@@ -6,6 +6,13 @@ let tvBookmarkEle = document.getElementById('bookmark-tv-watched');
 let tvidWatched = tvBookmarkEle.getAttribute('data-watched-tvid');
 let bookmarkTvImg = document.getElementById('bookmark-tv-img');
 
+let serieinfoUserList = document.getElementById('serieinfo-options-lists');
+let serieinfoListSelectbox = document.getElementById('serieinfo-user-list');
+let serieinfoListTvId = serieinfoListSelectbox.getAttribute('data-list-tvid');
+let serieinfoListSaveBtn = document.getElementById('save-to-list-btn');
+let serieinfoListResult = document.getElementById('listAddedResult');
+let serieinfoListCancelBtn = document.getElementById('cancel-list-btn');
+
 document.addEventListener('DOMContentLoaded', function () {
     if(isTvFav){
         heartTvImg.src = "/images/icons/heart-filled.png";
@@ -41,4 +48,18 @@ tvBookmarkEle.addEventListener("click", function(){
         bookmarkTvImg.src = "/images/icons/bookmark-filled.png";
         socket.emit('addWatchedTv', tvId);
     }
+});
+
+serieinfoListSaveBtn.addEventListener("click", function(){
+    serieinfoUserList.style.display = 'none';
+    let selectedList = serieinfoListSelectbox.options[serieinfoListSelectbox.selectedIndex].getAttribute('data-list-id');
+    if(selectedList !== null){
+        socket.emit('addTvToList', {tvid: serieinfoListTvId, listid: selectedList});
+    } else {
+        console.log("Select a list");
+    }
+}); 
+
+socket.on('displayMovieList', function(result){
+    serieinfoListResult.innerHTML = result.information;
 });

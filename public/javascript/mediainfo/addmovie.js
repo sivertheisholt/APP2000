@@ -6,6 +6,12 @@ let movieEleBookmark = document.getElementById('bookmark-movie-watched');
 let movieidWatched = movieEleBookmark.getAttribute('data-watched-movieid');
 let bookmarkMovieImg = document.getElementById('bookmark-movie-img');
 
+let filminfoUserList = document.getElementById('filminfo-options-lists');
+let filminfoListSelectbox = document.getElementById('filminfo-user-list');
+let filminfoListMovieId = filminfoListSelectbox.getAttribute('data-list-movieid');
+let filminfoListSaveBtn = document.getElementById('save-to-list-btn');
+let filminfoListResult = document.getElementById('listAddedResult');
+let filminfoListCancelBtn = document.getElementById('cancel-list-btn');
 
 document.addEventListener('DOMContentLoaded', function () {
     if(isMovFav){
@@ -43,3 +49,17 @@ movieEleBookmark.addEventListener("click", function(){
         socket.emit('addWatchedMovie', movieid);
     }
 }); 
+
+filminfoListSaveBtn.addEventListener("click", function(){
+    filminfoUserList.style.display = 'none';
+    let selectedList = filminfoListSelectbox.options[filminfoListSelectbox.selectedIndex].getAttribute('data-list-id');
+    if(selectedList !== null){
+        socket.emit('addMovieToList', {movieid: filminfoListMovieId, listid: selectedList});
+    } else {
+        console.log("Select a list");
+    }
+}); 
+
+socket.on('displayMovieList', function(result){
+    filminfoListResult.innerHTML = result.information;
+});

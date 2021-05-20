@@ -6,11 +6,22 @@ const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
 const watchedCreater = require('../systems/watchedSystem/watchedCreater');
 const ValidationHandler = require('../handling/ValidationHandler');
-
+const listGetter = require('../systems/listSystem/listGetter');
 
 exports.film_get_info = async function(req, res) {
     let isMovFav = new ValidationHandler(false, "");
     let isMovWatched = new ValidationHandler(false, "");
+    let userMediaList = [];
+    if(req.renderObject.user){
+        for(let i = 0; i < req.renderObject.user.lists.length; i++){
+            let userLists = await listGetter.getListFromId(req.renderObject.user.lists[i]);
+            let tempObj = {
+                id: userLists.information.id,
+                name: userLists.information.name
+            }
+            userMediaList.push(tempObj);
+        }
+    }
 
     logger.log({level: 'debug', message: 'Getting castinfo..'});
     let castinfolet = await tmdb.data.getMovieCastByID(req.url.slice(10));
@@ -42,6 +53,7 @@ exports.film_get_info = async function(req, res) {
     req.renderObject.movieId = JSON.stringify(req.url.slice(10));
     req.renderObject.isMovFav = isMovFav.status;
     req.renderObject.isMovWatched = isMovWatched.status;
+    req.renderObject.userMediaList = userMediaList;
     res.render("mediainfo/filminfo", req.renderObject)
 }
 

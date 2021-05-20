@@ -6,6 +6,7 @@ const userHandler = require('../handling/userHandler')
 const logger = require('../logging/logger')
 const watchedCreater = require('../systems/watchedSystem/watchedCreater');
 const ValidationHandler = require('../handling/ValidationHandler');
+const listGetter = require('../systems/listSystem/listGetter');
 
 exports.tv_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Getting castinfo..'});
@@ -15,8 +16,17 @@ exports.tv_get_info = async function(req, res) {
     let isTvFav = new ValidationHandler(false, "");
     let isTvWatched = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
-
-    console.log(res.locals.tvInfo);
+    let userMediaList = [];
+    if(req.renderObject.user){
+        for(let i = 0; i < req.renderObject.user.lists.length; i++){
+            let userLists = await listGetter.getListFromId(req.renderObject.user.lists[i]);
+            let tempObj = {
+                id: userLists.information.id,
+                name: userLists.information.name
+            }
+            userMediaList.push(tempObj);
+        }
+    }
     let serie = {
         serieinfo: res.locals.tvInfo,
         castinfo: castinfolet,
@@ -39,6 +49,7 @@ exports.tv_get_info = async function(req, res) {
     if (req.renderObject.user != undefined){
         req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
     }
+    req.renderObject.userMediaList = userMediaList;
     req.renderObject.tvId = JSON.stringify(req.url.slice(11));
     req.renderObject.isTvFav = JSON.stringify(isTvFav.status);
     req.renderObject.isTvWatched = JSON.stringify(isTvWatched.status);

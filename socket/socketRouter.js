@@ -40,8 +40,10 @@ const sockets = {
     makeAMovieReview: movieReview,
     makeATvReview: tvReview,
     editReview: admin.editReview,
+    addMovieToList: list.add_movie_to_list,
+    addTvToList: list.add_tv_to_list,
+    newList: list.list_new,
     submitQuote: quote.submitQuoteMovie,
-    newList: list.list_new
 }
 
 /**

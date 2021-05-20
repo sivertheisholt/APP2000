@@ -70,6 +70,22 @@ body
                   if !username
                     .bottom
                       p Log in to add this to your watchlist
+                a(href='#add-list-modal' id="list-tv-add" data-list-tvid=`${serie.serieinfo.id}` uk-toggle='').tooltip
+                  p(class="uk-text-small uk-text-bold") Add to list
+                  if !username
+                    .bottom
+                      p Log in to add this to your watchlist
+                #add-list-modal.uk-flex-top(uk-modal='')
+                  .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
+                    h2.uk-modal-title Add movie to list
+                    select(id="serieinfo-user-list" data-list-tvid=`${serie.serieinfo.id}`).uk-select
+                      option(selected='selected' id='serieinfo-options-lists') Select list
+                          each item in userMediaList
+                              option(id='serieinfo-list-select' data-list-id=`${item.id}`) #{item.name}
+                    p.uk-text-right
+                      p(id='listAddedResult')
+                      button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') Cancel
+                      button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') Save
               - if(serie.serieinfo.first_air_date != undefined || serie.serieinfo.last_air_date != undefined || serie.serieinfo.first_air_date != null || serie.serieinfo.last_air_date != null)
                 h3= `${serie.serieinfo.first_air_date.substring(0,4)} - ${serie.serieinfo.last_air_date.substring(0,4)} ${genres}`
               .close
@@ -179,4 +195,3 @@ body
     include ../includes/footer.pug
     script(src="/javascript/mediainfo/addtv.js")
     script(src="/javascript/mediainfo/makeTvReview.js")
-    script(src="/javascript/mediainfo/addquotetv.js")
