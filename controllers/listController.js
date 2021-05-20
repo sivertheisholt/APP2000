@@ -7,6 +7,10 @@ const tvHandler = require('../handling/tvHandler');
 
 //Liste med lister her
 exports.list_get = async function(req, res) {
+
+    let lists = [];
+
+    
     res.render("list/lists", req.renderObject);
 }
 
