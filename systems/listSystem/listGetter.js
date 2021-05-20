@@ -18,6 +18,19 @@ exports.getListFromId = async function(listId) {
 }
 
 /**
+ * Skaffer alle lister fra databasen
+ * @returns ValidationHandler
+ * @author Sivert - 233518 
+*/
+exports.getAllLists = async function() {
+    logger.log({level: 'debug', message: `Getting all lists from database`})
+
+    //Skaffer lister
+    const result = await ListModel.find({});
+    return new ValidationHandler(true, result);
+}
+
+/**
  * Sjekker resultat fra database
  * @param {Object} result 
  * @param {String|Number} id 
