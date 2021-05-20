@@ -1,13 +1,22 @@
 - var lists = lists;
+script.
+    let userId = !{userId};
+    var urlPath = {urlPath};
 p #{__("DASHBOARD_LISTS_TITLE")}
-    .uk-grid.uk-width-1-1
-        .uk-grid.uk-child-width-1-3.uk-grid-match
-            each item in lists
-                a(href=`/${urlPath}/list/lists/${item.id}`)
-                    .uk-card.uk-card-default.dashboard-favorite-padding
-                        .uk-card-media-top
-                            img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
-                        .uk-card-body
-                            h3.uk-card-title= item.name
-                            p= `Movies: ${item.movies.length}`
-                            p= `Shows: ${item.tvs.length}`
+    .uk-inline
+        .uk-flex
+            button.uk-button.uk-button-default.uk-margin-right#newList #{__("NEW_LIST_BUTTON")}
+            input.uk-input(type='text' name='username' placeholder=`navn` id="newListName")
+    .uk-margin 
+        .uk-grid.uk-width-1-1
+            .uk-grid.uk-child-width-1-3.uk-grid-match
+                #lists
+                    each item in lists
+                        a(href=`/${urlPath}/list/${item.id}`)
+                            .uk-card.uk-card-default.dashboard-favorite-padding
+                                .uk-card-media-top
+                                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
+                                .uk-card-body
+                                    h3.uk-card-title= item.name
+                                    p= `Movies: ${item.movies.length}`
+                                    p= `Shows: ${item.tvs.length}`
