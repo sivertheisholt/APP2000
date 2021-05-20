@@ -5,7 +5,7 @@ const listEditor = require('../systems/listSystem/listEditor');
 exports.list_new = async function(socket, info) {
     const userResult = await userHandler.getUserFromId(info.userId);
     const result = await listCreater.createList(userResult.information, info.name);
-    socket.emit('newListResult', userResult.information.lists[userResult.information.lists.length]);
+    socket.emit('newListResult', userResult.information.lists[userResult.information.lists.length-1]);
 }
 
 exports.add_movie_to_list = async function(socket, list) {
