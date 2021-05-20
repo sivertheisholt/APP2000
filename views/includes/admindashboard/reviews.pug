@@ -2,97 +2,97 @@
 .admin-dashboard-container
     ul(uk-accordion='multiple: true' id='admin-review-accordion')
         li
-            a.uk-accordion-title(href='#') Approval
+            a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_REVIEWS_APPROVAL")}
             .uk-accordion-content
                 .uk-card.uk-card-default.uk-card-small.uk-margin.uk-flex.uk-flex-column.uk-margin-auto(class='uk-width-1-2@m')
                     .uk-card-header.uk-text-center
-                        p Enter review id
+                        p #{__("ADMIN_DASHBOARD_REVIEWS_APPROVAL_DESC_ONE")}
                         input.uk-input.uk-form-width-medium(type='text' placeholder='ReviewID' id='admin-review-id' )
                     .uk-card-body.uk-text-center
-                        p Reason for denial
+                        p #{__("ADMIN_DASHBOARD_REVIEWS_APPROVAL_DESC_TWO")}
                         textarea(id='admin-review-denial-reason' rows='4' cols='20')
                     .uk-card-body.uk-margin.uk-flex.uk-flex-column.uk-width-1-1
-                            button.uk-button.uk-button-default.uk-button-small.admin_green_btn(type='submit' id='admin-review-approve') Approve
-                            button.uk-button.uk-button-default.uk-button-small.uk-margin-top.admin_red_btn(type='submit' id='admin-review-deny') Deny
+                            button.uk-button.uk-button-default.uk-button-small.admin_green_btn(type='submit' id='admin-review-approve') #{__("ADMIN_DASHBOARD_REVIEWS_APPROVAL_BTN_ONE")}
+                            button.uk-button.uk-button-default.uk-button-small.uk-margin-top.admin_red_btn(type='submit' id='admin-review-deny') #{__("ADMIN_DASHBOARD_REVIEWS_APPROVAL_BTN_TWO")}
                     #admin-review-output
                 each item in pendingReviews
                     .uk-card.uk-card-default.uk-margin(class='uk-width-1-1@m' id=item.reviewId)
                         .uk-card-header.admin-review-header
                             .uk-grid-small.uk-flex-middle(uk-grid='')
                                 .uk-width-expand.uk-grid
-                                    h3.uk-margin-remove-bottom Mediaid:
+                                    h3.uk-margin-remove-bottom #{__("ADMIN_DASHBOARD_REVIEWS_MEDIAID")}:
                                     if (item.serieId == null)
                                         a(href=`/${urlPath}/mediainfo/filminfo/${item.movieId}`)
                                             h3.uk-card-title.uk-margin-remove-bottom= item.movieId
                                     if (item.filmId == null)
                                         a(href=`/${urlPath}/mediainfo/serieinfo/${item.tvId}`)
                                             h3.uk-card-title.uk-margin-remove-bottom= item.tvId
-                                    h3.uk-text-small.uk-margin-remove-bottom.uk-align-right ReviewId:
+                                    h3.uk-text-small.uk-margin-remove-bottom.uk-align-right #{__("ADMIN_DASHBOARD_REVIEWS_REVIEWID")}:
                                         p.uk-text-meta.uk-margin-remove-bottom.uk-align-right.reviewIdApprovalClass= item.reviewId
                                     p.uk-text-meta.uk-margin-top
                                         p= item.date
                         .uk-card-body.admin-review-body
                             .uk-grid
-                                p.uk-text-bold Review:
+                                p.uk-text-bold #{__("ADMIN_DASHBOARD_REVIEWS_CURRENT_REVIEW")}:
                                 p= item.text
                             .uk-grid
-                                p.uk-text-bold Given rating:
+                                p.uk-text-bold #{__("ADMIN_DASHBOARD_REVIEWS_CURRENT_RATING")}:
                                 p= item.rating
         li
-            a.uk-accordion-title(href='#') Edit
+            a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_REVIEWS_EDIT")}
             .uk-accordion-content
                 .uk-text-center
                     #admin-edit-result
                 #admin-edit-get-review-form
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
-                            label(for="movie") Movie
+                            label(for="movie") #{__("ADMIN_DASHBOARD_REVIEWS_RADIO_BTN_MOVIE")}
                             input(class="uk-radio uk-margin-right" type='radio' name="admin-review-edit-media-type" value="movie")
-                            label(for="tv") Tv
+                            label(for="tv") #{__("ADMIN_DASHBOARD_REVIEWS_RADIO_BTN_TV")}
                             input(class="uk-radio" type='radio' name="admin-review-edit-media-type" value="tv")
-                            p.uk-text-bolder Enter movie/tv id
+                            p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_ENTERID_DESC")}
                             input.uk-input.uk-form-width-medium(type='text' placeholder='Movie/Tv ID' id='admin-review-edit-media-id' )
                         .uk-card-body.uk-text-center
                             button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-edit-get') Get
                 #admin-edit-edit-review-form
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
-                            p.uk-text-bolder Enter review id
+                            p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_EDIT_REVIEWID")}
                             input.uk-input.uk-form-width-medium(type='text' placeholder='ReviewID' id='admin-review-edit-reviewid' )
                         .uk-card-body.uk-text-center
-                            p.uk-text-bolder New Rating(1-5)
+                            p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_EDIT_NEW_RATING")}
                             input.uk-input.uk-form-width-medium(type='text' placeholder='Rating' id='admin-review-edit-new-rating' )
                         .uk-card-body.uk-grid.uk-width-1-1.uk-margin-auto.uk-text-center
-                            p.uk-text-bolder New text
+                            p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_EDIT_NEW_TEXT")}
                             textarea.remove-padding(id='admin-review-edit-new-text' rows='6' cols='50')
                         .uk-card-body.uk-text-center
-                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-edit-btn') Submit
-                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-edit-cancel') Cancel
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-edit-btn') #{__("BUTTON_SUBMIT")}
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-edit-cancel') #{__("BUTTON_CANCEL")}
                 #admin-edit-reviews-list
         li
-            a.uk-accordion-title(href='#') Delete
+            a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_REVIEWS_DELETE")}
             .uk-accordion-content
                 .uk-text-center
                     #admin-delete-review-result
                 #admin-delete-get-review-form
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
-                            label(for="movie") Movie
+                            label(for="movie") #{__("ADMIN_DASHBOARD_REVIEWS_RADIO_BTN_MOVIE")}
                             input(class="uk-radio uk-margin-right" type='radio' name="admin-review-delete-mediatype" value="movie")
-                            label(for="tv") Tv
+                            label(for="tv") #{__("ADMIN_DASHBOARD_REVIEWS_RADIO_BTN_TV")}
                             input(class="uk-radio" type='radio' name="admin-review-delete-mediatype" value="tv")
-                            p.uk-text-bolder Enter movie/tv id
+                            p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_ENTERID_DESC")}
                             input.uk-input.uk-form-width-medium(type='text' placeholder='Movie/Tv ID' id='admin-review-delete-media-id' )
                         .uk-card-body.uk-text-center
-                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-get') Get
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-get') #{__("BUTTON_GET")}
                         .uk-text-center
                             #admin-delete-review-result
                 #admin-delete-review-form
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
-                            p.uk-text-bolder Enter review id
+                            p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_ENTERID_DESC")}
                             input.uk-input.uk-form-width-medium(type='text' placeholder='ReviewID' id='admin-review-delete-reviewid' )
                         .uk-card-body.uk-text-center
-                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-btn') Delete
-                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-cancel') Cancel
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-btn') #{__("BUTTON_DELETE")}
+                            button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-cancel') #{__("BUTTON_CANCEL")}
                 #admin-delete-reviews-list
