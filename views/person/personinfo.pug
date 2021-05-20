@@ -28,7 +28,7 @@ body
             div(uk-grid='').film_oversikt
                 // Poster image
                 .uk-width-1-2.uk-flex-middle.filminfo_img
-                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${person.personinfo.profile_path}` alt='')
+                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${person.personinfo.profile_path}` onerror="this.onerror=null; this.src='/images/imgactors/default_actor_page.png'" alt='')
                 // Informasjon on film
                 .uk-width-1-2
                     .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
