@@ -8,10 +8,15 @@ const tvHandler = require('../handling/tvHandler');
 //Liste med lister her
 exports.list_get = async function(req, res) {
 
-    let lists = [];
-
-    
+    //let lists = [];
+    let lists = await listGetter.getAllLists.information.;
+    console.log(lists);
+    //for (const list of lists){
+    //    console.log(list);
+    //}
+    req.renderObject.lists = lists;
     res.render("list/lists", req.renderObject);
+
 }
 
 //En liste som skal vises
