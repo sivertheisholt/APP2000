@@ -15,6 +15,11 @@ exports.addMovieToList = async function(listId, movieId) {
 
     //Skaffer liste
     const list = await listGetter.getListFromId(listId);
+
+    //Sjekker om film er i liste allerede
+    for(const movie of list.movies) {
+        if(movie == movieId) return new ValidationHandler(false, 'Movie already exists in list!');
+    }
     
     //Oppdaterer liste
     const updateResult = await updateList(list, {$push: {movies: movieId}});
@@ -37,6 +42,11 @@ exports.addTvToList = async function(listId, tvId) {
 
     //Skaffer liste
     const list = await listGetter.getListFromId(listId);
+    
+    //Sjekker om serie er i liste allerede
+    for(const tv of list.tvs) {
+        if(tv == tvId) return new ValidationHandler(false, 'Tv already exists in list!');
+    }
     
     //Oppdaterer liste
     const updateResult = updateList(list, {$push: {tvs: tvId}});
