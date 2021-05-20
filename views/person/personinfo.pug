@@ -80,7 +80,7 @@ body
                             .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
                                 .uk-card-media-left.uk-cover-container
                                     a(href=`/${urlPath}/mediainfo/filminfo/${item.id}`)
-                                        img(src=`https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces${item.poster_path}` alt='' uk-cover='')
+                                        img(src=`https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces${item.poster_path}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='' uk-cover='')
                                     canvas(width='600' height='400')
                                 div
                                     .uk-card-body
@@ -100,7 +100,7 @@ body
                             .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
                                 .uk-card-media-left.uk-cover-container
                                     a(href=`/${urlPath}/mediainfo/serieinfo/${item.id}`)
-                                        img(src=`https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces${item.poster_path}` alt='' uk-cover='')
+                                        img(src=`https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces${item.poster_path}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='' uk-cover='')
                                     canvas(width='600' height='400')
                                 div
                                     .uk-card-body
