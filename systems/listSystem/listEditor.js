@@ -17,7 +17,7 @@ exports.addMovieToList = async function(listId, movieId) {
     const list = await listGetter.getListFromId(listId);
 
     //Sjekker om film er i liste allerede
-    for(const movie of list.movies) {
+    for(const movie of list.information.movies) {
         if(movie == movieId) return new ValidationHandler(false, 'Movie already exists in list!');
     }
     
@@ -44,7 +44,7 @@ exports.addTvToList = async function(listId, tvId) {
     const list = await listGetter.getListFromId(listId);
     
     //Sjekker om serie er i liste allerede
-    for(const tv of list.tvs) {
+    for(const tv of list.information.tvs) {
         if(tv == tvId) return new ValidationHandler(false, 'Tv already exists in list!');
     }
     
