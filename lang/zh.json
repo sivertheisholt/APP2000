@@ -138,5 +138,12 @@
 	"ADMIN_DASHBOARD_USERS_BAN_UNBAN": "禁止/取消禁止",
 	"ADMIN_DASHBOARD_USERS_EMAIL": "输入用户的电子邮件",
 	"BUTTON_BAN": "禁止",
-	"BUTTON_UNBAN": "取消禁令"
+	"BUTTON_UNBAN": "取消禁令",
+	"DASHBOARD_SWITCHER_LISTS": "我的清单",
+	"DASHBOARD_LISTS_TITLE": "我的清单",
+	"MEDIA_MODAL_LIST_TITLE": "新增至清单",
+	"MEDIA_MODAL_LIST_SELECT": "选择清单",
+	"MEDIA_TOOLTIP_FAVORITES": "登录以将其添加到收藏夹",
+	"MEDIA_TOOLTIP_WATCHLIST": "登录以将此添加到您的监视列表",
+	"MEDIA_TOOLTIP_LIST": "登录以将此添加到您的列表"
 }

@@ -138,5 +138,12 @@
 	"ADMIN_DASHBOARD_USERS_BAN_UNBAN": "Запретить / Разбанить",
 	"ADMIN_DASHBOARD_USERS_EMAIL": "Введите адрес электронной почты пользователя",
 	"BUTTON_BAN": "Запретить",
-	"BUTTON_UNBAN": "Разбанить"
+	"BUTTON_UNBAN": "Разбанить",
+	"DASHBOARD_SWITCHER_LISTS": "Мои списки",
+	"DASHBOARD_LISTS_TITLE": "Мои списки",
+	"MEDIA_MODAL_LIST_TITLE": "Добавить в список",
+	"MEDIA_MODAL_LIST_SELECT": "Выбрать список",
+	"MEDIA_TOOLTIP_FAVORITES": "Авторизуйтесь, чтобы добавить это в избранное",
+	"MEDIA_TOOLTIP_WATCHLIST": "Войдите, чтобы добавить это в свой список наблюдения",
+	"MEDIA_TOOLTIP_LIST": "Авторизуйтесь, чтобы добавить это в свой список"
 }

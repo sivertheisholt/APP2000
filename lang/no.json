@@ -140,5 +140,13 @@
 	"ADMIN_DASHBOARD_USERS_BAN_UNBAN": "Ban/Unban",
 	"ADMIN_DASHBOARD_USERS_EMAIL": "Skriv email til bruker",
 	"BUTTON_BAN": "Ban",
-	"BUTTON_UNBAN": "Unban"
+	"BUTTON_UNBAN": "Unban",
+	"NEW_LIST_BUTTON": "Ny",
+	"DASHBOARD_SWITCHER_LISTS": "Min Liste",
+	"DASHBOARD_LISTS_TITLE": "Min Liste",
+	"MEDIA_MODAL_LIST_TITLE": "Legg til en liste",
+	"MEDIA_MODAL_LIST_SELECT": "Velg liste",
+	"MEDIA_TOOLTIP_FAVORITES": "Logg inn for å legge denne til dine favoritter",
+	"MEDIA_TOOLTIP_WATCHLIST": "Logg inn for å legge denne til din liste over sette filmer og serier",
+	"MEDIA_TOOLTIP_LIST": "Logg inn for å legge denne til dine lister"
 }

@@ -140,5 +140,13 @@
 	"ADMIN_DASHBOARD_USERS_BAN_UNBAN": "Ban/Unban",
 	"ADMIN_DASHBOARD_USERS_EMAIL": "Geben Sie die E-Mail-Adresse des Benutzers ein",
 	"BUTTON_BAN": "Ban",
-	"BUTTON_UNBAN": "Unban"
+	"BUTTON_UNBAN": "Unban",
+	"NEW_LIST_BUTTON": "Neu",
+	"DASHBOARD_SWITCHER_LISTS": "Meine Listen",
+	"DASHBOARD_LISTS_TITLE": "Meine Listen",
+	"MEDIA_MODAL_LIST_TITLE": "Einer Liste hinzufügen",
+	"MEDIA_MODAL_LIST_SELECT": "Liste auswählen",
+	"MEDIA_TOOLTIP_FAVORITES": "Melden Sie sich an, um dies zu Ihren Favoriten hinzuzufügen",
+	"MEDIA_TOOLTIP_WATCHLIST": "Melden Sie sich an, um dies Ihrer Beobachtungsliste hinzuzufügen",
+	"MEDIA_TOOLTIP_LIST": "Melden Sie sich an, um dies Ihrer Liste hinzuzufügen"
 }
