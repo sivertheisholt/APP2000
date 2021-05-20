@@ -2,43 +2,42 @@
 .admin-dashboard-container
     ul(uk-accordion='multiple: true')
         li
-            a.uk-accordion-title(href='#') Add
+            a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_LANGUAGE_ADD")}
             .uk-accordion-content
                 form(action=`/${urlPath}/admin/addlanguage` method='post')
                     .uk-margin
-                        p Name of the language translated(e.g. if you are translating swedish, the original name is Svenska)
+                        p #{__("ADMIN_DASHBOARD_LANGUAGE_ADD_DESC_ONE")}
                         input.uk-input.uk-form-width-medium(type='text' name='admindashlangoriginalname' placeholder='Original name')
                     .uk-margin
-                        p Name of the language in english(e.g. if you are translating swedish, the name is swedish)
+                        p #{__("ADMIN_DASHBOARD_LANGUAGE_ADD_DESC_TWO")}
                         input.uk-input.uk-form-width-medium(type='text' name='admindashlangname' placeholder='Name')
                     .uk-margin
-                        p Language code of the language(e.g. if you are translating swedish, the code is se)
+                        p #{__("ADMIN_DASHBOARD_LANGUAGE_ADD_DESC_THREE")}
                         input.uk-input.uk-form-width-medium(type='text' name='admindashlangcode' placeholder='Language code')
                     button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_SAVE")}
 
         li
-            a.uk-accordion-title(href='#') Edit
+            a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_LANGUAGE_EDIT")}
             .uk-accordion-content
                 form
-                    p Choose which language to edit
+                    p #{__("ADMIN_DASHBOARD_LANGUAGE_EDIT_DESC_ONE")}
                     fieldset.uk-fieldset
                         legend.uk-legend
                         .uk-margin
                             select(id="admin-lang-selectbox-edit" name='hello' onchange='getLang()').uk-select
-                                option(selected='selected' id='admin-lang-option-desc') Select language
+                                option(selected='selected' id='admin-lang-option-desc') #{__("ADMIN_DASHBOARD_LANGUAGE_EDIT_DESC_TWO")}
                                     each item in langs
                                         option(id='admindash-lang-select' data-lang-id=`${item.id}`) #{item.name}
                         .uk-margin
                             textarea#admin-lang-textarea-content(rows='40' cols='125' style='display: none;')
                         button.uk-button.uk-button-default.uk-margin-right(type='submit' id='admin-lang-save-btn') #{__("BUTTON_SAVE")}
                         button.uk-button.uk-button-default.uk-margin-right(id='admin-lang-cancle-btn') #{__("BUTTON_CANCEL")}
-                                
-
+                        
         li
-            a.uk-accordion-title(href='#') Delete
+            a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_LANGUAGE_DELETE")}
             .uk-accordion-content
                 form(action=`/${urlPath}/admin/deletelanguage` method='post')
                     .uk-margin
-                        p Type the language you wish to delete
+                        p #{__("ADMIN_DASHBOARD_LANGUAGE_DELETE_DESC_ONE")}
                         input.uk-input.uk-form-width-medium(type='text' name='admindashlangdelete' placeholder='Language name')
                     button.uk-button.uk-button-default.uk-margin-right(type='submit' id='admin-lang-delete-btn') #{__("BUTTON_DELETE")}

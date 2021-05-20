@@ -2,14 +2,14 @@
 .admin-dashboard-container    
     ul(uk-accordion='multiple: true')
         li
-            a.uk-accordion-title(href='#') Tickets
+            a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_SUPPORT_TICKETS")}
             .uk-accordion-content
                 .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                     .uk-card-header.uk-text-center
-                        p.uk-text-bolder Enter ticket id
+                        p.uk-text-bolder #{__("ADMIN_DASHBOARD_SUPPORT_TICKETID")}
                         input.uk-input.uk-form-width-medium(type='text' placeholder='TicketID' id='admin-ticket-id' )
                     .uk-card-body.uk-text-center
-                        p.uk-text-bolder Response to ticket
+                        p.uk-text-bolder #{__("ADMIN_DASHBOARD_SUPPORT_TICKET_RESPONSE")}
                     .uk-grid.uk-width-1-1.uk-margin-auto.remove-padding
                         textarea.uk-margin-auto.remove-padding(id='admin-ticket-response' rows='6' cols='50')
                     .uk-card-body.uk-text-center
@@ -21,12 +21,12 @@
                             .uk-grid-small.uk-flex-middle(uk-grid='')
                                 .uk-grid.uk-margin-auto.uk-width-1-1
                                     .test.uk-text-center(class='uk-width-1-2@m')
-                                        p.uk-margin-remove-bottom.uk-text-bolder TicketID:
+                                        p.uk-margin-remove-bottom.uk-text-bolder #{__("ADMIN_DASHBOARD_SUPPORT_TICKET_DESC1")}
                                         p.uk-margin-bottom.letter-break= item.ticketId
                                     .test.uk-text-center(class='uk-width-1-2@m')
-                                        p.uk-margin-remove-bottom.uk-text-bolder From:
+                                        p.uk-margin-remove-bottom.uk-text-bolder #{__("ADMIN_DASHBOARD_SUPPORT_TICKET_DESC2")}
                                         p.uk-margin-bottom.letter-break= item.mail
                         .uk-card-body.admin-review-body
                             .uk-grid
-                                p.uk-text-bold Case:
+                                p.uk-text-bold #{__("ADMIN_DASHBOARD_SUPPORT_TICKET_DESC3")}
                                 p= item.text

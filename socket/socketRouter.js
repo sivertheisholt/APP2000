@@ -7,6 +7,7 @@ const admin = require('./admin');
 const movieReview = require('./makeAMovieReview');
 const tvReview = require('./makeATvReview');
 const quote = require('./quote');
+const list = require('./list');
 
 const sockets = {
     disconnect: disconnect,
@@ -39,7 +40,8 @@ const sockets = {
     makeAMovieReview: movieReview,
     makeATvReview: tvReview,
     editReview: admin.editReview,
-    submitQuote: quote.submitQuoteMovie
+    submitQuote: quote.submitQuoteMovie,
+    newList: list.list_new
 }
 
 /**

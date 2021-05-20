@@ -1,14 +1,14 @@
 .admin-dashboard-container
     ul(uk-accordion='multiple: true')
         li
-            a.uk-accordion-title(href='#') Ban/Unban
+            a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_USERS_BAN_UNBAN")}
             .uk-accordion-content
                 .uk-card.uk-card-default.uk-card-small.uk-margin.uk-flex.uk-flex-column.uk-margin-auto(class='uk-width-1-2@m')
                     .uk-card-header.uk-text-center
-                        p Enter email of user
+                        p #{__("ADMIN_DASHBOARD_USERS_EMAIL")}
                         input.uk-input.uk-form-width-medium(type='text' placeholder='Email' id='admin-user-email' )
                     .uk-card-body.uk-margin.uk-flex.uk-flex-column.uk-width-1-1
-                            button.uk-button.uk-button-default.uk-button-small.admin_btn(type='submit' id='admin-user-ban') Ban
-                            button.uk-button.uk-button-default.uk-button-small.uk-margin-top.admin_btn(type='submit' id='admin-user-unban') Unban
+                            button.uk-button.uk-button-default.uk-button-small.admin_btn(type='submit' id='admin-user-ban') #{__("BUTTON_BAN")}
+                            button.uk-button.uk-button-default.uk-button-small.uk-margin-top.admin_btn(type='submit' id='admin-user-unban') #{__("BUTTON_UNBAN")}
                     .uk-text-center.uk-text-meta
                         #admin-user-output
