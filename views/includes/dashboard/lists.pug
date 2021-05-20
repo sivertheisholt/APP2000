@@ -9,14 +9,13 @@ p #{__("DASHBOARD_LISTS_TITLE")}
             input.uk-input(type='text' name='username' placeholder=`navn` id="newListName")
     .uk-margin 
         .uk-grid.uk-width-1-1
-            .uk-grid.uk-child-width-1-3.uk-grid-match
-                #lists
-                    each item in lists
-                        a(href=`/${urlPath}/list/${item.id}`)
-                            .uk-card.uk-card-default.dashboard-favorite-padding
-                                .uk-card-media-top
-                                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
-                                .uk-card-body
-                                    h3.uk-card-title= item.name
-                                    p= `Movies: ${item.movies.length}`
-                                    p= `Shows: ${item.tvs.length}`
+            .uk-grid.uk-child-width-1-3.uk-grid-match#lists
+                each item in lists
+                    a(href=`/${urlPath}/list/${item.id}`)
+                        .uk-card.uk-card-default.dashboard-favorite-padding
+                            .uk-card-media-top
+                                img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
+                            .uk-card-body
+                                h3.uk-card-title= item.name
+                                p= `Movies: ${item.movies.length}`
+                                p= `Shows: ${item.tvs.length}`
