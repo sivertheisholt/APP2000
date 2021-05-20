@@ -14,6 +14,8 @@ body
                     li
                         a(href='') #{__("DASHBOARD_SWITCHER_WATCHLIST")}
                     li
+                        a(href='') #{__("DASHBOARD_SWITCHER_LISTS")}
+                    li
                         a(href='') #{__("DASHBOARD_SWITCHER_STATISTICS")}
                     li
                         a(href='') #{__("DASHBOARD_SWITCHER_PROFILE")}
@@ -25,6 +27,8 @@ body
                         include ../includes/dashboard/favorites.pug
                     li
                         include ../includes/dashboard/watchlist.pug
+                    li
+                        include ../includes/dashboard/lists.pug
                     li
                         include ../includes/dashboard/statistics.pug
                     li

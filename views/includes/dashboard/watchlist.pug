@@ -17,7 +17,7 @@ p #{__("DASHBOARD_WATCHLIST_DESC")}
                         a(href=`/${urlPath}/mediainfo/${item.type == 'tv' ? 'serieinfo' : 'filminfo'}/${item.id}`)
                             .uk-card.uk-card-default.dashboard-favorite-padding
                                 .uk-card-media-top
-                                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')
+                                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
                                 .uk-card-body
                                     h3.uk-card-title= item.title
                                     p= item.releaseDate
@@ -28,7 +28,7 @@ p #{__("DASHBOARD_WATCHLIST_DESC")}
                         a(href=`/${urlPath}/mediainfo/filminfo/${item.id}`)
                             .uk-card.uk-card-default.dashboard-favorite-padding
                                 .uk-card-media-top
-                                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')
+                                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
                                 .uk-card-body
                                     h3.uk-card-title= item.title
                                     p= item.releaseDate
@@ -39,7 +39,7 @@ p #{__("DASHBOARD_WATCHLIST_DESC")}
                         a(href=`/${urlPath}/mediainfo/serieinfo/${item.id}`)
                             .uk-card.uk-card-default.dashboard-favorite-padding
                                 .uk-card-media-top
-                                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` alt='')
+                                    img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
                                 .uk-card-body
                                     h3.uk-card-title= item.title
                                     p= item.releaseDate
