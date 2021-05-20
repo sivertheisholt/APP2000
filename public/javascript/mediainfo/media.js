@@ -40,7 +40,7 @@ document.querySelectorAll('.media-genre-list ul a').forEach(item => {
 socket.on('displayFilteredMedia', function(args){
     currentMediaDisplayed = args;
     document.getElementById('mediaCard').innerHTML = "";
-    for(let i = 0; i < 16; i++){
+    for(let i = 0; i < args.length; i++){
         document.getElementById('mediaCard').innerHTML += mediaCard(args[i]);
     }
     postsToShowOnClick = 16;
