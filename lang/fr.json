@@ -138,5 +138,13 @@
 	"ADMIN_DASHBOARD_USERS_BAN_UNBAN": "Interdire / Annuler l'exclusion",
 	"ADMIN_DASHBOARD_USERS_EMAIL": "Entrez l'adresse e-mail de l'utilisateur",
 	"BUTTON_BAN": "Interdire",
-	"BUTTON_UNBAN": "Annuler l'exclusion"
+	"BUTTON_UNBAN": "Annuler l'exclusion",
+	"NEW_LIST_BUTTON": "Nouvelle",
+	"DASHBOARD_SWITCHER_LISTS": "Mes listes",
+	"DASHBOARD_LISTS_TITLE": "Mes listes",
+	"MEDIA_MODAL_LIST_TITLE": "Ajouter à une liste++",
+	"MEDIA_MODAL_LIST_SELECT": "Sélectionnez la liste",
+	"MEDIA_TOOLTIP_FAVORITES": "Connectez-vous pour ajouter ceci à vos favoris",
+	"MEDIA_TOOLTIP_WATCHLIST": "Connectez-vous pour l'ajouter à votre liste de surveillance",
+	"MEDIA_TOOLTIP_LIST": "Connectez-vous pour l'ajouter à votre liste"
 }

@@ -106,8 +106,6 @@
 	"ABOUT_CONTACT_EMAIL": "E-mail",
 	"ABOUT_CONTACT_MESSAGE": "Message",
 	"MEDIAINFO_SHARE_BTN": "Share on Facebook",
-	"DASHBOARD_SWITCHER_LISTS": "DASHBOARD_SWITCHER_LISTS",
-	"DASHBOARD_LISTS_TITLE": "DASHBOARD_LISTS_TITLE",
 	"ADMIN_DASHBOARD_MAIN_TITLE": "Administrator Dashboard",
 	"ADMIN_DASHBOARD_SWITCHER_REVIEWS": "Reviews",
 	"ADMIN_DASHBOARD_SWITCHER_LANGUAGES": "Language",
@@ -144,5 +142,13 @@
 	"ADMIN_DASHBOARD_USERS_BAN_UNBAN": "Ban/Unban",
 	"ADMIN_DASHBOARD_USERS_EMAIL": "Enter email of user",
 	"BUTTON_BAN": "Ban",
-	"BUTTON_UNBAN": "Unban"
+	"BUTTON_UNBAN": "Unban",
+	"NEW_LIST_BUTTON": "New",
+	"DASHBOARD_SWITCHER_LISTS": "My Lists",
+	"DASHBOARD_LISTS_TITLE": "My Lists",
+	"MEDIA_MODAL_LIST_TITLE": "Add to a list",
+	"MEDIA_MODAL_LIST_SELECT": "Select list",
+	"MEDIA_TOOLTIP_FAVORITES": "Log in to add this to your favorites",
+	"MEDIA_TOOLTIP_WATCHLIST": "Log in to add this to your watchlist",
+	"MEDIA_TOOLTIP_LIST": "Log in to add this to your list"
 }

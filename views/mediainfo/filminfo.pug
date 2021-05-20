@@ -70,22 +70,22 @@ body
                   img(src='/images/icons/heart-border.png' id='heart-movie-img' width="40" height ="40")
                   if !username
                     .bottom
-                      p Log in to add this to your favorites
+                      p #{__("MEDIA_TOOLTIP_FAVORITES")}
                 a(href='#' id="bookmark-movie-watched" data-watched-movieid=`${film.filminfo.id}`).tooltip
                   img(src='/images/icons/bookmark-border.png' id='bookmark-movie-img' width="40" height ="40")
                   if !username
                     .bottom
-                      p Log in to add this to your watchlist
+                      p #{__("MEDIA_TOOLTIP_WATCHLIST")}
                 a(href='#add-list-modal' id="list-movie-add" data-list-movieid=`${film.filminfo.id}` uk-toggle='').tooltip
                   p(class="uk-text-small uk-text-bold") Add to list
                   if !username
                     .bottom
-                      p Log in to add this to your watchlist
+                      p #{__("MEDIA_TOOLTIP_LIST")}
                 #add-list-modal.uk-flex-top(uk-modal='')
                   .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
-                    h2.uk-modal-title Add movie to list
+                    h2.uk-modal-title #{__("MEDIA_MODAL_LIST_TITLE")}
                     select(id="filminfo-user-list" data-list-movieid=`${film.filminfo.id}`).uk-select
-                      option(selected='selected' id='filminfo-options-lists') Select list
+                      option(selected='selected' id='filminfo-options-lists') #{__("MEDIA_MODAL_LIST_TITLE")}
                           each item in userMediaList
                               option(id='filminfo-list-select' data-list-id=`${item.id}`) #{item.name}
                     p.uk-text-right
