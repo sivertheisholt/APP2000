@@ -17,7 +17,6 @@ exports.renderObject = async function (req, res, next) {
     renderObject.error = undefined
     renderObject.errorType = undefined
     if(req.query.error) {
-        console.log(req.query.error)
         renderObject.error = JSON.stringify(req.query.error);
         renderObject.errorType = JSON.stringify(req.query.errorType);
     }

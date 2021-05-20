@@ -92,6 +92,7 @@ exports.user_get_dashboard = async function(req, res) {
     req.renderObject.movieWatched = movieWatched;
     req.renderObject.allWatched = allWatched;
     req.renderObject.lists = lists;
+    req.renderObject.userId = JSON.stringify(req.session.userId);
     req.renderObject.userStats = JSON.stringify(userStats.information);
     res.render("user/dashboard", req.renderObject);
 }
