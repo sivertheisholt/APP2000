@@ -1,29 +1,40 @@
 include ../includes/head.pug
 include ../includes/nav.pug
-- var lister = lister;
+- var listene = listene;
 body
     .container
         h2 Lister
         ul(uk-accordion='collapsible: false')
-            // each item in lister
-            li
-                a.uk-accordion-title(href='#')=`${"item.name"}`
-                .uk-accordion-content
-                    .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
-                        .uk-card-media-left.uk-cover-container
-                            a(href=`/${urlPath}/list/lists/${"item.id"}`)
-                                img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${"item.pictureUrl"}` onerror="this.onerror=null; this.src='/images/no-poster-default.jpg'" alt='')
-                            canvas(width='600' height='400')
-                        div
-                            .uk-card-body
-                                a(href=`/${urlPath}/list/lists/${"item.id"}`)
-                                    h3.uk-card-title=`${"item.name"}`
-                                p #{__("ACTOR_MOVIE")} 
-                                p=`${"item.character"}`
-                                p=`${"item.release_date"}`
-                                .close
-                                    p #{__("ACTOR_SCORE")}:
-                                    p=`${"item.vote_average*10}%"}`
-                                p=`${"item.overview"}`
+            each item in listene
+                li
+                    a.uk-accordion-title(href='#')=`${"item.name"}`
+                    .uk-accordion-content
+                        .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
+                            .uk-card-media-left.uk-cover-container
+                                a(href=`/${urlPath}/list/lists/${item.listId}`)
+                                    //img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${"item.pictureUrl"}` onerror="this.onerror=null; this.src='/images/no-poster-default.jpg'" alt='')
+                                    .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1' uk-slideshow='animation: fade')
+                                        ul.uk-slideshow-items
+                                            li
+                                            img(src=`/images/no-poster-default.jpg` onerror="this.onerror=null; this.src='/images/no-poster-default.jpg'" alt='')
+                                            li
+                                            img(src=`/images/no-poster-default.jpg` onerror="this.onerror=null; this.src='/images/no-poster-default.jpg'" alt='')
+                                            li
+                                            img(src=`/images/no-poster-default.jpg` onerror="this.onerror=null; this.src='/images/no-poster-default.jpg'" alt='')
+                                        a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
+                                        a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slideshow-item='next')
+
+                                canvas(width='600' height='400')
+                            div
+                                .uk-card-body
+                                    a(href=`/${urlPath}/list/lists/${item.listId}`)
+                                        h3.uk-card-title=`${"item.name"}`
+                                    p #{__("ACTOR_MOVIE")} 
+                                    p=`${"item.character"}`
+                                    p=`${"item.release_date"}`
+                                    .close
+                                        p #{__("ACTOR_SCORE")}:
+                                        p=`${"item.vote_average*10}%"}`
+                                    p=`${"item.overview"}`
 
 include ../includes/footer.pug

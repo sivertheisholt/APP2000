@@ -4,19 +4,27 @@ const ValidationHandler = require('../handling/ValidationHandler');
 const listGetter = require('../systems/listSystem/listGetter');
 const movieHandler = require('../handling/movieHandler');
 const tvHandler = require('../handling/tvHandler');
+const userHandler = require('../handling/userHandler');
 
 //Liste med lister her
 exports.list_get = async function(req, res) {
+    let lister = await listGetter.getAllLists();
+    let listene = [];
+    for (const info of lister.information) {
+        listene.push({
+            listId: info._id,
+            movies: info.movies,
+            tvs: info.tvs,
+            userName: await (await userHandler.getUserFromId(info.userId)).information.username,
+            listName: info.name
+        })
+    }
+    console.log("heiu")
+    console.log(listene)
+    console.log("hei")
 
-    //let lists = [];
-    let lists = await listGetter.getAllLists.information;
-    console.log(lists);
-    //for (const list of lists){
-    //    console.log(list);
-    //}
-    req.renderObject.lists = lists;
+    req.renderObject.listene = listene;
     res.render("list/lists", req.renderObject);
-
 }
 
 //En liste som skal vises
