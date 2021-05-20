@@ -9,7 +9,7 @@ const tvHandler = require('../handling/tvHandler');
 exports.list_get = async function(req, res) {
 
     //let lists = [];
-    let lists = await listGetter.getAllLists.information.;
+    let lists = await listGetter.getAllLists.information;
     console.log(lists);
     //for (const list of lists){
     //    console.log(list);
