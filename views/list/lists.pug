@@ -14,32 +14,32 @@ body
                             .uk-card-media-left.uk-cover-container
                                 a(href=`/${urlPath}/list/lists/${item.listId}`)
                                     .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1' uk-slideshow='autoplay: true')
-                                        ul.uk-slideshow-items
+                                        ul.uk-slideshow-items(id="listslideshow")
                                             - if (item.posters.length != 0)
                                                 each poster in item.posters
                                                     li
                                                         - if (poster != null || poster != undefined)
-                                                            img(data-src=`https:/www.themoviedb.org/t/p/w600_and_h900_bestv2/${poster}` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')
+                                                            img(data-src=`https:/www.themoviedb.org/t/p/w600_and_h900_bestv2/${poster}` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')(id="listslideshow")
                                                         - else
-                                                            img(data-src=`/images/no-poster-default.jpg` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')
+                                                            img(data-src=`/images/filmatory_default_poster.png` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')(id="listslideshow")
                                             - else
                                                 li
-                                                    img(data-src=`/images/no-poster-default.jpg` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')
+                                                    img(data-src=`/images/filmatory_default_poster.png` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')(id="listslideshow")
                                         a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
                                         a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slideshow-item='next')
                             div
                                 .uk-card-body
                                     a(href=`/${urlPath}/list/lists/${item.listId}`)
                                         h3.uk-card-title=`${item.listName}`
-                                    .close
+                                    .closelist
                                         p= "List created by:" 
                                         p=`${item.userName}`
                                     p= ""
-                                    .close
+                                    .closelist
                                         p= "Number of movies:"
                                         p=`${item.numberOfMovies}`
                                     p= ""
-                                    .close
+                                    .closelist
                                         p= "Number of TV shows:"
                                         p=`${item.numberOfTvShows}`
 

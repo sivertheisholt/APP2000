@@ -433,6 +433,30 @@ img.search-image-style{
 }
 
 /*********************************/
+/* lists.pug                     */
+/*********************************/
+
+.closelist h3 {
+  white-space: nowrap;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 40;
+}
+.closelist p {
+  white-space: nowrap;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  font-size: 30px;
+}
+
+#listslideshow{
+  height: 900px;
+}
+#listimage{
+  
+}
+
+/*********************************/
 /* Filminfo.pug / Serieinfo.pug  */
 /*********************************/
 
@@ -450,6 +474,7 @@ img.search-image-style{
   color: gold;
   text-shadow: 1px 1px #bbb;
 }
+
 
 .stars{
   text-align: center;
