@@ -12,9 +12,7 @@ body
                         .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
                             .uk-card-media-left.uk-cover-container
                                 a(href=`/${urlPath}/list/lists/${item.listId}`)
-                                    //img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${"item.pictureUrl"}` onerror="this.onerror=null; this.data-src='/images/no-poster-default.jpg'" alt='')
                                     .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1' uk-slideshow='autoplay: true')
-                                        //- if (item.posters.length != 0)
                                         ul.uk-slideshow-items
                                             - if (item.posters.length != 0)
                                                 each poster in item.posters
@@ -28,7 +26,6 @@ body
                                                     img(data-src=`/images/no-poster-default.jpg` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')
                                         a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
                                         a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slideshow-item='next')
-                                //canvas(width='600' height='100')
                             div
                                 .uk-card-body
                                     a(href=`/${urlPath}/list/lists/${item.listId}`)
