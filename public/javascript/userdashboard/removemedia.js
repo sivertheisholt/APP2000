@@ -1,5 +1,10 @@
-let favMediaCard = document.getElementById('mediaFavoriteCard');
 
+/**
+ * Fjerner en film eller serie fra favoritter.
+ * @param {film/serie id} favId 
+ * @param {movie/tv} type 
+ * @returns 
+ */
 function removeMediaFav(favId, type){
     switch(type){
         case 'movie':
@@ -17,6 +22,12 @@ function removeMediaFav(favId, type){
     }
 }
 
+/**
+ * Fjerner en film eller serie fra watchlist
+ * @param {film/serie id} watchId 
+ * @param {movie/tv} type 
+ * @returns 
+ */
 function removeMediaWatched(watchId, type){
     switch(type){
         case 'movie':
