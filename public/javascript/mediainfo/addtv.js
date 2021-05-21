@@ -55,10 +55,10 @@ serieinfoListSaveBtn.addEventListener("click", function(){
     if(selectedList !== null){
         socket.emit('addTvToList', {tvid: serieinfoListTvId, listid: selectedList});
     } else {
-        console.log("Select a list");
+        filminfoListResult.innerHTML = 'Select a list';
     }
 }); 
 
-socket.on('displayMovieList', function(result){
+socket.on('displayTvList', function(result){
     serieinfoListResult.innerHTML = result.information;
 });

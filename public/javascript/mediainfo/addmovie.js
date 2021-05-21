@@ -55,7 +55,7 @@ filminfoListSaveBtn.addEventListener("click", function(){
     if(selectedList !== null){
         socket.emit('addMovieToList', {movieid: filminfoListMovieId, listid: selectedList});
     } else {
-        console.log("Select a list");
+        filminfoListResult.innerHTML = 'Select a list';
     }
 }); 
 
