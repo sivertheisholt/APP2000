@@ -44,17 +44,17 @@ script(src="/javascript/userdashboard/list.js")
         var errorType = !{errorType}
         switch(errorType){
             case "dashboardChangePassword":
-                //UIkit.switcher('#dashboard-switcher').show(0);
+                UIkit.tab('#dashboard-tab').show(0);
                 document.getElementById("dashboard-password-error").style.display='block';
                 document.getElementById("dashboard-password-error").innerHTML += 'ERROR: ' + error;
                 break;
             case "dashboardChangeUsername":
-                //UIkit.switcher('#dashboard-switcher').show(4);
+                UIkit.tab('#dashboard-tab').show(5);
                 document.getElementById("dashboard-username-error").style.display='block';
                 document.getElementById("dashboard-username-error").innerHTML += 'ERROR: ' + error;
                 break;
             case "dashboardUploadAvatar":
-                //UIkit.switcher('#dashboard-switcher').show(4);
+                UIkit.tab('#dashboard-tab').show(5);
                 document.getElementById("dashboard-avatar-error").style.display='block';
                 document.getElementById("dashboard-avatar-error").innerHTML += 'ERROR: ' + error;
                 break;
