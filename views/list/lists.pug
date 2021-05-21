@@ -19,7 +19,7 @@ body
                                                 each poster in item.posters
                                                     li
                                                         - if (poster != null || poster != undefined)
-                                                            img(data-src=`https:/www.themoviedb.org/t/p/w600_and_h900_bestv2/${poster}` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')(id="listslideshow")
+                                                            img(data-src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${poster}` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')(id="listslideshow")
                                                         - else
                                                             img(data-src=`/images/filmatory_default_poster.png` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')(id="listslideshow")
                                             - else
