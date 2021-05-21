@@ -9,7 +9,7 @@ exports.userAuth_get_logout = async function(req, res) {
     logger.log({level: 'debug', message: `Request received for /logout`}); 
     req.session.destroy(err => {
         res.clearCookie('connect.sid')
-        res.redirect('/')
+        res.redirect(`/${res.locals.currentLang}/homepage`)
     })
 }
 
@@ -84,7 +84,7 @@ exports.userAuth_post_signup = async function(req,res ) {
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum vulputate luctus.'
         });
     })
-    res.redirect('/');
+    res.redirect(`/${res.locals.currentLang}/homepage`);
 }
 
 exports.userAuth_post_forgottenPassword = function(req, res) {
@@ -137,7 +137,7 @@ exports.userAuth_get_login = async function(req,res ) {
         if (sjekkPassword) {
             logger.log({level: 'debug', message: `Setting session`}); 
             req.session.userId = bruker._id; //Setter session
-            res.redirect('/');
+            res.redirect(`/${res.locals.currentLang}/homepage`);
             return;
         } else {
             logger.log({level: 'debug', message: `Invalid password for ${bruker._id}`}); 
