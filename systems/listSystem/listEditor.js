@@ -22,7 +22,7 @@ exports.addMovieToList = async function(listId, movieId) {
     }
     
     //Oppdaterer liste
-    const updateResult = await updateList(list, {$push: {movies: movieId}});
+    const updateResult = await updateList(list.information, {$push: {movies: movieId}});
     if(!updateResult.status) return updateResult;
     
     //Suksess
@@ -49,7 +49,7 @@ exports.addTvToList = async function(listId, tvId) {
     }
     
     //Oppdaterer liste
-    const updateResult = updateList(list, {$push: {tvs: tvId}});
+    const updateResult = updateList(list.information, {$push: {tvs: tvId}});
     if(!updateResult.status) return updateResult;
     
     //Suksess
@@ -128,7 +128,7 @@ exports.deleteList = async function(listId) {
  */
 function updateList(list, options) {
     logger.log({level: 'debug', message: `Updating list with id ${list._id}`});
-    return List.updateOne(options).then((doc, err) => {
+    return list.updateOne(options).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error updating list with options ${options}! ${err}`});
             return new ValidationHandler(false, 'Could not update list');
