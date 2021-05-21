@@ -51,7 +51,7 @@ tvBookmarkEle.addEventListener("click", function(){
 
 serieinfoListSaveBtn.addEventListener("click", function(){
     serieinfoUserList.style.display = 'none';
-    let selectedList = serieinfoListSelectbox.options[serieinfoListSelectbox.selectedIndex].getAttribute('data-list-tvid');
+    let selectedList = serieinfoListSelectbox.options[serieinfoListSelectbox.selectedIndex].getAttribute('data-list-id');
     if(selectedList !== null){
         socket.emit('addTvToList', {tvid: serieinfoListTvId, listid: selectedList});
     } else {
