@@ -9,7 +9,7 @@ body
                     each item in medias
                         a.uk-card.uk-card-default.upcoming-card-padding(href=`/${urlPath}/${url}/${item.id}` id=item.id)
                             .uk-card-media-top
-                                img(src=`https:/www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/no-poster-default.jpg'" alt='')
+                                img(src=`https:/www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
                             .uk-card-body
                                 h3.uk-card-title= `${item.title}`
                                 p= `${item.releaseDate}`
