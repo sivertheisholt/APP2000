@@ -147,5 +147,9 @@
 	"MEDIA_MODAL_LIST_SELECT": "Sélectionnez la liste",
 	"MEDIA_TOOLTIP_FAVORITES": "Connectez-vous pour ajouter ceci à vos favoris",
 	"MEDIA_TOOLTIP_WATCHLIST": "Connectez-vous pour l'ajouter à votre liste de surveillance",
-	"MEDIA_TOOLTIP_LIST": "Connectez-vous pour l'ajouter à votre liste"
+	"MEDIA_TOOLTIP_LIST": "Connectez-vous pour l'ajouter à votre liste",
+	"LIST_LISTS": "Listes",
+	"LIST_CREATED_BY": "Créé par:",
+	"LIST_NUMBER_OF_MOVIES": "Nombre de films:",
+	"LIST_NUMBER_OF_TVS": "Nombre d'émissions télévisées:"
 }

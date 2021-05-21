@@ -151,5 +151,9 @@
 	"MEDIA_MODAL_LIST_SELECT": "Select list",
 	"MEDIA_TOOLTIP_FAVORITES": "Log in to add this to your favorites",
 	"MEDIA_TOOLTIP_WATCHLIST": "Log in to add this to your watchlist",
-	"MEDIA_TOOLTIP_LIST": "Log in to add this to your list"
+	"MEDIA_TOOLTIP_LIST": "Log in to add this to your list",
+	"LIST_LISTS": "Lists",
+	"LIST_CREATED_BY": "Created by:",
+	"LIST_NUMBER_OF_MOVIES": "Number of movies:",
+	"LIST_NUMBER_OF_TVS": "Number of TV-shows:"
 }

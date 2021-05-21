@@ -149,5 +149,9 @@
 	"MEDIA_MODAL_LIST_SELECT": "Velg liste",
 	"MEDIA_TOOLTIP_FAVORITES": "Logg inn for å legge denne til dine favoritter",
 	"MEDIA_TOOLTIP_WATCHLIST": "Logg inn for å legge denne til din liste over sette filmer og serier",
-	"MEDIA_TOOLTIP_LIST": "Logg inn for å legge denne til dine lister"
+	"MEDIA_TOOLTIP_LIST": "Logg inn for å legge denne til dine lister",
+	"LIST_LISTS": "Lister",
+	"LIST_CREATED_BY": "Laget av:",
+	"LIST_NUMBER_OF_MOVIES": "Antall filmer:",
+	"LIST_NUMBER_OF_TVS": "Antall serier:"
 }
