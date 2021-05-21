@@ -21,7 +21,8 @@ async function searchForMedia(title) {
             id: movie.id,
             poster_path: movie.poster_path,
             title: movie.title,
-            overview: movie.overview
+            overview: movie.overview,
+            type: 'movie'
         });
         counter++;
     }
@@ -32,7 +33,8 @@ async function searchForMedia(title) {
             id: tv.id,
             poster_path: tv.poster_path,
             title: tv.name,
-            overview: tv.overview
+            overview: tv.overview,
+            type: 'tv'
         });
         counter++;
     }    
