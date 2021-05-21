@@ -7,7 +7,7 @@ body
         div(uk-grid='')
             .uk-width-1-4
                 img.center.avatar(src=`${user.avatar}` alt='')
-                ul.uk-tab-left.dashboard-menu(uk-tab='connect: #component-tab-left; animation: uk-animation-fade' id='dashboard-switcher')
+                ul.uk-tab-left.dashboard-menu(uk-tab='connect: #component-tab-left; animation: uk-animation-fade' id='dashboard-tab')
                     li  
                         a(href='') #{__("DASHBOARD_SWITCHER_CHANGE_PASSWORD")}
                     li
@@ -38,6 +38,7 @@ body
 include ../includes/footer.pug
 script(src="/javascript/userdashboard/user_stats.js")
 script(src="/javascript/userdashboard/list.js")
+script(src="/javascript/userdashboard/removemedia.js")
 - if(error)
     script.
         var error = !{error}
