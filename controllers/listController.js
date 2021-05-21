@@ -73,7 +73,8 @@ exports.list_get_content = async function(req, res) {
             id: movieInfo.information.id,
             pictureUrl: movieInfo.information.poster_path,
             title: movieInfo.information.original_title,
-            releaseDate: await hjelpeMetoder.data.lagFinDato(movieInfo.information.release_date, '-')
+            releaseDate: await hjelpeMetoder.data.lagFinDato(movieInfo.information.release_date, '-'),
+            type: 'movie'
         })
     }
     for(const tv of list.information.tvs) {
@@ -82,7 +83,8 @@ exports.list_get_content = async function(req, res) {
             id: tvInfo.information.id,
             pictureUrl: tvInfo.information.poster_path,
             title: tvInfo.information.name,
-            releaseDate: await hjelpeMetoder.data.lagFinDato(tvInfo.information.first_air_date, '-')
+            releaseDate: await hjelpeMetoder.data.lagFinDato(tvInfo.information.first_air_date, '-'),
+            type : 'tv'
           })
     }
 
