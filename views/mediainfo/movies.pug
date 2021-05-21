@@ -15,8 +15,8 @@ include ../includes/head.pug
 include ../includes/nav.pug
 
 body
-    .container.uk-grid.uk-margin-top.uk-padding-remove
-        .uk-margin-auto.uk-padding-remove.uk-grid.uk-text-center
+    .container
+        .uk-margin-auto.uk-padding-remove.uk-grid.uk-text-center.uk-align-center.uk-flex.uk-flex-center
             h2 Sort
                 button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by
                 div.movies-filter-list.upcoming-scroll-bar(uk-dropdown='mode: click')
@@ -73,14 +73,13 @@ body
                         a(id='10752') War
                     ul
                         a(id='37') Western
-        .upcomingMovies.uk-grid.uk-margin-remove.uk-padding-remove(class='uk-width-1-1@s')
-            .uk-grid.uk-margin-remove.uk-padding-remove(class='uk-child-width-1-4@s')#mediaCard
-            .uk-grid.uk-button.uk-button-default.uk-align-center(class='uk-width-1-2@s')
-                a#loadMore(onclick="load(currentMediaDisplayed, event)")
-                    span.text Load More
-                #noMoreMedia
-                    a(href="#")
-                        span.text No more movies, click to go to top.
+        .uk-grid.uk-margin-remove.uk-padding-remove(class='uk-child-width-1-4@s')#mediaCard
+        .uk-grid.uk-button.uk-button-default.uk-align-center(class='uk-width-1-2@s')
+            a#loadMore(onclick="load(currentMediaDisplayed, event)")
+                span.text Load More
+            #noMoreMedia
+                a(href="#")
+                    span.text No more movies, click to go to top.
 
 
 
