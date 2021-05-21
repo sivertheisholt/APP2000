@@ -6,6 +6,41 @@ const movieHandler = require('../handling/movieHandler');
 const tvHandler = require('../handling/tvHandler');
 const userHandler = require('../handling/userHandler');
 
+async function getMoviePosterUrls(array){
+    let posters = [];
+    for (const movie of array) {
+        let movies = await movieHandler.getMovieById(movie);
+        posters.push(movies.information.poster_path);
+    }
+    return posters;
+}
+async function getTvPosterUrls(array){
+    let posters = [];
+    for (const tv of array) {
+        let tvs = await tvHandler.getShowById(tv);
+        posters.push(tvs.information.poster_path);
+    }
+    return posters;
+}
+
+async function getPosterUrls(array1, array2) {
+    let movieAndTvPosters = array1.concat(array2);
+    for (let i = movieAndTvPosters.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [movieAndTvPosters[i], movieAndTvPosters[j]] = [movieAndTvPosters[j], movieAndTvPosters[i]];
+    }
+    return movieAndTvPosters;
+}
+
+function getNumberOfMovies(variabel) {
+    return variabel.movies.length;
+}
+
+function getNumberOfTvs(variabel) {
+    return variabel.tvs.length;
+}
+
+
 //Liste med lister her
 exports.list_get = async function(req, res) {
     let lister = await listGetter.getAllLists();
@@ -13,16 +48,13 @@ exports.list_get = async function(req, res) {
     for (const info of lister.information) {
         listene.push({
             listId: info._id,
-            movies: info.movies,
-            tvs: info.tvs,
+            numberOfMovies: getNumberOfMovies(info),
+            numberOfTvShows: getNumberOfTvs(info),
+            posters: await getPosterUrls(await getMoviePosterUrls(info.movies), await getTvPosterUrls(info.tvs)),
             userName: await (await userHandler.getUserFromId(info.userId)).information.username,
             listName: info.name
         })
     }
-    console.log("heiu")
-    console.log(listene)
-    console.log("hei")
-
     req.renderObject.listene = listene;
     res.render("list/lists", req.renderObject);
 }
