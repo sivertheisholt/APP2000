@@ -1,4 +1,3 @@
-var socket = io.connect();
 let newList = document.getElementById('newList');
 let newListName = document.getElementById('newListName');
 let lists = document.getElementById('lists');

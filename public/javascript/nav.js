@@ -1,3 +1,4 @@
+var socket = io();
 let hamburger = document.querySelector('.hamburger');
 let menu = document.querySelector('.menu');
 

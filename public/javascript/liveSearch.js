@@ -1,6 +1,3 @@
-// @ts-ignore
-var socket = io();
-
 $('#searchBox').on('input',function() {
     if($(this).val() == "") {
         document.getElementById('searchDiv').style.display = 'none';
@@ -8,14 +5,6 @@ $('#searchBox').on('input',function() {
     } else {
         socket.emit("userInputSearch", $(this).val())
     }
-});
-
-socket.on('connect', function () {
-    console.log('Connected to the server.')
-});
-
-socket.on('disconnect', function () {
-    console.log('Disconnected to the server.')
 });
 
 function maxText(data, max){

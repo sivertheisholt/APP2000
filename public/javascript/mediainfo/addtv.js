@@ -1,4 +1,3 @@
-var socket = io.connect();
 let tvFavoriteEle = document.getElementById('heart-tv-favorite');
 let tvId = tvFavoriteEle.getAttribute('data-favorite-tvid');
 let heartTvImg = document.getElementById('heart-tv-img');

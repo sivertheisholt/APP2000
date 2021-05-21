@@ -1,4 +1,3 @@
-var socket = io.connect();
 let postsToShowOnClick = 16;
 let lastDisplayedPost = 16;
 var loadMore = document.getElementById('loadMore');

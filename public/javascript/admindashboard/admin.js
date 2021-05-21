@@ -1,4 +1,3 @@
-var socket = io.connect();
 let saveLangBtn = document.getElementById('admin-lang-save-btn');
 let cancelLangBtn = document.getElementById('admin-lang-cancle-btn');
 let adminLangSelectbox = document.getElementById("admin-lang-selectbox-edit");

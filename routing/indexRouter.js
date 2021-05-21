@@ -9,6 +9,6 @@ router.use("/user", require('./dashboard'));
 router.use("/person", require('./personinfo'));
 router.use("/homepage", require('./homepage'));
 router.use("/list", require('./list'));
-//router.use("/testing", require('./testing'));
+router.use("/testing", require('./testing'));
 
 module.exports = router;

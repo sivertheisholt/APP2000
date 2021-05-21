@@ -1,4 +1,3 @@
-var socket = io.connect();
 let movieEleFav = document.getElementById('heart-movie-favorite');
 let movieid = movieEleFav.getAttribute('data-favorite-movieid');
 let heartMovieImg = document.getElementById('heart-movie-img');
