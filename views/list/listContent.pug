@@ -4,14 +4,17 @@ include ../includes/nav.pug
 body
     div#searchDiv
     .container
-        .upcomingMovies.uk-grid.uk-margin-remove.uk-padding-remove(class='uk-width-1-1@s')
-                .uk-grid.uk-margin-remove.uk-padding-remove(class='uk-child-width-1-4@s')
-                    each item in medias
-                        a.uk-card.uk-card-default.upcoming-card-padding(href=`/${urlPath}/${item.type == 'tv' ? 'mediainfo/serieinfo' : 'mediainfo/filminfo'}/${item.id}` id=item.id)
+        .uk-grid.uk-margin-remove.uk-padding-remove.uk-grid-match(class='uk-child-width-1-4@s')
+            each item in medias
+                .uk-position-relative.uk-margin-bottom(id=item.id)
+                    .uk-card.uk-card-default.upcoming-card-padding
+                        a(href=`/${urlPath}/${item.type == 'tv' ? 'mediainfo/serieinfo' : 'mediainfo/filminfo'}/${item.id}`)
                             .uk-card-media-top
                                 img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
                             .uk-card-body
                                 h3.uk-card-title= `${item.title}`
-                                p= `${item.releaseDate}`
+                                p.uk-text-meta= `${item.releaseDate}`
+                        a.uk-position-bottom(href='#' uk-close='' onclick=`removeFromList("${item.id}", "${item.type}", "${item.listid}");` class='uk-margin-bottom uk-margin-left')
 
 include ../includes/footer.pug
+script(src="/javascript/listcontents.js")

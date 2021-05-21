@@ -17,3 +17,11 @@ exports.add_tv_to_list = async function(socket, list) {
     const result = await listEditor.addTvToList(list.listid, list.tvid);
     socket.emit('displayTvList', result);
 }
+
+exports.remove_tv_from_list = async function(socket, listinfo) {
+    const result = await listEditor.deleteTvFromList(listinfo.listid, listinfo.tvid);
+}
+
+exports.remove_movie_from_list = async function(socket, listinfo) {
+    const result = await listEditor.deleteTvFromList(listinfo.listid, listinfo.movieid);
+}

@@ -66,11 +66,10 @@ exports.list_get_content = async function(req, res) {
     let list = await listGetter.getListFromId(listId);
     
     for(const movie of list.information.movies) {
-        console.log(movie);
         let movieInfo = await movieHandler.getMovieById(movie);
-        console.log(movieInfo.information)
         medias.push({
             id: movieInfo.information.id,
+            listid: listId,
             pictureUrl: movieInfo.information.poster_path,
             title: movieInfo.information.original_title,
             releaseDate: await hjelpeMetoder.data.lagFinDato(movieInfo.information.release_date, '-'),
@@ -81,6 +80,7 @@ exports.list_get_content = async function(req, res) {
         let tvInfo = await tvHandler.getShowById(tv);
         medias.push({
             id: tvInfo.information.id,
+            listid: listId,
             pictureUrl: tvInfo.information.poster_path,
             title: tvInfo.information.name,
             releaseDate: await hjelpeMetoder.data.lagFinDato(tvInfo.information.first_air_date, '-'),
