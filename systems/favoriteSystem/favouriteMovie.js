@@ -92,6 +92,7 @@ async function addFavourite(movieId, userId) {
  * @author Sivert - 233518
  */
 async function removeFavorite(movieId, userId) {
+    logger.log({level: 'debug', message: `Removing movie with id ${movieId} from ${userId}`});
     //Skaffer bruker
     const userResult = await userHandler.getUserFromId(userId);
     if(!userResult) return userResult;
@@ -99,8 +100,9 @@ async function removeFavorite(movieId, userId) {
     //Oppdaterer bruker
     const userUpdateResult = await userHandler.updateUser(userResult.information, {$pull: {movieFavourites: movieId}});
     if(!userUpdateResult.status) return userResult;
-
+    
     //Suksess
+    logger.log({level: 'debug', message: `Successfully removed movie with id ${movieId} from ${userId}`});
     return new ValidationHandler(true, `Successfully removed favourite movie from user database`)
 }
 
