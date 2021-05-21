@@ -181,11 +181,11 @@ async function denyReview(reviewId, feedback) {
 
     //Lagrer review i database
     const saveDeniedResult = await saveDenied(new CloneReview(
-        pendingReview.userId,
-        pendingReview.movieId,
-        pendingReview.tvId,
-        pendingReview.text,
-        pendingReview.stars,
+        pendingReview.information.userId,
+        pendingReview.information.movieId,
+        pendingReview.information.tvId,
+        pendingReview.information.text,
+        pendingReview.information.stars,
         Date.now()
     ), feedback);
     if(!saveDeniedResult.status) return saveDeniedResult;
@@ -212,16 +212,17 @@ async function approveReview(reviewId) {
 
     //Skaffer pendingReview
     const pendingReview = await reviewGetter.getPendingReviewById(reviewId);
+    console.log(pendingReview);
     if(!pendingReview) return pendingReview;
 
     //Lagrer review i database
     const saveApprovedResult = await saveApproved(new CloneReview(
-        pendingReview.userId,
-        pendingReview.movieId,
-        pendingReview.tvId,
-        pendingReview.text,
-        pendingReview.stars,
-        pendingReview.date
+        pendingReview.information.userId,
+        pendingReview.information.movieId,
+        pendingReview.information.tvId,
+        pendingReview.information.text,
+        pendingReview.information.stars,
+        pendingReview.information.date
     ));
     if(!saveApprovedResult.status) return saveApprovedResult;
 

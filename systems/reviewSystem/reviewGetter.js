@@ -14,6 +14,7 @@ const userHandler = require('../../handling/userHandler');
  * @author Sivert - 233518
  */
 async function getApprovedReviewUser(userId, mediaId, type) {
+    logger.log({level: 'debug', message: 'Getting approved review from movie by user'})
     let movieId = type == "movie" ? mediaId : null;
     let tvId = type == "tv" ? mediaId : null;
     logger.log({level: 'debug', message: `Getting approved review with id ${mediaId} made by user ${userId}`})
@@ -113,7 +114,7 @@ async function getPendingReviewById(reviewId) {
     logger.log({level: 'debug', message: `Getting pending review with id ${reviewId}`});
 
     //Skaffer review
-    const result = await getReviewFromDatabase(reviewId, 'denied');
+    const result = await getReviewFromDatabase(reviewId, 'pending');
     if(!result.status) return result;
     
     return checkResult(result.information);
