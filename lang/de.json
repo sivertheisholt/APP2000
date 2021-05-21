@@ -149,5 +149,9 @@
 	"MEDIA_MODAL_LIST_SELECT": "Liste auswählen",
 	"MEDIA_TOOLTIP_FAVORITES": "Melden Sie sich an, um dies zu Ihren Favoriten hinzuzufügen",
 	"MEDIA_TOOLTIP_WATCHLIST": "Melden Sie sich an, um dies Ihrer Beobachtungsliste hinzuzufügen",
-	"MEDIA_TOOLTIP_LIST": "Melden Sie sich an, um dies Ihrer Liste hinzuzufügen"
+	"MEDIA_TOOLTIP_LIST": "Melden Sie sich an, um dies Ihrer Liste hinzuzufügen",
+	"LIST_LISTS": "Listen",
+	"LIST_CREATED_BY": "Erstellt von:",
+	"LIST_NUMBER_OF_MOVIES": "Anzahl der Filme:",
+	"LIST_NUMBER_OF_TVS": "Anzahl der TV-Shows:"
 }

@@ -146,5 +146,9 @@
 	"MEDIA_MODAL_LIST_SELECT": "Выбрать список",
 	"MEDIA_TOOLTIP_FAVORITES": "Авторизуйтесь, чтобы добавить это в избранное",
 	"MEDIA_TOOLTIP_WATCHLIST": "Войдите, чтобы добавить это в свой список наблюдения",
-	"MEDIA_TOOLTIP_LIST": "Авторизуйтесь, чтобы добавить это в свой список"
+	"MEDIA_TOOLTIP_LIST": "Авторизуйтесь, чтобы добавить это в свой список",
+	"LIST_LISTS": "Списки",
+	"LIST_CREATED_BY": "Создано:",
+	"LIST_NUMBER_OF_MOVIES": "Количество фильмов:",
+	"LIST_NUMBER_OF_TVS": "Количество телешоу:"
 }

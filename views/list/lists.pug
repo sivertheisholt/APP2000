@@ -4,7 +4,7 @@ include ../includes/nav.pug
 body
     div#searchDiv
     .container
-        h2 Lists
+        h2 #{__("LIST_LISTS")}
         ul(uk-accordion='collapsible: false')
             each item in listene
                 li
@@ -32,15 +32,15 @@ body
                                     a(href=`/${urlPath}/list/lists/${item.listId}`)
                                         h3.uk-card-title=`${item.listName}`
                                     .closelist
-                                        p= "List created by:" 
+                                        p #{__("LIST_CREATED_BY")}
                                         p=`${item.userName}`
                                     p= ""
                                     .closelist
-                                        p= "Number of movies:"
+                                        p #{__("LIST_NUMBER_OF_MOVIES")}
                                         p=`${item.numberOfMovies}`
                                     p= ""
                                     .closelist
-                                        p= "Number of TV shows:"
+                                        p #{__("LIST_NUMBER_OF_TVS")}
                                         p=`${item.numberOfTvShows}`
 
 include ../includes/footer.pug
