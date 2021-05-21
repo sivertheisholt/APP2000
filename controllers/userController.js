@@ -167,20 +167,31 @@ exports.user_post_changeavatar = function(req, res) {
     const dest = '/uploads/';
     const defaultDest = '/uploads/default.png';
     BrukerDB.findOne({_id: req.session.userId}, async (err, bruker) => {
-        uploadHandle(req, res, function(err){
-            if(req.file == undefined){
+        let fileExists = fs.stat('public' + bruker.avatar, function(err, stat) {
+            if(err == null) {
+                return fileExists = true;
+            } else if(err.code === 'ENOENT') {
+                return fileExists = false;
+            } else {
                 logger.log({level: 'error', message: `Error: ${err}`});
-                return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=No file found&errorType=dashboardUploadAvatar`);
+                return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Something went wrong&errorType=dashboardUploadAvatar`);
             }
+        });
+        uploadHandle(req, res, function(err){
             if(err){
                 logger.log({level: 'error', message: `Error: ${err}`});
                 return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Wrong file type&errorType=dashboardUploadAvatar`);
             }
+            if(req.file == undefined){
+                logger.log({level: 'error', message: `Error: ${err}`});
+                return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=No file found&errorType=dashboardUploadAvatar`);
+            }
             if(!req.file.filename){
                 logger.log({level: 'error', message: `Could not get image! Error: ${err}`});
-                return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Wrong file type&errorType=dashboardUploadAvatar`);
-            } else {
-                if(bruker.avatar != defaultDest){
+                return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Could not get image!&errorType=dashboardUploadAvatar`);
+            }
+            if(bruker.avatar != defaultDest){
+                if(fileExists){
                     fs.unlink('./public' + bruker.avatar, function (err){
                         if(err){
                             logger.log({level: 'error', message: `Could not find old image! Error: ${err}`});
@@ -188,18 +199,18 @@ exports.user_post_changeavatar = function(req, res) {
                         }
                     });
                 }
-
-                bruker.avatar = dest + req.file.filename;
-                bruker.save((err, result) => {
-                    if(err) {
-                        logger.log({level: 'error', message: `Error in saving avatar to user! Error: ${err}`});
-                        return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Cant save avatar to user&errorType=dashboardUploadAvatar`);
-                    } else {
-                        logger.log({level: 'debug', message: `Avatar has been changed!`});
-                        return res.redirect(`/${res.locals.currentLang}/user/dashboard`);
-                    }
-                })
             }
+
+            bruker.avatar = dest + req.file.filename;
+            bruker.save((err, result) => {
+                if(err) {
+                    logger.log({level: 'error', message: `Error in saving avatar to user! Error: ${err}`});
+                    return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Cant save avatar to user&errorType=dashboardUploadAvatar`);
+                } else {
+                    logger.log({level: 'debug', message: `Avatar has been changed!`});
+                    return res.redirect(`/${res.locals.currentLang}/user/dashboard`);
+                }
+            })
         })
     })
 }
