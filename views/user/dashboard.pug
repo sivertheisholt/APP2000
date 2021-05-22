@@ -59,4 +59,13 @@ script(src="/javascript/userdashboard/removemedia.js")
                 document.getElementById("dashboard-avatar-error").style.display='block';
                 document.getElementById("dashboard-avatar-error").innerHTML += 'ERROR: ' + error;
                 break;
+            case "favorites":
+                UIkit.tab('#dashboard-tab').show(1);
+                break;
+            case "watchlist":
+                UIkit.tab('#dashboard-tab').show(2);
+                break;
+            case "mylist":
+                UIkit.tab('#dashboard-tab').show(3);
+                break;
         }
