@@ -2,6 +2,7 @@ const logger = require('../../logging/logger');
 const ValidationHandler = require('../../handling/ValidationHandler');
 const listGetter = require('./listGetter');
 const List = require('../../database/listSchema');
+const userHandler = require('../../handling/userHandler');
 
 /**
  * Legger til movie i liste
@@ -110,9 +111,21 @@ exports.deleteMovieFromList = async function(listId, movieId) {
 exports.deleteList = async function(listId) {
     logger.log({level: 'debug', message: `Deleting list with id: ${listId}`});
 
+    //Skaffer liste
+    const list = await listGetter.getListFromId(listId);
+    if(!list.status) return list;
+
     //Sletter liste
     const result = await deleteList(listId);
     if(!result.status) return result;
+
+    //Skaffer bruker
+    const user = await userHandler.getUserFromId(list.information.userId);
+    if(!user.status) return user;
+
+    //Sletter liste fra bruker
+    const userResult = await userHandler.updateUser(user.information,{$pull: {lists: listId}});
+    if(!userResult.status) return userResult;
 
     //Suksess
     logger.log({level: 'debug', message: `Successfully deleted list with id: ${listId}`});
