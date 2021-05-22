@@ -101,7 +101,7 @@ exports.userAuth_post_forgottenPassword = function(req, res) {
             res.redirect(`/${res.locals.currentLang}/homepage?error=Something went wrong&errorType=forgottenPassword`);
         }
         const token = jwt.sign({_id: bruker._id}, process.env.RESET_PASSWORD_KEY, {expiresIn:'60m'});
-        return bruker.updateOne({resetLink: token}, function(err, success) {
+        return bruker.updateOne({resetLink: token}, function(success, err) {
             if(err) {
                 logger.log({level: 'error', message: `Something unexpected happen! Error: ${err}`}); 
                 res.redirect(`/${res.locals.currentLang}/homepage?error=Reset password link error&errorType=forgottenPassword`);
@@ -162,7 +162,7 @@ exports.userAuth_post_resetpassword = function(req, res) {
                 logger.log({level: 'error', message: `Incorrect token or it has expired`});
                 return res.redirect(`/${res.locals.currentLang}/auth/resetpassworderror`);
             }
-            Bruker.findOne({resetLink}, async (err, bruker) => {
+            Bruker.findOne({resetLink}, async (bruker, err) => {
                 if(err) {
                     logger.log({level: 'error', message: `Something unexpected happen when trying to find user! Error: ${err}`});
                     return res.redirect(`/${res.locals.currentLang}/auth/resetpassword/${resetLink}?error=Unexpected error when trying to find user&errorType=resetPassword`);
@@ -182,7 +182,7 @@ exports.userAuth_post_resetpassword = function(req, res) {
                 bruker.password = await bcrypt.hash(pugBody.newPassword, salt);
                 bruker.resetLink = '';
 
-                bruker.save((err, result) => {
+                bruker.save((result, err) => {
                     if(err) {
                         logger.log({level: 'error', message: `Something unexpected happen when trying to save user to database! Error: ${err}`});
                         return res.redirect(`/${res.locals.currentLang}/auth/resetpassword/${resetLink}?error=Could not change password&errorType=resetPassword`);
