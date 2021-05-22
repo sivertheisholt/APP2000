@@ -18,4 +18,5 @@ function removeFromList(id, type, listid){
 
 deleteListBtn.addEventListener("click", function(){
     socket.emit('deleteList', listid);
+    window.location.href = "http://localhost:3000/en/user/dashboard";
 }); 

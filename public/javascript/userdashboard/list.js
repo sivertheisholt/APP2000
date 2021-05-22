@@ -1,9 +1,15 @@
 let newList = document.getElementById('newList');
 let newListName = document.getElementById('newListName');
 let lists = document.getElementById('lists');
+let createListOutput = document.getElementById('createListOutput');
 
 newList.addEventListener("click", function(){
+    if(newListName.value == ""){
+        return createListOutput.innerHTML = "You need to name your list";
+    }
     socket.emit('newList', {userId: userId, name: newListName.value});
+    createListOutput.innerHTML = "";
+    newListName.value = "";
 });
 
 socket.on('newListResult', function(result){
