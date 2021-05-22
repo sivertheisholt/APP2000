@@ -2,6 +2,8 @@ script.
     var popularMedia = !{popularMovies};
     var url = "#{url}";
     var urlPath = "#{urlPath}";
+    let currentMediaDisplayed = popularMedia;
+    currentMediaDisplayed.slice(0, 16);
     
     function load(){
         document.getElementById('mediaCard').innerHTML += "";
