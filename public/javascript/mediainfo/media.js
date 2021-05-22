@@ -35,6 +35,7 @@ document.querySelectorAll('.media-genre-list ul a').forEach(item => {
  * Viser de 16 første filmene/seriene
  */
 socket.on('displayFilteredMedia', function(args){
+    currentMediaDisplayed = args;
     document.getElementById('mediaCard').innerHTML = "";
     for(let i = 0; i < args.length; i++){
         document.getElementById('mediaCard').innerHTML += mediaCard(args[i]);
