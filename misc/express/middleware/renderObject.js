@@ -24,7 +24,7 @@ exports.renderObject = async function (req, res, next) {
     renderObject.lang = res.locals.lang;
     renderObject.langCode = res.locals.langCode;
     renderObject.langs = res.locals.langs;
-    renderObject.url = process.env.NODE_ENV == 'debug' ? 'localhost:3000' : 'https://filmatoryeksamaen.herokuapp.com';
+    renderObject.url = process.env.NODE_ENV == 'debug' ? 'localhost:3000' : 'https://filmatoryeksamen.herokuapp.com';
     req.renderObject = renderObject;
     next();
 }
