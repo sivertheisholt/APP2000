@@ -20,6 +20,13 @@ let transporter = nodemailer.createTransport(smtpTransport({
   }
 }));
 
+transporter.verify(function(err, success) {
+  if (err) {
+    logger.log({level: 'error', message: `Could not send email! Error: ${err}`});
+  } else {
+      logger.log({level: 'debug', message: 'Email transporter is ready and functional'});
+  }
+});
 /**
  * Lagrer mail funksjonen i en variabel slik den kan brukes flere steder
  * @param {Til, Fra, Emne, Text} mailOptions 

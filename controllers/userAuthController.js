@@ -81,7 +81,7 @@ exports.userAuth_post_signup = async function(req,res ) {
             from: process.env.EMAIL,
             to: bruker.email, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
             subject: 'Welcome to Filmatory!',
-            text: `<h1>Hope you enjoy your time at Filmatory!</h1>`
+            html: `<h1>Hope you enjoy your time at Filmatory!</h1>`
         });
     })
     res.redirect(`/${res.locals.currentLang}/homepage`);
@@ -115,6 +115,7 @@ exports.userAuth_post_forgottenPassword = function(req, res) {
                     subject: 'Password Reset Link',
                     html: `
                     <h2>Please click on the link below reset your password</h2>
+                    <p>This link will expire in 60 minutes</p>
                     <p>${link}</p>
                     `
                 });
@@ -155,14 +156,13 @@ exports.userAuth_post_resetpassword = function(req, res) {
     logger.log({level: 'debug', message: `Request received for /resetPassword/:token`}); 
     const resetLink = req.params.token;
     const pugBody = req.body;
-    console.log(resetLink);
     if(resetLink){
         jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, function(err, decodedData) {
             if(err) {
                 logger.log({level: 'error', message: `Incorrect token or it has expired`});
                 return res.redirect(`/${res.locals.currentLang}/auth/resetpassworderror`);
             }
-            Bruker.findOne({resetLink}, async (bruker, err) => {
+            Bruker.findOne({resetLink}, async (err, bruker) => {
                 if(err) {
                     logger.log({level: 'error', message: `Something unexpected happen when trying to find user! Error: ${err}`});
                     return res.redirect(`/${res.locals.currentLang}/auth/resetpassword/${resetLink}?error=Unexpected error when trying to find user&errorType=resetPassword`);
@@ -182,7 +182,7 @@ exports.userAuth_post_resetpassword = function(req, res) {
                 bruker.password = await bcrypt.hash(pugBody.newPassword, salt);
                 bruker.resetLink = '';
 
-                bruker.save((result, err) => {
+                bruker.save((err, result) => {
                     if(err) {
                         logger.log({level: 'error', message: `Something unexpected happen when trying to save user to database! Error: ${err}`});
                         return res.redirect(`/${res.locals.currentLang}/auth/resetpassword/${resetLink}?error=Could not change password&errorType=resetPassword`);
