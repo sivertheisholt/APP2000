@@ -53,6 +53,9 @@ let bindToCardApproval = function() {
 let bindToCardDelete = function() {
     reviewDeleteReviewId.value = this.innerHTML;
 }
+let bindToCardEdit = function() {
+    reviewEditReviewId.value = this.innerHTML;
+}
 
 /**
  * EventListener for å sette inn id
@@ -142,7 +145,10 @@ socket.on('getReviewsFromMediaResult', (result)=>{
         reviewEditForm.style.display = 'block';
         for(let item of result.information){
             reviewEditListOutput.innerHTML += reviewCard(item);
-            
+        }
+        let reviewIdEditCard = document.getElementsByClassName('reviewIdEditClass');
+        for (let i = 0; i < reviewIdEditCard.length; i++) {
+            reviewIdEditCard[i].addEventListener("click", bindToCardEdit.bind(reviewIdEditCard[i]));                 
         }
     } else {
         reviewEditResult.innerHTML = 'No reviews found';
@@ -234,7 +240,7 @@ function reviewCard(data){
                         <div class="uk-width-expand">
                             <h4 class="uk-comment-title uk-margin-remove">${data.author}</h4>
                             <p class="uk-comment-meta"> ReviewId: </p>
-                            <p class="uk-comment-meta uk-text-bolder reviewIdDeleteClass">${data._id}</p>
+                            <p class="uk-comment-meta uk-text-bolder reviewIdEditClass">${data._id}</p>
                             <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                 <li>${data.date}</li>
                                 <li>Rating: ${data.stars}</li>
