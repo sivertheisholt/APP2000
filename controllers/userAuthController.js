@@ -71,7 +71,7 @@ exports.userAuth_post_signup = async function(req,res ) {
 
     //Nå setter vi passord til det hasha passordet
     bruker.password = await bcrypt.hash(bruker.password, salt);
-    bruker.save().then((err, dokument) => {
+    bruker.save().then((dokument, err) => {
         if(err) {
             logger.log({level: 'error', message: `Could not save user to database! Error: ${err}`});
             return;
