@@ -51,7 +51,7 @@ async function finishTicket(ticket) {
     logger.log({level: 'info', message: `Ticket with id ${ticket.ticketId} was sucessfully finished`});
     mailer({
         from: process.env.EMAIL,
-        to: process.env.EMAIL, //pendingTicket.mail skal brukes her når det skal testes mot "ekte" bruker,
+        to: pendingTicket.mail,
         subject: 'RE: ' + pendingTicket.title,
         text: ticket.response
     });

@@ -79,9 +79,9 @@ exports.userAuth_post_signup = async function(req,res ) {
         logger.log({level: 'debug', message: `Saving user to database`}); 
         mailer({
             from: process.env.EMAIL,
-            to: process.env.EMAIL, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
+            to: bruker.email, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
             subject: 'Welcome to Filmatory!',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum vulputate luctus.'
+            text: '<h1>Hope you enjoy your time at Filmatory!</h1>'
         });
     })
     res.redirect(`/${res.locals.currentLang}/homepage`);
@@ -107,11 +107,11 @@ exports.userAuth_post_forgottenPassword = function(req, res) {
                 res.redirect(`/${res.locals.currentLang}/homepage?error=Reset password link error&errorType=forgottenPassword`);
                 return;
             } else {
-                let link = `localhost:3000/${res.locals.currentLang}/auth/resetpassword/${token}`
+                let link = `${req.renderObject.url}/${req.renderObject.urlPath}/auth/resetpassword/${token}`
                 logger.log({level: 'debug', message: `Link ${link} sent`}); 
                 mailer({
                     from: process.env.EMAIL,
-                    to: process.env.EMAIL,
+                    to: bruker.email,
                     subject: 'Password Reset Link',
                     html: `
                     <h2>Please click on the link below reset your password</h2>
