@@ -81,7 +81,7 @@ exports.userAuth_post_signup = async function(req,res ) {
             from: process.env.EMAIL,
             to: bruker.email, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
             subject: 'Welcome to Filmatory!',
-            text: '<h1>Hope you enjoy your time at Filmatory!</h1>'
+            text: `<h1>Hope you enjoy your time at Filmatory!</h1>`
         });
     })
     res.redirect(`/${res.locals.currentLang}/homepage`);

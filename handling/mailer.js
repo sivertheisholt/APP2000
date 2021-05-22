@@ -25,7 +25,7 @@ let transporter = nodemailer.createTransport(smtpTransport({
  * @param {Til, Fra, Emne, Text} mailOptions 
  */
 let sendMail = (mailOptions) => {
-  transporter.sendMail(mailOptions,(err, info) => {
+  transporter.sendMail(mailOptions,(info, err) => {
     if(err){
       logger.log({level: 'error', message: `Could not send email! Error: ${err}`});
       return new ValidationHandler(false, 'Could not send response mail');
