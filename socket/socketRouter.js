@@ -45,7 +45,8 @@ const sockets = {
     newList: list.list_new,
     submitQuote: quote.submitQuoteMovie,
     removeMovieFromList: list.remove_movie_from_list,
-    removeTvFromList: list.remove_tv_from_list
+    removeTvFromList: list.remove_tv_from_list,
+    deleteList: list.remove_list
 }
 
 /**

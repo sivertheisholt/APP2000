@@ -108,14 +108,14 @@ exports.deleteMovieFromList = async function(listId, movieId) {
  * @author Sivert - 233518
  */
 exports.deleteList = async function(listId) {
-    logger.log({level: 'debug', message: `Deleting list with id: ${list._id}`});
+    logger.log({level: 'debug', message: `Deleting list with id: ${listId}`});
 
     //Sletter liste
     const result = await deleteList(listId);
     if(!result.status) return result;
 
     //Suksess
-    logger.log({level: 'debug', message: `Successfully deleted list with id: ${list._id}`});
+    logger.log({level: 'debug', message: `Successfully deleted list with id: ${listId}`});
     return new ValidationHandler(true, 'Successfully deleted list');
 }
 
@@ -145,13 +145,13 @@ function updateList(list, options) {
  * @author Sivert - 233518
  */
 function deleteList(listId) {
-    logger.log({level: 'debug', message: `Deleting list with id: ${list._id}`});
+    logger.log({level: 'debug', message: `Deleting list with id: ${listId}`});
     return List.deleteOne({_id: listId}).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error updating list with options ${options}! ${err}`});
             return new ValidationHandler(false, 'Could not delete list');
         } 
-        logger.log({level: 'info', message: `List with id ${list._id} was successfully updated with options ${options}`});
+        logger.log({level: 'info', message: `List with id ${listId} was successfully updated with options ${options}`});
         return new ValidationHandler(true, 'List successfully updated');
     });
 }

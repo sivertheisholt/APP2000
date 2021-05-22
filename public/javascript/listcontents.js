@@ -1,6 +1,7 @@
+let deleteListBtn = document.getElementById('deleteListBtn');
+let listid = deleteListBtn.getAttribute('data-listid');
+
 function removeFromList(id, type, listid){
-    console.log(id);
-    console.log(listid);
     switch(type){
         case 'movie':
             socket.emit('removeMovieFromList', {movieid: id, listid: listid});
@@ -14,3 +15,7 @@ function removeFromList(id, type, listid){
             return;
     }
 }
+
+deleteListBtn.addEventListener("click", function(){
+    socket.emit('deleteList', listid);
+}); 

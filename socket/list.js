@@ -25,3 +25,8 @@ exports.remove_tv_from_list = async function(socket, listinfo) {
 exports.remove_movie_from_list = async function(socket, listinfo) {
     const result = await listEditor.deleteTvFromList(listinfo.listid, listinfo.movieid);
 }
+
+exports.remove_list = async function(socket, listid) {
+    const result = await listEditor.deleteList(listid);
+}
+

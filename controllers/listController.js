@@ -87,7 +87,7 @@ exports.list_get_content = async function(req, res) {
             type : 'tv'
           })
     }
-
+    req.renderObject.listId = listId;
     req.renderObject.medias = medias;
     res.render("list/listContent", req.renderObject);
 }

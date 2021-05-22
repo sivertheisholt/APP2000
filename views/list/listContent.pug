@@ -1,9 +1,12 @@
 - var medias = medias
+- var listId = listId;
 include ../includes/head.pug
 include ../includes/nav.pug
 body
     div#searchDiv
     .container
+        .uk-margin-top.uk-padding-remove.uk-grid.uk-text-center.uk-align-center.uk-flex.uk-flex-center
+            button.uk-button.uk-button-default(id='deleteListBtn' data-listid=`${listId}`) Delete List
         .uk-grid.uk-margin-remove.uk-padding-remove.uk-grid-match(class='uk-child-width-1-4@s')
             each item in medias
                 .uk-position-relative.uk-margin-bottom(id=item.id)
