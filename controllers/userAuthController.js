@@ -101,7 +101,7 @@ exports.userAuth_post_forgottenPassword = function(req, res) {
             res.redirect(`/${res.locals.currentLang}/homepage?error=Something went wrong&errorType=forgottenPassword`);
         }
         const token = jwt.sign({_id: bruker._id}, process.env.RESET_PASSWORD_KEY, {expiresIn:'60m'});
-        return bruker.updateOne({resetLink: token}, function(success, err) {
+        return bruker.updateOne({resetLink: token}, function(err) {
             if(err) {
                 logger.log({level: 'error', message: `Something unexpected happen! Error: ${err}`}); 
                 res.redirect(`/${res.locals.currentLang}/homepage?error=Reset password link error&errorType=forgottenPassword`);
