@@ -48,6 +48,14 @@ async function startSystems() {
   
   //"Lytter" serveren
   server.listen(port, () => logger.log({level: 'info', message: `Application is now listening on port ${port}`}));
+
+  //Skaffer ny start info fra tmdb hver 24 time
+  setInterval(async function() {
+    const makeInformationResult = await start.makeInformation();
+    if(!makeInformationResult.status) {
+      throw new Error(makeInformationResult.information);
+    }
+  }, 1000 * 60 * 60 * 24)
 }
 
 startServer()
@@ -57,7 +65,7 @@ function startServer() {
   try {
     startSystems();
   } catch(err) {
-    logger.log({level: 'error', message: `Something unexpected happen when trying to start the server! ${err}`});
+    logger.log({level: 'error', message: `Something unexpected happen when trying to start/running the server! ${err}`});
     serverFailure();
   }
 }
