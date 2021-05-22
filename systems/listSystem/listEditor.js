@@ -148,10 +148,10 @@ function deleteList(listId) {
     logger.log({level: 'debug', message: `Deleting list with id: ${listId}`});
     return List.deleteOne({_id: listId}).then((doc, err) => {
         if(err) {
-            logger.log({level: 'error', message: `There was an error updating list with options ${options}! ${err}`});
+            logger.log({level: 'error', message: `There was an error delete list with id ${listId}! ${err}`});
             return new ValidationHandler(false, 'Could not delete list');
         } 
-        logger.log({level: 'info', message: `List with id ${listId} was successfully updated with options ${options}`});
-        return new ValidationHandler(true, 'List successfully updated');
+        logger.log({level: 'info', message: `List with id ${listId} was delete from databaase`});
+        return new ValidationHandler(true, 'List successfully deleted');
     });
 }
