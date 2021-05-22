@@ -7,6 +7,7 @@ p #{__("DASHBOARD_LISTS_TITLE")}
         .uk-flex
             button.uk-button.uk-button-default.uk-margin-right#newList #{__("NEW_LIST_BUTTON")}
             input.uk-input(type='text' name='username' placeholder=`navn` id="newListName")
+        #createListOutput.uk-margin-top
     .uk-margin 
         .uk-grid.uk-child-width-1-3.uk-grid-match#lists
             each item in lists
