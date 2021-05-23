@@ -29,6 +29,7 @@
 	"BUTTON_SAVE": "Speichern",
 	"BUTTON_CANCEL": "Stornieren",
 	"BUTTON_DELETE": "Löschen",
+	"BUTTON_DELETE_LIST": "Liste löschen",
 	"MODAL_FORGOT_PASSWORD_BUTTON": "Passwort vergessen",
 	"MODAL_SIGN_IN_TITLE": "Anmeldung",
 	"MODAL_SIGN_IN_DESC1": "Wenn Sie noch kein Konto erstellt haben, können Sie dies gerne tun.",
@@ -178,5 +179,7 @@
 	"ADMINDASHBOARD_LANGUAGE_NAME": "Englischer Name",
 	"ADMINDASHBOARD_LANGUAGE_CODE": "Sprachcode",
 	"ADMINDASHBOARD_SUPPORT_INPUT_TICKETID": "Ticketnummer",
-	"LIST_NAME": "Listennamen"
+	"LIST_NAME": "Listennamen",
+	"BUTTON_SUBMIT": "einreichen",
+	"BUTTON_GET": "Erhalten"
 }

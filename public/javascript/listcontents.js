@@ -1,6 +1,5 @@
 let deleteListBtn = document.getElementById('deleteListBtn');
 let listid = deleteListBtn.getAttribute('data-listid');
-var urlPath = urlPath;
 
 function removeFromList(id, type, listid){
     switch(type){
@@ -19,5 +18,5 @@ function removeFromList(id, type, listid){
 
 deleteListBtn.addEventListener("click", function(){
     socket.emit('deleteList', listid);
-    window.location.href = `http://localhost:3000/${urlPath}/user/dashboard?error=redirected&errorType=mylist`;
+    window.location.href = `/${urlPath}/user/dashboard?error=redirected&errorType=mylist`;
 }); 

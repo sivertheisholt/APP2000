@@ -29,6 +29,7 @@
 	"BUTTON_SAVE": "Сохранить",
 	"BUTTON_CANCEL": "Отмена",
 	"BUTTON_DELETE": "Удалить",
+	"BUTTON_DELETE_LIST": "Удалить список",
 	"MODAL_FORGOT_PASSWORD_BUTTON": "Забыл пароль",
 	"MODAL_SIGN_IN_TITLE": "Авторизоваться",
 	"MODAL_SIGN_IN_DESC1": "Если вы еще не создали учетную запись, смело делайте это.",
@@ -38,8 +39,8 @@
 	"MODAL_SIGN_UP_DESC2": "Ваша электронная почта действительна",
 	"MODAL_SIGN_UP_DESC3": "Ваш пароль - это как минимум 1 цифра",
 	"MODAL_SIGN_UP_DESC4": "Ваш пароль состоит как минимум из 1 заглавной и 1 строчной буквы.",
-    "MODAL_PASSWORD_RECOVERY": "Восстановить пароль",
-    "MODAL_FORGOT_PASSWORD_SEND": "Отправлять",
+	"MODAL_PASSWORD_RECOVERY": "Восстановить пароль",
+	"MODAL_FORGOT_PASSWORD_SEND": "Отправлять",
 	"MODAL_FORGOT_PASSWORD_TITLE": "",
 	"MODAL_FORGOT_PASSWORD_DESC": "Введите свой адрес электронной почты, и вы получите электронное письмо со ссылкой, эта ссылка действительна только в течение 60 минут.",
 	"UPCOMING_LOAD_MORE_BUTTON": "Загрузи больше",
@@ -175,5 +176,10 @@
 	"ADMINDASHBOARD_LANGUAGE_NAME": "Английское имя",
 	"ADMINDASHBOARD_LANGUAGE_CODE": "Код языка",
 	"ADMINDASHBOARD_SUPPORT_INPUT_TICKETID": "ID билета",
-	"LIST_NAME": "Имя списка"
+	"LIST_NAME": "Имя списка",
+	"DASHBOARD_SWITCHER_WATCHLIST": "Список наблюдения",
+	"DASHBOARD_WATCHLIST_DESC": "Добавьте фильм или телешоу в свой список просмотра, и вы сможете просматривать их здесь!",
+	"NEW_LIST_BUTTON": "Новый",
+	"BUTTON_SUBMIT": "Представлять на рассмотрение",
+	"BUTTON_GET": "Получать"
 }

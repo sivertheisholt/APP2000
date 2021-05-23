@@ -191,7 +191,6 @@ exports.userAuth_post_resetpassword = async function(req, res) {
         return res.status(401).json({error: 'Authentication error!'});
     }
 
-    console.log(resetLink);
     //Sjekker info
     jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, async function(err, decodedData) {
         if(err) {
@@ -204,6 +203,13 @@ exports.userAuth_post_resetpassword = async function(req, res) {
         const userResult = await userHandler.getUser({resetLink: resetLinkConfirmed})
         if(!userResult.status) {
             res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=User with this token does not exist&errorType=resetPassword`);
+            return;
+        }
+
+        //Sjekker at passord tilfredstiller krav
+        if(!(hjelpeMetoder.data.validatePassword(pugBody.newPassword))){
+            logger.log({level: 'debug', message: `Password is not properly formatted!`}); 
+            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=Password is not properly formatted&errorType=resetPassword`);
             return;
         }
 
