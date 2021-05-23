@@ -36,6 +36,7 @@ function addToDatabase(movie) {
 /**
  * Sjekker om filmen eksisterer i databasen
  * @param {Number} movieId 
+ * @param {String} languageCode
  * @returns ValidationHandler
  */
 async function checkIfSaved(movieId, languageCode) {
