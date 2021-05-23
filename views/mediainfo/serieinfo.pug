@@ -159,12 +159,12 @@ body
                         span.result
                       textarea.uk-textarea.uk-form-large(id="reviewText")
                       a.uk-button.uk-button-primary.uk-button-small(id="reviewPoster")
-                        p='Post comment!'  
+                        p #{__("REVIEW_POST_COMMENT")}  
                     div
                     div
                 #serieinfo-review-result
               - else
-                p='Log in to leave a comment!'
+                p #{__("REVIEW_LOG_IN_TO_POST")}
               each item in serie.reviews
                 article.uk-comment.uk-comment-primary.uk-margin-top
                   header.uk-comment-header

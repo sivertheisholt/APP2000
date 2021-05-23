@@ -194,7 +194,7 @@ const { stringify } = require('querystring');
                     if(err){
                         return new ValidationHandler(false, 'Could not delete language');
                     }
-                    console.log('overwritten');
+                    logger.log({level: 'info', message: 'Language edits been complete'});
                 });
                 return new ValidationHandler(true, langToDelete);
             }

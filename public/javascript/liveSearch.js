@@ -21,7 +21,6 @@ function maxText(data, max){
 socket.on('resultatMedia', (resultMedia) => {
     document.getElementById('searchDiv').innerHTML = ``;
     document.getElementById('searchDiv').style.display = 'block';
-    console.log(resultMedia);
     if(resultMedia.length === 0){
         document.getElementById('searchDiv').innerHTML += `<div class="uk-card uk-card-default uk-grid uk-grid-collapse uk-width-1-1@s search-result" style="background-color: rgb(223, 223, 223);">
                                                                 <div class="uk-width-expand">
