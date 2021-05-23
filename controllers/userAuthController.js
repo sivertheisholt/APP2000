@@ -216,11 +216,11 @@ exports.userAuth_post_resetpassword = async function(req, res) {
         const salt = await bcrypt.genSalt(10);
 
         //Nå setter vi passord til det hasha passordet
-        userResult.information.password = await bcrypt.hash(pugBody.newPassword, salt);
-        userResult.information.resetLink = '';
+        const password = await bcrypt.hash(pugBody.newPassword, salt);
+        const resetLink = '';
 
         //Lagrer bruker
-        const updateUser = await userHandler.updateUser(userResult.information);
+        const updateUser = await userHandler.updateUser(userResult.information, {password: password, resetLink: resetLink});
         if(!updateUser.status) {
             res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLink}?error=Could not change password&errorType=resetPassword`);
             return;
