@@ -188,5 +188,7 @@
 	"ABOUT_BACKEND_MAIL_MISSING": "Le courrier est manquant",
 	"ABOUT_BACKEND_TEXT_MISSING": "Le texte est manquant",
 	"ABOUT_BACKEND_EMAIL_FORMAT": "Le courrier n'est pas correctement formaté",
-	"ABOUT_BACKEND_TICKET_SUCCESS": "Le ticket a été envoyé avec succès"
+	"ABOUT_BACKEND_TICKET_SUCCESS": "Le ticket a été envoyé avec succès",
+	"HOMEPAGE_CHART_TRENDING_TITLE": "Genres tendances",
+	"HOMEPAGE_CHART_TRENDING_Y": "Montant"
 }

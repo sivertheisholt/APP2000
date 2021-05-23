@@ -188,5 +188,7 @@
 	"ABOUT_BACKEND_MAIL_MISSING": "Почта отсутствует",
 	"ABOUT_BACKEND_TEXT_MISSING": "Текст отсутствует",
 	"ABOUT_BACKEND_EMAIL_FORMAT": "Почта неправильно отформатирована",
-	"ABOUT_BACKEND_TICKET_SUCCESS": "Билет был успешно отправлен"
+	"ABOUT_BACKEND_TICKET_SUCCESS": "Билет был успешно отправлен",
+	"HOMEPAGE_CHART_TRENDING_TITLE": "Актуальные жанры",
+	"HOMEPAGE_CHART_TRENDING_Y": "Количество"
 }

@@ -188,5 +188,7 @@
 	"ABOUT_BACKEND_MAIL_MISSING": "Epost mangler",
 	"ABOUT_BACKEND_TEXT_MISSING": "Tekst mangler",
 	"ABOUT_BACKEND_EMAIL_FORMAT": "Epost er ikke formatert riktig",
-	"ABOUT_BACKEND_TICKET_SUCCESS": "Billett sendt inn"
+	"ABOUT_BACKEND_TICKET_SUCCESS": "Billett sendt inn",
+	"HOMEPAGE_CHART_TRENDING_TITLE": "Populære sjangere",
+	"HOMEPAGE_CHART_TRENDING_Y": "Antall"
 }

@@ -188,5 +188,7 @@
 	"ABOUT_BACKEND_MAIL_MISSING": "Mail fehlt",
 	"ABOUT_BACKEND_TEXT_MISSING": "ext fehlt",
 	"ABOUT_BACKEND_EMAIL_FORMAT": "Mail ist nicht richtig formatiert",
-	"ABOUT_BACKEND_TICKET_SUCCESS": "Ticket wurde erfolgreich gesendet"
+	"ABOUT_BACKEND_TICKET_SUCCESS": "Ticket wurde erfolgreich gesendet",
+	"HOMEPAGE_CHART_TRENDING_TITLE": "Trendgenres",
+	"HOMEPAGE_CHART_TRENDING_Y": "Menge"
 }
