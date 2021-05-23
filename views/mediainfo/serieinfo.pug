@@ -120,14 +120,13 @@ body
             .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
               ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s uk-grid-match')
                 each item in actors
-                  li
-                    a(href=`/${urlPath}/person/${item.id}`)
-                      .uk-card.uk-card-default
-                        .uk-card-media-top
-                          img(src=`${item.picture}` alt='' width='100%')
-                        .uk-card-body
-                          h3.uk-card-title= `${item.navn}`
-                          p= `${item.character}`
+                  a(href=`/${urlPath}/person/${item.id}`)
+                    .uk-card.uk-card-default
+                      .uk-card-media-top
+                        img(src=`${item.picture}` alt='' width='100%')
+                      .uk-card-body
+                        h3.uk-card-title= `${item.navn}`
+                        p= `${item.character}`
               a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slider-item='previous')
               a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slider-item='next')
             ul.uk-slider-nav.uk-dotnav.uk-flex-center.uk-margin
