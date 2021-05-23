@@ -25,6 +25,15 @@ exports.user_get_dashboard = async function(req, res) {
     let movieWatched = [];
     let lists = [];
     let userStats = await userCharts.userStatistics(req.renderObject.user);
+    userStats.information.charts[0].title.text = req.__('DASHBOARD_BACKEND_CHART_WATCHED_TITLE');
+    userStats.information.charts[0].series[0].name = req.__('DASHBOARD_BACKEND_CHART_WATCHED_DATA_NAME');
+    userStats.information.charts[0].series[0].data[0].name = req.__('DASHBOARD_BACKEND_CHART_WATCHED_DATA_MOVIE');
+    userStats.information.charts[0].series[0].data[1].name = req.__('DASHBOARD_BACKEND_CHART_WATCHED_DATA_TV');
+
+    userStats.information.charts[1].title.text = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_TITLE');
+    userStats.information.charts[0].series[0].name = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME');
+    userStats.information.charts[1].series[0].data[0].name = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_MOVIE');
+    userStats.information.charts[1].series[0].data[1].name = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_TV');
 
     //Skaffer lister
     for(const item of req.renderObject.user.lists) {
