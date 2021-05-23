@@ -106,7 +106,7 @@
 	"ABOUT_STATISTIC_TWO": "Anmeldelser",
 	"ABOUT_STATISTIC_THREE": "Serier",
 	"ABOUT_STATISTIC_FOUR": "Filmer",
-	"ABOUT_CARD_ONE_TEXT": "Lansert i 2021 av en gruppe film-nerder som ville gjøre det mer sosialt og brukervennlig å finne informasjon om filmer. Gruppen...",
+	"ABOUT_CARD_ONE_TEXT": "Gruppen ble grunlagt i 2020 med målet om å gjøre det mer sosialt å dele underholdnings-informasjon på nett. Nettsiden vår ble lansert i 2021 imens den fortsatt var under utvikling. I dag er nettsiden fult funksjonell, og med flere endringer på vei håper vi å bli den mest populære nettsiden for informasjon om underholdning. Du er hjertelig velkommen som medlem og del gjerne med vennene dine.",
 	"ABOUT_CARD_TWO_HEADING": "Vårt arbeid",
 	"ABOUT_CARD_TWO_TEXT": "Filmatory sin nettside bruke API-er fra TMDI til å hente informasjon om tv-serier, filmer og personer. Siden bruker MongoDB som database, funksjonene er lagd med node.js og på front-end biten har vi skrevet pug-kode med UI-kit.",
 	"ABOUT_CONTACT_HEADING": "Kontakt oss",
