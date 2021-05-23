@@ -78,6 +78,8 @@
 	"TVINFO_SEASON": "季节",
 	"TVINFO_EXEC_PRODUCER": "执行制片人",
 	"TVINFO_CREATED_BY": "由...制作",
+	"REVIEW_POST_COMMENT": "发表评论",
+	"REVIEW_LOG_IN_TO_POST": "登录发表评论！",
 	"ACTOR_BIRTHPLACE": "出生地",
 	"ACTOR_BIOGRAPHY": "传",
 	"ACTOR_MOSTKNOWN": "最有名的",

@@ -78,6 +78,8 @@
 	"TVINFO_SEASON": "Сезон",
 	"TVINFO_EXEC_PRODUCER": "Исполнительный продюсер",
 	"TVINFO_CREATED_BY": "Создан",
+	"REVIEW_POST_COMMENT": "Опубликовать обзор",
+	"REVIEW_LOG_IN_TO_POST": "Авторизуйтесь, чтобы оставить отзыв!",
 	"ACTOR_BIRTHPLACE": "Место рождения",
 	"ACTOR_BIOGRAPHY": "биография",
 	"ACTOR_MOSTKNOWN": "Наиболее известен",
