@@ -18,6 +18,9 @@ contactBtn.addEventListener("click", function(e){
     //Om suksess
     jqxhr.done(function(result) {
         swal("Nice!", result.message, "success");
+        contactTitle.value = '';
+        contactText.value = '';
+        contactMail.value = '';
     });
 
     //Om failure
