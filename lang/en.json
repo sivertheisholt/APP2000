@@ -206,5 +206,16 @@
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_MOVIE": "Movie",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_TV": "TV-show",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_NAME": "Amount",
-	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Amount"
+	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Amount",
+	"SUCCESS_LOGIN": "Logging in...",
+	"SUCCESS_SIGNUP": "Signup complete, logging in...",
+	"ERROR_USER_DOES_NOT_EXIST": "This user does not exist",
+	"ERROR_INVALID_PASSWORD": "Invalid password",
+	"ERROR_USER_IS_BANNED": "This user has been banned, contact support",
+	"ERROR_INVALID_EMAIL": "Email is not properly formatted",
+	"ERROR_EMAIL_TAKEN": "Email is already taken",
+	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "Password is not properly formatted",
+	"ERROR_MISSING_INPUT": "All input fields must be filled!",
+	"ERROR_PASSWORD_NOT_MATCH": "Passwords do not match",
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Unexpected error when creating user, try again"
 }

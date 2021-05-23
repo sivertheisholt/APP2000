@@ -15,15 +15,15 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon(uk-icon='icon: user')
-                                    input.uk-input(type='text' name='email' placeholder=`${__('EMAIL')}`)
+                                    input.uk-input(type='text' name='email' placeholder=`${__('EMAIL')}` id='index-login-email')
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon(uk-icon='icon: lock')
-                                    input.uk-input(type='password' name='password' placeholder=`${__('PASSWORD')}`)
+                                    input.uk-input(type='password' name='password' placeholder=`${__('PASSWORD')}` id='index-login-password')
                             #login-error
                             .uk-margin
                                 .uk-inline
-                                    button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_LOGIN")}
+                                    button.uk-button.uk-button-default.uk-margin-right(type='submit' id='login-btn') #{__("BUTTON_LOGIN")}
                             .uk-margin
                                 .uk-inline
                                     a.uk-text-small(href='#modal-forgot-password' uk-toggle='') #{__("MODAL_FORGOT_PASSWORD_BUTTON")}
@@ -38,19 +38,19 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon(uk-icon='icon: user')
-                                    input.uk-input(type='text' name='email' placeholder=`${__('EMAIL')}` required)
+                                    input.uk-input(type='text' name='email' placeholder=`${__('EMAIL')}` id='index-signup-email' required)
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
-                                    input.uk-input(type='password' name='password' placeholder=`${__('PASSWORD')}` required)
+                                    input.uk-input(type='password' name='password' placeholder=`${__('PASSWORD')}` id='index-signup-password' required)
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
-                                    input.uk-input(type='password' name='passwordRepeat' placeholder=`${__('REPEAT_PASSWORD')}` required)
+                                    input.uk-input(type='password' name='passwordRepeat' placeholder=`${__('REPEAT_PASSWORD')}` id='index-signup-password-repeat' required)
                             #signup-error
                             .uk-margin
                                 .uk-inline
-                                    button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_SIGNUP")}
+                                    button.uk-button.uk-button-default.uk-margin-right(type='submit' id='signup-btn') #{__("BUTTON_SIGNUP")}
                     .uk-text-center.uk-width-1-2.uk-margin-auto
                         p.uk-text-bold #{__("MODAL_SIGN_UP_TITLE")}
                         p.uk-text-small #{__("MODAL_SIGN_UP_DESC1")}

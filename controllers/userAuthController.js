@@ -34,41 +34,36 @@ exports.userAuth_post_signup = async function(req,res ) {
     logger.log({level: 'debug', message: `Request received for /signup`}); 
 
     //Skaffer body fra form
-    const pugBody = req.body;
+    const pugBody = req.body.signup_details;
 
     //Sjekker at mail tilfredsstiller krav
     if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
         logger.log({level: 'debug', message: `Email ${pugBody.email} is not properly formatted!`}); 
-        res.redirect(`/${req.renderObject.langCode}}/homepage?error=Email is not properly formatted&errorType=signup`);
-        return;
+        return res.status(400).send({error: req.__('ERROR_INVALID_EMAIL')});
     }
 
     //Sjekker om epost er tatt
     if((await userHandler.getUserFromEmail(pugBody.email)).status) {
-        logger.log({level: 'debug', message: `Email ${pugBody.email} is already taken!`});
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=Email is already taken&errorType=signup`);
-        return;
+        logger.log({level: 'debug', message: `Email ${pugBody.email} is already taken!`}); 
+        return res.status(400).send({error: req.__('ERROR_EMAIL_TAKEN')});
     }
 
     //Sjekker at passord tilfredstiller krav
     if(!(hjelpeMetoder.data.validatePassword(pugBody.password))){
         logger.log({level: 'debug', message: `Password is not properly formatted!`}); 
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=Password is not properly formatted&errorType=signup`);
-        return;
+        return res.status(400).send({error: req.__('ERROR_PASSWORD_NOT_PROPERLY_FORMATTED')});
     }
 
     //Vi gjør en sjekk at alle feltene er fylt inn
     if(!(pugBody.email && pugBody.password && pugBody.passwordRepeat)) {
         logger.log({level: 'debug', message: `All form inputs are not filled!`}); 
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=Data is not properly formatted&errorType=signup`);
-        return;
+        return res.status(400).send({error: req.__('ERROR_MISSING_INPUT')});
     }
 
     //Vi gjør en sjekk at passord 1 er lik passord 2 (Repeat password)
     if(!(pugBody.password == pugBody.passwordRepeat)) {
         logger.log({level: 'debug', message: `Passwords do not match each other!`}); 
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=Passwords do not match&errorType=signup`);
-        return;
+        return res.status(400).send({error: req.__('ERROR_PASSWORD_NOT_MATCH')});
     }
 
     //Nå må vi lage et nytt bruker objekt
@@ -83,8 +78,8 @@ exports.userAuth_post_signup = async function(req,res ) {
     //Lagrer bruker i databasen
     const userResult = await userHandler.newUser(bruker);
     if(!userResult.status) {
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=Something unexpected happen when trying to create your user!&errorType=signup`);
-        return;
+        logger.log({level: 'error', message: `Unexpected error when creating user`}); 
+        return res.status(400).send({error: req.__('ERROR_SIGNUP_UNEXPECTED_ERROR')});
     }
 
     //Sender mail til bruker
@@ -101,7 +96,8 @@ exports.userAuth_post_signup = async function(req,res ) {
     req.session.userId = bruker._id;
     
     //Suksess
-    res.redirect(`/${req.renderObject.langCode}/homepage`);
+    res.status(200).send({message: req.__('SUCCESS_SIGNUP')});
+    //res.redirect(`/${req.renderObject.langCode}/homepage`);
 }
 
 exports.userAuth_post_forgottenPassword = async function(req, res) {
@@ -147,27 +143,26 @@ exports.userAuth_get_login = async function(req,res ) {
     logger.log({level: 'debug', message: `Request received for /login`}); 
 
     //Skaffer body fra form
-    const pugBody = req.body;
-
+    const pugBody = req.body.login_details;
     //Skaffer bruker
     const userResult = await userHandler.getUserFromEmail(pugBody.email);
     if(!userResult.status) {
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=User does not exist&errorType=login`);
-        return;
+        logger.log({level: 'debug', message: `Invalid login: User does not exist`});
+        return res.status(400).send({error: req.__('ERROR_USER_DOES_NOT_EXIST')});
     }
 
     //Sjekker om bruker er banna
     if(userResult.information.banned) {
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=This user is banned&errorType=login`);
-        return;
+        logger.log({level: 'debug', message: `Access denied: User ${userResult.information._id} is banned`});
+        return res.status(400).send({error: req.__('ERROR_USER_IS_BANNED')});
     }
 
     //Sjekker passord
     const sjekkPassword = await bcrypt.compare(pugBody.password, userResult.information.password);
     if(!sjekkPassword) {
-        logger.log({level: 'debug', message: `Invalid password for ${userResult.information._id}`}); 
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=Invalid Password&errorType=login`);
-        return;
+        logger.log({level: 'debug', message: `Invalid password for ${userResult.information._id}`});
+        return res.status(400).send({error: req.__('ERROR_INVALID_PASSWORD')});
+
     }
 
     //Setter session
@@ -175,7 +170,8 @@ exports.userAuth_get_login = async function(req,res ) {
     req.session.userId = userResult.information._id;
 
     //Suksess
-    res.redirect(`/${req.renderObject.langCode}/homepage`);
+    res.status(200).send({message: req.__('SUCCESS_LOGIN')});
+    //res.redirect(`/${req.renderObject.langCode}/homepage`);
 }
 
 exports.userAuth_post_resetpassword = async function(req, res) {
