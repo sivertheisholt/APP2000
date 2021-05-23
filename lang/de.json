@@ -206,5 +206,16 @@
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_MOVIE": "Film",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_TV": "Fernsehsendung",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_NAME": "Menge",
-	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Menge"
+	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Menge",
+	"SUCCESS_LOGIN": "Einloggen...",
+	"SUCCESS_SIGNUP": "Registrierung abgeschlossen, Anmeldung ...",
+	"ERROR_USER_DOES_NOT_EXIST": "Dieser Benutzer existiert nicht",
+	"ERROR_INVALID_PASSWORD": "Ungültiges Passwort",
+	"ERROR_USER_IS_BANNED": "Dieser Benutzer wurde gesperrt. Wenden Sie sich an den Support",
+	"ERROR_INVALID_EMAIL": "E-Mail ist nicht richtig formatiert",
+	"ERROR_EMAIL_TAKEN": "E-Mail ist bereits vergeben",
+	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "Das Passwort ist nicht richtig formatiert",
+	"ERROR_MISSING_INPUT": "Alle Eingabefelder müssen ausgefüllt sein!",
+	"ERROR_PASSWORD_NOT_MATCH": "Passwörter stimmen nicht überein",
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Unerwarteter Fehler beim Erstellen des Benutzers. Versuchen Sie es erneut"
 }

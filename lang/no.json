@@ -206,5 +206,16 @@
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_MOVIE": "Film",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_TV": "Serie",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_NAME": "Antall",
-	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Antall"
+	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Antall",
+	"SUCCESS_LOGIN": "Logger inn...",
+	"SUCCESS_SIGNUP": "Registreringen er fullført, logger inn ...",
+	"ERROR_USER_DOES_NOT_EXIST": "Denne brukeren eksisterer ikke",
+	"ERROR_INVALID_PASSWORD": "Ugyldig passord",
+	"ERROR_USER_IS_BANNED": "Denne brukeren er utestengt, kontakt support",
+	"ERROR_INVALID_EMAIL": "E-postadressen er ikke riktig formatert",
+	"ERROR_EMAIL_TAKEN": "E-postadressen er allerede i bruk",
+	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "Passordet er ikke riktig formatert",
+	"ERROR_MISSING_INPUT": "Alle inndatafelt må fylles ut!",
+	"ERROR_PASSWORD_NOT_MATCH": "Passordene er ikke like",
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Uventet feil når du opprettet bruker, prøv igjen"
 }

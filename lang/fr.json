@@ -206,5 +206,16 @@
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_MOVIE": "Film",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_TV": "Émission de télévision",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_NAME": "Montant",
-	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Montant"
+	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Montant",
+	"SUCCESS_LOGIN": "Connectez-vous...",
+	"SUCCESS_SIGNUP": "Inscription terminée, connexion ...",
+	"ERROR_USER_DOES_NOT_EXIST": "Cet utilisateur n'existe pas",
+	"ERROR_INVALID_PASSWORD": "Mot de passe incorrect",
+	"ERROR_USER_IS_BANNED": "Cet utilisateur a été banni, contactez l'assistance",
+	"ERROR_INVALID_EMAIL": "L'e-mail n'est pas correctement formaté",
+	"ERROR_EMAIL_TAKEN": "Cet email est déjà pris",
+	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "Le mot de passe n'est pas correctement formaté",
+	"ERROR_MISSING_INPUT": "Tous les champs de saisie doivent être remplis!",
+	"ERROR_PASSWORD_NOT_MATCH": "Les mots de passe ne correspondent pas",
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Erreur inattendue lors de la création de l'utilisateur, réessayez"
 }

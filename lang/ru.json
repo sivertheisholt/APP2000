@@ -206,5 +206,16 @@
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_MOVIE": "Кино",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_TV": "ТВ шоу",
 	"DASHBOARD_BACKEND_CHART_WATCHED_DATA_NAME": "Количество",
-	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Количество"
+	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Количество",
+	"SUCCESS_LOGIN": "Вход ...",
+	"SUCCESS_SIGNUP": "Регистрация завершена, вход в систему ...",
+	"ERROR_USER_DOES_NOT_EXIST": "Этот пользователь не существует",
+	"ERROR_INVALID_PASSWORD": "Неправильный пароль",
+	"ERROR_USER_IS_BANNED": "Этот пользователь заблокирован, обратитесь в службу поддержки",
+	"ERROR_INVALID_EMAIL": "Электронная почта неправильно отформатирована",
+	"ERROR_EMAIL_TAKEN": "почтовое сообщение уже принято",
+	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "Пароль неправильно отформатирован",
+	"ERROR_MISSING_INPUT": "Все поля ввода должны быть заполнены!",
+	"ERROR_PASSWORD_NOT_MATCH": "Пароли не соответствуют",
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Неожиданная ошибка при создании пользователя, попробуйте еще раз"
 }
