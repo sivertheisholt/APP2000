@@ -14,7 +14,7 @@ exports.getListFromId = async function(listId) {
     
     //Skaffer liste
     const result =  await ListModel.findOne(({_id: listId}));
-    return checkResult(result);
+    return checkResult(result, listId);
 }
 
 /**
