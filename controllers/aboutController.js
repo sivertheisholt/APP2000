@@ -45,8 +45,5 @@ exports.about_post_contact = function(req, res) {
     return;
   }
   ticketCreator.addTicket(ticket);
-  res.json({
-    status: 'success'
-  });
   return res.redirect(`/${res.locals.currentLang}/infosider/about`);
 }

@@ -59,6 +59,11 @@ filminfoListSaveBtn.addEventListener("click", function(){
     }
 }); 
 
-socket.on('displayMovieList', function(result){
-    filminfoListResult.innerHTML = result.information;
+socket.on('displayMovieList', async function(result){
+    UIkit.modal(document.getElementById('add-list-modal')).hide();
+    if(!result.status){
+        swal("Woops!", "This movie is already in your list", "error");
+        return;
+    }
+    swal("Nice!", "This movie has been added to your list!", "success");
 });

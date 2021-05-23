@@ -43,7 +43,7 @@ body
                     p #{__("ABOUT_CARD_TWO_TEXT")}
         #contact-form
         .uk-heading-small.uk-text-center #{__("ABOUT_CONTACT_HEADING")}
-        form(action=`/${urlPath}/infosider/contactform` method='post')
+        form(action=`/${urlPath}/infosider/contactform` method='post' id='contactForm')
             fieldset.uk-fieldset
                 legend.uk-legend.uk-width-1-3.uk-margin-auto.uk-card.uk-card-body          
                     .uk-margin
@@ -56,17 +56,16 @@ body
                         label.uk-text-medium #{__("ABOUT_CONTACT_MESSAGE")}
                         textarea.uk-textarea(rows='5' name='contacttext')
                     .uk-margin
-                        button.uk-button.uk-button-default.uk-.uk-width-medium.uk-margin(type='submit') #{__("BUTTON_ENTER")}
+                        button.uk-button.uk-button-default.uk-.uk-width-medium.uk-margin(type='submit' id='contactPostBtn') #{__("BUTTON_ENTER")}
                     #about-contact-error
-
 include ../includes/footer.pug
+script(src="/javascript/infosider/about.js")
 - if (error)
     script.
         var error = !{error}
         var errorType = !{errorType}
         switch(errorType) {
             case "aboutContactForm":
-                document.getElementById("about-contact-error").style.display='block';
-                document.getElementById("about-contact-error").innerHTML += 'ERROR: ' + error;
+                swal("Woops!", error, "error")
                 break;
         }

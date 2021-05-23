@@ -60,5 +60,10 @@ serieinfoListSaveBtn.addEventListener("click", function(){
 }); 
 
 socket.on('displayTvList', function(result){
-    serieinfoListResult.innerHTML = result.information;
+    UIkit.modal(document.getElementById('add-list-modal')).hide();
+    if(!result.status){
+        swal("Woops!", "This movie is already in your list", "error");
+        return;
+    }
+    swal("Nice!", "This movie has been added to your list!", "success");
 });
