@@ -190,5 +190,7 @@
 	"ABOUT_BACKEND_EMAIL_FORMAT": "Mail is not properly formatted",
 	"ABOUT_BACKEND_TICKET_SUCCESS": "Ticket was successfully sent",
 	"HOMEPAGE_CHART_TRENDING_TITLE": "Trending genres",
-	"HOMEPAGE_CHART_TRENDING_Y": "Amount"
+	"HOMEPAGE_CHART_TRENDING_Y": "Amount",
+	"HOMEPAGE_CHART_TRENDING_DATA_MOVIE": "Movie",
+	"HOMEPAGE_CHART_TRENDING_DATA_TV": "Tv-show"
 }

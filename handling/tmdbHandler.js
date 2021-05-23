@@ -94,8 +94,8 @@ var methods = {
      * Skaffer genras for filmer
      * @returns Object
      */
-    getGenreMovie: function() {
-        return tmdb.getGenresMovie();
+    getGenreMovie: function(languageCode) {
+        return tmdb.getGenresMovie(languageCode);
     },
     /**
      * Skaffer film informasjon fra tittel
@@ -183,8 +183,8 @@ var methods = {
      * Skaffer genras for serier
      * @returns Object
      */
-    getGenreTv: function() {
-        return tmdb.getGenresTv();
+    getGenreTv: function(languageCode) {
+        return tmdb.getGenresTv(languageCode);
     },
     /**
      * Skaffer person fra ID

@@ -3,13 +3,26 @@ const logger = require("../logging/logger");
 
 var methods = {
     //Denne metoden lager trending genre chart og returnerer ett objekt
-    makeTrendingChart: async function() {
+    makeTrendingChart: async function(languageCode) {
         logger.log({level: 'debug', message: 'Creating trending chart information'});
         //Skaffer data fra API
         const trendingMovies = await tmdb.data.getTrendingMovies();
-        const genresMovies = await tmdb.data.getGenreMovie();
+        let genresMovies = await tmdb.data.getGenreMovie(languageCode);
+        for(const genre of genresMovies.genres) {
+            if(genre.name == null) {
+                genresMovies = await tmdb.data.getGenreMovie('en');
+                break;
+            }
+        }
         const trendingTv = await tmdb.data.getTrendingTv();
-        const genresTv = await tmdb.data.getGenreTv();    
+        let genresTv = await tmdb.data.getGenreTv(languageCode);
+        console.log(genresTv.genres[0].name)
+        for(const genre of genresTv.genres) {
+            if(genre.name == null) {
+                genresTv = await tmdb.data.getGenreTv('en');
+                break;
+            }
+        }
         //Deklarer variabler
         let dataMovies = [];
         let dataTv = [];

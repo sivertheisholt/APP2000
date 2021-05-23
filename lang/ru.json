@@ -190,5 +190,7 @@
 	"ABOUT_BACKEND_EMAIL_FORMAT": "Почта неправильно отформатирована",
 	"ABOUT_BACKEND_TICKET_SUCCESS": "Билет был успешно отправлен",
 	"HOMEPAGE_CHART_TRENDING_TITLE": "Актуальные жанры",
-	"HOMEPAGE_CHART_TRENDING_Y": "Количество"
+	"HOMEPAGE_CHART_TRENDING_Y": "Количество",
+	"HOMEPAGE_CHART_TRENDING_DATA_MOVIE": "Кино",
+	"HOMEPAGE_CHART_TRENDING_DATA_TV": "ТВ шоу"
 }

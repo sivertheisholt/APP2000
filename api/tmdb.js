@@ -139,15 +139,15 @@ Tmdb.prototype.getTrendingTv = function getTrendingTv(addParams, languageCode) {
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getGenresMovie = function getGenresMovie() {
-    var url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.token}`;
+Tmdb.prototype.getGenresMovie = function getGenresMovie(languageCode) {
+    var url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getGenresTv = function getGenresTv() {
-    var url = `https://api.themoviedb.org/3/genre/tv/list?api_key=${this.token}`;
+Tmdb.prototype.getGenresTv = function getGenresTv(languageCode) {
+    var url = `https://api.themoviedb.org/3/genre/tv/list?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
