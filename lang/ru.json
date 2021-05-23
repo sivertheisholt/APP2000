@@ -165,5 +165,7 @@
 	"LIST_NUMBER_OF_TVS": "Количество телешоу:",
 	"RESET_PASSWORD_ERROR_DESC_ONE": "При сбросе пароля произошла ошибка. Повторите попытку.",
 	"RESET_PASSWORD_ERROR_DESC_TWO": "Если эта ошибка повторяется, пожалуйста ",
-	"RESET_PASSWORD_ERROR_DESC_THREE": "свяжитесь с нами" 
+	"RESET_PASSWORD_ERROR_DESC_THREE": "свяжитесь с нами",
+	"RESET_PASSWORD_SUCCESS_DESC_ONE": "вы успешно изменили ваш пароль",
+	"RESET_PASSWORD_SUCCESS_DESC_TWO": "Щелкните здесь, чтобы перейти на главную страницу."
 }

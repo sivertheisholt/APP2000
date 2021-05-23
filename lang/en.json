@@ -171,5 +171,7 @@
 	"Hello": "Hello",
 	"RESET_PASSWORD_ERROR_DESC_ONE": "There was an error resetting your password, please try again.",
 	"RESET_PASSWORD_ERROR_DESC_TWO": "If this error keeps recurring, please ",
-	"RESET_PASSWORD_ERROR_DESC_THREE": "contact us" 
+	"RESET_PASSWORD_ERROR_DESC_THREE": "contact us",
+	"RESET_PASSWORD_SUCCESS_DESC_ONE": "You have successfully changed your password",
+	"RESET_PASSWORD_SUCCESS_DESC_TWO": "Click here to go to the frontpage."
 }

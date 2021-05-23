@@ -168,5 +168,7 @@
 	"LIST_NUMBER_OF_TVS": "Anzahl der TV-Shows:",
 	"RESET_PASSWORD_ERROR_DESC_ONE": "Beim Zurücksetzen Ihres Passworts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
 	"RESET_PASSWORD_ERROR_DESC_TWO": "Wenn dieser Fehler immer wieder auftritt, ",
-	"RESET_PASSWORD_ERROR_DESC_THREE": "kontaktieren Sie uns bitte" 
+	"RESET_PASSWORD_ERROR_DESC_THREE": "kontaktieren Sie uns bitte",
+	"RESET_PASSWORD_SUCCESS_DESC_ONE": "Sie haben Ihr Passwort erfolgreich geändert",
+	"RESET_PASSWORD_SUCCESS_DESC_TWO": "Klicken Sie hier, um zur Startseite zu gelangen."
 }
