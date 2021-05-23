@@ -74,7 +74,6 @@ Tmdb.prototype.getPersonLinksByID = function getPersonLinksByID(personID) {
 }
 Tmdb.prototype.getPersonCombinedCreditsByID = function getPersonCombinedCreditsByID(personID) {
     var url = `https://api.themoviedb.org/3/person/${personID}/combined_credits?api_key=${this.token}`;
-    console.log(url);
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);

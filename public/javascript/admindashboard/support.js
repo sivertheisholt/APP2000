@@ -16,6 +16,5 @@ adminTicketBtn.addEventListener("click", ()=>{
  * Viser informasjon om hvilken ticket som ble svart på
  */
 socket.on('respondTicketResult', (result) => {
-    console.log("Responded");
     adminTicketResult.innerHTML = result.information;
 });

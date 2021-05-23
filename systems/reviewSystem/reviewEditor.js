@@ -212,7 +212,6 @@ async function approveReview(reviewId) {
 
     //Skaffer pendingReview
     const pendingReview = await reviewGetter.getPendingReviewById(reviewId);
-    console.log(pendingReview);
     if(!pendingReview) return pendingReview;
 
     //Lagrer review i database
