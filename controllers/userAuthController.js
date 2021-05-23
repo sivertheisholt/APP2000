@@ -191,24 +191,26 @@ exports.userAuth_post_resetpassword = async function(req, res) {
         return res.status(401).json({error: 'Authentication error!'});
     }
 
+    console.log(resetLink);
     //Sjekker info
     jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, async function(err, decodedData) {
         if(err) {
             logger.log({level: 'error', message: `Incorrect token or it has expired`});
             return res.redirect(`/${req.renderObject.langCode}/auth/resetpassworderror`);
         }
+        let resetLinkConfirmed = req.params.token
 
         //Skaffer bruker
-        const userResult = await userHandler.getUser({resetLink})
+        const userResult = await userHandler.getUser({resetLink: resetLinkConfirmed})
         if(!userResult.status) {
-            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLink}?error=User with this token does not exist&errorType=resetPassword`);
+            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=User with this token does not exist&errorType=resetPassword`);
             return;
         }
 
         //Sjekker om felt er like
         if(!(pugBody.newPassword == pugBody.newPasswordRepeat)) {
             logger.log({level: 'debug', message: `Passwords do not match`});
-            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLink}?error=Passwords do not match&errorType=resetPassword`);
+            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=Passwords do not match&errorType=resetPassword`);
             return;
         }
 
@@ -220,9 +222,9 @@ exports.userAuth_post_resetpassword = async function(req, res) {
         const resetLink = '';
 
         //Lagrer bruker
-        const updateUser = await userHandler.updateUser(userResult.information, {password: password, resetLink: resetLink});
+        const updateUser = await userHandler.updateUser(userResult.information, {password: password, resetLink: resetLinkConfirmed});
         if(!updateUser.status) {
-            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLink}?error=Could not change password&errorType=resetPassword`);
+            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=Could not change password&errorType=resetPassword`);
             return;
         }
 
