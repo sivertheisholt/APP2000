@@ -165,5 +165,8 @@
 	"LIST_LISTS": "Lister",
 	"LIST_CREATED_BY": "Laget av:",
 	"LIST_NUMBER_OF_MOVIES": "Antall filmer:",
-	"LIST_NUMBER_OF_TVS": "Antall serier:"
+	"LIST_NUMBER_OF_TVS": "Antall serier:",
+	"RESET_PASSWORD_ERROR_DESC_ONE": "Det oppsto en feil ved tilbakestilling av passordet. Vennligst prøv på nytt.",
+	"RESET_PASSWORD_ERROR_DESC_TWO": "Hvis denne feilen fortsetter å gjenta seg, ",
+	"RESET_PASSWORD_ERROR_DESC_THREE": "kontakt oss" 
 }

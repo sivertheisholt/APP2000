@@ -165,5 +165,8 @@
 	"LIST_LISTS": "Listen",
 	"LIST_CREATED_BY": "Erstellt von:",
 	"LIST_NUMBER_OF_MOVIES": "Anzahl der Filme:",
-	"LIST_NUMBER_OF_TVS": "Anzahl der TV-Shows:"
+	"LIST_NUMBER_OF_TVS": "Anzahl der TV-Shows:",
+	"RESET_PASSWORD_ERROR_DESC_ONE": "Beim Zurücksetzen Ihres Passworts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+	"RESET_PASSWORD_ERROR_DESC_TWO": "Wenn dieser Fehler immer wieder auftritt, ",
+	"RESET_PASSWORD_ERROR_DESC_THREE": "kontaktieren Sie uns bitte" 
 }
