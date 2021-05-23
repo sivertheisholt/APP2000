@@ -115,7 +115,6 @@ function dateFixer(reviews){
         var x = item.date.toUTCString()
         x= x.replace(/T|:\d\dZ/g,' ')
         item.formattedDate = x
-        console.log(item.date)
         dateArray.push(item)
     }
     return dateArray;

@@ -25,9 +25,9 @@ async function getLanguage(socket, langId){
 async function saveLanguage(socket, args){
     fs.writeFile(`./lang/${args.langId}.json`, args.langContent,(err) =>{
         if(err){
-            console.log(err);
+            logger.log({level: 'error', message: `There was an error when saving language file: ${err}`});
         }
-        console.log("file has been saved");
+        logger.log({level: 'debug', message: 'File has been saved..'});
     });
     socket.emit('savedLanguage');
 }
