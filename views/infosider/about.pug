@@ -48,13 +48,13 @@ body
                 legend.uk-legend.uk-width-1-3.uk-margin-auto.uk-card.uk-card-body          
                     .uk-margin
                         label.uk-text-medium #{__("ABOUT_CONTACT_TITLE")}
-                        input.uk-input(type='text' name='contacttitle')
+                        input.uk-input(type='text' name='contacttitle' id='contactTitle')
                     .uk-margin
                         label.uk-text-medium #{__("ABOUT_CONTACT_EMAIL")}
-                        input.uk-input(type='text' name='contactmail')
+                        input.uk-input(type='text' name='contactmail' id='contactMail')
                     .uk-margin
                         label.uk-text-medium #{__("ABOUT_CONTACT_MESSAGE")}
-                        textarea.uk-textarea(rows='5' name='contacttext')
+                        textarea.uk-textarea(rows='5' name='contacttext' id='contactText')
                     .uk-margin
                         button.uk-button.uk-button-default.uk-.uk-width-medium.uk-margin(type='submit' id='contactPostBtn') #{__("BUTTON_ENTER")}
                     #about-contact-error

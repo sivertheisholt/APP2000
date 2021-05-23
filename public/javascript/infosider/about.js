@@ -1,30 +1,27 @@
 let contactBtn = document.getElementById('contactPostBtn');
 let contactForm = document.getElementById('contactForm');
+let contactTitle = document.getElementById('contactTitle'); 
+let contactMail = document.getElementById('contactMail');
+let contactText = document.getElementById('contactText');
 
-
-contactBtn.addEventListener("submit", function(e){
+contactBtn.addEventListener("click", function(e){
     e.preventDefault();
-    swal("Submitted!", "Your ticket has been sent to our epic admin team", "success")
-    .then(function(value){
-        if(value){
-            contactForm.submit();
-        }
+    //Lager info
+    ticket = {
+        title: contactTitle.value,
+        text: contactText.value,
+        mail: contactMail.value
+    }
+    //Sender post
+    var jqxhr = $.post(`/en/infosider/contactform`, {ticket: ticket});
+
+    //Om suksess
+    jqxhr.done(function(result) {
+        swal("Nice!", result.message, "success");
+    });
+
+    //Om failure
+    jqxhr.fail(function(result) {
+        swal("Woops!", result.responseJSON.error, "error");
     });
 });
-
-
-
-/* $(document).on('click', '#contactPostBtn', function(e) {
-    e.preventDefault();
-    let form = $(this).parents('form');
-    swal({
-        title: 'Are you sure?',
-        text: 'Before post please recheck all transaction and your closing balance is correct, As you cannot alter/delete the transaction after post?',
-        icon: 'warning',
-        buttons: ["Make Changes", "Yes!"],
-    }).then(function(value) {
-        if(value){
-            form.on("submit", cb);
-        }
-    });
-}); */

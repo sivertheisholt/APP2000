@@ -18,32 +18,28 @@ exports.about_info = async function(req, res) {
 }
 
 exports.about_post_contact = function(req, res) {
-  const pugBody = req.body; //Skaffer body fra form
+  const body = req.body.ticket; //Skaffer body fra form
   let ticket = {
-    "title": pugBody.contacttitle,
-    "mail": pugBody.contactmail,
-    "text": pugBody.contacttext
+    title: body.title,
+    mail: body.mail,
+    text: body.text
   };
   if (ticket.title === ""){
-    logger.log({level: 'error', message: `Title is missing`});
-    res.redirect(`/${res.locals.currentLang}/infosider/about?error=Title is missing&errorType=aboutContactForm`);
-    return;
+    logger.log({level: 'debug', message: `Title is missing`});
+    return res.status(400).send({error: "Title is missing"});
   }
   if (ticket.mail === ""){
     logger.log({level: 'error', message: `Mail is missing`});
-    res.redirect(`/${res.locals.currentLang}/infosider/about?error=Mail is missing&errorType=aboutContactForm`);
-    return;
+    return res.status(400).send({error: "Mail is missing"});
   }
   if (ticket.text === ""){
     logger.log({level: 'error', message: `Text is missing`});
-    res.redirect(`/${res.locals.currentLang}/infosider/about?error=Text is missing&errorType=aboutContactForm`);
-    return;
+    return res.status(400).send({error: "Text is missing"});
   }
   if (!hjelpeMetoder.data.validateEmail(ticket.mail)) {
     logger.log({level: 'error', message: `Mail is not properly formatted`});
-    res.redirect(`/${res.locals.currentLang}/infosider/about?error=Mail is not properly formatted&errorType=aboutContactForm`);
-    return;
+    return res.status(400).send({error: "Mail is not properly formatted"});
   }
   ticketCreator.addTicket(ticket);
-  return res.redirect(`/${res.locals.currentLang}/infosider/about`);
+  res.status(200).send({message: 'Ticket was successfully sent!'});
 }
