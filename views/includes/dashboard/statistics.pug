@@ -1,6 +1,30 @@
+- var user = user
+- var userStatsPug = JSON.parse(userStats)
 script.
     var userStats = !{userStats};
 p #{__("DASHBOARD_STATISTICS_TITLE")}
-    .uk-flex
-        #containerWatched(class='uk-flex-center' style='width:100%; height:400px;')
-        #containerFavorite(class='uk-flex-center' style='width:100%; height:400px;')
+    .container.uk-grid.uk-margin-top
+        .upcomingMovies.uk-grid(class='uk-width-1-1@s')
+            .uk-width-1-1
+                .uk-grid.uk-text-center(class='uk-child-width-1-3@s')
+                    p.uk-text-large= userStatsPug.reviews
+                    p.uk-text-large= user.lists.length
+                    p.uk-text-large="2"
+                .uk-grid.uk-text-center(class='uk-child-width-1-3@s')
+                    p.uk-text-large.uk-text-bold="Reviews created"
+                    p.uk-text-large.uk-text-bold="Lists created"
+                    p.uk-text-large.uk-text-bold="HJELP"
+                hr.uk-divider-icon
+                .uk-grid.uk-text-center(class='uk-child-width-1-3@s')
+                    p.uk-text-large= "100 hours 10 minutes"
+                    p.uk-text-large=`${userStatsPug.runtimeMovie.hours} hours ${userStatsPug.runtimeMovie.minutes} minutes`
+                    p.uk-text-large=`${userStatsPug.runtimeTv.hours} hours ${userStatsPug.runtimeTv.minutes} minutes`
+                .uk-grid.uk-text-center(class='uk-child-width-1-3@s')
+                    p.uk-text-large.uk-text-bold="Total runtime" 
+                    p.uk-text-large.uk-text-bold="Movie runtime"
+                    p.uk-text-large.uk-text-bold="Tv-shows runtime"
+                hr.uk-divider-icon
+            #containerWatched.uk-width-1-2
+            #containerFavorite.uk-width-1-2
+            hr.uk-divider-icon
+            #contaianerGenres.uk-width-1-1

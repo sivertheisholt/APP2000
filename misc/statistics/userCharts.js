@@ -4,6 +4,11 @@ const movieHandler = require("../../handling/movieHandler");
 const reviewGetter = require("../../systems/reviewSystem/reviewGetter");
 const ValidationHandler = require("../../handling/ValidationHandler");
 
+/**
+ * Lager default objekt til pie chart
+ * @returns Objekt som brukes til pie chart
+ * @author Sivert - 233518
+ */
 function createObjectPie() {
     return options = {
         chart: {
@@ -21,20 +26,45 @@ function createObjectPie() {
     }
 }
 
+/**
+ * Lager statistikker for bruker 
+ * @param {Object} user 
+ * @returns ValidationHandler
+ * @author Sivert - 233518
+ */
 exports.userStatistics = async function(user) {
     logger.log({level: 'debug', message: 'Creating statistics for user'});
     let statistics = {};
     let charts = [];
 
+    //Skaffer pending reviews
+    const reviewsPending = await reviewGetter.getAllReviewsMadeByUser(user._id, 'pending');
+    if(!reviewsPending.status) return reviewsPending;
+
+    //Skaffer approved reviews
+    const reviewsApproved = await reviewGetter.getAllReviewsMadeByUser(user._id, 'approved');
+    if(!reviewsApproved.status) return reviewsPending;
+
+    //Lager og pusher charts
     charts.push(watchedRatioChart(user.moviesWatched, user.tvsWatched));
     charts.push(favoritedRatioChart(user.movieFavourites, user.tvFavourites));
     
+    //Setter info inn i hoved objekt
     statistics.charts = charts;
     statistics.runtimeMovie = calculateTotalRuntime(user.moviesWatched);
     statistics.runtimeTv = calculateTotalRuntime(user.tvsWatched);
+    statistics.reviews = reviewsPending.information.length + reviewsApproved.information.length;
+
+    //Suksess
     return new ValidationHandler(true, statistics);
 }
 
+/**
+ * Regner ut timer/minutter
+ * @param {Array} medias 
+ * @returns Objekt med hours/minutes
+ * @author Sivert - 233518
+ */
 function calculateTotalRuntime(medias) {
     if(medias.length == 0) return {hours: 0, minutes: 0};
     const minutes = medias.reduce((minutes, media) => minutes + media.runtime);
@@ -44,6 +74,13 @@ function calculateTotalRuntime(medias) {
     }
 }
 
+/**
+ * Lager chart for watched
+ * @param {Array} watchedMovies 
+ * @param {Array} watchedTvs 
+ * @returns Objekt som skal brukes til chart
+ * @author Sivert - 233518
+ */
 function watchedRatioChart(watchedMovies, watchedTvs) {
     let options = createObjectPie();
     let movies = {
@@ -61,6 +98,13 @@ function watchedRatioChart(watchedMovies, watchedTvs) {
     return options;
 }
 
+/**
+ * Lager chart for favorites
+ * @param {Array} favoritedMovies 
+ * @param {Array} favoritedTvs 
+ * @returns Objekt som skal brukes til chart
+ * @author Sivert - 233518
+ */
 function favoritedRatioChart(favoritedMovies, favoritedTvs) {
     let options = createObjectPie();
     let info = {

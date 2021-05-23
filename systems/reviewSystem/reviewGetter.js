@@ -272,6 +272,24 @@ function checkResult(result, id) {
     return new ValidationHandler(true, result);
 }
 
+/**
+ * Skaffer alle reviews lagd av en bruker for en collection
+ * @param {String} userId 
+ * @param {'approved'|'pending'|'denied'} collection 
+ * @returns ValidationHandler
+ * @author Sivert - 233518
+ */
+async function getAllReviewsMadeByUser(userId, collection) {
+    switch(collection) {
+        case 'approved': 
+            return new ValidationHandler(true, await ReviewApproved.find({userId: userId}));
+        case 'pending':
+            return new ValidationHandler(true, await ReviewPending.find({userId: userId}));
+        case 'denied':
+            return new ValidationHandler(true, await ReviewDenied.find({userId: userId}));
+    }
+}
+
 module.exports = {getPendingReviews, 
     getApprovedReviews, 
     getDeniedReviews,
@@ -282,5 +300,6 @@ module.exports = {getPendingReviews,
     getReviewsFromDatabase, 
     getReviewsFromDatabaseByFilter, 
     getApprovedReviewUser,
-    getPendingReviewUser
+    getPendingReviewUser,
+    getAllReviewsMadeByUser
 }
