@@ -95,6 +95,11 @@ exports.userAuth_post_signup = async function(req,res ) {
         html: `<h1>Hope you enjoy your time at Filmatory!</h1>`
     });
 
+    
+    //Setter session
+    logger.log({level: 'debug', message: `Setting session`});
+    req.session.userId = bruker._id;
+    
     //Suksess
     res.redirect(`/${req.renderObject.langCode}/homepage`);
 }
