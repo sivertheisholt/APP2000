@@ -38,9 +38,9 @@ function addToDatabase(movie) {
  * @param {Number} movieId 
  * @returns ValidationHandler
  */
-async function checkIfSaved(movieId) {
+async function checkIfSaved(movieId, languageCode) {
     logger.log({level: 'debug', message: `Checking if movie is already saved in database! MovieId: ${movieId} `});
-    return Film.findOne({id: movieId}).then((doc, err) => returnHandler(doc, err));
+    return Film.findOne({id: movieId, laanguage: languageCode}).then((doc, err) => returnHandler(doc, err));
 }
 
 /**

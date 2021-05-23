@@ -24,7 +24,7 @@ exports.film_get_info = async function(req, res) {
     }
 
     logger.log({level: 'debug', message: 'Getting castinfo..'});
-    let castinfolet = await tmdb.data.getMovieCastByID(req.url.slice(10));
+    let castinfolet = await tmdb.data.getMovieCastByID(req.url.slice(10), req.renderObject.urlPath);
     logger.log({level: 'debug', message: 'Getting reviews..'});
     let reviews = await reviewGetter.getApprovedReviews(req.url.slice(10), "movie");
     logger.log({level: 'debug', message: 'Getting movieinfo, tailers, lists of persons & making object..'});
@@ -32,7 +32,7 @@ exports.film_get_info = async function(req, res) {
     let film = {
         filminfo: res.locals.movieInfo,
         castinfo: castinfolet,
-        videos: await tmdb.data.getMovieVideosByID(req.url.slice(10)),
+        videos: await tmdb.data.getMovieVideosByID(req.url.slice(10), req.renderObject.urlPath),
         listOfPersons: await Promise.all(getPersons(castinfolet.cast)),
         reviews: dateFixer(reviews.information)
     }

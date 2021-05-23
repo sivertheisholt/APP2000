@@ -26,9 +26,9 @@ function returnHandler(doc, err) {
  * @param {Number} tvId 
  * @returns ValidationHandler
  */
-function checkIfSaved(tvId) {
+function checkIfSaved(tvId, languageCode) {
     logger.log({level: 'debug', message: `Checking if tv-show is already saved in database! TvId: ${tvId}`});
-    return Tv.findOne({id: tvId}).then((doc,err) => returnHandler(doc,err));
+    return Tv.findOne({id: tvId, language: languageCode}).then((doc,err) => returnHandler(doc,err));
 }
 
 /**

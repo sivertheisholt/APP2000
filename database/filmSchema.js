@@ -65,6 +65,10 @@ const filmSchema = new mongoose.Schema({
     vote_count: {
         type: Number,
     },
+    language: {
+        type: String,
+        default: 'en'
+    }
 });
 
 module.exports = mongoose.model('film', filmSchema); //ES6 Module

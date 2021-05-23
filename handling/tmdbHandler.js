@@ -102,75 +102,75 @@ var methods = {
      * @param {String} movieTitle 
      * @returns Object
      */
-    getMovieInfo: function (movieTitle) {
-        return tmdb.getMovieResults(movieTitle);
+    getMovieInfo: function (movieTitle, languageCode) {
+        return tmdb.getMovieResults(movieTitle, languageCode);
     },
     /**
      * Skaffer film informasjon fra film ID
      * @param {Number} movieID 
      * @returns Object
      */
-    getMovieInfoByID: function (movieID) {
-        return tmdb.getMovieInfoByID(movieID);
+    getMovieInfoByID: function (movieID, languageCode) {
+        return tmdb.getMovieInfoByID(movieID, languageCode);
     },
     /**
      * Skaffer film videor fra ID
      * @param {Number} movieID 
      * @returns Object
      */
-    getMovieVideosByID: function (movieID) {
-        return tmdb.getMovieVideosByID(movieID);
+    getMovieVideosByID: function (movieID, languageCode) {
+        return tmdb.getMovieVideosByID(movieID, languageCode);
     },
     /**
      * Skaffer film cast fra ID
      * @param {Number} movieID 
      * @returns Object
      */
-    getMovieCastByID: function (movieID) {
-        return tmdb.getMovieCastByID(movieID);
+    getMovieCastByID: function (movieID, languageCode) {
+        return tmdb.getMovieCastByID(movieID, languageCode);
     },
     /**
      * Skaffer recommended filmer fra en annen film
      * @param {Number} movieId 
      * @returns Object
      */
-    getRecommendationsMovie: function(movieId) {
+    getRecommendationsMovie: function(movieId, languageCode) {
         return tmdb.getRecommendationsMovie(movieId);
     },
-    getRecommendationsTvs: function(tvId) {
-        return tmdb.getRecommendationsTvs(tvId);
+    getRecommendationsTvs: function(tvId, languageCode) {
+        return tmdb.getRecommendationsTvs(tvId, languageCode);
     },
     /**
      * Skaffer serie cast fra ID
      * @param {Number} serieID 
      * @returns Object
      */
-    getSerieCastByID: function (serieID) {
-        return tmdb.getSerieCastByID(serieID);
+    getSerieCastByID: function (serieID,languageCode) {
+        return tmdb.getSerieCastByID(serieID, languageCode);
     },
     /**
      * Søker etter serie fra tittel
      * @param {String} tvTitle 
      * @returns Object
      */
-    getSerieInfo: function (tvTitle) {
-        return tmdb.getSerieResults(tvTitle);
+    getSerieInfo: function (tvTitle, languageCode) {
+        return tmdb.getSerieResults(tvTitle, languageCode);
     },
     /**
      * Skaffer info fra ID
      * @param {Number} serieID 
      * @returns Object
      */
-    getSerieInfoByID: function (serieID) {
-        return tmdb.getSerieInfoByID(serieID);
+    getSerieInfoByID: function (serieID, languageCode) {
+        return tmdb.getSerieInfoByID(serieID, languageCode);
     },
     /**
      * Skaffer serie videor fra ID
      * @param {Number} serieID 
      * @returns Object
      */
-    getSerieVideosByID: function (serieID) {
-        return tmdb.getSerieVideosByID(serieID);
+    getSerieVideosByID: function (serieID, languageCode) {
+        return tmdb.getSerieVideosByID(serieID, languageCode);
     },
     /**
      * Skaffer trending serier
@@ -191,24 +191,24 @@ var methods = {
      * @param {Number} personID 
      * @returns Object 
      */
-    getPersonByID: function (personID) {
-        return tmdb.getPersonByID(personID);
+    getPersonByID: function (personID, languageCode) {
+        return tmdb.getPersonByID(personID, languageCode);
     },
     /**
      * Skaffer person linker fra ID
      * @param {Number} personID 
      * @returns Object
      */
-    getPersonLinksByID: function (personID) {
-        return tmdb.getPersonLinksByID(personID);
+    getPersonLinksByID: function (personID, languageCode) {
+        return tmdb.getPersonLinksByID(personID, languageCode);
     },
     /**
      * Skaffer person kombinert credit fra ID
      * @param {Number} personID 
      * @returns Object
      */
-    getPersonCombinedCreditsByID: function (personID) {
-        return tmdb.getPersonCombinedCreditsByID(personID);
+    getPersonCombinedCreditsByID: function (personID, languageCode) {
+        return tmdb.getPersonCombinedCreditsByID(personID, languageCode);
     },
 };
 /**

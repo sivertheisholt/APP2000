@@ -16,123 +16,123 @@ var Tmdb = function Tmdb(token) {
  * @param {String} movieTitle 
  * @returns JSON Movie info
  */
-Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle) {
-    var url = `https://api.themoviedb.org/3/search/movie?api_key=${this.token}&query=${movieTitle.replace(/ /g, "+")}`;
+Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle, languageCode) {
+    var url = `https://api.themoviedb.org/3/search/movie?api_key=${this.token}&query=${movieTitle.replace(/ /g, "+")}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getSerieResults = function getSerieResults(tvTitle) {
-    var url = `https://api.themoviedb.org/3/search/tv?api_key=${this.token}&query=${tvTitle.replace(/ /g, "+")}`;
+Tmdb.prototype.getSerieResults = function getSerieResults(tvTitle, languageCode) {
+    var url = `https://api.themoviedb.org/3/search/tv?api_key=${this.token}&query=${tvTitle.replace(/ /g, "+")}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID) {
-    var url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.token}`;
+Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID, languageCode) {
+    var url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getMovieVideosByID = function getMovieVideosByID(movieID) {
-    var url = `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${this.token}`;
+Tmdb.prototype.getMovieVideosByID = function getMovieVideosByID(movieID, languageCode) {
+    var url = `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getMovieCastByID = function getCastMovieInfoByID(movieID) {
-    var url = `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.token}`;
+Tmdb.prototype.getMovieCastByID = function getCastMovieInfoByID(movieID, languageCode) {
+    var url = `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID) {
-    var url = `https://api.themoviedb.org/3/tv/${serieID}/credits?api_key=${this.token}`;
+Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID, languageCode) {
+    var url = `https://api.themoviedb.org/3/tv/${serieID}/credits?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getPersonByID = function getPersonByID(personID) {
-    var url = `https://api.themoviedb.org/3/person/${personID}?api_key=${this.token}`;
+Tmdb.prototype.getPersonByID = function getPersonByID(personID, languageCode) {
+    var url = `https://api.themoviedb.org/3/person/${personID}?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getPersonLinksByID = function getPersonLinksByID(personID) {
-    var url = `https://api.themoviedb.org/3/person/${personID}/external_ids?api_key=${this.token}`;
+Tmdb.prototype.getPersonLinksByID = function getPersonLinksByID(personID, languageCode) {
+    var url = `https://api.themoviedb.org/3/person/${personID}/external_ids?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getPersonCombinedCreditsByID = function getPersonCombinedCreditsByID(personID) {
-    var url = `https://api.themoviedb.org/3/person/${personID}/combined_credits?api_key=${this.token}`;
+Tmdb.prototype.getPersonCombinedCreditsByID = function getPersonCombinedCreditsByID(personID, languageCode) {
+    var url = `https://api.themoviedb.org/3/person/${personID}/combined_credits?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID) {
-    var url = `https://api.themoviedb.org/3/tv/${serieID}?api_key=${this.token}`;
+Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID, languageCode) {
+    var url = `https://api.themoviedb.org/3/tv/${serieID}?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getSerieVideosByID = function getSerieVideosByID(serieID) {
-    var url = `https://api.themoviedb.org/3/tv/${serieID}/videos?api_key=${this.token}`;
+Tmdb.prototype.getSerieVideosByID = function getSerieVideosByID(serieID, languageCode) {
+    var url = `https://api.themoviedb.org/3/tv/${serieID}/videos?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies(addParams) {
-    var url = `https://api.themoviedb.org/3/discover/movie?api_key=${this.token}`;
+Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies(addParams, languageCode) {
+    var url = `https://api.themoviedb.org/3/discover/movie?api_key=${this.token}&language=${languageCode}`;
     url = makeUrl(url, addParams);
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     }) 
 }
-Tmdb.prototype.getRecommendationsMovie = function getRecommendationsMovie(movieId) {
-    var url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${this.token}`;
+Tmdb.prototype.getRecommendationsMovie = function getRecommendationsMovie(movieId, languageCode) {
+    var url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     }) 
 }
-Tmdb.prototype.getRecommendationsTvs = function getRecommendationsTvs(tvId) {
-    var url = `https://api.themoviedb.org/3/tv/${tvId}/recommendations?api_key=${this.token}`;
+Tmdb.prototype.getRecommendationsTvs = function getRecommendationsTvs(tvId, languageCode) {
+    var url = `https://api.themoviedb.org/3/tv/${tvId}/recommendations?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     }) 
 }
-Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams) {
-    var url = `https://api.themoviedb.org/3/discover/tv?api_key=${this.token}`;
+Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams, languageCode) {
+    var url = `https://api.themoviedb.org/3/discover/tv?api_key=${this.token}&language=${languageCode}`;
     url = makeUrl(url, addParams);
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getTrendingMovies = function getTrendingMovies(addParams) {
-    var url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${this.token}`;
+Tmdb.prototype.getTrendingMovies = function getTrendingMovies(addParams, languageCode) {
+    var url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${this.token}&language=${languageCode}`;
     url = makeUrl(url, addParams);
     return fetch(url).then(res => {
         makeLog(res, url);
         return resultHandler(res);
     })
 }
-Tmdb.prototype.getTrendingTv = function getTrendingTv(addParams) {
-    var url = `https://api.themoviedb.org/3/trending/tv/week?api_key=${this.token}`;
+Tmdb.prototype.getTrendingTv = function getTrendingTv(addParams, languageCode) {
+    var url = `https://api.themoviedb.org/3/trending/tv/week?api_key=${this.token}&language=${languageCode}`;
     url = makeUrl(url, addParams);
     return fetch(url).then(res => {
         makeLog(res, url);
