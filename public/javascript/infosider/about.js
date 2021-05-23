@@ -13,7 +13,7 @@ contactBtn.addEventListener("click", function(e){
         mail: contactMail.value
     }
     //Sender post
-    var jqxhr = $.post(`/en/infosider/contactform`, {ticket: ticket});
+    var jqxhr = $.post(`/${urlPath}/infosider/contactform`, {ticket: ticket});
 
     //Om suksess
     jqxhr.done(function(result) {
