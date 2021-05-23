@@ -2,6 +2,8 @@ const ReviewPending = require('../../database/pendingReviewSchema');
 const logger = require('../../logging/logger');
 const ValidationHandler = require('../../handling/ValidationHandler');
 const reviewGetter = require('./reviewGetter');
+const userHandler = require('../../handling/userHandler');
+const mailer = require('../../handling/mailer');
 /**
  * Hovedklassen for reviews
  * @author Sivert - 233518
@@ -63,6 +65,18 @@ async function makeReview(review) {
     //legger til i database
     const databaseReturn = await addToDatabase(review);
     if(!databaseReturn.status) return databaseReturn;
+
+    //Skaffer bruker
+    const userResult = await userHandler.getUserFromId(review.userId);
+    if(!userResult.status) return userResult;
+
+    //Send mail
+    mailer({
+        from: process.env.EMAIL,
+        to: userResult.information.email, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
+        subject: 'Review approved',
+        html: `<h1>Your review has been approved!</h1>`
+    })
 
     //Suksess
     logger.log({level:'debug', message: `Review was successfully created for user ${review.userId}`});

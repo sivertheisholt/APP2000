@@ -4,6 +4,8 @@ const ReviewDenied = require('../../database/deniedReviewSchema');
 const reviewGetter = require('./reviewGetter');
 const logger = require('../../logging/logger');
 const ValidationHandler = require('../../handling/ValidationHandler');
+const userHandler = require('../../handling/userHandler');
+const mailer = require('../../handling/mailer')
 
 /**
  * Klasse for  å klone review
@@ -193,6 +195,18 @@ async function denyReview(reviewId, feedback) {
     //Sletter review fra pending
     const deletePendingResult = await deletePending(reviewId);
     if(!deletePendingResult.status) return deletePendingResult;
+
+    //Skaffer bruker
+    const userResult = await userHandler.getUserFromId(pendingReview.information.userId);
+    if(!userResult.status) return userResult;
+    
+    //Send mail
+    mailer({
+        from: process.env.EMAIL,
+        to: userResult.information.email, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
+        subject: 'Review denied',
+        html: `<h1>Your review has been denied!</h1><p>Reason: ${feedback}</p>`
+    })
     
     //Suksess
     logger.log({level: 'info', message: `Review with id ${reviewId} was sucessfully denied`});
