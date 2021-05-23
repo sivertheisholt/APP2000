@@ -6,7 +6,7 @@
                 .uk-card.uk-card-default.uk-card-small.uk-margin.uk-flex.uk-flex-column.uk-margin-auto(class='uk-width-1-2@m')
                     .uk-card-header.uk-text-center
                         p #{__("ADMIN_DASHBOARD_USERS_EMAIL")}
-                        input.uk-input.uk-form-width-medium(type='text' placeholder='Email' id='admin-user-email' )
+                        input.uk-input.uk-form-width-medium(type='text' placeholder=`${__('EMAIL')}` id='admin-user-email' )
                     .uk-card-body.uk-margin.uk-flex.uk-flex-column.uk-width-1-1
                             button.uk-button.uk-button-default.uk-button-small.admin_btn(type='submit' id='admin-user-ban') #{__("BUTTON_BAN")}
                             button.uk-button.uk-button-default.uk-button-small.uk-margin-top.admin_btn(type='submit' id='admin-user-unban') #{__("BUTTON_UNBAN")}

@@ -50,7 +50,7 @@ script(src="/socket.io/socket.io.js")
         .uk-navbar-center
           form.uk-search.uk-search-default.uk-width-1-1
               span(uk-search-icon='')
-              input#searchBox.uk-search-input(type='text' placeholder='Search...')
+              input#searchBox.uk-search-input(type='text' placeholder=`${__('SEARCH')}`)
         .uk-navbar-right
           if username
             include loggedin.pug

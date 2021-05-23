@@ -5,7 +5,7 @@ script.
 p #{__("DASHBOARD_LISTS_TITLE")}
     .uk-inline
         .uk-flex
-            input.uk-input(type='text' name='username' placeholder=`navn` id="newListName")
+            input.uk-input(type='text' name='username' placeholder=`${__('LIST_NAME')}` id="newListName")
             button.uk-button.uk-button-default.uk-margin-right#newList #{__("NEW_LIST_BUTTON")}
         #createListOutput.uk-margin-top
     .uk-margin 

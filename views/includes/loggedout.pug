@@ -15,15 +15,17 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon(uk-icon='icon: user')
-                                    input.uk-input(type='text' name='email' placeholder='Email')
+                                    input.uk-input(type='text' name='email' placeholder=`${__('EMAIL')}`)
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon(uk-icon='icon: lock')
-                                    input.uk-input(type='password' name='password' placeholder='Password')
+                                    input.uk-input(type='password' name='password' placeholder=`${__('PASSWORD')}`)
                             #login-error
                             .uk-margin
                                 .uk-inline
-                                    button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_ENTER")}
+                                    button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_LOGIN")}
+                            .uk-margin
+                                .uk-inline
                                     a.uk-text-small(href='#modal-forgot-password' uk-toggle='') #{__("MODAL_FORGOT_PASSWORD_BUTTON")}
                     .uk-text-center.uk-width-1-2.uk-margin-auto
                         p.uk-text-bold #{__("MODAL_SIGN_IN_TITLE")}
@@ -36,19 +38,19 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon(uk-icon='icon: user')
-                                    input.uk-input(type='text' name='email' placeholder='Email' required)
+                                    input.uk-input(type='text' name='email' placeholder=`${__('EMAIL')}` required)
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
-                                    input.uk-input(type='password' name='password' placeholder='Password' required)
+                                    input.uk-input(type='password' name='password' placeholder=`${__('PASSWORD')}` required)
                             .uk-margin
                                 .uk-inline
                                     span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
-                                    input.uk-input(type='password' name='passwordRepeat' placeholder='Repeat password' required)
+                                    input.uk-input(type='password' name='passwordRepeat' placeholder=`${__('REPEAT_PASSWORD')}` required)
                             #signup-error
                             .uk-margin
                                 .uk-inline
-                                    button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_ENTER")}
+                                    button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_SIGNUP")}
                     .uk-text-center.uk-width-1-2.uk-margin-auto
                         p.uk-text-bold #{__("MODAL_SIGN_UP_TITLE")}
                         p.uk-text-small #{__("MODAL_SIGN_UP_DESC1")}
@@ -65,7 +67,7 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='
                     form(action=`/${urlPath}/auth/forgottenPassword` method='post')
                         .uk-margin-bottom
                             .uk-inline
-                                input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailForgottenPassword' placeholder='Email' required)
+                                input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailForgottenPassword' placeholder=`${__('EMAIL')}` required)
                         .uk-margin-bottom
                             #forgot-error
                         .uk-margin-bottom

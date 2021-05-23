@@ -7,7 +7,7 @@
                 .uk-card.uk-card-default.uk-card-small.uk-margin.uk-flex.uk-flex-column.uk-margin-auto(class='uk-width-1-2@m')
                     .uk-card-header.uk-text-center
                         p #{__("ADMIN_DASHBOARD_REVIEWS_APPROVAL_DESC_ONE")}
-                        input.uk-input.uk-form-width-medium(type='text' placeholder='ReviewID' id='admin-review-id' )
+                        input.uk-input.uk-form-width-medium(type='text' placeholder=`${__('ADMINDASHBOARD_REVIEWS_INPUT_REVIEWID')}` id='admin-review-id' )
                     .uk-card-body.uk-text-center
                         p #{__("ADMIN_DASHBOARD_REVIEWS_APPROVAL_DESC_TWO")}
                         textarea(id='admin-review-denial-reason' rows='4' cols='20')
@@ -51,17 +51,17 @@
                             label(for="tv") #{__("ADMIN_DASHBOARD_REVIEWS_RADIO_BTN_TV")}
                             input(class="uk-radio" type='radio' name="admin-review-edit-media-type" value="tv")
                             p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_ENTERID_DESC")}
-                            input.uk-input.uk-form-width-medium(type='text' placeholder='Movie/Tv ID' id='admin-review-edit-media-id' )
+                            input.uk-input.uk-form-width-medium(type='text' placeholder=`${__('ADMINDASHBOARD_REVIEWS_INPUT_MEDIAID')}` id='admin-review-edit-media-id' )
                         .uk-card-body.uk-text-center
                             button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-edit-get') Get
                 #admin-edit-edit-review-form
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
                             p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_EDIT_REVIEWID")}
-                            input.uk-input.uk-form-width-medium(type='text' placeholder='ReviewID' id='admin-review-edit-reviewid' )
+                            input.uk-input.uk-form-width-medium(type='text' placeholder=`${__('ADMINDASHBOARD_REVIEWS_INPUT_REVIEWID')}` id='admin-review-edit-reviewid' )
                         .uk-card-body.uk-text-center
                             p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_EDIT_NEW_RATING")}
-                            input.uk-input.uk-form-width-medium(type='text' placeholder='Rating' id='admin-review-edit-new-rating' )
+                            input.uk-input.uk-form-width-medium(type='text' placeholder=`${__('ADMINDASHBOARD_REVIEWS_INPUT_RATING')}` id='admin-review-edit-new-rating' )
                         .uk-card-body.uk-grid.uk-width-1-1.uk-margin-auto.uk-text-center
                             p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_EDIT_NEW_TEXT")}
                             textarea.remove-padding(id='admin-review-edit-new-text' rows='6' cols='50')
@@ -91,7 +91,7 @@
                     .uk-card.uk-card-default.uk-card-small.uk-margin.uk-grid-column-small.uk-margin-auto(class='uk-width-1-2@m')
                         .uk-card-header.uk-text-center
                             p.uk-text-bolder #{__("ADMIN_DASHBOARD_REVIEWS_ENTERID_DESC")}
-                            input.uk-input.uk-form-width-medium(type='text' placeholder='ReviewID' id='admin-review-delete-reviewid' )
+                            input.uk-input.uk-form-width-medium(type='text' placeholder=`${__('ADMINDASHBOARD_REVIEWS_INPUT_REVIEWID')}` id='admin-review-delete-reviewid' )
                         .uk-card-body.uk-text-center
                             button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-btn') #{__("BUTTON_DELETE")}
                             button.uk-margin-auto.uk-button.uk-button-default.uk-button-small(type='submit' id='admin-review-delete-cancel') #{__("BUTTON_CANCEL")}
