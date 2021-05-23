@@ -7,13 +7,13 @@
                 form(action=`/${urlPath}/admin/addlanguage` method='post')
                     .uk-margin
                         p #{__("ADMIN_DASHBOARD_LANGUAGE_ADD_DESC_ONE")}
-                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangoriginalname' placeholder='Original name')
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangoriginalname' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_ORIGINAL_NAME')}`)
                     .uk-margin
                         p #{__("ADMIN_DASHBOARD_LANGUAGE_ADD_DESC_TWO")}
-                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangname' placeholder='Name')
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangname' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_NAME')}`)
                     .uk-margin
                         p #{__("ADMIN_DASHBOARD_LANGUAGE_ADD_DESC_THREE")}
-                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangcode' placeholder='Language code')
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangcode' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_CODE')}`)
                     button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_SAVE")}
 
         li
@@ -39,5 +39,5 @@
                 form(action=`/${urlPath}/admin/deletelanguage` method='post')
                     .uk-margin
                         p #{__("ADMIN_DASHBOARD_LANGUAGE_DELETE_DESC_ONE")}
-                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangdelete' placeholder='Language name')
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangdelete' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_NAME')}`)
                     button.uk-button.uk-button-default.uk-margin-right(type='submit' id='admin-lang-delete-btn') #{__("BUTTON_DELETE")}

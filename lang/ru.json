@@ -167,5 +167,12 @@
 	"RESET_PASSWORD_ERROR_DESC_TWO": "Если эта ошибка повторяется, пожалуйста ",
 	"RESET_PASSWORD_ERROR_DESC_THREE": "свяжитесь с нами",
 	"RESET_PASSWORD_SUCCESS_DESC_ONE": "вы успешно изменили ваш пароль",
-	"RESET_PASSWORD_SUCCESS_DESC_TWO": "Щелкните здесь, чтобы перейти на главную страницу."
+	"RESET_PASSWORD_SUCCESS_DESC_TWO": "Щелкните здесь, чтобы перейти на главную страницу.",
+	"ADMINDASHBOARD_REVIEWS_INPUT_REVIEWID": "ID обзора",
+	"ADMINDASHBOARD_REVIEWS_INPUT_MEDIAID": "Идентификатор фильма / ТВ",
+	"ADMINDASHBOARD_REVIEWS_INPUT_RATING": "Рейтинг",
+	"ADMINDASHBOARD_LANGUAGE_ORIGINAL_NAME": "Оригинальное название",
+	"ADMINDASHBOARD_LANGUAGE_NAME": "Английское имя",
+	"ADMINDASHBOARD_LANGUAGE_CODE": "Код языка",
+	"ADMINDASHBOARD_SUPPORT_INPUT_TICKETID": "ID билета"
 }

@@ -170,5 +170,12 @@
 	"RESET_PASSWORD_ERROR_DESC_TWO": "Wenn dieser Fehler immer wieder auftritt, ",
 	"RESET_PASSWORD_ERROR_DESC_THREE": "kontaktieren Sie uns bitte",
 	"RESET_PASSWORD_SUCCESS_DESC_ONE": "Sie haben Ihr Passwort erfolgreich geändert",
-	"RESET_PASSWORD_SUCCESS_DESC_TWO": "Klicken Sie hier, um zur Startseite zu gelangen."
+	"RESET_PASSWORD_SUCCESS_DESC_TWO": "Klicken Sie hier, um zur Startseite zu gelangen.",
+	"ADMINDASHBOARD_REVIEWS_INPUT_REVIEWID": "ID überprüfen",
+	"ADMINDASHBOARD_REVIEWS_INPUT_MEDIAID": "Film / TV ID",
+	"ADMINDASHBOARD_REVIEWS_INPUT_RATING": "Bewertung",
+	"ADMINDASHBOARD_LANGUAGE_ORIGINAL_NAME": "Originalname",
+	"ADMINDASHBOARD_LANGUAGE_NAME": "Englischer Name",
+	"ADMINDASHBOARD_LANGUAGE_CODE": "Sprachcode",
+	"ADMINDASHBOARD_SUPPORT_INPUT_TICKETID": "Ticketnummer"
 }
