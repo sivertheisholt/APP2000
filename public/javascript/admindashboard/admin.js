@@ -3,6 +3,7 @@ let cancelLangBtn = document.getElementById('admin-lang-cancle-btn');
 let adminLangSelectbox = document.getElementById("admin-lang-selectbox-edit");
 let adminLangOptionDesc = document.getElementById('admin-lang-option-desc');
 let langTextareaContent = document.getElementById('admin-lang-textarea-content');
+let languageOutput = document.getElementById('selectLanguageOutput');
 
 /**
  * Henter valgt språk
@@ -12,8 +13,9 @@ function getLang(){
     let selectedLang = adminLangSelectbox.options[adminLangSelectbox.selectedIndex].getAttribute('data-lang-id');
     if(selectedLang !== null){
         socket.emit('getLanguage', selectedLang);
+        languageOutput.innerHTML = '';
     } else {
-        console.log("choose a language");
+        languageOutput.innerHTML = 'Select a language';
     }
 }
 
@@ -36,8 +38,9 @@ saveLangBtn.addEventListener("click", function(e) {
     let selectedLang = adminLangSelectbox.options[adminLangSelectbox.selectedIndex].getAttribute('data-lang-id');
     if(langTextareaContent.value !== ''){
         socket.emit('saveLanguage', {langContent: langTextareaContent.value, langId: selectedLang})
+        languageOutput.innerHTML = '';
     } else {
-        console.log("Empty");
+        languageOutput.innerHTML = 'Choose a language';
     }
 });
 

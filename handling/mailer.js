@@ -20,6 +20,9 @@ let transporter = nodemailer.createTransport(smtpTransport({
   }
 }));
 
+/**
+ * Sjekker at transporteren er klar til bruk og funker.
+ */
 transporter.verify(function(err, success) {
   if (err) {
     logger.log({level: 'error', message: `Could not initialize email transporter! ${err}`});
@@ -27,6 +30,7 @@ transporter.verify(function(err, success) {
       logger.log({level: 'debug', message: 'Email transporter is ready and functional'});
   }
 });
+
 /**
  * Lagrer mail funksjonen i en variabel slik den kan brukes flere steder
  * @param {Til, Fra, Emne, Text} mailOptions 

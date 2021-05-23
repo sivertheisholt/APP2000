@@ -24,10 +24,12 @@
                     fieldset.uk-fieldset
                         legend.uk-legend
                         .uk-margin
-                            select(id="admin-lang-selectbox-edit" name='hello' onchange='getLang()').uk-select
+                            select(id="admin-lang-selectbox-edit" onchange='getLang()').uk-select
                                 option(selected='selected' id='admin-lang-option-desc') #{__("ADMIN_DASHBOARD_LANGUAGE_EDIT_DESC_TWO")}
                                     each item in langs
                                         option(id='admindash-lang-select' data-lang-id=`${item.id}`) #{item.name}
+                        .uk-margin
+                            #selectLanguageOutput
                         .uk-margin
                             textarea#admin-lang-textarea-content(rows='40' cols='125' style='display: none;')
                         button.uk-button.uk-button-default.uk-margin-right(type='submit' id='admin-lang-save-btn') #{__("BUTTON_SAVE")}

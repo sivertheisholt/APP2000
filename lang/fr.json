@@ -29,6 +29,7 @@
 	"BUTTON_SAVE": "Sauvegarder",
 	"BUTTON_CANCEL": "Annuler",
 	"BUTTON_DELETE": "Effacer",
+	"BUTTON_DELETE_LIST": "Supprimer la liste",
 	"MODAL_FORGOT_PASSWORD_BUTTON": "Mot de passe oublié",
 	"MODAL_SIGN_IN_TITLE": "Connexion",
 	"MODAL_SIGN_IN_DESC1": "Si vous n'avez pas encore créé de compte, n'hésitez pas à le faire.",
@@ -38,8 +39,8 @@
 	"MODAL_SIGN_UP_DESC2": "Votre email est valide",
 	"MODAL_SIGN_UP_DESC3": "Votre mot de passe est au moins 1 chiffre",
 	"MODAL_SIGN_UP_DESC4": "Votre mot de passe est au moins 1 majuscule et 1 lettre minuscule",
-    "MODAL_PASSWORD_RECOVERY": "Récupérer mot de passe",
-    "MODAL_FORGOT_PASSWORD_SEND": "Envoyer",
+	"MODAL_PASSWORD_RECOVERY": "Récupérer mot de passe",
+	"MODAL_FORGOT_PASSWORD_SEND": "Envoyer",
 	"MODAL_FORGOT_PASSWORD_TITLE": "",
 	"MODAL_FORGOT_PASSWORD_DESC": "Entrez votre adresse e-mail et vous recevrez un e-mail avec un lien, ce lien n'est valable que pendant 60 minutes",
 	"UPCOMING_LOAD_MORE_BUTTON": "Charger plus",
@@ -157,7 +158,7 @@
 	"NEW_LIST_BUTTON": "Nouvelle",
 	"DASHBOARD_SWITCHER_LISTS": "Mes listes",
 	"DASHBOARD_LISTS_TITLE": "Mes listes",
-	"MEDIA_MODAL_LIST_TITLE": "Ajouter à une liste++",
+	"MEDIA_MODAL_LIST_TITLE": "Ajouter à une liste",
 	"MEDIA_MODAL_LIST_SELECT": "Sélectionnez la liste",
 	"MEDIA_TOOLTIP_FAVORITES": "Connectez-vous pour ajouter ceci à vos favoris",
 	"MEDIA_TOOLTIP_WATCHLIST": "Connectez-vous pour l'ajouter à votre liste de surveillance",
@@ -178,5 +179,9 @@
 	"ADMINDASHBOARD_LANGUAGE_NAME": "Nom anglais",
 	"ADMINDASHBOARD_LANGUAGE_CODE": "Code de langue",
 	"ADMINDASHBOARD_SUPPORT_INPUT_TICKETID": "ID de billets",
-	"LIST_NAME": "Liste de noms"
+	"LIST_NAME": "Liste de noms",
+	"DASHBOARD_SWITCHER_WATCHLIST": "Liste de surveillance",
+	"DASHBOARD_WATCHLIST_DESC": "Ajoutez un film ou une émission de télévision à votre liste de surveillance et vous pouvez les visionner ici!",
+	"BUTTON_SUBMIT": "Soumettre",
+	"BUTTON_GET": "Obtenir"
 }
