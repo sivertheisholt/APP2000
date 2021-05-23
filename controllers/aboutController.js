@@ -26,20 +26,20 @@ exports.about_post_contact = function(req, res) {
   };
   if (ticket.title === ""){
     logger.log({level: 'debug', message: `Title is missing`});
-    return res.status(400).send({error: "Title is missing"});
+    return res.status(400).send({error: req.__('ABOUT_BACKEND_TITLE_MISSING')});
   }
   if (ticket.mail === ""){
     logger.log({level: 'error', message: `Mail is missing`});
-    return res.status(400).send({error: "Mail is missing"});
+    return res.status(400).send({error: req.__('ABOUT_BACKEND_MAIL_MISSING')});
   }
   if (ticket.text === ""){
     logger.log({level: 'error', message: `Text is missing`});
-    return res.status(400).send({error: "Text is missing"});
+    return res.status(400).send({error: req.__('ABOUT_BACKEND_TEXT_MISSING')});
   }
   if (!hjelpeMetoder.data.validateEmail(ticket.mail)) {
     logger.log({level: 'error', message: `Mail is not properly formatted`});
-    return res.status(400).send({error: "Mail is not properly formatted"});
+    return res.status(400).send({error: req.__('ABOUT_BACKEND_EMAIL_FORMAT')});
   }
   ticketCreator.addTicket(ticket);
-  res.status(200).send({message: 'Ticket was successfully sent!'});
+  res.status(200).send({message: req.__('ABOUT_BACKEND_TICKET_SUCCESS')});
 }

@@ -183,5 +183,10 @@
 	"ADMINDASHBOARD_SUPPORT_INPUT_TICKETID": "Ticketnummer",
 	"LIST_NAME": "Listennamen",
 	"BUTTON_SUBMIT": "einreichen",
-	"BUTTON_GET": "Erhalten"
+	"BUTTON_GET": "Erhalten",
+	"ABOUT_BACKEND_TITLE_MISSING": "Titel fehlt",
+	"ABOUT_BACKEND_MAIL_MISSING": "Mail fehlt",
+	"ABOUT_BACKEND_TEXT_MISSING": "ext fehlt",
+	"ABOUT_BACKEND_EMAIL_FORMAT": "Mail ist nicht richtig formatiert",
+	"ABOUT_BACKEND_TICKET_SUCCESS": "Ticket wurde erfolgreich gesendet"
 }

@@ -183,5 +183,10 @@
 	"DASHBOARD_WATCHLIST_DESC": "Добавьте фильм или телешоу в свой список просмотра, и вы сможете просматривать их здесь!",
 	"NEW_LIST_BUTTON": "Новый",
 	"BUTTON_SUBMIT": "Представлять на рассмотрение",
-	"BUTTON_GET": "Получать"
+	"BUTTON_GET": "Получать",
+	"ABOUT_BACKEND_TITLE_MISSING": "Заголовок отсутствует",
+	"ABOUT_BACKEND_MAIL_MISSING": "Почта отсутствует",
+	"ABOUT_BACKEND_TEXT_MISSING": "Текст отсутствует",
+	"ABOUT_BACKEND_EMAIL_FORMAT": "Почта неправильно отформатирована",
+	"ABOUT_BACKEND_TICKET_SUCCESS": "Билет был успешно отправлен"
 }

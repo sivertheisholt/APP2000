@@ -183,5 +183,10 @@
 	"ADMINDASHBOARD_LANGUAGE_NAME": "English Name",
 	"ADMINDASHBOARD_LANGUAGE_CODE": "Language Code",
 	"ADMINDASHBOARD_SUPPORT_INPUT_TICKETID": "TicketID",
-	"LIST_NAME": "List Name"
+	"LIST_NAME": "List Name",
+	"ABOUT_BACKEND_TITLE_MISSING": "Title is missing",
+	"ABOUT_BACKEND_MAIL_MISSING": "Mail is missing",
+	"ABOUT_BACKEND_TEXT_MISSING": "Text is missing",
+	"ABOUT_BACKEND_EMAIL_FORMAT": "Mail is not properly formatted",
+	"ABOUT_BACKEND_TICKET_SUCCESS": "Ticket was successfully sent"
 }

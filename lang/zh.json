@@ -183,5 +183,10 @@
 	"DASHBOARD_WATCHLIST_DESC": "将电影或电视节目添加到您的监视列表，您可以在这里查看它们！",
 	"NEW_LIST_BUTTON": "新的",
 	"BUTTON_SUBMIT": "提交",
-	"BUTTON_GET": "得到"
+	"BUTTON_GET": "得到",
+	"ABOUT_BACKEND_TITLE_MISSING": "标题丢失",
+	"ABOUT_BACKEND_MAIL_MISSING": "邮件丢失",
+	"ABOUT_BACKEND_TEXT_MISSING": "文字遗失",
+	"ABOUT_BACKEND_EMAIL_FORMAT": "邮件格式不正确",
+	"ABOUT_BACKEND_TICKET_SUCCESS": "票证已成功发送"
 }

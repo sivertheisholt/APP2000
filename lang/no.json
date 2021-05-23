@@ -183,5 +183,10 @@
 	"ADMINDASHBOARD_LANGUAGE_NAME": "Engelsk Navn",
 	"ADMINDASHBOARD_LANGUAGE_CODE": "Landskode",
 	"ADMINDASHBOARD_SUPPORT_INPUT_TICKETID": "BillettID",
-	"LIST_NAME": "Liste Navn"
+	"LIST_NAME": "Liste Navn",
+	"ABOUT_BACKEND_TITLE_MISSING": "Tittel mangler",
+	"ABOUT_BACKEND_MAIL_MISSING": "Epost mangler",
+	"ABOUT_BACKEND_TEXT_MISSING": "Tekst mangler",
+	"ABOUT_BACKEND_EMAIL_FORMAT": "Epost er ikke formatert riktig",
+	"ABOUT_BACKEND_TICKET_SUCCESS": "Billett sendt inn"
 }

@@ -183,5 +183,10 @@
 	"DASHBOARD_SWITCHER_WATCHLIST": "Liste de surveillance",
 	"DASHBOARD_WATCHLIST_DESC": "Ajoutez un film ou une émission de télévision à votre liste de surveillance et vous pouvez les visionner ici!",
 	"BUTTON_SUBMIT": "Soumettre",
-	"BUTTON_GET": "Obtenir"
+	"BUTTON_GET": "Obtenir",
+	"ABOUT_BACKEND_TITLE_MISSING": "Le titre est manquant",
+	"ABOUT_BACKEND_MAIL_MISSING": "Le courrier est manquant",
+	"ABOUT_BACKEND_TEXT_MISSING": "Le texte est manquant",
+	"ABOUT_BACKEND_EMAIL_FORMAT": "Le courrier n'est pas correctement formaté",
+	"ABOUT_BACKEND_TICKET_SUCCESS": "Le ticket a été envoyé avec succès"
 }
