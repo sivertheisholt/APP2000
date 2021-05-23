@@ -219,10 +219,9 @@ exports.userAuth_post_resetpassword = async function(req, res) {
 
         //Nå setter vi passord til det hasha passordet
         const password = await bcrypt.hash(pugBody.newPassword, salt);
-        const resetLink = '';
 
         //Lagrer bruker
-        const updateUser = await userHandler.updateUser(userResult.information, {password: password, resetLink: resetLinkConfirmed});
+        const updateUser = await userHandler.updateUser(userResult.information, {password: password, resetLink: ''});
         if(!updateUser.status) {
             res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=Could not change password&errorType=resetPassword`);
             return;
