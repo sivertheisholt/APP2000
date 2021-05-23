@@ -112,7 +112,7 @@
 	"ABOUT_STATISTIC_FOUR": "Movies",
 	"ABOUT_CARD_ONE_TEXT": "The group was founded in 2020 with a goal of making movie-watching more social. The website was launched in 2021 while Filmatory was still under development. Today we’re fully functional and with more changes coming we hope to be the most popular place for information about media entertainment.  We welcome you to join and share with your friends.",
 	"ABOUT_CARD_TWO_HEADING": "Our work",
-	"ABOUT_CARD_TWO_TEXT": "This website uses API's from TMDI to gather information about any tv-show, movie and actor. It uses MongoDB as the database, node.js functions and is coded in pug with UIkit.",
+	"ABOUT_CARD_TWO_TEXT": "This website uses API's from TMDI to gather information about any tv-show, movie and actor. It uses MongoDB as the database, node.js for the web server the frontend is built using pug and UiKit",
 	"ABOUT_CONTACT_HEADING": "Contact",
 	"ABOUT_CONTACT_TITLE": "Title",
 	"ABOUT_CONTACT_EMAIL": "E-mail",
