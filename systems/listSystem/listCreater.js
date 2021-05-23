@@ -21,7 +21,7 @@ exports.createList = async function(user, name) {
     if(!resultList.status) return resultList;
 
     //Oppdaterer bruker
-    const userResult = await userHandler.updateUser(user, {$push: {lists: resultList.information._id}})
+    const userResult = await userHandler.updateUser(user, {$push: {lists: resultList.information._id.toString()}})
     if(!userResult.status) return userResult;
     
     //Suksess

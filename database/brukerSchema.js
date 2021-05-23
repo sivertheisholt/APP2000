@@ -55,7 +55,10 @@ const brukerSchema = new mongoose.Schema({
   },
   lists: {
     type: Array,
-    default: null
+    default: null,
+    items: {
+      type: String
+    }
   }
 });
 
