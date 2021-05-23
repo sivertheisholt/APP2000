@@ -33,7 +33,7 @@ exports.film_get_info = async function(req, res) {
         filminfo: res.locals.movieInfo,
         castinfo: castinfolet,
         videos: await tmdb.data.getMovieVideosByID(req.url.slice(10), req.renderObject.urlPath),
-        listOfPersons: await Promise.all(getPersons(castinfolet.cast)),
+        listOfPersons: await Promise.all(getPersons(castinfolet.cast, req.renderObject.urlPath)),
         reviews: dateFixer(reviews.information)
     }
     logger.log({level: 'debug', message: 'Getting username..'});
@@ -94,10 +94,10 @@ exports.film_get_list = async function(req, res) {
     res.render("mediainfo/movies", req.renderObject);
 }
 
-function getPersons(cast) {
+function getPersons(cast, languageCode) {
     let personArray = [];
     for(const item of cast){
-        personArray.push(tmdb.data.getPersonByID(item.id));
+        personArray.push(tmdb.data.getPersonByID(item.id, languageCode));
     }
     return personArray;
 }

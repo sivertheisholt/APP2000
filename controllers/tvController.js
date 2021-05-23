@@ -10,9 +10,9 @@ const listGetter = require('../systems/listSystem/listGetter');
 
 exports.tv_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Getting castinfo..'});
-    let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(11));
+    let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(11), req.renderObject.urlPath);
     logger.log({level: 'debug', message: 'Getting reviews..'});
-    let reviews = await reviewGetter.getApprovedReviews(req.url.slice(11), "tv");
+    let reviews = await reviewGetter.getApprovedReviews(req.url.slice(11), 'tv');
     let isTvFav = new ValidationHandler(false, "");
     let isTvWatched = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
@@ -30,14 +30,14 @@ exports.tv_get_info = async function(req, res) {
     let serie = {
         serieinfo: res.locals.tvInfo,
         castinfo: castinfolet,
-        videos: await tmdb.data.getSerieVideosByID(req.url.slice(11)) ,
-        listOfPersons: await Promise.all(getPersons(castinfolet.cast)),
+        videos: await tmdb.data.getSerieVideosByID(req.url.slice(11), req.renderObject.urlPath),
+        listOfPersons: await Promise.all(getPersons(castinfolet.cast, req.renderObject.urlPath)),
         reviews: dateFixer(reviews.information)
     }
     logger.log({level: 'debug', message: 'Getting list of persons'});
     for(const item of serie.castinfo.cast){
         //let person = await tmdb.data.getPersonByID(item.id);
-        serie.listOfPersons.push(await tmdb.data.getPersonByID(item.id));
+        serie.listOfPersons.push(await tmdb.data.getPersonByID(item.id, req.renderObject.urlPath));
     }
     logger.log({level: 'debug', message: 'Checking if favorited..'});
     if(req.renderObject.session){
@@ -93,10 +93,10 @@ exports.tv_get_list = async function(req,res) {
     res.render("mediainfo/tvshows", req.renderObject);
 }
 
-function getPersons(cast) {
+function getPersons(cast, languageCode) {
     let personArray = [];
     for(const item of cast){
-        personArray.push(tmdb.data.getPersonByID(item.id));
+        personArray.push(tmdb.data.getPersonByID(item.id, languageCode));
     }
     return personArray;
 }

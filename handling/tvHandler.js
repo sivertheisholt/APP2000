@@ -24,6 +24,7 @@ function returnHandler(doc, err) {
 /**
  * Sjekker om serie eksisterer i databasen
  * @param {Number} tvId 
+ * @param {String} languageCode
  * @returns ValidationHandler
  */
 function checkIfSaved(tvId, languageCode) {
