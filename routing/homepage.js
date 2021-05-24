@@ -1,3 +1,7 @@
+/** Routing til forsiden
+ * @author Ørjan Dybevik - 233530, Sivert - 233518, Sigve - 233511, Govert - 233565
+ */
+
 const express = require('express');
 const router = express.Router();
 const homepageController = require('../controllers/homepageController')

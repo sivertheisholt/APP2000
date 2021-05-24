@@ -1,3 +1,8 @@
+/** Hoved routing
+ * Her går alle routes gjennom
+ * @author Ørjan Dybevik - 233530, Sivert - 233518, Sigve - 233511, Govert - 233565
+ */
+
 const express = require('express');
 const router = express.Router();
 
@@ -9,6 +14,5 @@ router.use("/user", require('./dashboard'));
 router.use("/person", require('./personinfo'));
 router.use("/homepage", require('./homepage'));
 router.use("/list", require('./list'));
-//router.use("/testing", require('./testing'));
 
 module.exports = router;

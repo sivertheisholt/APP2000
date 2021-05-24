@@ -1,3 +1,8 @@
+/** Routing til infosider
+ * Her routes post og get
+ * @author Ørjan Dybevik - 233530, Sivert - 233518, Sigve - 233511, Govert - 233565
+ */
+
 const express = require('express');
 const aboutController = require('../controllers/aboutController');
 const router = express.Router();
