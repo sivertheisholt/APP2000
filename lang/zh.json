@@ -59,7 +59,7 @@
 	"DASHBOARD_FAVORITES_MOVIES": "电影",
 	"DASHBOARD_FAVORITES_TVSHOWS": "电视节目",
 	"DASHBOARD_PROFILE_INFO_TITLE": "档案信息",
-	"DASHBOARD_PROFILE_INFO_DESC": "在此处创建用户名",
+	"DASHBOARD_PROFILE_INFO_DESC": "在此处创建一个用户名，至少四个字符",
 	"DASHBOARD_PROFILE_INFO_UPLOAD_TEXT": "点击下面的按钮上传个人资料图片",
 	"DASHBOARD_STATISTICS_TITLE": "统计数据",
 	"UPLOAD_BUTTON": "上载",
@@ -225,5 +225,14 @@
 	"ERROR_EXPIRED_TOKEN": "令牌已过期或不正确",
 	"ERROR_USER_TOKEN_DOESNT_EXIST": "拥有此令牌的用户不存在",
 	"ERROR_COULD_NOT_CHANGE_PASSWORD": "无法更改密码",
-	"SUCCESS_PASSWORD_CHANGE": "密码已成功更改，您将被重定向..."
+	"SUCCESS_PASSWORD_CHANGE": "密码已成功更改，您将被重定向...",
+	"SUCCESS_PASSWORD_CHANGE_DASHBOARD": "密码已更改，页面会自动更新...",
+	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "出问题了，请稍后再试",
+	"ERROR_COULD_NOT_CHANGE_USERNAME": "无法更改用户名，请确保其名称至少为4个字符",
+	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "成功更改用户名，页面将自动更新...",
+	"ERROR_WRONG_FILE_TYPE": "文件类型错误！",
+	"ERROR_NO_FILE_FOUND": "找不到文件！",
+	"ERROR_NOT_GET_IMAGE": "无法获取图像！",
+	"ERROR_SAVING_AVATAR": "将图像保存给用户时出错",
+	"SUCCESS_AVATAR_UPLOAD": "成功更改了头像，页面正在自动更新..."
 }

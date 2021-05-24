@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vi lager et nytt schema
+//Schema til quote
 const quoteSchema = new mongoose.Schema({
     userId: {
         type: String

@@ -2,6 +2,15 @@ const movieHandler = require('../../../handling/movieHandler');
 const tvHandler = require('../../../handling/tvHandler');
 const tmdb = require('../../../handling/tmdbHandler');
 
+/**
+ * Sjekker om film er i database eller ikke
+ * Setter film info i req
+ * @param {object} req En forespørsel fra klienten
+ * @param {object} res En respons fra server
+ * @param {callback} next Neste
+ * @returns Ingenting
+ * @author Sivert - 233518
+ */
 exports.movie_check_database = async function(req, res, next) {    
     //Sjekker om film er lagret i database
     const movieId = req.url.slice(10)
@@ -33,11 +42,20 @@ exports.movie_check_database = async function(req, res, next) {
     const addToDatabaseResult = await movieHandler.addToDatabase(movieInfo);
     if(!addToDatabaseResult.status) {
         next();
-        return addToDatabaseResult;
+        return;
     }
     next();
 }
 
+/**
+ * Sjekker om serie er i database eller ikke
+ * Setter serie info i req
+ * @param {object} req En forespørsel fra klienten
+ * @param {object} res En respons fra server
+ * @param {callback} next Neste
+ * @returns Ingenting
+ * @author Sivert - 233518
+ */
 exports.tv_check_database = async function(req, res, next) {    
     //Sjekker om tv er lagret i database
     const tvId = req.url.slice(11)

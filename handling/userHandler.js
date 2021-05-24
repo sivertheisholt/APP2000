@@ -4,8 +4,9 @@ const Bruker = require('../database/brukerSchema');
 
 /**
  * Skaffer bruker fra filter
- * @param {Object} filter 
+ * @param {Object} filter Filter som skal brukes
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getUser(filter) {
     logger.log({level: 'debug', message: `Getting user with filter ${filter} from database`})
@@ -19,8 +20,9 @@ async function getUser(filter) {
 
 /**
  * Skaffer bruker fra ID
- * @param {String} userId 
+ * @param {String} userId ID til bruker
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getUserFromId(userId) {
     logger.log({level: 'debug', message: `Getting user with id ${userId} from database`})
@@ -34,8 +36,9 @@ async function getUserFromId(userId) {
 
 /**
  *  Skaffer bruker fra email
- * @param {String} userEmail 
+ * @param {String} userEmail Eposten som skal søkes etter
  * @returns ValidationHandler
+ * @author Ørjan - 233530
  */
 async function getUserFromEmail(userEmail) {
     logger.log({level: 'debug', message: `Getting user with email ${userEmail} from database`})
@@ -49,9 +52,10 @@ async function getUserFromEmail(userEmail) {
 
 /**
  * Oppdaterer bruker i database
- * @param {Object} user 
- * @param {Object} options 
+ * @param {Object} user Bruker som skal oppdateres
+ * @param {Object} options Hva som skal oppdateres
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function updateUser(user, options) {
     logger.log({level: 'debug', message: `Updating user ${user._id} with ${options}`});
@@ -67,9 +71,10 @@ async function updateUser(user, options) {
 
 /**
  * Skaffer objekter fra bruker fra ID
- * @param {String} userId
- * @param {String} fields 
+ * @param {String} userId ID til bruker
+ * @param {String} fields Felt som skal hentes
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 function getFieldsFromUserById(userId, fields) {
     logger.log({level: 'debug', message: `Getting user ${userId} with ${fields}`});
@@ -85,7 +90,8 @@ function getFieldsFromUserById(userId, fields) {
 
 /**
  * Lager en ny bruker i databasen
- * @param {Object} user 
+ * @param {Object} user Bruker som skal opprettes
+ * @returns ValidationHandler
  * @author Sivert - 233518
  */
 function newUser(user) {

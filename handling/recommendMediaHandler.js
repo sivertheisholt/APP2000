@@ -4,8 +4,10 @@ const hjelpeMetoder = require('./hjelpeMetoder');
 const ValidationHandler = require('./ValidationHandler');
 
 /**
- * Skaffer 10 recommended movies for bruker
- * @param {Object} user 
+ * Skaffer 10 anbefalte filmer for bruker
+ * @param {Object} user Bruker som skal hentes for
+ * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 exports.recommendMovie = async function(user) {
     logger.log({level: 'debug', message: 'Creating recommended movies for user'})
@@ -17,8 +19,10 @@ exports.recommendMovie = async function(user) {
 }
 
 /**
- * Skaffer 10 recommended tvs for bruker
- * @param {Object} user 
+ * Skaffer 10 anbefalte serier for bruker
+ * @param {Object} user Bruker som skal hentes for
+ * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 exports.recommendTv = async function(user) {
     logger.log({level: 'debug', message: 'Creating recommended tv for user'})
@@ -30,8 +34,10 @@ exports.recommendTv = async function(user) {
 }
 
 /**
- * Looper igjennom movie array og skaffer info fra tmdb
- * @param {Array} movies 
+ * Looper igjennom film array og skaffer info fra tmdb
+ * @param {Array} movies Filmer
+ * @returns Array av filmer
+ * @author Sivert - 233518
  */
 async function getRecommendedMovies(movies) {
     logger.log({level: 'debug', message: 'Looping thru movies'})
@@ -53,9 +59,10 @@ async function getRecommendedMovies(movies) {
 }
 
 /**
- * Looper igjennom tv array og skaffer info fra tmdb
- * @param {Array} tvs 
- * @returns 
+ * Looper igjennom serie array og skaffer info fra tmdb
+ * @param {Array} tvs Serier
+ * @returns Array av serier
+ * @author Sivert - 233518
  */
 async function getRecommendedTvs(tvs) {
     logger.log({level: 'debug', message: 'Looping thru tvs'})

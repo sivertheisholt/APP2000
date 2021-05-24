@@ -59,7 +59,7 @@
 	"DASHBOARD_FAVORITES_MOVIES": "Filme",
 	"DASHBOARD_FAVORITES_TVSHOWS": "Fernsehshows",
 	"DASHBOARD_PROFILE_INFO_TITLE": "Profil Information",
-	"DASHBOARD_PROFILE_INFO_DESC": "Erstellen Sie hier einen Benutzernamen",
+	"DASHBOARD_PROFILE_INFO_DESC": "Erstellen Sie hier einen Benutzernamen mit mindestens 4 Zeichen",
 	"DASHBOARD_PROFILE_INFO_UPLOAD_TEXT": "Laden Sie das Profilbild hoch, indem Sie auf die Schaltfläche unten klicken",
 	"DASHBOARD_STATISTICS_TITLE": "Statistiken",
 	"UPLOAD_BUTTON": "Hochladen",
@@ -225,5 +225,14 @@
 	"ERROR_EXPIRED_TOKEN": "Token ist abgelaufen oder falsch",
 	"ERROR_USER_TOKEN_DOESNT_EXIST": "Benutzer mit diesem Token existiert nicht",
 	"ERROR_COULD_NOT_CHANGE_PASSWORD": "Passwort konnte nicht geändert werden",
-	"SUCCESS_PASSWORD_CHANGE": "Passwort wurde erfolgreich geändert, Sie werden umgeleitet ..."
+	"SUCCESS_PASSWORD_CHANGE": "Passwort wurde erfolgreich geändert, Sie werden umgeleitet ...",
+	"SUCCESS_PASSWORD_CHANGE_DASHBOARD": "Das Passwort wurde geändert, die Seite wird automatisch aktualisiert ...",
+	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "Es ist ein Fehler aufgetreten. Versuchen Sie es später erneut",
+	"ERROR_COULD_NOT_CHANGE_USERNAME": "Der Benutzername konnte nicht geändert werden. Stellen Sie sicher, dass er mindestens 4 Zeichen lang ist",
+	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "Der Benutzername wurde erfolgreich geändert, die Seite wird automatisch aktualisiert ...",
+	"ERROR_WRONG_FILE_TYPE": "Falscher Dateityp!",
+	"ERROR_NO_FILE_FOUND": "Keine Datei gefunden!",
+	"ERROR_NOT_GET_IMAGE": "Konnte kein Bild bekommen!",
+	"ERROR_SAVING_AVATAR": "Fehler beim Speichern des Bildes im Benutzer",
+	"SUCCESS_AVATAR_UPLOAD": "Der Avatar wurde erfolgreich geändert, die Seite wird automatisch aktualisiert ..."
 }

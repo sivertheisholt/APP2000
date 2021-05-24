@@ -1,3 +1,7 @@
+/**
+ * Kjøres når det kommer input i search boksen
+ * @author Sivert - 233518
+ */
 $('#searchBox').on('input',function() {
     if($(this).val() == "") {
         document.getElementById('searchDiv').style.display = 'none';
@@ -7,6 +11,13 @@ $('#searchBox').on('input',function() {
     }
 });
 
+/**
+ * Lager en maks tekst lengde
+ * @param {String} data Tekst som skal bli forkortet
+ * @param {Number} max Maks lengde på tekst i antall chars
+ * @returns String
+ * @author Ørjan - 233530
+ */
 function maxText(data, max){
     if(data.length > max){
         for(let i = max; i < max+20; i++){
@@ -18,6 +29,10 @@ function maxText(data, max){
     return data;
 }
 
+/**
+ * Lager html for livesearch og setter inn
+ * @author Ørjan - 233530, Sivert - 233518, Sigve - 233511
+ */
 socket.on('resultatMedia', (resultMedia) => {
     document.getElementById('searchDiv').innerHTML = ``;
     document.getElementById('searchDiv').style.display = 'block';

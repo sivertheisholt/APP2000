@@ -5,6 +5,7 @@ const ValidationHandler = require('../handling/ValidationHandler');
 
 /**
  * lager et gjenbrukbart transportørobjekt ved hjelp av standard SMTP-transport
+ * @author Ørjan Dybevik - 233530
  */
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
@@ -22,6 +23,7 @@ let transporter = nodemailer.createTransport(smtpTransport({
 
 /**
  * Sjekker at transporteren er klar til bruk og funker.
+ * @author Ørjan Dybevik - 233530
  */
 transporter.verify(function(err, success) {
   if (err) {
@@ -34,6 +36,7 @@ transporter.verify(function(err, success) {
 /**
  * Lagrer mail funksjonen i en variabel slik den kan brukes flere steder
  * @param {Til, Fra, Emne, Text} mailOptions 
+ * @author Ørjan Dybevik - 233530
  */
 let sendMail = (mailOptions) => {
   transporter.sendMail(mailOptions,(err, info) => {

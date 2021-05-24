@@ -1,22 +1,29 @@
+//Login
 let loginBtn = document.getElementById('login-btn');
 let indexLoginEmail = document.getElementById('index-login-email');
 let indexLoginPw = document.getElementById('index-login-password');
 let loginErrorMsg = document.getElementById('login-error');
 
+//Signup
 let signUpBtn = document.getElementById('signup-btn');
 let indexSignupEmail = document.getElementById('index-signup-email');
 let indexSignupPassword = document.getElementById('index-signup-password');
 let indexSignupPasswordRepeat = document.getElementById('index-signup-password-repeat');
 let signupErrorMsg = document.getElementById('signup-error');
 
+//Modal
 let loginsignupModal = document.getElementById('modal-login-signup');
 
+//Glemt passord
 let forgotPasswordBtn = document.getElementById('forgot-password-btn');
 let indexForgotPwEmail = document.getElementById('index-forgot-pw-email');
 let forgotPwErrorMsg = document.getElementById('forgot-error');
 let forgotPasswordModal = document.getElementById('modal-forgot-password');
 
-
+/**
+ * Eventlistener for å sende ajax call til å logge inn
+ * @author Ørjan Dybevik - 233530
+ */
 loginBtn.addEventListener("click", function(e){
     loginErrorMsg.style.display = 'none';
     loginErrorMsg.innerHTML = "";
@@ -48,6 +55,10 @@ loginBtn.addEventListener("click", function(e){
     });
 });
 
+/**
+ * Eventlistener for å sende ajax call til å melde seg opp
+ * @author Ørjan Dybevik - 233530
+ */
 signUpBtn.addEventListener("click", function(e){
     signupErrorMsg.style.display = 'none';
     signupErrorMsg.innerHTML = "";
@@ -81,6 +92,10 @@ signUpBtn.addEventListener("click", function(e){
     });
 });
 
+/**
+ * Eventlistener for å sende ajax call for å tilbakestille passord ved glemt passord
+ * @author Ørjan Dybevik - 233530
+ */
 forgotPasswordBtn.addEventListener("click", function(e){
     forgotPwErrorMsg.style.display = 'none';
     forgotPwErrorMsg.innerHTML = "";

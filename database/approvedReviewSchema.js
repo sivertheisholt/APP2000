@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vi lager et nytt schema
+//Schema til approved review
 const approvedReviewSchema = new mongoose.Schema({
     userId: {
         type: String

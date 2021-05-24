@@ -4,8 +4,9 @@ const Session = require('../database/sessionSchema');
 
 /**
  * Henter session fra id
- * @param {int} sessionid 
+ * @param {Number} sessionid ID til session 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getSessionFromId(sessionid) {
     logger.log({level: 'debug', message: `Getting session from database using session id ${sessionid}`});

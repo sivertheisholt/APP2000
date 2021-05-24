@@ -1,17 +1,14 @@
-const got = require('got');
 const logger = require('../logging/logger');
 const fs = require('fs');
 const ValidationHandler = require('./ValidationHandler');
-const { stringify } = require('querystring');
 
-
-//Her kan dere legge inn hjelpemetoder dere vil lage
  var methods = {
     /**
      * lagFinDato metoden gjør en dato lettere å lese
-     * @param {Date} datoInn 
-     * @param {String} stringTilSplitting 
-     * @returns String
+     * @param {Date} datoInn Dato som skal brukes
+     * @param {String} stringTilSplitting String som kobler sammen dato
+     * @returns String av dato
+     * @author Govert - 233565
      */
     lagFinDato: function(datoInn, stringTilSplitting) {
         try {
@@ -24,8 +21,9 @@ const { stringify } = require('querystring');
     },
     /**
      * Formaterer dato fra database fin
-     * @param {Date} datoInn 
-     * @returns String
+     * @param {Date} datoInn Dato som skal brukes
+     * @returns String av dato
+     * @author Ørjan - 233530 
      */
     lagFinDatoFraDB: function(datoInn) {
         try {
@@ -37,25 +35,28 @@ const { stringify } = require('querystring');
     },
     /**
      * Henter månedsnummer (plasser) fra dato
-     * @param {Date} datoInn 
-     * @param {String} stringTilSplitting 
-     * @returns Månedsnummer
+     * @param {Date} datoInn Dato som skal brukes
+     * @param {String} stringTilSplitting String som kobler sammen datoen 
+     * @returns String av månedsnummer 
+     * @author Govert - 233565
      */
     lagfinMåned: function(datoInn, stringTilSplitting) {
         try {
             let splitDato = datoInn.split(stringTilSplitting);
-            const dato = new Date(splitDato[0], splitDato[1]-1, splitDato[2]-1)
-            const monthName = dato.getMonth()
-            return monthName
+            const dato = new Date(splitDato[0], splitDato[1]-1, splitDato[2]-1);
+            const monthName = dato.getMonth();
+            return monthName;
         } catch(err) {
-            logger.log({level: 'error', message: `Could not format month from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`}); 
+            logger.log({level: 'error', message: `Could not format month from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`});
+            return 'undefined';
         }
     },
     /**
      * Henter dagsnummer sin plassering fra dato
-     * @param {Date} datoInn 
-     * @param {String} stringTilSplitting 
+     * @param {Date} datoInn Dato som skal brukes
+     * @param {String} stringTilSplitting String som kobler sammen datoen
      * @returns Dagsnummer
+     * @author Govert - 233565
      */
     lagfinDag: function(datoInn, stringTilSplitting) {
         try {
@@ -67,12 +68,12 @@ const { stringify } = require('querystring');
             logger.log({level: 'error', message: `Could not format day from ${datoInn} with string ${stringTilSplitting}! Error: ${err}`});
         }
     },
-    // lagfinÅrstall Funksjon Henter årstall
     /**
      * Henter årstall fra dato
-     * @param {Date} datoInn 
-     * @param {String} stringTilSplitting 
-     * @returns Årstall
+     * @param {Date} datoInn Dato som skal brukes
+     * @param {String} stringTilSplitting String som kobler sammen datoen
+     * @returns String av årstall
+     * @author Govert - 233565
      */
     lagfinÅrstall: function(datoInn, stringTilSplitting) {
         try {
@@ -86,8 +87,9 @@ const { stringify } = require('querystring');
     },
     /**
      * Sjekker om email er valid
-     * @param {String} email 
+     * @param {String} email Eposten
      * @returns 
+     * @author Ørjan - 233530
      */
     validateEmail: function(email){
         try{
@@ -99,8 +101,9 @@ const { stringify } = require('querystring');
     },
     /**
      * Sjekker om passord er valid
-     * @param {String} password 
-     * @returns boolean
+     * @param {String} password Passordet som skal sjekkes
+     * @returns Boolean
+     * @author Ørjan - 233530
      */
     validatePassword: function(password){
         try{
@@ -112,8 +115,9 @@ const { stringify } = require('querystring');
     },
     /**
      * Leser fil
-     * @param {String} path 
-     * @returns String
+     * @param {String} path Pathen til fila
+     * @returns ValidationHandler
+     * @author Ørjan - 233530
      */
     lesFil: async function(path){
         return new Promise(function (resolve, reject) {
@@ -127,8 +131,9 @@ const { stringify } = require('querystring');
     },
     /**
      * Formaterer tall til hele tusen/millioner/milliarder - Gov
-     * @param {Number} int 
+     * @param {Number} int Nummer som skal formateres
      * @returns tall i hele tusen/millioner/milliarder
+     * @author Govert - 233565
      */
     tallFormatering: function(int) {
         if (int < 999999)
@@ -139,7 +144,8 @@ const { stringify } = require('querystring');
     },
     /**
      * Henter alle språkkodene tilgjenglig på siden
-     * @returns Språkkoder
+     * @returns Array av språkkoder
+     * @author Ørjan - 233530
      */
     getAllLangCodes: async function(){
         let langCodes = [];
@@ -151,8 +157,9 @@ const { stringify } = require('querystring');
     },
     /**
      * Validerer innholdet av input om det tilfredstiller kravene
-     * @param {Object} input 
+     * @param {Object} input Objektet som skal sjekkes
      * @returns ValidationHandler
+     * @author Ørjan - 233530
      */
     validateNewLang: function(input){
         const re = /[A-Za-z]/;
@@ -172,13 +179,11 @@ const { stringify } = require('querystring');
         }
         return new ValidationHandler(true, langObj);
     },
-    expressIgnoreJavascript: function (url) {
-        return url.startsWith('/javascript');
-    },
     /**
      * Sjekker at språket som administrator prøver å slette er skrevet korrekt og finnes i systemet
-     * @param {String} input 
+     * @param {String} input Input som skal sjekkes
      * @returns ValidationHandler
+     * @author Ørjan - 233530
      */
     validateDeleteLang: async function(input){
         let languageJson = await methods.lesFil("./lang/langList.json");
@@ -201,7 +206,13 @@ const { stringify } = require('querystring');
         }
         return new ValidationHandler(false, 'No matching language found');
     },
-    shuffleArray: function(array) {
+    /**
+     * Randomizer et array
+     * @param {String} array  Array som skal bli randomiza
+     * @returns Et array som er shuffla
+     * @author Sivert - 233518
+     */
+    shuffleArray: function(array) { 
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];

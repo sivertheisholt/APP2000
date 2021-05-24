@@ -63,7 +63,7 @@
 	"DASHBOARD_FAVORITES_TVSHOWS": "Tv-Shows",
 	"DASHBOARD_WATCHLIST_DESC": "Add a movie or tv-show to your watchlist and you can view them here!",
 	"DASHBOARD_PROFILE_INFO_TITLE": "Profile information",
-	"DASHBOARD_PROFILE_INFO_DESC": "Create a username here",
+	"DASHBOARD_PROFILE_INFO_DESC": "Create a username here, minimum 4 characters",
 	"DASHBOARD_PROFILE_INFO_UPLOAD_TEXT": "Upload profile picture by clicking the button below",
 	"DASHBOARD_STATISTICS_TITLE": "Statistics",
 	"UPLOAD_BUTTON": "Upload",
@@ -225,5 +225,14 @@
 	"ERROR_EXPIRED_TOKEN": "Token has expired or is incorrect",
 	"ERROR_USER_TOKEN_DOESNT_EXIST": "User with this token doesn't exist",
 	"ERROR_COULD_NOT_CHANGE_PASSWORD": "Could not change password",
-	"SUCCESS_PASSWORD_CHANGE": "Password has successfully been changed, you will be redirected..."
+	"SUCCESS_PASSWORD_CHANGE": "Password has successfully been changed, you will be redirected...",
+	"SUCCESS_PASSWORD_CHANGE_DASHBOARD": "The password has been changed, the page is updated automatically ...",
+	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "Something went wrong, try again later",
+	"ERROR_COULD_NOT_CHANGE_USERNAME": "Could not change the username, make sure its atleast 4 characters long",
+	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "Successfully changed the username, the page is being updated automatically...",
+	"ERROR_WRONG_FILE_TYPE": "Wrong file type!",
+	"ERROR_NO_FILE_FOUND": "No file found!",
+	"ERROR_NOT_GET_IMAGE": "Could not get image!",
+	"ERROR_SAVING_AVATAR": "Error when saving image to user",
+	"SUCCESS_AVATAR_UPLOAD": "Successfully changed the avatar, the page is being updated automatically..."
 }

@@ -7,6 +7,7 @@ let languageOutput = document.getElementById('selectLanguageOutput');
 
 /**
  * Henter valgt språk
+ * @Author Ørjan Dybevik - 233530
  */
 function getLang(){
     adminLangOptionDesc.style.display = 'none';
@@ -21,6 +22,7 @@ function getLang(){
 
 /**
  * Eventlistener som kansellerer valg som er gjort
+ * @Author Ørjan Dybevik - 233530
  */
 cancelLangBtn.addEventListener("click", function(e) {
     e.preventDefault();
@@ -32,6 +34,7 @@ cancelLangBtn.addEventListener("click", function(e) {
 
 /**
  * Eventlistener som lagrer endringer
+ * @Author Ørjan Dybevik - 233530
  */
 saveLangBtn.addEventListener("click", function(e) {
     e.preventDefault();
@@ -46,6 +49,7 @@ saveLangBtn.addEventListener("click", function(e) {
 
 /**
  * Viser språk som er valgt
+ * @Author Ørjan Dybevik - 233530
  */
 socket.on('displayLang', function(args){
     langTextareaContent.style.display = 'block';
@@ -55,6 +59,7 @@ socket.on('displayLang', function(args){
 
 /**
  * Tilbakestiller etter du har lagret endringer i ett språk
+ * @Author Ørjan Dybevik - 233530
  */
 socket.on('savedLanguage', function(){
     adminLangOptionDesc.style.display = 'block';

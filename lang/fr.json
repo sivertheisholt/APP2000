@@ -59,7 +59,7 @@
 	"DASHBOARD_FAVORITES_MOVIES": "Films",
 	"DASHBOARD_FAVORITES_TVSHOWS": "Émission de télévision",
 	"DASHBOARD_PROFILE_INFO_TITLE": "Informations sur le profil",
-	"DASHBOARD_PROFILE_INFO_DESC": "Créez un nom d'utilisateur ici",
+	"DASHBOARD_PROFILE_INFO_DESC": "Créez un nom d'utilisateur ici, minimum 4 caractères",
 	"DASHBOARD_PROFILE_INFO_UPLOAD_TEXT": "Téléchargez une photo de profil en cliquant sur le bouton ci-dessous",
 	"DASHBOARD_STATISTICS_TITLE": "Statistiques",
 	"UPLOAD_BUTTON": "Télécharger",
@@ -225,5 +225,14 @@
 	"ERROR_EXPIRED_TOKEN": "Le jeton a expiré ou est incorrect",
 	"ERROR_USER_TOKEN_DOESNT_EXIST": "L'utilisateur avec ce jeton n'existe pas",
 	"ERROR_COULD_NOT_CHANGE_PASSWORD": "Impossible de changer le mot de passe",
-	"SUCCESS_PASSWORD_CHANGE": "Le mot de passe a bien été changé, vous serez redirigé ..."
+	"SUCCESS_PASSWORD_CHANGE": "Le mot de passe a bien été changé, vous serez redirigé ...",
+	"SUCCESS_PASSWORD_CHANGE_DASHBOARD": "Le mot de passe a été changé, la page est mise à jour automatiquement ...",
+	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "Une erreur s'est produite, réessayez plus tard",
+	"ERROR_COULD_NOT_CHANGE_USERNAME": "Impossible de changer le nom d'utilisateur, assurez-vous qu'il contient au moins 4 caractères",
+	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "Le nom d'utilisateur a bien été modifié, la page est mise à jour automatiquement ...",
+	"ERROR_WRONG_FILE_TYPE": "Mauvais type de fichier!",
+	"ERROR_NO_FILE_FOUND": "Aucun fichier trouvé!",
+	"ERROR_NOT_GET_IMAGE": "Impossible d'obtenir l'image!",
+	"ERROR_SAVING_AVATAR": "Erreur lors de l'enregistrement de l'image sur l'utilisateur",
+	"SUCCESS_AVATAR_UPLOAD": "Avatar modifié avec succès, la page est mise à jour automatiquement ..."
 }

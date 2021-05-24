@@ -59,7 +59,7 @@
 	"DASHBOARD_FAVORITES_MOVIES": "Filmer",
 	"DASHBOARD_FAVORITES_TVSHOWS": "Tv-Serier",
 	"DASHBOARD_PROFILE_INFO_TITLE": "Profil informasjon",
-	"DASHBOARD_PROFILE_INFO_DESC": "Opprett et brukernavn her",
+	"DASHBOARD_PROFILE_INFO_DESC": "Opprett et brukernavn her, minimum 4 tegn",
 	"DASHBOARD_PROFILE_INFO_UPLOAD_TEXT": "Last opp profilbildet ved å klikke på knappen nedenfor",
 	"DASHBOARD_STATISTICS_TITLE": "Statistikker",
 	"UPLOAD_BUTTON": "Last opp",
@@ -225,5 +225,14 @@
 	"ERROR_EXPIRED_TOKEN": "Token har utløpt eller er feil",
 	"ERROR_USER_TOKEN_DOESNT_EXIST": "Bruker med dette tokenet eksisterer ikke",
 	"ERROR_COULD_NOT_CHANGE_PASSWORD": "Kunne ikke endre passord",
-	"SUCCESS_PASSWORD_CHANGE": "Passordet er endret, du blir omdirigert ..."
+	"SUCCESS_PASSWORD_CHANGE": "Passordet er endret, du blir omdirigert ...",
+	"SUCCESS_PASSWORD_CHANGE_DASHBOARD": "Passordet er endret, siden oppdateres automatisk...",
+	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "Noe gikk galt, prøv igjen senere",
+	"ERROR_COULD_NOT_CHANGE_USERNAME": "Kunne ikke endre brukernavnet, sørg for at det inneholder minst 4 tegn",
+	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "Endret brukernavnet, siden oppdateres automatisk ...",
+	"ERROR_WRONG_FILE_TYPE": "Feil filtype!",
+	"ERROR_NO_FILE_FOUND": "Ingen fil funnet!",
+	"ERROR_NOT_GET_IMAGE": "Kunne ikke hente bilde!",
+	"ERROR_SAVING_AVATAR": "Feil ved lagring av bilde til bruker",
+	"SUCCESS_AVATAR_UPLOAD": "Avataren ble endret, siden oppdateres automatisk ..."
 }
