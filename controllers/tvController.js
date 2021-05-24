@@ -9,6 +9,9 @@ const ValidationHandler = require('../handling/ValidationHandler');
 const listGetter = require('../systems/listSystem/listGetter');
 
 exports.tv_get_info = async function(req, res) {
+    let isReviewed = new ValidationHandler(false, "");
+    let hasPendingReview = new ValidationHandler(false, "");
+    let hasAnyReview = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting castinfo..'});
     let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(11), req.renderObject.urlPath);
     logger.log({level: 'debug', message: 'Getting reviews..'});

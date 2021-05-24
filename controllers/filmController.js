@@ -9,6 +9,9 @@ const ValidationHandler = require('../handling/ValidationHandler');
 const listGetter = require('../systems/listSystem/listGetter');
 
 exports.film_get_info = async function(req, res) {
+    let isReviewed = new ValidationHandler(false, "");
+    let hasPendingReview = new ValidationHandler(false, "");
+    let hasAnyReview = new ValidationHandler(false, "");
     let isMovFav = new ValidationHandler(false, "");
     let isMovWatched = new ValidationHandler(false, "");
     let userMediaList = [];
