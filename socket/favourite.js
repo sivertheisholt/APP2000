@@ -7,6 +7,7 @@ const logger = require('../logging/logger');
  * @param {Object} socket 
  * @param {Number} movieId 
  * @returns ValidationHandler
+ * @author Ørjan - 233530, Sivert - 233518
  */
 async function addFavoriteMovie(socket, movieId) {
     const result = await favoriteMov.addFavourite(movieId, socket.handshake.session.userId);
@@ -20,6 +21,7 @@ async function addFavoriteMovie(socket, movieId) {
  * @param {Object} socket 
  * @param {Number} movieId 
  * @returns ValidationHandler
+ * @author Ørjan - 233530, Sivert - 233518
  */
 async function delFavoriteMovie(socket, movieId) {
     const result = await favoriteMov.removeFavorite(movieId, socket.handshake.session.userId);
@@ -33,6 +35,7 @@ async function delFavoriteMovie(socket, movieId) {
  * @param {Object} socket 
  * @param {Number} tvId 
  * @returns ValidationHandler
+ * @author Ørjan - 233530, Sivert - 233518
  */
 async function addFavoriteTv(socket, tvId) {
     const result = await favoriteTv.addFavourite(tvId, socket.handshake.session.userId);
@@ -46,6 +49,7 @@ async function addFavoriteTv(socket, tvId) {
  * @param {Object} socket 
  * @param {Number} tvId 
  * @returns ValidationHandler
+ * @author Ørjan - 233530, Sivert - 233518
  */
 async function delFavoriteTv(socket, tvId) {
     const result = await favoriteTv.removeFavorite(tvId, socket.handshake.session.userId);
