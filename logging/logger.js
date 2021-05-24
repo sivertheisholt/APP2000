@@ -2,6 +2,7 @@ const winston = require('winston');
 
 /**
  * Lager customFormat
+ * @author Sivert - 233518
  */
 const customFormat = winston.format.printf(({level, message, timestamp}) => {
     return `[${level.toUpperCase()}][${timestamp}]: ${message}`
@@ -9,6 +10,7 @@ const customFormat = winston.format.printf(({level, message, timestamp}) => {
 
 /**
  * Lager en ny logger med vår egne instillinger
+ * @author Sivert - 233518
  */
 const logger = winston.createLogger({
     level: 'info',
