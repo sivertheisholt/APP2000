@@ -1,7 +1,5 @@
-require('dotenv').config();
 const Tmdb = require('../api/tmdb.js');
 const logger = require('../logging/logger.js');
-const hjelp = require('./hjelpeMetoder');
 const ValidationHandler = require('./ValidationHandler.js');
 const tmdb = new Tmdb(process.env.TMDB_TOKEN); //Lager et nytt tmdb objekt
 let tmdbInformasjonKlar;
@@ -10,6 +8,7 @@ var methods = {
     /**
      * Henter informasjon fra The Movie Database API'en
      * Legger informasjonen inn i variabelen tmdbInformasjonKlar
+     * @author Sivert - 233518
      */
     hentTmdbInformasjon: async function () {
         try {
@@ -38,13 +37,9 @@ var methods = {
                     .then(res => res.results))),
             ])
         
-            // @ts-ignore
             tmdbInformasjon.discoverMoviesUpcoming = discoverMoviesUpcoming.flat();
-            // @ts-ignore
             tmdbInformasjon.discoverMoviesPopular = discoverMoviesPopular.flat();
-            // @ts-ignore
             tmdbInformasjon.discoverTvshowsUpcoming = discoverTvshowsUpcoming.flat();
-            // @ts-ignore
             tmdbInformasjon.discoverTvshowsPopular = discoverTvshowsPopular.flat();
 
             //Sorterer movies upcoming etter dato
@@ -63,17 +58,22 @@ var methods = {
             return new ValidationHandler(false, 'Couldnt get start information from API');
         }
     },
+    
     /**
-     * 
+     * En getter for tmdbInformasjonKlar
      * @returns Object - variabelen tmdbInformasjonKlar
+     * @author Sivert - 233518
      */
     returnerTmdbInformasjon: function () {
         return tmdbInformasjonKlar
     },
+    /***********************************
+    Alle har jobbet med funksjonene under
+    *************************************/
     /**
      * Skaffer discover movies fra genras
-     * @param {Array} genreList 
-     * @returns Object
+     * @param {Array} genreList Et array av sjangre lister
+     * @returns JSON 
      */
     getDiscoverMoviesWithGenres: async function(genreList) {
         let string = "";
@@ -85,14 +85,15 @@ var methods = {
     },
     /**
      * Skaffer trending movies
-     * @returns Object
+     * @returns JSON med trending movies
+     * @author Sivert - 233518
      */
     getTrendingMovies: function() {
         return tmdb.getTrendingMovies();
     },
     /**
      * Skaffer genras for filmer
-     * @returns Object
+     * @returns JSON med genres
      */
     getGenreMovie: function(languageCode) {
         return tmdb.getGenresMovie(languageCode);
@@ -100,7 +101,7 @@ var methods = {
     /**
      * Skaffer film informasjon fra tittel
      * @param {String} movieTitle 
-     * @returns Object
+     * @returns JSON med 
      */
     getMovieInfo: function (movieTitle, languageCode) {
         return tmdb.getMovieResults(movieTitle, languageCode);
@@ -211,13 +212,15 @@ var methods = {
         return tmdb.getPersonCombinedCreditsByID(personID, languageCode);
     },
 };
+
 /**
  * Skaffer discover movies fra sidetall og med ekstra parameter
- * @param {Number} page 
- * @param {String} params 
+ * @param {Number} page Side som skal hentes fra 1-1000
+ * @param {String} params Ekstra filter
  * @returns Array med promises
+ * @author Sivert - 233518
  */
-function getDiscoverMovie(page, params) {
+ function getDiscoverMovie(page, params) {
     let promiseArray = [];
     for(let i = 1; i <= page; i++) {
         promiseArray.push(tmdb.getDiscoverMovies(`${params}&page=${i}`));
@@ -226,9 +229,10 @@ function getDiscoverMovie(page, params) {
 }
 /**
  * Skaffer discover tv shows fra sidetall og med ekstra parameter
- * @param {Number} page 
- * @param {String} params 
+ * @param {Number} page Side som skal hentes fra 1-1000
+ * @param {String} params Ekstra filter
  * @returns Array med promises
+ * @author Sivert - 233518
  */
 function getDiscoverTvshow(page, params) {
     let promiseArray = [];
@@ -237,5 +241,4 @@ function getDiscoverTvshow(page, params) {
     }
     return promiseArray;
 }
-
 exports.data = methods;

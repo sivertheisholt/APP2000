@@ -4,9 +4,10 @@ const ValidationHandler = require("./ValidationHandler");
 
 /**
  * Håndterer tilbakemelding fra database
- * @param {Object} doc 
- * @param {Object} err 
+ * @param {Object} doc Dokumentet fra database
+ * @param {Object} err Error melding
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 function returnHandler(doc, err) {
     if(err) {
@@ -23,8 +24,9 @@ function returnHandler(doc, err) {
 
 /**
  * Legger til film i databasen
- * @param {Object} movie 
+ * @param {Object} movie Filmen som skal legges til
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 function addToDatabase(movie) {
     logger.log({level: 'debug', message: `Adding movie to database with id: ${movie.id}...`});
@@ -35,9 +37,10 @@ function addToDatabase(movie) {
 
 /**
  * Sjekker om filmen eksisterer i databasen
- * @param {Number} movieId 
- * @param {String} languageCode
+ * @param {Number} movieId ID til filmen
+ * @param {String} languageCode Språkkode
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function checkIfSaved(movieId, languageCode) {
     logger.log({level: 'debug', message: `Checking if movie is already saved in database! MovieId: ${movieId} `});
@@ -46,8 +49,9 @@ async function checkIfSaved(movieId, languageCode) {
 
 /**
  * Skaffer filmen fra database med ID
- * @param {Number} movieId 
+ * @param {Number} movieId ID til filmen
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function getMovieById(movieId)  {
     logger.log({level: 'debug', message: `Getting movie from database with id ${movieId}`});

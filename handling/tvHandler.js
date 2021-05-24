@@ -4,9 +4,10 @@ const Tv = require('../database/tvSchema');
 
 /**
  * Håndterer tilbakemelding fra database
- * @param {Object} doc 
- * @param {Object} err 
+ * @param {Object} doc Dokumentet fra databasen
+ * @param {Object} err Error melding
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 function returnHandler(doc, err) {
     if(err) {
@@ -23,9 +24,10 @@ function returnHandler(doc, err) {
 
 /**
  * Sjekker om serie eksisterer i databasen
- * @param {Number} tvId 
- * @param {String} languageCode
+ * @param {Number} tvId ID til serien
+ * @param {String} languageCode Språkkode
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 function checkIfSaved(tvId, languageCode) {
     logger.log({level: 'debug', message: `Checking if tv-show is already saved in database! TvId: ${tvId}`});
@@ -34,8 +36,9 @@ function checkIfSaved(tvId, languageCode) {
 
 /**
  * Skaffer serie fra ID
- * @param {Number} tvId 
+ * @param {Number} tvId ID til serie
  * @returns ValidationHandler
+ * @author Govert - 233565
  */
 function getShowById(tvId) {
     logger.log({level:'debug', message: `Getting tv-show from database with id ${tvId}`});
@@ -44,8 +47,9 @@ function getShowById(tvId) {
 
 /**
  * Legger til serie i databasen
- * @param {*} serie 
+ * @param {Object} serie Serien som skal legges til
  * @returns ValidationHandler
+ * @author Govert - 233565
  */
 function addToDatabase(serie) {
     logger.log({level: 'debug', message: `Adding tv-show to database with id: ${serie.id}...`});

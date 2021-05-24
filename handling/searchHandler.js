@@ -6,6 +6,7 @@ const ValidationHandler = require("./ValidationHandler");
  * Sender tilbake 5 av hver
  * @param {String} title 
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
 async function searchForMedia(title) {
     let tenResult = [];
