@@ -9,6 +9,9 @@
 - var screenplayId;
 - var user = user;
 - var username = session;
+- var isReviewed = isReviewed;
+- var hasPendingReview = hasPendingReview;
+- var hasAnyReview = hasAnyReview;
 
 
 script.
@@ -144,27 +147,32 @@ body
           ul.uk-switcher.uk-margin
             li
               - if(session)
-                #filminfo-review-form
-                  .uk-text-left(class='uk-child-width-expand@s' uk-grid='')
-                    div
-                      .stars(id="stars")
-                        input#five(type='radio' name='rate' value='5')
-                        label(for='five')
-                        input#four(type='radio' name='rate' value='4')
-                        label(for='four')
-                        input#three(type='radio' name='rate' value='3')
-                        label(for='three')
-                        input#two(type='radio' name='rate' value='2')
-                        label(for='two')
-                        input#one(type='radio' name='rate' value='1')
-                        label(for='one')
-                        span.result
-                      textarea.uk-textarea.uk-form-large(id="reviewText")
-                      a.uk-button.uk-button-primary.uk-button-small(id="reviewPoster")
-                        p #{__("REVIEW_POST_COMMENT")} 
-                    div
-                    div
-                #filminfo-review-result
+                - if(!hasAnyReview)
+                  #filminfo-review-form
+                    .uk-text-left(class='uk-child-width-expand@s' uk-grid='')
+                      div
+                        .stars(id="stars")
+                          input#five(type='radio' name='rate' value='5')
+                          label(for='five')
+                          input#four(type='radio' name='rate' value='4')
+                          label(for='four')
+                          input#three(type='radio' name='rate' value='3')
+                          label(for='three')
+                          input#two(type='radio' name='rate' value='2')
+                          label(for='two')
+                          input#one(type='radio' name='rate' value='1')
+                          label(for='one')
+                          span.result
+                        textarea.uk-textarea.uk-form-large(id="reviewText")
+                        a.uk-button.uk-button-primary.uk-button-small(id="reviewPoster")
+                          p #{__("REVIEW_POST_COMMENT")} 
+                      div
+                      div
+                  #filminfo-review-result
+                - else if (isReviewed)
+                  p= 'You have reviewed this movie.'
+                - else if (hasPendingReview)
+                  p= 'You already have a pending review waiting for approval!'
               - else
                 p #{__("REVIEW_LOG_IN_TO_POST")}
               each item in film.reviews

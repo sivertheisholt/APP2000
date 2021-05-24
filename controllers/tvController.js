@@ -13,6 +13,7 @@ exports.tv_get_info = async function(req, res) {
     let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(11), req.renderObject.urlPath);
     logger.log({level: 'debug', message: 'Getting reviews..'});
     let reviews = await reviewGetter.getApprovedReviews(req.url.slice(11), 'tv');
+    let pendingReviews = await reviewGetter.getPendingReviews(req.url.slice(11), 'tv');
     let isTvFav = new ValidationHandler(false, "");
     let isTvWatched = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
@@ -44,6 +45,14 @@ exports.tv_get_info = async function(req, res) {
         isTvFav = await tvFavorite.checkIfFavorited(serie.serieinfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
         isTvWatched = await watchedCreater.checkIfWatched((await userHandler.getUserFromId(req.session.userId)).information, serie.serieinfo.id, 'tv');
     }
+
+    logger.log({level: 'debug', message: 'Checking movie is reviewed..'});
+    if(req.renderObject.session){
+        isReviewed = checkIfReviewed(await (req.session.userId), reviews.information);
+        hasPendingReview = checkIfPendingReview(await (req.session.userId), pendingReviews.information);
+        hasAnyReview = checkIfAnyReview(isReviewed, hasPendingReview);
+    }
+
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.serie = serie;
     if (req.renderObject.user != undefined){
@@ -53,6 +62,9 @@ exports.tv_get_info = async function(req, res) {
     req.renderObject.tvId = JSON.stringify(req.url.slice(11));
     req.renderObject.isTvFav = JSON.stringify(isTvFav.status);
     req.renderObject.isTvWatched = JSON.stringify(isTvWatched.status);
+    req.renderObject.isReviewed = isReviewed;
+    req.renderObject.hasPendingReview = hasPendingReview;
+    req.renderObject.hasAnyReview = hasAnyReview;
     res.render("mediainfo/serieinfo", req.renderObject);
 }
 
@@ -99,6 +111,31 @@ function getPersons(cast, languageCode) {
         personArray.push(tmdb.data.getPersonByID(item.id, languageCode));
     }
     return personArray;
+}
+
+function checkIfReviewed(thisUserId, thisReviews) {
+    for (const item of thisReviews) {
+        if(item.userId == thisUserId) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function checkIfPendingReview(thisUserId, thisReviews) {
+    for (const item of thisReviews) {
+        if(item.userId == thisUserId) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function checkIfAnyReview(reviews1, reviews2) {
+    if (reviews1 == true || reviews2 == true) {
+        return true;
+    }
+    else return false;
 }
   
 function getUsernames(reviews) {
