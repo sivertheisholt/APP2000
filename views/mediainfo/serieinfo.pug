@@ -167,9 +167,9 @@ body
                       div
                   #serieinfo-review-result
                 - else if (isReviewed)
-                  p= 'You have reviewed this TV-show.'
+                  p #{__("REVIEW_TV_ALREADY_REVIEWED")} 
                 - else if (hasPendingReview)
-                  p= 'You already have a pending review waiting for approval!'
+                  p #{__("REVIEW_PENDING")} 
               - else
                 p #{__("REVIEW_LOG_IN_TO_POST")}
               each item in serie.reviews

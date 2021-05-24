@@ -170,9 +170,9 @@ body
                       div
                   #filminfo-review-result
                 - else if (isReviewed)
-                  p= 'You have reviewed this movie.'
+                  p #{__("REVIEW_MOVIE_ALREADY_REVIEWED")} 
                 - else if (hasPendingReview)
-                  p= 'You already have a pending review waiting for approval!'
+                  p #{__("REVIEW_PENDING")} 
               - else
                 p #{__("REVIEW_LOG_IN_TO_POST")}
               each item in film.reviews
