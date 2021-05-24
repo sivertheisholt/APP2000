@@ -7,9 +7,10 @@ const ApprovedQuote = require('../../database/pendingQuoteSchema');
 
 /**
  *  Legger quote til angitt media
- * @param {Object} quoteObj 
- * @param {String} mediaType 
+ * @param {Object} quoteObj Quote objekt
+ * @param {String} mediaType Type movie/tv
  * @returns ValidationHandler
+ * @author Ørjan Dybevik 233530
  */
 async function addQuote(quoteObj, mediaType){
     logger.log({level: 'debug', message: `Adding quote from user ${quoteObj.id} to ${quoteObj.mediaId}`}); 
@@ -28,9 +29,10 @@ async function addQuote(quoteObj, mediaType){
 
 /**
  *  Oppdaterer databsen med ny quote
- * @param {Object} quote 
- * @param {String} mediaType 
+ * @param {Object} quote Quote objekt
+ * @param {String} mediaType Type movie/tv
  * @returns ValidationHandler
+ * @author Ørjan Dybevik 233530
  */
 async function updateDatabase(quote, mediaType){
     switch(mediaType) {
@@ -43,9 +45,10 @@ async function updateDatabase(quote, mediaType){
 
 /**
  *  Henter godkjente quotes fra et spesifikt media
- * @param {int} mediaId 
- * @param {String} mediaType 
+ * @param {Number} mediaId MediaID
+ * @param {String} mediaType MediaType movie/tv
  * @returns ValidationHandler
+ * @author Ørjan Dybevik 233530
  */
 async function getQuotesFromMediaIdApproved(mediaId, mediaType){
     switch(mediaType) {
@@ -58,9 +61,10 @@ async function getQuotesFromMediaIdApproved(mediaId, mediaType){
 
 /**
  *  Henter pending quotes fra et spesifikt media
- * @param {int} mediaId 
- * @param {String} mediaType 
+ * @param {Number} mediaId MediaID
+ * @param {String} mediaType MediaType movie/tv
  * @returns ValidationHandler
+ * @author Ørjan Dybevik 233530
  */
 async function getQuotesFromMediaIdPending(mediaId, mediaType){
     switch(mediaType) {
@@ -70,8 +74,5 @@ async function getQuotesFromMediaIdPending(mediaId, mediaType){
             return new ValidationHandler(true, await PendingQuote.find({tvId: mediaId, status: false}));
     }
 }
-
-
-
 
 module.exports = {addQuote, getQuotesFromMediaIdApproved, getQuotesFromMediaIdPending}

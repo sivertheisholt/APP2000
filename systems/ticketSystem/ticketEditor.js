@@ -6,6 +6,7 @@ const mailer = require('../../handling/mailer');
 
 /**
  * Klasse for tickets
+ * @author Ørjan Dybevik 233530, Govert - 233565
  */
 class CloneTicket {
     constructor(mail, title, text, response) {
@@ -18,8 +19,9 @@ class CloneTicket {
 
 /**
  *  Sender tilbakemelding til brukeren og flytter ticket til ferdige tickets
- * @param {Object} ticket 
+ * @param {Object} ticket Objektet med en ticket
  * @returns ValidationHandler
+ * @author Ørjan Dybevik 233530, Govert - 233565
  */
 async function finishTicket(ticket) {
     //Sjekker id
@@ -59,9 +61,10 @@ async function finishTicket(ticket) {
 }
 
 /**
- *  
- * @param {Object} ticket 
+ *  Lagrer en ticket etter den er ferdig til en annen collection
+ * @param {Object} ticket Ticket objekt
  * @returns ValidationHandler
+ * @author Ørjan Dybevik 233530, Govert - 233565
  */
 function saveTicket(ticket) {
     return new FinishedTicket(ticket).save().then((doc, err) => {
@@ -76,8 +79,9 @@ function saveTicket(ticket) {
 
 /**
  *  Sjekker om ticketId er valid
- * @param {String} ticketId 
+ * @param {String} ticketId TicketId
  * @returns ValidationHandler
+ * @author Ørjan Dybevik 233530, Govert - 233565
  */
 function checkId(ticketId) {
     //Sjekker om reviewId matcher
@@ -90,8 +94,9 @@ function checkId(ticketId) {
 
 /**
  *  Sletter ticket fra pending
- * @param {String} ticketId 
+ * @param {String} ticketId Ticketid
  * @returns ValidationHandler
+ * @author Ørjan Dybevik 233530, Govert - 233565
  */
 function deletePendingTicket(ticketId) {
     return PendingTicket.deleteOne({_id: ticketId}).then((doc, err) => {
