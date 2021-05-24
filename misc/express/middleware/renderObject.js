@@ -19,6 +19,7 @@ exports.renderObject = async function (req, res, next) {
         renderObject.user = userResult.information;
     } else {
         renderObject.admin = undefined;
+        renderObject.userId = JSON.stringify("");
     }
     renderObject.session = sessionResult.status;
     renderObject.error = undefined
