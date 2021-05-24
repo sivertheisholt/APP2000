@@ -1,5 +1,6 @@
 require('dotenv').config();
 const http = require("http");
+const https = require("https");
 const express = require("express");
 let session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -13,7 +14,7 @@ const app = express();
 //Setter port
 const port = process.env.PORT || 3000;
 //Denne lager serveren, "starter den".
-let server = http.createServer(app);
+let server = https.createServer(app);
 //kobler sammen socketIo og server
 let io = socketIO(server);
 
