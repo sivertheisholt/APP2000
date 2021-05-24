@@ -3,7 +3,8 @@
  * Fjerner en film eller serie fra favoritter.
  * @param {film/serie id} favId 
  * @param {movie/tv} type 
- * @returns 
+ * @returns Ingenting
+ * @author Ørjan Dybevik - 233530
  */
 function removeMediaFav(favId, type){
     switch(type){
@@ -24,9 +25,10 @@ function removeMediaFav(favId, type){
 
 /**
  * Fjerner en film eller serie fra watchlist
- * @param {film/serie id} watchId 
- * @param {movie/tv} type 
- * @returns 
+ * @param {film/serie id} watchId
+ * @param {movie/tv} type movie/tv 
+ * @returns Ingenting
+ * @author Ørjan Dybevik - 233530
  */
 function removeMediaWatched(watchId, type){
     switch(type){

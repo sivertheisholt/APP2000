@@ -1,18 +1,26 @@
+//Password
 let dashboardNewPassword = document.getElementById('dashboard-new-password');
 let dashboardNewPasswordRepeat = document.getElementById('dashboard-new-password-repeat');
 let dashboardPasswordChangeBtn = document.getElementById('dashboard-change-pw-btn');
 let dashboardPasswordError = document.getElementById('dashboard-password-error');
 
+//Username
 let dashboardUsernameChangeBtn = document.getElementById('dashboard-username-btn');
 let dashboardUsernameInput = document.getElementById('dashboard-username-input');
 let dashboardUsernameError = document.getElementById('dashboard-username-error');
 
+//Upload
 let dashboardUploadBtn = document.getElementById('dashboard-upload-btn');
 let dashboardAvatarFile = document.getElementById('avatar');
 let dashboardAvatarError = document.getElementById('dashboard-avatar-error');
 
 let dashboardUploadForm = document.getElementById('dashboard-upload-form');
 
+/**
+ * EventListener for å bytte passord
+ * Sender ajax call for å endre passord inne i brukerdashbord
+ * @author Ørjan Dybevik - 233530
+ */
 dashboardPasswordChangeBtn.addEventListener("click", function(e){
     e.preventDefault();
     dashboardPasswordError.style.display = 'none';
@@ -43,6 +51,11 @@ dashboardPasswordChangeBtn.addEventListener("click", function(e){
     });
 });
 
+/**
+ * EventListener for å endre brukernavn
+ * Sender ajax call for å endre brukernavn inne i brukerdashbord
+ * @author Ørjan Dybevik - 233530
+ */
 dashboardUsernameChangeBtn.addEventListener("click", function(e){
     e.preventDefault();
     dashboardUsernameError.style.display = 'none';
@@ -71,6 +84,11 @@ dashboardUsernameChangeBtn.addEventListener("click", function(e){
     });
 });
 
+/**
+ * EventListener for å endre profilbilde
+ * Sender ajax call for å endre profilbilde inne i brukerdashbord
+ * @author Ørjan Dybevik - 233530
+ */
 dashboardUploadForm.addEventListener("submit", function(e){
     e.preventDefault();
     let avatar = dashboardAvatarFile.files[0];
