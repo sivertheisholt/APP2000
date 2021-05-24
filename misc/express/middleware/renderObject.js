@@ -1,6 +1,13 @@
 const sessionHandler = require('../../../handling/sessionHandler.js');
 const userhandler = require('../../../handling/userHandler.js');
 
+/**
+ * Skaffer all informasjon som er felles for alle requests
+ * @param {object} req En forespørsel fra klienten
+ * @param {object} res En respons fra server
+ * @param {callback} next Neste
+ * @author Ørjan - 233530, Sivert - 233518
+ */
 exports.renderObject = async function (req, res, next) {
     const renderObject = {};
     const sessionResult = await sessionHandler.getSessionFromId(req.sessionID);

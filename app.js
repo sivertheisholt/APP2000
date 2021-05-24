@@ -17,6 +17,10 @@ let server = http.createServer(app);
 //kobler sammen socketIo og server
 let io = socketIO(server);
 
+/**
+ * Starter og initialiserer systemer
+ * @author Sivert - 233518
+ */
 async function startSystems() {
 
   //Skaff start informasjon fra tmdb
@@ -49,7 +53,10 @@ async function startSystems() {
   //"Lytter" serveren
   server.listen(port, () => logger.log({level: 'info', message: `Application is now listening on port ${port}`}));
 
-  //Skaffer ny start info fra tmdb hver 24 time
+  /**
+   * Skaffer ny start info fra tmdb hver 24 time
+   * @author Sivert - 233518
+   */
   setInterval(async function() {
     const makeInformationResult = await start.makeInformation();
     if(!makeInformationResult.status) {
@@ -58,9 +65,13 @@ async function startSystems() {
   }, 1000 * 60 * 60 * 24)
 }
 
+//Starter server første gang
 startServer()
 
-//Starter serveren
+/**
+ * Starter serveren
+ * @author Sivert - 233518
+ */
 function startServer() {
   try {
     startSystems();
@@ -70,7 +81,10 @@ function startServer() {
   }
 }
 
-//Setter en timeout på 5 minutter og prøver å restarte
+/**
+ * Setter en timeout på 5 minutter og prøver å restarte
+ * @author Sivert - 233518
+ */
 async function serverFailure() {
   logger.log({level: 'info', message: `Trying to restart server in 5 minutes!`});
   await new Promise(r => setTimeout(r, 1000 * 60 * 5));
