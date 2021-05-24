@@ -12,6 +12,14 @@ const watchedGetter = require('../systems/watchedSystem/watchedGetter');
 const userCharts = require('../misc/statistics/userCharts');
 const listGetter = require('../systems/listSystem/listGetter');
 
+/**
+ * Get for å hente bruker-dashbordet
+ * Henter filmer/serier som brukeren har i favoritter, settliste, og lister
+ * Henter statistikker
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530, Sivert - 233518
+ */
 exports.user_get_dashboard = async function(req, res) {
     let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.session.userId)).information;
     let favoriteTvs = (await favoriteTv.getAllTvFavourites(req.session.userId)).information;
@@ -106,6 +114,12 @@ exports.user_get_dashboard = async function(req, res) {
     res.render("user/dashboard", req.renderObject);
 }
 
+/**
+ * Post for å bytte passord inne i dashbordet til brukeren.
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530
+ */
 exports.user_post_changepassword = async function(req, res) {
     const pugBody = req.body.dash_change_pw_details; //Skaffer body fra form
     console.log(pugBody);
@@ -145,7 +159,12 @@ exports.user_post_changepassword = async function(req, res) {
         })
     })
 }
-
+/**
+ * Post for å endre brukernavn inne i dashbordet til brukeren.
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530
+ */
 exports.user_post_changeusername = function(req, res) {
     const pugBody = req.body.dash_change_username_details; //Skaffer body fra form
     BrukerDB.findOne({_id: req.session.userId}, async (err, bruker) => {
@@ -165,7 +184,13 @@ exports.user_post_changeusername = function(req, res) {
         })
     })
 }
-
+/**
+ * Post for å laste opp bilde inne i dashbordet til brukeren.
+ * Gjør sjekker for å forhindre at andre filer enn JPG, JPEG og PNG blir lastet opp
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530
+ */
 exports.user_post_changeavatar = function(req, res) {
     const dest = '/uploads/';
     const defaultDest = '/uploads/default.png';

@@ -3,6 +3,12 @@ const logger = require("../logging/logger");
 const hjelpeMetoder = require("../handling/hjelpeMetoder");
 const aboutStats = require('../misc/statistics/about_stats');
 
+/**
+ * Get for "om oss" siden. Henter også statistikker
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Govert - 233565, Ørjan Dybevik - 233530
+ */
 exports.about_info = async function(req, res) {
   let totalMoviesResult = await aboutStats.totalMovies();
   let totalTvResult = await aboutStats.totalTvs();
@@ -17,6 +23,13 @@ exports.about_info = async function(req, res) {
   res.render("infosider/about", req.renderObject);
 }
 
+/**
+ *  Post for å sende ticket til support, gjør sjekker om felt er tomme
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @returns Message
+ * @author Ørjan Dybevik - 233530, Govert - 233565
+ */
 exports.about_post_contact = function(req, res) {
   const body = req.body.ticket; //Skaffer body fra form
   let ticket = {

@@ -8,6 +8,12 @@ const watchedCreater = require('../systems/watchedSystem/watchedCreater');
 const ValidationHandler = require('../handling/ValidationHandler');
 const listGetter = require('../systems/listSystem/listGetter');
 
+/**
+ * Get for filmsiden, henter filminformasjon, anmeldelser, sjekker om brukeren har den som favoritt/sett
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530, Sigve - 233511
+ */
 exports.film_get_info = async function(req, res) {
     let isReviewed = new ValidationHandler(false, "");
     let hasPendingReview = new ValidationHandler(false, "");
@@ -74,6 +80,12 @@ exports.film_get_info = async function(req, res) {
     res.render("mediainfo/filminfo", req.renderObject)
 }
 
+/**
+ * Get for kommende filmer, henter filminformasjon og sender det videre til siden
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530
+ */
 exports.film_get_upcoming = async function(req, res) {
     let url = 'mediainfo/filminfo';
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
@@ -92,6 +104,12 @@ exports.film_get_upcoming = async function(req, res) {
     res.render("mediainfo/upcomingmovies", req.renderObject);
 }
 
+/**
+ * Get for alle filmer, henter filminformasjon og sender det videre til siden
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530
+ */
 exports.film_get_list = async function(req, res) {
     let url = 'mediainfo/filminfo';
     let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();

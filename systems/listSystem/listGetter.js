@@ -47,8 +47,8 @@ exports.getAllLists = async function() {
 
 /**
  * Funksjon for å sjekke om brukeren er forfatteren til en liste
- * @param {Number} listId ID til liste
- * @param {Number} userId ID til bruker
+ * @param {String} listId ID til liste
+ * @param {String} userId ID til bruker
  * @returns ValidationHandler
  * @author Ørjan Dybevik - 233530
  */

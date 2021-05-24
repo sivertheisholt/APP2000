@@ -3,6 +3,12 @@ const fs = require("fs");
 const reviewGetter = require('../systems/reviewSystem/reviewGetter');
 const ticketGetter = require('../systems/ticketSystem/ticketGetter');
 
+/**
+ * Get for admindashbordet, laster inn anmeldelser og tickets i påvente av svar og godkjenning
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530
+ */
 exports.admin_get_dashboard = async function(req, res) {
   let reviews = await reviewGetter.getAllReviewFromDatabase('pending');
   let tickets = await ticketGetter.getAllPendingTickets();
@@ -33,6 +39,14 @@ exports.admin_get_dashboard = async function(req, res) {
   res.render("admin/admindashboard", req.renderObject);
 }
 
+/**
+ * Post for å legge til nytt språk til nettsiden, den lager en ny JSON fil med språkkoden som er skrevet inn.
+ * JSON filen er kopiert fra den engelske, slik kan administrator oversette fra engelsk til ønsket språk.
+ * @param {Object} req 
+ * @param {Object} res Respons fra server
+ * @returns 
+ * @author Ørjan Dybevik - 233530
+ */
 exports.admin_post_addlanguage = async function(req, res) {
   const pugBody = req.body; //Skaffer body fra form
   let languageJson = await hjelpemetoder.data.lesFil("./lang/langList.json");
@@ -50,6 +64,14 @@ exports.admin_post_addlanguage = async function(req, res) {
   return res.redirect(`/${res.locals.currentLang}/admin/admindashboard`);
 }
 
+/**
+ * Post for å slette et språk, for å unngå at språk slettes med uhell, kreves det
+ * at språket skrives inn case-sensitive på engelsk.
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @returns 
+ * @author Ørjan Dybevik - 233530
+ */
 exports.admin_post_deletelanguage = async function(req, res) {
   const langToDelete = req.body.admindashlangdelete;
   let langObj = await hjelpemetoder.data.validateDeleteLang(langToDelete);

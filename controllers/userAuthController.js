@@ -6,6 +6,12 @@ const jwt = require('jsonwebtoken');
 const logger = require('../logging/logger');
 const userHandler = require('../handling/userHandler');
 
+/**
+ * Get for å logge ut. Clearer cookies
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Sivert - 233518
+ */
 exports.userAuth_get_logout = async function(req, res) {
     logger.log({level: 'debug', message: `Request received for /logout`}); 
     req.session.destroy(err => {
@@ -14,6 +20,12 @@ exports.userAuth_get_logout = async function(req, res) {
     })
 }
 
+/**
+ * Get for passord reset siden. Sender videre en unik token som må være lik den token brukeren har fått opprettet i databasen
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530
+ */
 exports.userAuth_get_resetpassword = async function(req, res) {
     logger.log({level: 'debug', message: `Request received for /resetpassword/:token`});
     let token = req.params.token;
@@ -21,6 +33,15 @@ exports.userAuth_get_resetpassword = async function(req, res) {
     res.render("auth/resetpassword", req.renderObject);
 }
 
+/**
+ * Post for å lage brukerkonto. Validerer mail og passord, sjekker at mailen ikke er brukt før.
+ * Krypterer etterpå passordet og lagrer brukerkonto i databasen.
+ * En automatisk mail blir sendt til nye brukere.
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @returns Message
+ * @author Ørjan Dybevik - 233530, Sivert - 233518
+ */
 exports.userAuth_post_signup = async function(req,res ) {
     logger.log({level: 'debug', message: `Request received for /signup`}); 
 
@@ -90,6 +111,15 @@ exports.userAuth_post_signup = async function(req,res ) {
     res.status(200).send({message: req.__('SUCCESS_SIGNUP')});
 }
 
+/**
+ * Post for å tilbakestille passord.
+ * Mail sjekkes opp mot databasen og det opprettes en unik token og resetlink som sendes til brukerens email.
+ * 
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @returns Message
+ * @author Ørjan Dybevik - 233530, Sivert - 233518
+ */
 exports.userAuth_post_forgottenPassword = async function(req, res) {
     logger.log({level: 'debug', message: `Request received for /forgottenPassword`}); 
     const pugBody = req.body.forgot_pw_details;
@@ -129,6 +159,13 @@ exports.userAuth_post_forgottenPassword = async function(req, res) {
     res.status(200).send({message: req.__('SUCCESS_FORGOTTEN_PASSWORD')});
 }
 
+/**
+ * Get for innlogging. Sjekker at bruker finnes i databasen og passord er korrekt.
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @returns Message
+ * @author Ørjan Dybevik - 233530, Sivert - 233518
+ */
 exports.userAuth_get_login = async function(req,res ) {
     logger.log({level: 'debug', message: `Request received for /login`}); 
 
@@ -164,6 +201,15 @@ exports.userAuth_get_login = async function(req,res ) {
     //res.redirect(`/${req.renderObject.langCode}/homepage`);
 }
 
+/**
+ * Post for å resette passord, sjekker først om token stemmer med den den som finnes i brukerens database.
+ * Sjekker at linken ikke er utgått og gjør de generelle passordsjekkene vi har satt som krav.
+ * Hasher passordet og lagrer det nye passordet til brukeren.
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @returns Message
+ * @author Ørjan Dybevik - 233530, Sivert - 233518
+ */
 exports.userAuth_post_resetpassword = async function(req, res) {
     logger.log({level: 'debug', message: `Request received for /resetPassword/:token`}); 
 
