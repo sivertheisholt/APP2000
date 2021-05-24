@@ -2,6 +2,7 @@
  * Sorterer et array alfabetisk
  * @param {String} type 
  * @returns Array
+ * @author Ørjan Dybevik - 233530
  */
 
 function getSortOrderAZ(type) {    
@@ -19,6 +20,7 @@ function getSortOrderAZ(type) {
  * Sorterer et array motsatt av alfabetisk
  * @param {String} type 
  * @returns Array
+ * @author Ørjan Dybevik - 233530
  */
 function getSortOrderZA(type) {
     return function(a, b) {
@@ -35,6 +37,7 @@ function getSortOrderZA(type) {
  * @param {Date} a 
  * @param {Date} b 
  * @returns Sortert array
+ * @author Ørjan Dybevik - 233530
  */
 function getSortOrderDateAsc(a, b){
     return new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime();
@@ -45,6 +48,7 @@ function getSortOrderDateAsc(a, b){
  * @param {Date} a 
  * @param {Date} b 
  * @returns Sortert array
+ * @author Ørjan Dybevik - 233530
  */
 
 function getSortOrderDateDesc(a, b){

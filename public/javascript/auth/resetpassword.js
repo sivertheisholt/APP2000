@@ -2,6 +2,11 @@ let resetPasswordBtn = document.getElementById('reset-password-btn');
 let resetPasswordError = document.getElementById('reset-password-error');
 let resetPasswordField = document.getElementById('reset-password');
 let resetPasswordFieldRepeat = document.getElementById('reset-password-repeat');
+
+/**
+ * Eventlistener for å sende ajax call til å resette passord
+ * @author Ørjan Dybevik - 233530
+ */
 resetPasswordBtn.addEventListener("click", function(e){
     resetPasswordError.style.display = 'none';
     resetPasswordError.innerHTML = "";

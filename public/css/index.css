@@ -1,5 +1,6 @@
 /*********************************/
-/* Rammesverket */
+/* Rammesverket
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 .container {
@@ -62,7 +63,8 @@ img.center {
 }
 
 /*********************************/
-/* Navbar */
+/* Navbar
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 .nav-wrapper {
@@ -195,7 +197,8 @@ img.center {
 }
 
 /*********************************/
-/* Footer */
+/* Footer
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 footer {
@@ -252,7 +255,8 @@ footer {
 }
 
 /*********************************/
-/* Searchbar */
+/* Searchbar
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 #searchDiv {
@@ -276,14 +280,12 @@ footer {
   background: #f1f1f1; 
 }
  
-/* Handle */
 #searchDiv::-webkit-scrollbar-thumb {
   border-radius: 10px;
 	box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background: rgb(161, 161, 161); 
 }
 
-/* Handle on hover */
 #searchDiv::-webkit-scrollbar-thumb:hover {
   background: rgb(129, 129, 129); 
 }
@@ -334,6 +336,7 @@ img.search-image-style{
 
 /*********************************/
 /* Upcoming.pug */
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 .upcoming-scroll-bar {
@@ -391,6 +394,7 @@ img.search-image-style{
 
 /*********************************/
 /*          personinfo.pug        */
+/* @Author Sigve Eliassen - 233511
 /*********************************/
 
 .overlayA{
@@ -434,6 +438,7 @@ img.search-image-style{
 
 /*********************************/
 /* lists.pug                     */
+/* @Author Sigve Eliassen - 233511
 /*********************************/
 
 .closelist h3 {
@@ -455,6 +460,7 @@ img.search-image-style{
 
 /*********************************/
 /* Filminfo.pug / Serieinfo.pug  */
+/* @Author Ørjan Dybevik - 233530, Sigve Eliassen - 233511
 /*********************************/
 
 #reviewPoster{
@@ -606,6 +612,7 @@ img.search-image-style{
 }
 
 /* About page
+/* @Author Govert Dahl - 233565
 */
 
 .about-page-margin {
@@ -622,6 +629,7 @@ img.search-image-style{
 
 /*********************************/
 /* Dashboard.pug */
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 .dashboard-menu{
@@ -634,6 +642,7 @@ img.search-image-style{
 
 /*********************************/
 /* Errors */
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 #login-error {
@@ -731,6 +740,7 @@ img.search-image-style{
 
 /*********************************/
 /* Language menu */
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 .lang{
@@ -765,6 +775,7 @@ img.search-image-style{
 
 /*********************************/
 /* Admin dashboard */
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 .admin-dashboard-container{
@@ -812,6 +823,7 @@ img.search-image-style{
 
 /*********************************/
 /* Tooltip */
+/* @Author Ørjan Dybevik - 233530
 /*********************************/
 
 .tooltip {

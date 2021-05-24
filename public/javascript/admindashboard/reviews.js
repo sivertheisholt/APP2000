@@ -46,7 +46,11 @@ let reviewDeleteResult = document.getElementById('admin-delete-review-result');
  */
 let reviewIdApprovalCard = document.getElementsByClassName('reviewIdApprovalClass');
 
-//Setter funksjon til paragraf til å fylle inn ID
+
+/**
+ * Setter funksjon til paragraf til å fylle inn ID
+ * @author Sivert - 233518
+ */
 let bindToCardApproval = function() {
     reviewId.value = this.innerHTML;
 }
@@ -59,6 +63,7 @@ let bindToCardEdit = function() {
 
 /**
  * EventListener for å sette inn id
+ * @author Sivert - 233518 
  */
 for (let i = 0; i < reviewIdApprovalCard.length; i++) {
     reviewIdApprovalCard[i].addEventListener("click", bindToCardApproval.bind(reviewIdApprovalCard[i]));                 
@@ -66,6 +71,7 @@ for (let i = 0; i < reviewIdApprovalCard.length; i++) {
 
 /**
  * EventListener for godkjenning av anmeldelse
+ * @author Ørjan Dybevik - 233530
  */
 approveBtn.addEventListener("click", ()=>{
     socket.emit('approveReview', reviewId.value);
@@ -76,6 +82,7 @@ approveBtn.addEventListener("click", ()=>{
 
 /**
  * EventListener for å avslå anmeldelse
+ * @author Ørjan Dybevik - 233530
  */
 denyBtn.addEventListener("click", ()=>{
     socket.emit('denyReview', {reviewId: reviewId.value, reason: reviewDenialReason.value});
@@ -86,6 +93,7 @@ denyBtn.addEventListener("click", ()=>{
 
 /**
  * EventListener for å kansellere endringer
+ * @author Ørjan Dybevik - 233530
  */
 reviewEditCancelBtn.addEventListener("click", ()=>{
     reviewEditForm.innerHTML = '';
@@ -97,6 +105,7 @@ reviewEditCancelBtn.addEventListener("click", ()=>{
 
 /**
  * EventListener for å endre anmeldelse
+ * @author Ørjan Dybevik - 233530
  */
 reviewEditSubmitBtn.addEventListener("click", ()=>{
     socket.emit('editReview', {reviewId: reviewEditReviewId.value, newText: reviewEditNewText.value, newRating: reviewEditNewRating.value});
@@ -107,6 +116,7 @@ reviewEditSubmitBtn.addEventListener("click", ()=>{
 
 /**
  * Viser informasjon etter du har godkjent en anmeldelse
+ * @author Ørjan Dybevik - 233530
  */
 socket.on('approveReviewResult', (result)=>{
     reviewOutput.innerHTML = result.information;
@@ -114,6 +124,7 @@ socket.on('approveReviewResult', (result)=>{
 
 /**
  * Viser informasjon etter du har avslått en anmeldelse
+ * @author Ørjan Dybevik - 233530
  */
 socket.on('denyReviewResult', (result)=>{
     reviewOutput.innerHTML = result.information;
@@ -121,6 +132,7 @@ socket.on('denyReviewResult', (result)=>{
 
 /**
  * EventListener for å hente anmeldelse som skal redigeres
+ * @author Ørjan Dybevik - 233530
  */
 editGetBtn.addEventListener("click", ()=>{
     for(let i = 0; i < reviewEditType.length; i++){
@@ -137,6 +149,7 @@ editGetBtn.addEventListener("click", ()=>{
 
 /**
  * Viser anmeldelser som er hentet
+ * @author Ørjan Dybevik - 233530
  */
 socket.on('getReviewsFromMediaResult', (result)=>{
     reviewEditListOutput.innerHTML = '';
@@ -157,6 +170,7 @@ socket.on('getReviewsFromMediaResult', (result)=>{
 
 /**
  * Viser brukeren resultat etter submit
+ * @author Ørjan Dybevik - 233530
  */
 socket.on('editReviewResult', (result) => {
     reviewEditResult.innerHTML = result.information;
@@ -164,6 +178,7 @@ socket.on('editReviewResult', (result) => {
 
 /**
  * EventListener for å hente reviews
+ * @author Ørjan Dybevik - 233530
  */
 reviewDeleteGetBtn.addEventListener("click", ()=>{
     for(let i = 0; i < reviewDeleteMediaType.length; i++){
@@ -179,6 +194,7 @@ reviewDeleteGetBtn.addEventListener("click", ()=>{
 
 /**
  * EventListener for å slette review med satt ID
+ * @author Ørjan Dybevik - 233530
  */
 reviewDeleteSubmitBtn.addEventListener("click", ()=>{
     socket.emit('deleteReview', reviewDeleteReviewId.value);
@@ -188,6 +204,7 @@ reviewDeleteSubmitBtn.addEventListener("click", ()=>{
 
 /**
  * EventListenere for å kansellere
+ * @author Ørjan Dybevik - 233530
  */
 reviewDeleteCancelBtn.addEventListener("click", ()=>{
     reviewDeleteForm.style.display = 'none';
@@ -197,6 +214,7 @@ reviewDeleteCancelBtn.addEventListener("click", ()=>{
 
 /**
  * Viser reviews fra filmen som bruker ønsker
+ * @author Ørjan Dybevik - 233530
  */
 socket.on('getReviewFromMediaToDeleteResult', (result) => {
     reviewDeleteResult.innerHTML = '';
@@ -219,6 +237,7 @@ socket.on('getReviewFromMediaToDeleteResult', (result) => {
 
 /**
  * Viser resultat etter sletting av review
+ * @author Ørjan Dybevik - 233530
  */
 socket.on('deleteReviewResult', (result) => {
     reviewDeleteResult.innerHTML = result.information;
@@ -227,8 +246,9 @@ socket.on('deleteReviewResult', (result) => {
 
 /**
  *  Lager html kort for hver anmeldelse
- * @param {Object} data 
+ * @param {Object} data Objekt med data som vises
  * @returns HTML
+ * @author Ørjan Dybevik - 233530
  */
 function reviewCard(data){
     return `<article class="uk-comment uk-comment-primary" id="editId${data._id}">
@@ -253,6 +273,12 @@ function reviewCard(data){
                 </div>
             </article>`
 }
+/**
+ * Lager html kort for hver anmeldelse som skal slettes
+ * @param {Object} data Objekt med data som vises
+ * @returns HTML
+ * @author Ørjan Dybevik - 233530
+ */
 function reviewCardDelete(data){
     return `<article class="uk-comment uk-comment-primary" id="deleteId${data._id}">
                 <header class="uk-comment-header">

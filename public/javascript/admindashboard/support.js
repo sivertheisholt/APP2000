@@ -5,6 +5,7 @@ let adminTicketResult = document.getElementById('admin-ticket-result');
 
 /**
  * EventListener for å svare på en ticket
+ * @author Ørjan Dybevik - 233530
  */
 adminTicketBtn.addEventListener("click", ()=>{
     socket.emit('respondTicket', {ticketId: adminTicketId.value, response: adminTicketReponse.value});
@@ -14,6 +15,7 @@ adminTicketBtn.addEventListener("click", ()=>{
 
 /**
  * Viser informasjon om hvilken ticket som ble svart på
+ * @author Ørjan Dybevik - 233530
  */
 socket.on('respondTicketResult', (result) => {
     adminTicketResult.innerHTML = result.information;
