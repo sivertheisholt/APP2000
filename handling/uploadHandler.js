@@ -5,6 +5,7 @@ const ValidationHandler = require('./ValidationHandler');
 
 /**
  * Storage gir kontroll på lagring av filer
+ * @author Ørjan Dybevik 233530
  */
 var Storage = multer.diskStorage({
     destination: function(req, file, callback){
@@ -17,6 +18,7 @@ var Storage = multer.diskStorage({
 
 /**
  * Håndterer filer som blir lastet opp
+ * @author Ørjan Dybevk 233530
  */
 var upload = multer ({
     storage: Storage,
@@ -29,7 +31,8 @@ var upload = multer ({
  * Sjekker at fil er jpeg, jpg eller png
  * @param {File} file 
  * @param {Object} cb 
- * @returns 
+ * @returns true/false
+ * @author Ørjan Dybevik 233530
  */
 function checkFileType(file, cb){
     const fileTypes = /jpeg|jpg|png/;
