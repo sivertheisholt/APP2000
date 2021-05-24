@@ -21,16 +21,6 @@ exports.userAuth_get_resetpassword = async function(req, res) {
     res.render("auth/resetpassword", req.renderObject);
 }
 
-exports.userAuth_get_resetpassword_success = async function(req, res) {
-    logger.log({level: 'debug', message: `Request received for /resetpassword/success`}); 
-    res.render("auth/resetpasswordsuccess", req.renderObject);
-}
-
-exports.userAuth_get_resetpassword_error = async function(req, res) {
-    logger.log({level: 'debug', message: `Request received for /resetpassword/error`}); 
-    res.render("auth/resetpassworderror", req.renderObject);
-}
-
 exports.userAuth_post_signup = async function(req,res ) {
     logger.log({level: 'debug', message: `Request received for /signup`}); 
 
