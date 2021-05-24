@@ -59,7 +59,7 @@
 	"DASHBOARD_FAVORITES_MOVIES": "Кино",
 	"DASHBOARD_FAVORITES_TVSHOWS": "ТВ шоу",
 	"DASHBOARD_PROFILE_INFO_TITLE": "Информация профиля",
-	"DASHBOARD_PROFILE_INFO_DESC": "Создайте имя пользователя здесь",
+	"DASHBOARD_PROFILE_INFO_DESC": "Создайте здесь имя пользователя, минимум 4 символа",
 	"DASHBOARD_PROFILE_INFO_UPLOAD_TEXT": "Загрузите изображение профиля, нажав кнопку ниже",
 	"DASHBOARD_STATISTICS_TITLE": "Статистика",
 	"UPLOAD_BUTTON": "Загрузить",
@@ -225,5 +225,14 @@
 	"ERROR_EXPIRED_TOKEN": "Срок действия токена истек или он неверный",
 	"ERROR_USER_TOKEN_DOESNT_EXIST": "Пользователь с этим токеном не существует",
 	"ERROR_COULD_NOT_CHANGE_PASSWORD": "Не удалось изменить пароль",
-	"SUCCESS_PASSWORD_CHANGE": "Пароль успешно изменен, вы будете перенаправлены ..."
+	"SUCCESS_PASSWORD_CHANGE": "Пароль успешно изменен, вы будете перенаправлены ...",
+	"SUCCESS_PASSWORD_CHANGE_DASHBOARD": "Пароль изменен, страница обновляется автоматически ...",
+	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "Что-то пошло не так, попробуйте позже",
+	"ERROR_COULD_NOT_CHANGE_USERNAME": "Не удалось изменить имя пользователя, убедитесь, что оно содержит не менее 4 символов.",
+	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "Успешно сменил логин, страница обновляется автоматически ...",
+	"ERROR_WRONG_FILE_TYPE": "Неверный тип файла!",
+	"ERROR_NO_FILE_FOUND": "Файл не найден!",
+	"ERROR_NOT_GET_IMAGE": "Не удалось получить изображение!",
+	"ERROR_SAVING_AVATAR": "Ошибка при сохранении изображения пользователю",
+	"SUCCESS_AVATAR_UPLOAD": "Успешно сменил аватар, страница обновляется автоматически ..."
 }

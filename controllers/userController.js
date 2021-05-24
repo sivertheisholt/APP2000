@@ -107,28 +107,27 @@ exports.user_get_dashboard = async function(req, res) {
 }
 
 exports.user_post_changepassword = async function(req, res) {
-    const pugBody = req.body; //Skaffer body fra form
+    const pugBody = req.body.dash_change_pw_details; //Skaffer body fra form
+    console.log(pugBody);
     BrukerDB.findOne({_id: req.session.userId}, async (err, bruker) => {
         if(err) {
-            return res.status(400).json({message: 'Error'});
+            logger.log({level: 'error', message: `Error: ${err}`}); 
+            return res.status(400).send({error: req.__('ERROR_DASHBOARD_UNEXPECTED_ERROR')});
         }
         //Sjekker at passord tilfredstiller krav
         if(!(hjelpeMetoder.data.validatePassword(pugBody.dashboardNewPassword))){
             logger.log({level: 'debug', message: `Password is not properly formatted!`}); 
-            res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Password is not properly formatted&errorType=dashboardChangePassword`);
-            return;
+            return res.status(400).send({error: req.__('ERROR_PASSWORD_NOT_PROPERLY_FORMATTED')});
         }
         //Vi gjør en sjekk at alle feltene er fylt inn
         if(!(pugBody.dashboardNewPassword && pugBody.dashboardNewPasswordRepeat)) {
             logger.log({level: 'debug', message: `All form inputs are not filled!`}); 
-            res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Data is not properly formatted&errorType=dashboardChangePassword`);
-            return;
+            return res.status(400).send({error: req.__('ERROR_MISSING_INPUT')});
         }
         //Vi gjør en sjekk at passord 1 er lik passord 2 (Repeat password)
         if(!(pugBody.dashboardNewPassword == pugBody.dashboardNewPasswordRepeat)) {
             logger.log({level: 'debug', message: `Passwords do not match each other!`}); 
-            res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Passwords do not match&errorType=dashboardChangePassword`);
-            return;
+            return res.status(400).send({error: req.__('ERROR_PASSWORD_NOT_MATCH')});
         }
         //Nå må vi lage ny salt for å hashe passord
         const salt = await bcrypt.genSalt(10); //Her kommer await (Se async) inn (Nå venter vi til bcrypt er ferdig)
@@ -138,35 +137,30 @@ exports.user_post_changepassword = async function(req, res) {
         bruker.save((err, result) => {
             if(err) {
                 logger.log({level: 'error', message: `Could not change password! Error: ${err}`});
-                res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Could not save password to user&errorType=dashboardChangePassword`);
-                return;
+                return res.status(400).send({error: req.__('ERROR_COULD_NOT_CHANGE_PASSWORD')});
             } else {
-                logger.log({level: 'debug', message: `Password has been changed!`});
-                res.redirect(`/${res.locals.currentLang}/user/dashboard`);
-                return;
+                logger.log({level: 'debug', message: `Password successfully changed for user`});
+                res.status(200).send({message: req.__('SUCCESS_PASSWORD_CHANGE_DASHBOARD')});
             }
         })
     })
 }
 
 exports.user_post_changeusername = function(req, res) {
-    const pugBody = req.body; //Skaffer body fra form
+    const pugBody = req.body.dash_change_username_details; //Skaffer body fra form
     BrukerDB.findOne({_id: req.session.userId}, async (err, bruker) => {
         if(err) {
-            logger.log({level: 'error', message: `Error: ${err}`});
-            res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Something went wrong&errorType=dashboardChangeUsername`);
-            return;
+            logger.log({level: 'error', message: `Error: ${err}`}); 
+            return res.status(400).send({error: req.__('ERROR_DASHBOARD_UNEXPECTED_ERROR')});
         }
         bruker.username = pugBody.username;
         bruker.save((err, result) => {
             if(err) {
                 logger.log({level: 'error', message: `Could not change username! Error: ${err}`});
-                res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Could not change username&errorType=dashboardChangeUsername`);
-                return;
+                return res.status(400).send({error: req.__('ERROR_COULD_NOT_CHANGE_USERNAME')});
             } else {
-                logger.log({level: 'debug', message: `Username has been changed! Error: ${err}`});
-                res.redirect(`/${res.locals.currentLang}/user/dashboard`);
-                return;
+                logger.log({level: 'debug', message: `Username has been changed!`});
+                res.status(200).send({message: req.__('SUCCESS_USERNAME_CHANGE_DASHBOARD')});
             }
         })
     })
@@ -182,29 +176,30 @@ exports.user_post_changeavatar = function(req, res) {
             } else if(err.code === 'ENOENT') {
                 return fileExists = false;
             } else {
-                logger.log({level: 'error', message: `Error: ${err}`});
-                return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Something went wrong&errorType=dashboardUploadAvatar`);
+                logger.log({level: 'error', message: `Error: ${err}`}); 
+                return res.status(400).send({error: req.__('ERROR_DASHBOARD_UNEXPECTED_ERROR')});
             }
         });
         uploadHandle(req, res, function(err){
+            console.log(req.file);
             if(err){
-                logger.log({level: 'error', message: `Error: ${err}`});
-                return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Wrong file type&errorType=dashboardUploadAvatar`);
+                logger.log({level: 'error', message: `Wrong file type!`}); 
+                return res.status(400).send({error: req.__('ERROR_WRONG_FILE_TYPE')});
             }
             if(req.file == undefined){
-                logger.log({level: 'error', message: `Error: ${err}`});
-                return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=No file found&errorType=dashboardUploadAvatar`);
+                logger.log({level: 'error', message: `No file found!`}); 
+                return res.status(400).send({error: req.__('ERROR_NO_FILE_FOUND')});
             }
             if(!req.file.filename){
-                logger.log({level: 'error', message: `Could not get image! Error: ${err}`});
-                return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Could not get image!&errorType=dashboardUploadAvatar`);
+                logger.log({level: 'error', message: `Could not get image!`}); 
+                return res.status(400).send({error: req.__('ERROR_NOT_GET_IMAGE')});
             }
             if(bruker.avatar != defaultDest){
                 if(fileExists){
                     fs.unlink('./public' + bruker.avatar, function (err){
                         if(err){
-                            logger.log({level: 'error', message: `Could not find old image! Error: ${err}`});
-                            return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Something went wrong&errorType=dashboardUploadAvatar`);
+                            logger.log({level: 'error', message: `Could not find old image!`}); 
+                            return res.status(400).send({error: req.__('ERROR_NOT_GET_IMAGE')});
                         }
                     });
                 }
@@ -213,11 +208,11 @@ exports.user_post_changeavatar = function(req, res) {
             bruker.avatar = dest + req.file.filename;
             bruker.save((err, result) => {
                 if(err) {
-                    logger.log({level: 'error', message: `Error in saving avatar to user! Error: ${err}`});
-                    return res.redirect(`/${res.locals.currentLang}/user/dashboard?error=Cant save avatar to user&errorType=dashboardUploadAvatar`);
+                    logger.log({level: 'error', message: `Error in saving avatar to user!`}); 
+                    return res.status(400).send({error: req.__('ERROR_SAVING_AVATAR')});
                 } else {
                     logger.log({level: 'debug', message: `Avatar has been changed!`});
-                    return res.redirect(`/${res.locals.currentLang}/user/dashboard`);
+                    res.status(200).send({message: req.__('SUCCESS_AVATAR_UPLOAD')});
                 }
             })
         })
