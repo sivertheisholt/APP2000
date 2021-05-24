@@ -1,3 +1,8 @@
+/** Routing til mediainfo
+ * Her routes til filminfo, serieinfo, upcoming serie og film og oversikt over film og serier
+ * @author Ørjan Dybevik - 233530, Sivert - 233518, Sigve - 233511, Govert - 233565
+ */
+
 const express = require('express');
 const router = express.Router();
 const asyncExpress = require('../handling/expressUtils');
