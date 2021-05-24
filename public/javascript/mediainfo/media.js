@@ -6,6 +6,7 @@ var url = url;
 var urlPath = urlPath;
 /**
  * Henter hvilken type sortering brukeren skal ha og sender videre til socket
+ * @author Ørjan Dybevik - 233530
  */
 document.querySelectorAll('.tv-shows-filter-list ul a').forEach(item => {
     item.addEventListener('click', event => {
@@ -15,6 +16,7 @@ document.querySelectorAll('.tv-shows-filter-list ul a').forEach(item => {
 
 /**
  * Henter hvilken type sortering brukeren skal ha og sender videre til socket
+ * @author Ørjan Dybevik - 233530
  */
 document.querySelectorAll('.movies-filter-list ul a').forEach(item => {
     item.addEventListener('click', event => {
@@ -24,6 +26,7 @@ document.querySelectorAll('.movies-filter-list ul a').forEach(item => {
 
 /**
  * Henter hvilken type sjanger brukeren vil sortere etter og sender videre til socket
+ * @author Ørjan Dybevik - 233530
  */
 document.querySelectorAll('.media-genre-list ul a').forEach(item => {
     item.addEventListener('click', event => {
@@ -33,6 +36,7 @@ document.querySelectorAll('.media-genre-list ul a').forEach(item => {
 
 /**
  * Viser de 16 første filmene/seriene
+ * @author Ørjan Dybevik - 233530
  */
 socket.on('displayFilteredMedia', function(args){
     currentMediaDisplayed = args;
@@ -48,8 +52,9 @@ socket.on('displayFilteredMedia', function(args){
 
 /**
  * Lager HTML for hver film/serie som skal vises
- * @param {Object} data 
+ * @param {Object} data Data som skal vises i kortet
  * @returns HTML
+ * @author Ørjan Dybevik - 233530
  */
 function mediaCard(data){
     return `<a href='/${urlPath}/${url}/${data.id}'
@@ -60,8 +65,9 @@ function mediaCard(data){
 
 /**
  * Knapp for å loade 16 filmer om gangen
- * @param {Object} media 
- * @param {event} e 
+ * @param {Object} media Array med filmer/serier
+ * @param {event} e event
+ * @author Ørjan Dybevik - 233530
  */
 function load(media, e){
     e.preventDefault();

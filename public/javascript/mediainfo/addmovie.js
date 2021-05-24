@@ -12,6 +12,10 @@ let filminfoListSaveBtn = document.getElementById('save-to-list-btn');
 let filminfoListResult = document.getElementById('listAddedResult');
 let filminfoListCancelBtn = document.getElementById('cancel-list-btn');
 
+/**
+ * Eventlistener for hele dokumentet som sjekker om brukeren har filmen som favoritt/watchlist eller ikke
+ * @author Ørjan Dybevik - 233530
+ */
 document.addEventListener('DOMContentLoaded', function () {
     if(isMovFav){
         heartMovieImg.src = "/images/icons/heart-filled.png";
@@ -25,6 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+/**
+ * Eventlistener for hjerteikonet, legger til favoritt eller fjerner som favoritt
+ * @author Ørjan Dybevik - 233530
+ */
 movieEleFav.addEventListener("click", function(){
     if(isMovFav){
         isMovFav = false;
@@ -37,6 +45,10 @@ movieEleFav.addEventListener("click", function(){
     }
 });
 
+/**
+ * Eventlistener for bookmarkikonet, legger til i watchlist eller fjerner fra watchlist
+ * @author Ørjan Dybevik - 233530
+ */
 movieEleBookmark.addEventListener("click", function(){
     if(isMovWatched){
         isMovWatched = false;
@@ -49,6 +61,10 @@ movieEleBookmark.addEventListener("click", function(){
     }
 }); 
 
+/**
+ * Eventlistener for å legge til i en liste, legger film til i valgt liste
+ * @author Ørjan Dybevik - 233530
+ */
 filminfoListSaveBtn.addEventListener("click", function(){
     filminfoUserList.style.display = 'none';
     let selectedList = filminfoListSelectbox.options[filminfoListSelectbox.selectedIndex].getAttribute('data-list-id');
@@ -59,6 +75,10 @@ filminfoListSaveBtn.addEventListener("click", function(){
     }
 }); 
 
+/**
+ * Tilbakemelding fra socket om den blir lagt til i liste eller ikke
+ * @author Ørjan Dybevik - 233530
+ */
 socket.on('displayMovieList', async function(result){
     UIkit.modal(document.getElementById('add-list-modal')).hide();
     if(!result.status){

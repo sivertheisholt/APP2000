@@ -3,7 +3,8 @@ const filterMetode = require('../handling/filter');
 /**
  * Viser ett array med media fra mest populær til minst
  * @param {socket} socket 
- * @param {array} args 
+ * @param {array} args Array med filmer
+ * @author Ørjan Dybevik - 233530
  */
 async function popularMediaDesc(socket, args) {
     socket.emit('displayFilteredMedia', args);
@@ -12,7 +13,8 @@ async function popularMediaDesc(socket, args) {
 /**
  * Viser ett array med media fra minst populær til mest
  * @param {socket} socket 
- * @param {array} args 
+ * @param {array} args Array med filmer
+ * @author Ørjan Dybevik - 233530
  */
 async function popularMediaAsc(socket, args) {
     args.reverse();
@@ -22,7 +24,8 @@ async function popularMediaAsc(socket, args) {
 /**
  * Viser ett array med media med sortert dato, nyest til eldst
  * @param {socket} socket 
- * @param {array} args 
+ * @param {array} args  Array med filmer
+ * @author Ørjan Dybevik - 233530
  */
 async function popularMediaSortByDateDesc(socket, args) {
     args.sort(filterMetode.getSortOrderDateDesc);
@@ -32,7 +35,8 @@ async function popularMediaSortByDateDesc(socket, args) {
 /**
  * Viser ett array med media med sortert dato, eldst til nyest
  * @param {socket} socket 
- * @param {array} args 
+ * @param {array} args Array med filmer
+ * @author Ørjan Dybevik - 233530
  */
 async function popularMediaSortByDateAsc(socket, args) {
     args.sort(filterMetode.getSortOrderDateAsc);
@@ -42,7 +46,8 @@ async function popularMediaSortByDateAsc(socket, args) {
 /**
  * Viser ett array med media sortert alfabetisk
  * @param {socket} socket 
- * @param {array} args 
+ * @param {array} args Array med filmer
+ * @author Ørjan Dybevik - 233530
  */
 async function popularMediaSortByTitleAZ(socket, args) {
     args.sort(filterMetode.getSortOrderAZ('title'));
@@ -52,7 +57,8 @@ async function popularMediaSortByTitleAZ(socket, args) {
 /**
  * Viser ett array med media sortert motsatt alfabetisk rekkefølge
  * @param {socket} socket 
- * @param {array} args 
+ * @param {array} args Array med filmer
+ * @author Ørjan Dybevik - 233530
  */
 async function popularMediaSortByTitleZA(socket, args) {
     args.sort(filterMetode.getSortOrderZA('title'));
@@ -63,7 +69,8 @@ async function popularMediaSortByTitleZA(socket, args) {
 /**
  * Tar inn ett array og viser kun filmene av valgt genre
  * @param {socket} socket 
- * @param {array, genre} args 
+ * @param {array, genre} args Array med filmer
+ * @author Ørjan Dybevik - 233530
  */
 async function filterByGenre(socket, args) {
     let filteredList = [];

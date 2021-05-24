@@ -12,6 +12,10 @@ let serieinfoListSaveBtn = document.getElementById('save-to-list-btn');
 let serieinfoListResult = document.getElementById('listAddedResult');
 let serieinfoListCancelBtn = document.getElementById('cancel-list-btn');
 
+/**
+ * Eventlistener for hele dokumentet som sjekker om brukeren har serien som favoritt/watchlist eller ikke
+ * @author Ørjan Dybevik - 233530
+ */
 document.addEventListener('DOMContentLoaded', function () {
     if(isTvFav){
         heartTvImg.src = "/images/icons/heart-filled.png";
@@ -25,6 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+/**
+ * Eventlistener for hjerteikonet, legger til favoritt eller fjerner som favoritt
+ * @author Ørjan Dybevik - 233530
+ */
 tvFavoriteEle.addEventListener("click", function(){
     if(isTvFav){
         isTvFav = false;
@@ -37,6 +45,10 @@ tvFavoriteEle.addEventListener("click", function(){
     }
 });
 
+/**
+ * Eventlistener for bookmarkikonet, legger til i watchlist eller fjerner fra watchlist
+ * @author Ørjan Dybevik - 233530
+ */
 tvBookmarkEle.addEventListener("click", function(){
     if(isTvWatched){
         isTvWatched = false;
@@ -49,6 +61,10 @@ tvBookmarkEle.addEventListener("click", function(){
     }
 });
 
+/**
+ * Eventlistener for å legge til i en liste, legger serie til i valgt liste
+ * @author Ørjan Dybevik - 233530
+ */
 serieinfoListSaveBtn.addEventListener("click", function(){
     serieinfoUserList.style.display = 'none';
     let selectedList = serieinfoListSelectbox.options[serieinfoListSelectbox.selectedIndex].getAttribute('data-list-id');
@@ -59,6 +75,10 @@ serieinfoListSaveBtn.addEventListener("click", function(){
     }
 }); 
 
+/**
+ * Tilbakemelding fra socket om den blir lagt til i liste eller ikke
+ * @author Ørjan Dybevik - 233530
+ */
 socket.on('displayTvList', function(result){
     UIkit.modal(document.getElementById('add-list-modal')).hide();
     if(!result.status){

@@ -9,8 +9,9 @@ const ValidationHandler = require('../handling/ValidationHandler');
 
 /**
  * Leser filen med angitt språkkode og sender den til klienten
- * @param {socket} socket 
- * @param {int} langId 
+ * @param {Object} socket 
+ * @param {Number} langId 
+ * @author Ørjan Dybevik - 233530
  */
 async function getLanguage(socket, langId){
     let language = await hjelpemetoder.data.lesFil(`./lang/${langId}.json`);
@@ -19,8 +20,8 @@ async function getLanguage(socket, langId){
 
 /**
  * Lagrer endringer til angitt språk
- * @param {socket} socket 
- * @param {int, array} args 
+ * @param {Object} socket 
+ * @param {Object} args språkId og nye språkendringer
  */
 async function saveLanguage(socket, args){
     fs.writeFile(`./lang/${args.langId}.json`, args.langContent,(err) =>{
@@ -34,8 +35,9 @@ async function saveLanguage(socket, args){
 
 /**
  * Tar inn en id og godkjenner anmeldelsen fra brukeren
- * @param {socket} socket 
- * @param {int} reviewId 
+ * @param {Object} socket 
+ * @param {Number} reviewId id til anmeldelsen
+ * @author Ørjan Dybevik - 233530
  */
 async function approveReview(socket, reviewId){
     let result = await reviewEditor.approveReview(reviewId);
@@ -45,7 +47,8 @@ async function approveReview(socket, reviewId){
 /**
  * Avslår en anmeldelse
  * @param {Object} socket 
- * @param {Object} review 
+ * @param {Object} review Id til anmeldelsen og grunnlag
+ * @author Ørjan Dybevik - 233530
  */
 async function denyReview(socket, review){
     let result = await reviewEditor.denyReview(review.reviewId, review.reason);
@@ -55,7 +58,8 @@ async function denyReview(socket, review){
 /**
  * Henter anmeldelser basert på filmId og type media(film/tv)
  * @param {Object} socket 
- * @param {Object} media 
+ * @param {Object} media id til film/serie og type film/tv
+ * @author Ørjan Dybevik - 233530
  */
 async function getReviewsFromMedia(socket, media){
     let result = await reviewGetter.getApprovedReviews(media.mediaId, media.type);
@@ -65,7 +69,8 @@ async function getReviewsFromMedia(socket, media){
 /**
  * Svarer på ticket
  * @param {Object} socket 
- * @param {Object} ticket 
+ * @param {Object} ticket id, tekst og tittel
+ * @author Ørjan Dybevik - 233530
  */
 async function respondTicket(socket, ticket){
     let result = await ticketEditor.finishTicket(ticket);
@@ -75,7 +80,8 @@ async function respondTicket(socket, ticket){
 /**
  * Redigerer en anmeldelse
  * @param {Object} socket 
- * @param {Object} review 
+ * @param {Object} review id, text og rating
+ * @author Ørjan Dybevik - 233530
  */
 async function editReview(socket, review){
     let result = await reviewEditor.editReview(review.reviewId, review.newText,review.newRating);
@@ -85,7 +91,8 @@ async function editReview(socket, review){
 /**
  * Henter alle reviews
  * @param {Object} socket 
- * @param {Object} review 
+ * @param {Object} review film/serie id og type tv/movie
+ * @author Ørjan Dybevik - 233530
  */
 async function getReviewListToDelete(socket, review){
     let result = await reviewGetter.getApprovedReviews(review.mediaId, review.type);
@@ -95,13 +102,20 @@ async function getReviewListToDelete(socket, review){
 /**
  * Sletter en bestemt review
  * @param {Object} socket 
- * @param {int} reviewid 
+ * @param {Number} reviewid id til anmeldelse
+ * @author Ørjan Dybevik - 233530
  */
 async function deleteReview(socket, reviewid){
     let result = await reviewEditor.deleteApproved(reviewid);
     socket.emit('deleteReviewResult', result);
 }
 
+/**
+ * Utestenger en bruker med mail
+ * @param {Object} socket 
+ * @param {String} userEmail Email
+ * @author Ørjan Dybevik - 233530
+ */
 async function adminBanUser(socket, userEmail){
     let result;
     let user = await userHandler.getUserFromEmail(userEmail);
@@ -114,6 +128,12 @@ async function adminBanUser(socket, userEmail){
     socket.emit('adminBanUserResult', result);
 }
 
+/**
+ * Fjerner utestengelse til bruker med mail
+ * @param {Object} socket 
+ * @param {String} userEmail Email
+ * @author Ørjan Dybevik - 233530
+ */
 async function adminUnbanUser(socket, userEmail){
     let result;
     let user = await userHandler.getUserFromEmail(userEmail);
@@ -125,13 +145,5 @@ async function adminUnbanUser(socket, userEmail){
     }
     socket.emit('adminBanUserResult', result);
 }
-
-
-
-
-
-
-
-
 
 module.exports = {getLanguage, saveLanguage, approveReview, denyReview, getReviewsFromMedia, respondTicket, editReview, getReviewListToDelete,deleteReview, adminBanUser, adminUnbanUser}
