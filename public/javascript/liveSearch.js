@@ -7,7 +7,7 @@ $('#searchBox').on('input',function() {
         document.getElementById('searchDiv').style.display = 'none';
         document.getElementById('searchDiv').innerHTML = ``;
     } else {
-        socket.emit("userInputSearch", $(this).val())
+        socket.emit("userInputSearch", {message: $(this).val(), lang: urlPath});
     }
 });
 

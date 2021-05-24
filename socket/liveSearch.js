@@ -4,22 +4,20 @@ const ValidationHandler = require("../handling/ValidationHandler");
 
 /**
  * Søker etter film fra input
- * @param {Object} socket 
- * @param {String} userInputSearch 
+ * @param {Object} socket Socket som brukes
+ * @param {String} information Informasjon fra bruker
  * @returns ValidationHandler
+ * @author Sivert - 233518
  */
-async function searchInput(socket, userInputSearch) {
-    if(userInputSearch.length < 3)
+async function searchInput(socket, information) {
+    //Sjekker lengde
+    if(information.message.length < 3)
         return new ValidationHandler(false, 'Skipping because less than 3 chars');
-    logger.log({level: 'debug',message: `User searching for media: ${userInputSearch}`});
-    const results = await search(userInputSearch); //henter info
-    if(results.status) {
-        logger.log({level: 'debug',message:'Result found! Sending to client'})
-        socket.emit('resultatMedia', results.information); //Sender info til klient
-        return results;
-    }
-    logger.log({level: 'debug',message:'No result found'})
-    return results;
+    logger.log({level: 'debug',message: `User searching for media: ${information.message}`});
+
+    //Skaffer resultat og sender til klient
+    const results = await search(information.message, information.lang); //henter info
+    socket.emit('resultatMedia', results.information); //Sender info til klient
 }
 
 module.exports = searchInput;
