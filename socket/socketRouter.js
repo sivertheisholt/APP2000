@@ -9,6 +9,10 @@ const tvReview = require('./makeATvReview');
 const quote = require('./quote');
 const list = require('./list');
 
+/**
+ * Routing til sockets
+ * @author Ørjan Dybevik - 233530, Sigve - 233511, Sivert - 233518, Govert - 233565
+ */
 const sockets = {
     disconnect: disconnect,
     userInputSearch: liveSearch,

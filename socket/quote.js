@@ -4,7 +4,8 @@ const quoteCreater = require('../systems/quoteSystem/quoteCreater');
 /**
  * Bruker sender en quote til en film/tv-serie til godkjenning
  * @param {Object} socket
- * @param {Object} quote 
+ * @param {Object} quote Id til media, quoten og type tv/movie
+ * @author Ørjan Dybevik - 233530, Sigve Eliassen - 233511
  */
 async function submitQuoteMovie(socket, quote) {
     let result;
