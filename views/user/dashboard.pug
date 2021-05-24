@@ -48,21 +48,6 @@ script(src="/javascript/userdashboard/profile_info.js")
         var error = !{error}
         var errorType = !{errorType}
         switch(errorType){
-            case "dashboardChangePassword":
-                UIkit.tab('#dashboard-tab').show(0);
-                document.getElementById("dashboard-password-error").style.display='block';
-                document.getElementById("dashboard-password-error").innerHTML += 'ERROR: ' + error;
-                break;
-            case "dashboardChangeUsername":
-                UIkit.tab('#dashboard-tab').show(5);
-                document.getElementById("dashboard-username-error").style.display='block';
-                document.getElementById("dashboard-username-error").innerHTML += 'ERROR: ' + error;
-                break;
-            case "dashboardUploadAvatar":
-                UIkit.tab('#dashboard-tab').show(5);
-                document.getElementById("dashboard-avatar-error").style.display='block';
-                document.getElementById("dashboard-avatar-error").innerHTML += 'ERROR: ' + error;
-                break;
             case "favorites":
                 UIkit.tab('#dashboard-tab').show(1);
                 break;

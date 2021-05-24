@@ -14,7 +14,7 @@ script.
                 input.uk-input(type='text' name='username' placeholder=`${user.username}` id='dashboard-username-input')
         .uk-margin
             .uk-inline
-                #dashboard-username-error
+                #dashboard-username-error(uk-icon="icon: warning")
         .uk-margin
             .uk-inline
                 button.uk-button.uk-button-default.uk-margin-right(type='submit' id='dashboard-username-btn') #{__("BUTTON_ENTER")}
@@ -23,7 +23,7 @@ script.
         .uk-margin 
             .uk-inline
                  input(type='file' name='avatar' id='avatar')
-        #dashboard-avatar-error
+        #dashboard-avatar-error(uk-icon="icon: warning")
         .uk-margin 
             .uk-inline
                 button.uk-button.uk-button-default.uk-margin-right(type='submit' id='dashboard-upload-btn') #{__("UPLOAD_BUTTON")}
