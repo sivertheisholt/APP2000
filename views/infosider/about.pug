@@ -1,3 +1,7 @@
+//-
+    Pug/Html for "Om oss" siden. Her er også kontakt skjema og statistikker
+    Author: Ørjan Dybevik - 233530, Govert - 233565
+
 include ../includes/head.pug
 include ../includes/nav.pug
 - var totalMoviesResult = totalMoviesResult;
@@ -8,7 +12,6 @@ body
     div#searchDiv
     .container
         .uk-heading-medium.uk-text-center.about-page-margin #{__("ABOUT_TOP_HEADING")}
-
         .uk-width-1-1
             .uk-column-1-4.uk-text-center.uk-align-center
                 div
@@ -60,12 +63,3 @@ body
                     #about-contact-error
 include ../includes/footer.pug
 script(src="/javascript/infosider/about.js")
-- if (error)
-    script.
-        var error = !{error}
-        var errorType = !{errorType}
-        switch(errorType) {
-            case "aboutContactForm":
-                swal("Woops!", error, "error")
-                break;
-        }

@@ -1,8 +1,13 @@
+//-
+    Pug/Html for oversikten over filmer.
+    Author: Ørjan Dybevik - 233530
+
 script.
     var popularMedia = !{popularMovies};
     let currentMediaDisplayed = popularMedia;
     currentMediaDisplayed.slice(0, 16);
-    
+    /*Laster inn de 16 første filmene i arrayet som inneholder filmene som skal vises i siden, denne kjøres kun når siden lastes inn*/
+    /*Author: Ørjan Dybevik - 233530 */
     function load(){
         document.getElementById('mediaCard').innerHTML += "";
             for (const media of popularMedia.slice(0,16)){

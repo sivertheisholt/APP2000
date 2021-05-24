@@ -1,5 +1,11 @@
+//-
+    Pug/Html for oversikten over kommende filmer, disse er automatisk sortert etter dato.
+    Author: Ørjan Dybevik - 233530
+
 script.
     var upcomingMovies = !{upcomingMovies};
+    /*Laster inn de 16 første filmene i arrayet som inneholder filmene som skal vises i siden, denne kjøres kun når siden lastes inn*/
+    /*Author: Ørjan Dybevik - 233530 */
     function load(){
         document.getElementById('mediaCard').innerHTML += "";
         for (const media of upcomingMovies.slice(0,16)){

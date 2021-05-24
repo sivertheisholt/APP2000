@@ -1,7 +1,13 @@
+//-
+    Pug/Html for oversikten over tv-serier.
+    Author: Ørjan Dybevik - 233530
+
 script.
     var popularMedia = !{tvShows};
     let currentMediaDisplayed = popularMedia;
     currentMediaDisplayed.slice(0, 16);
+    /*Laster inn de 16 første seriene i arrayet som inneholder seriene som skal vises i siden, denne kjøres kun når siden lastes inn*/
+    /*Author: Ørjan Dybevik - 233530 */
     function load(){
         document.getElementById('mediaCard').innerHTML += "";
         for (const media of popularMedia.slice(0,16)){
