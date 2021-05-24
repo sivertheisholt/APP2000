@@ -39,6 +39,7 @@ exports.list_get_content = async function(req, res) {
     let medias = []
     let listId = req.params.id;
     let list = await listGetter.getListFromId(listId);
+    let isListAuthor = new ValidationHandler(false, "");
     //Skaffer filmer
     for(const movie of list.information.movies) {
         let movieInfo = await movieHandler.getMovieById(movie);
@@ -63,8 +64,12 @@ exports.list_get_content = async function(req, res) {
             type : 'tv'
           })
     }
+    if(req.renderObject.session){
+        isListAuthor = await listGetter.checkIfListAuthor(listId, req.renderObject.user._id);
+    }
     req.renderObject.listId = listId;
     req.renderObject.medias = medias;
+    req.renderObject.isListAuthor = isListAuthor.status;
     res.render("list/listContent", req.renderObject);
 }
 

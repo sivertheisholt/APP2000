@@ -1,5 +1,8 @@
 - var medias = medias
 - var listId = listId;
+script.
+   var isListAuthor = !{isListAuthor};
+
 include ../includes/head.pug
 include ../includes/nav.pug
 
@@ -9,8 +12,9 @@ include ../includes/nav.pug
 body
     div#searchDiv
     .container
-        .uk-margin-top.uk-padding-remove.uk-grid.uk-text-center.uk-align-center.uk-flex.uk-flex-center
-            button.uk-button.uk-button-default(id='deleteListBtn' data-listid=`${listId}`) #{__("BUTTON_DELETE_LIST")}
+        if isListAuthor
+            .uk-margin-top.uk-padding-remove.uk-grid.uk-text-center.uk-align-center.uk-flex.uk-flex-center
+                button.uk-button.uk-button-default(id='deleteListBtn' data-listid=`${listId}`) #{__("BUTTON_DELETE_LIST")}
         .uk-grid.uk-margin-remove.uk-padding-remove.uk-grid-match(class='uk-child-width-1-4@s')
             each item in medias
                 .uk-position-relative.uk-margin-bottom(id=item.id)
@@ -21,7 +25,8 @@ body
                             .uk-card-body
                                 h3.uk-card-title= `${item.title}`
                                 p.uk-text-meta= `${item.releaseDate}`
-                        a.uk-position-bottom(href='#' uk-close='' onclick=`removeFromList("${item.id}", "${item.type}", "${item.listid}");` class='uk-margin-bottom uk-margin-left')
+                        if isListAuthor
+                            a.uk-position-bottom(href='#' uk-close='' onclick=`removeFromList("${item.id}", "${item.type}", "${item.listid}");` class='uk-margin-bottom uk-margin-left')
 
 include ../includes/footer.pug
 script(src="/javascript/list/listcontents.js")

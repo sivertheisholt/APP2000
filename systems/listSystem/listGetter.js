@@ -44,3 +44,27 @@ exports.getAllLists = async function() {
     }
     return new ValidationHandler(true, result);
 }
+
+/**
+ * Funksjon for å sjekke om brukeren er forfatteren til en liste
+ * @param {Number} listId ID til liste
+ * @param {Number} userId ID til bruker
+ * @returns ValidationHandler
+ * @author Ørjan Dybevik - 233530
+ */
+exports.checkIfListAuthor = async function(listId, userId) {
+    logger.log({level: 'debug', message: `Checking if user is author of list... ListId: ${listId} - UserId: ${userId} `});
+    let userResult = await userHandler.getUserFromId(userId);
+    if(!userResult.status){
+        logger.log({level: 'debug', message: `UserId: ${userResult.information._id} is not author of ${listId} list`});
+        return new ValidationHandler(false, `Not author of list`);
+    }
+    for(const list of userResult.information.lists) {
+        if(list == listId) {
+            logger.log({level: 'debug', message: `UserId: ${userResult.information._id} is author of ${listId} list`});
+            return new ValidationHandler(true, `Author of list`);
+        }
+    }
+    logger.log({level: 'debug', message: `UserId: ${userResult.information._id} is not author of ${listId} list`});
+    return new ValidationHandler(false, `Not author of list`);
+}
