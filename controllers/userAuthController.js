@@ -15,8 +15,9 @@ exports.userAuth_get_logout = async function(req, res) {
 }
 
 exports.userAuth_get_resetpassword = async function(req, res) {
-    logger.log({level: 'debug', message: `Request received for /resetpassword/:token`}); 
-    req.renderObject.token = req.params.token;
+    logger.log({level: 'debug', message: `Request received for /resetpassword/:token`});
+    let token = req.params.token;
+    req.renderObject.token = token;
     res.render("auth/resetpassword", req.renderObject);
 }
 
@@ -97,26 +98,25 @@ exports.userAuth_post_signup = async function(req,res ) {
     
     //Suksess
     res.status(200).send({message: req.__('SUCCESS_SIGNUP')});
-    //res.redirect(`/${req.renderObject.langCode}/homepage`);
 }
 
 exports.userAuth_post_forgottenPassword = async function(req, res) {
     logger.log({level: 'debug', message: `Request received for /forgottenPassword`}); 
-    const pugBody = req.body;
+    const pugBody = req.body.forgot_pw_details;
 
     //Skaffer bruker
-    const userResult = await userHandler.getUserFromEmail(pugBody.emailForgottenPassword);
+    const userResult = await userHandler.getUserFromEmail(pugBody.email);
     if(!userResult.status) {
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=User with this email does not exist&errorType=forgottenPassword`);
-        return;
+        logger.log({level: 'debug', message: `User with email ${pugBody.email} does not exist`}); 
+        return res.status(400).send({error: req.__('ERROR_USER_DOESNT_EXIST')});
     }
 
     //Lager token og oppdaterer bruker
     const token = jwt.sign({_id: userResult.information._id}, process.env.RESET_PASSWORD_KEY, {expiresIn:'60m'});
     const updateUser = await userHandler.updateUser(userResult.information, {resetLink: token});
     if(!updateUser.status) {
-        res.redirect(`/${req.renderObject.langCode}/homepage?error=Reset password link error&errorType=forgottenPassword`);
-        return;
+        logger.log({level: 'debug', message: `Reset password link error`}); 
+        return res.status(400).send({error: req.__('ERROR_RESET_PASSWORD_LINK')});
     }
     
     //Lager link
@@ -136,7 +136,7 @@ exports.userAuth_post_forgottenPassword = async function(req, res) {
     });
 
     //Suksess
-    res.redirect(`/${req.renderObject.langCode}/homepage`);
+    res.status(200).send({message: req.__('SUCCESS_FORGOTTEN_PASSWORD')});
 }
 
 exports.userAuth_get_login = async function(req,res ) {
@@ -178,42 +178,41 @@ exports.userAuth_post_resetpassword = async function(req, res) {
     logger.log({level: 'debug', message: `Request received for /resetPassword/:token`}); 
 
     //Skaffer link og info
-    const resetLink = req.params.token;
-    const pugBody = req.body;
+    const pugBody = req.body.reset_pw_details;
+    const resetLink = pugBody.token;
 
     //Sjekker om link eksisterer
     if(!resetLink){
         logger.log({level: 'error', message: `Authentication error`});
-        return res.status(401).json({error: 'Authentication error!'});
+        return res.status(400).send({error: req.__('ERROR_AUTHENTICATION')});
     }
 
     //Sjekker info
     jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, async function(err, decodedData) {
         if(err) {
-            logger.log({level: 'error', message: `Incorrect token or it has expired`});
-            return res.redirect(`/${req.renderObject.langCode}/auth/resetpassworderror`);
+            logger.log({level: 'debug', message: `Incorrect token or it has expired`});
+            return res.status(400).send({error: req.__('ERROR_EXPIRED_TOKEN')});
         }
-        let resetLinkConfirmed = req.params.token
+        let resetLinkConfirmed = pugBody.token;
 
         //Skaffer bruker
         const userResult = await userHandler.getUser({resetLink: resetLinkConfirmed})
         if(!userResult.status) {
-            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=User with this token does not exist&errorType=resetPassword`);
-            return;
+            logger.log({level: 'debug', message: `User with this token doesn't exist`});
+            return res.status(400).send({error: req.__('ERROR_USER_TOKEN_DOESNT_EXIST')});
         }
 
         //Sjekker at passord tilfredstiller krav
         if(!(hjelpeMetoder.data.validatePassword(pugBody.newPassword))){
             logger.log({level: 'debug', message: `Password is not properly formatted!`}); 
-            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=Password is not properly formatted&errorType=resetPassword`);
-            return;
+            return res.status(400).send({error: req.__('ERROR_PASSWORD_NOT_PROPERLY_FORMATTED')});
+
         }
 
         //Sjekker om felt er like
         if(!(pugBody.newPassword == pugBody.newPasswordRepeat)) {
             logger.log({level: 'debug', message: `Passwords do not match`});
-            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=Passwords do not match&errorType=resetPassword`);
-            return;
+            return res.status(400).send({error: req.__('ERROR_PASSWORD_NOT_MATCH')});
         }
 
         //Nå må vi lage ny salt for å hashe passord
@@ -225,12 +224,12 @@ exports.userAuth_post_resetpassword = async function(req, res) {
         //Lagrer bruker
         const updateUser = await userHandler.updateUser(userResult.information, {password: password, resetLink: ''});
         if(!updateUser.status) {
-            res.redirect(`/${req.renderObject.langCode}/auth/resetpassword/${resetLinkConfirmed}?error=Could not change password&errorType=resetPassword`);
-            return;
+            logger.log({level: 'debug', message: `Could not change password`});
+            return res.status(400).send({error: req.__('ERROR_COULD_NOT_CHANGE_PASSWORD')});
         }
 
         //Suksess
         logger.log({level: 'debug', message: `Password successfully changed for user`});
-        res.redirect(`/${req.renderObject.langCode}/auth/resetpasswordsuccess`);
+        res.status(200).send({message: req.__('SUCCESS_PASSWORD_CHANGE')});
     })
 }

@@ -209,6 +209,7 @@
 	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Menge",
 	"SUCCESS_LOGIN": "Einloggen...",
 	"SUCCESS_SIGNUP": "Registrierung abgeschlossen, Anmeldung ...",
+	"SUCCESS_FORGOTTEN_PASSWORD": "Anweisungen wurden an Ihre E-Mail-Adresse gesendet.",
 	"ERROR_USER_DOES_NOT_EXIST": "Dieser Benutzer existiert nicht",
 	"ERROR_INVALID_PASSWORD": "Ungültiges Passwort",
 	"ERROR_USER_IS_BANNED": "Dieser Benutzer wurde gesperrt. Wenden Sie sich an den Support",
@@ -217,5 +218,12 @@
 	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "Das Passwort ist nicht richtig formatiert",
 	"ERROR_MISSING_INPUT": "Alle Eingabefelder müssen ausgefüllt sein!",
 	"ERROR_PASSWORD_NOT_MATCH": "Passwörter stimmen nicht überein",
-	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Unerwarteter Fehler beim Erstellen des Benutzers. Versuchen Sie es erneut"
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Unerwarteter Fehler beim Erstellen des Benutzers. Versuchen Sie es erneut",
+	"ERROR_USER_DOESNT_EXIST": "Diese E-Mail existiert nicht",
+	"ERROR_RESET_PASSWORD_LINK":"Beim Erstellen Ihres Resetlinks ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut",
+	"ERROR_AUTHENTICATION": "Authentifizierungsfehler.",
+	"ERROR_EXPIRED_TOKEN": "Token ist abgelaufen oder falsch",
+	"ERROR_USER_TOKEN_DOESNT_EXIST": "Benutzer mit diesem Token existiert nicht",
+	"ERROR_COULD_NOT_CHANGE_PASSWORD": "Passwort konnte nicht geändert werden",
+	"SUCCESS_PASSWORD_CHANGE": "Passwort wurde erfolgreich geändert, Sie werden umgeleitet ..."
 }

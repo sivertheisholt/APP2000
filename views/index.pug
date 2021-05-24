@@ -28,28 +28,3 @@ body
     include includes/footer.pug
     script(src="/javascript/index/login.js")
     script(src="/javascript/index/chart.js")
-- if(error)
-    script.
-        var error = !{error}
-        var errorType = !{errorType}
-        switch(errorType) {
-            case "signup": 
-                UIkit.modal("#modal-login-signup").show();
-                UIkit.switcher('#switcher-login-signup').show(1);
-                document.getElementById("signup-error").style.display='block';
-                document.getElementById("signup-error").innerHTML += 'ERROR: ' + error;
-                break;
-            case "login":
-                UIkit.modal("#modal-login-signup").show();
-                UIkit.switcher('#switcher-login-signup').show(0);
-                document.getElementById("login-error").style.display='block';
-                document.getElementById("login-error").innerHTML += 'ERROR: ' + error;
-                break;
-            case "forgottenPassword":
-                UIkit.modal("#modal-forgot-password").show();
-                document.getElementById("forgot-error").style.display='block';
-                document.getElementById("forgot-error").innerHTML += 'ERROR: ' + error;
-                break;
-            default:
-                UIkit.modal("#modal-center").hide();
-        }

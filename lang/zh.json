@@ -209,6 +209,7 @@
 	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "数量",
 	"SUCCESS_LOGIN": "登录中...",
 	"SUCCESS_SIGNUP": "注册完成，登录中...",
+	"SUCCESS_FORGOTTEN_PASSWORD": "说明已发送到您的电子邮件地址。",
 	"ERROR_USER_DOES_NOT_EXIST": "该用户不存在",
 	"ERROR_INVALID_PASSWORD": "无效的密码",
 	"ERROR_USER_IS_BANNED": "此用户已被禁止，请联系支持",
@@ -217,5 +218,12 @@
 	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "密码格式不正确",
 	"ERROR_MISSING_INPUT": "所有输入字段必须填写！",
 	"ERROR_PASSWORD_NOT_MATCH": "密码不匹配",
-	"ERROR_SIGNUP_UNEXPECTED_ERROR": "创建用户时出现意外错误，请重试"
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "创建用户时出现意外错误，请重试",
+	"ERROR_USER_DOESNT_EXIST": "该电子邮件不存在",
+	"ERROR_RESET_PASSWORD_LINK":"创建您的重置链接时出错，请重试",
+	"ERROR_AUTHENTICATION": "授权错误。",
+	"ERROR_EXPIRED_TOKEN": "令牌已过期或不正确",
+	"ERROR_USER_TOKEN_DOESNT_EXIST": "拥有此令牌的用户不存在",
+	"ERROR_COULD_NOT_CHANGE_PASSWORD": "无法更改密码",
+	"SUCCESS_PASSWORD_CHANGE": "密码已成功更改，您将被重定向..."
 }

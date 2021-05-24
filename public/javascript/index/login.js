@@ -11,6 +11,12 @@ let signupErrorMsg = document.getElementById('signup-error');
 
 let loginsignupModal = document.getElementById('modal-login-signup');
 
+let forgotPasswordBtn = document.getElementById('forgot-password-btn');
+let indexForgotPwEmail = document.getElementById('index-forgot-pw-email');
+let forgotPwErrorMsg = document.getElementById('forgot-error');
+let forgotPasswordModal = document.getElementById('modal-forgot-password');
+
+
 loginBtn.addEventListener("click", function(e){
     loginErrorMsg.style.display = 'none';
     loginErrorMsg.innerHTML = "";
@@ -72,5 +78,34 @@ signUpBtn.addEventListener("click", function(e){
     jqxhr.fail(function(result) {
         signupErrorMsg.style.display = 'block';
         signupErrorMsg.innerHTML = result.responseJSON.error;
+    });
+});
+
+forgotPasswordBtn.addEventListener("click", function(e){
+    forgotPwErrorMsg.style.display = 'none';
+    forgotPwErrorMsg.innerHTML = "";
+    e.preventDefault();
+    //Lager info
+    forgot_pw_details = {
+        email: indexForgotPwEmail.value
+    }
+    //Sender post
+    var jqxhr = $.post(`/${urlPath}/auth/forgottenPassword`, {forgot_pw_details: forgot_pw_details});
+
+    //Om suksess
+    jqxhr.done(async function(result) {
+        UIkit.modal(forgotPasswordModal).hide();
+        indexForgotPwEmail.value = '';
+        swal("Sent!", result.message, "success",{
+            buttons: false,
+        });
+        await new Promise(r => setTimeout(r, 3000));
+        location.reload();
+    });
+
+    //Om failure
+    jqxhr.fail(function(result) {
+        forgotPwErrorMsg.style.display = 'block';
+        forgotPwErrorMsg.innerHTML = result.responseJSON.error;
     });
 });

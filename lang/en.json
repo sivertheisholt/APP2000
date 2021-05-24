@@ -209,6 +209,7 @@
 	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Amount",
 	"SUCCESS_LOGIN": "Signing in...",
 	"SUCCESS_SIGNUP": "Registration complete, signing in...",
+	"SUCCESS_FORGOTTEN_PASSWORD": "Instructions has been sent to your e-mail address.",
 	"ERROR_USER_DOES_NOT_EXIST": "This user does not exist",
 	"ERROR_INVALID_PASSWORD": "Invalid password",
 	"ERROR_USER_IS_BANNED": "This user has been banned, contact support",
@@ -217,5 +218,12 @@
 	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "Password is not properly formatted",
 	"ERROR_MISSING_INPUT": "All input fields must be filled!",
 	"ERROR_PASSWORD_NOT_MATCH": "Passwords do not match",
-	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Unexpected error when creating user, try again"
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Unexpected error when creating user, try again",
+	"ERROR_USER_DOESNT_EXIST": "This email doesn't exist",
+	"ERROR_RESET_PASSWORD_LINK":"There was an error creating your resetlink, please try again",
+	"ERROR_AUTHENTICATION": "Authentication error.",
+	"ERROR_EXPIRED_TOKEN": "Token has expired or is incorrect",
+	"ERROR_USER_TOKEN_DOESNT_EXIST": "User with this token doesn't exist",
+	"ERROR_COULD_NOT_CHANGE_PASSWORD": "Could not change password",
+	"SUCCESS_PASSWORD_CHANGE": "Password has successfully been changed, you will be redirected..."
 }

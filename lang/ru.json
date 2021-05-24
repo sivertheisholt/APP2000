@@ -209,6 +209,7 @@
 	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Количество",
 	"SUCCESS_LOGIN": "Вход ...",
 	"SUCCESS_SIGNUP": "Регистрация завершена, вход в систему ...",
+	"SUCCESS_FORGOTTEN_PASSWORD": "Инструкции были отправлены на ваш адрес электронной почты.",
 	"ERROR_USER_DOES_NOT_EXIST": "Этот пользователь не существует",
 	"ERROR_INVALID_PASSWORD": "Неправильный пароль",
 	"ERROR_USER_IS_BANNED": "Этот пользователь заблокирован, обратитесь в службу поддержки",
@@ -217,5 +218,12 @@
 	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "Пароль неправильно отформатирован",
 	"ERROR_MISSING_INPUT": "Все поля ввода должны быть заполнены!",
 	"ERROR_PASSWORD_NOT_MATCH": "Пароли не соответствуют",
-	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Неожиданная ошибка при создании пользователя, попробуйте еще раз"
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Неожиданная ошибка при создании пользователя, попробуйте еще раз",
+	"ERROR_USER_DOESNT_EXIST": "Этого адреса электронной почты не существует",
+	"ERROR_RESET_PASSWORD_LINK":"При создании ссылки для сброса произошла ошибка. Повторите попытку.",
+	"ERROR_AUTHENTICATION": "Ошибка аутентификации.",
+	"ERROR_EXPIRED_TOKEN": "Срок действия токена истек или он неверный",
+	"ERROR_USER_TOKEN_DOESNT_EXIST": "Пользователь с этим токеном не существует",
+	"ERROR_COULD_NOT_CHANGE_PASSWORD": "Не удалось изменить пароль",
+	"SUCCESS_PASSWORD_CHANGE": "Пароль успешно изменен, вы будете перенаправлены ..."
 }

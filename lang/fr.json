@@ -209,6 +209,7 @@
 	"DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME": "Montant",
 	"SUCCESS_LOGIN": "Connectez-vous...",
 	"SUCCESS_SIGNUP": "Inscription terminée, connexion ...",
+	"SUCCESS_FORGOTTEN_PASSWORD": "Les instructions ont été envoyées à votre adresse e-mail.",
 	"ERROR_USER_DOES_NOT_EXIST": "Cet utilisateur n'existe pas",
 	"ERROR_INVALID_PASSWORD": "Mot de passe incorrect",
 	"ERROR_USER_IS_BANNED": "Cet utilisateur a été banni, contactez l'assistance",
@@ -217,5 +218,12 @@
 	"ERROR_PASSWORD_NOT_PROPERLY_FORMATTED": "Le mot de passe n'est pas correctement formaté",
 	"ERROR_MISSING_INPUT": "Tous les champs de saisie doivent être remplis!",
 	"ERROR_PASSWORD_NOT_MATCH": "Les mots de passe ne correspondent pas",
-	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Erreur inattendue lors de la création de l'utilisateur, réessayez"
+	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Erreur inattendue lors de la création de l'utilisateur, réessayez",
+	"ERROR_USER_DOESNT_EXIST": "Cet e-mail n'existe pas",
+	"ERROR_RESET_PASSWORD_LINK":"Une erreur s'est produite lors de la création de votre lien de réinitialisation, veuillez réessayer",
+	"ERROR_AUTHENTICATION": "Erreur d'authentification.",
+	"ERROR_EXPIRED_TOKEN": "Le jeton a expiré ou est incorrect",
+	"ERROR_USER_TOKEN_DOESNT_EXIST": "L'utilisateur avec ce jeton n'existe pas",
+	"ERROR_COULD_NOT_CHANGE_PASSWORD": "Impossible de changer le mot de passe",
+	"SUCCESS_PASSWORD_CHANGE": "Le mot de passe a bien été changé, vous serez redirigé ..."
 }

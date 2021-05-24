@@ -67,12 +67,12 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='
                     form(action=`/${urlPath}/auth/forgottenPassword` method='post')
                         .uk-margin-bottom
                             .uk-inline
-                                input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailForgottenPassword' placeholder=`${__('EMAIL')}` required)
+                                input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailForgottenPassword' placeholder=`${__('EMAIL')}` id='index-forgot-pw-email' required)
                         .uk-margin-bottom
                             #forgot-error
                         .uk-margin-bottom
                             .uk-inline
-                                button.uk-button.uk-button-default.uk-button-small(type='submit') #{__("MODAL_FORGOT_PASSWORD_SEND")}
+                                button.uk-button.uk-button-default.uk-button-small(type='submit' id='forgot-password-btn') #{__("MODAL_FORGOT_PASSWORD_SEND")}
             .uk-text-center.uk-width-1-2.uk-margin-auto
                 h3.uk-card-title #{__("MODAL_FORGOT_PASSWORD_TITLE")}
                 p.uk-text-small #{__("MODAL_FORGOT_PASSWORD_DESC")}
