@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vi lager et nytt schema
+//Schema til pending quote
 const pendingQuoteSchema = new mongoose.Schema({
     userId: {
         type: String

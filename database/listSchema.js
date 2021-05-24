@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vi lager et nytt schema
+//Schema til liste
 const listSchema = new mongoose.Schema({
     userId: {
         type: String,

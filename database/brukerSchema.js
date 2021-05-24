@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vi lager et nytt schema
+//Schema til bruker
 const brukerSchema = new mongoose.Schema({
   email: {
     type: String,

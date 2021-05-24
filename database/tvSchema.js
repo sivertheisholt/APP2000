@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vi lager et nytt schema
+//Schema til serie
 const tvSchema = new mongoose.Schema({
     backdrop_path: {
         type: String,
@@ -71,6 +71,10 @@ const tvSchema = new mongoose.Schema({
     vote_count: {
         type: Number,
     },
+    language: {
+        type: String,
+        default: 'en'
+    }
 });
 
 module.exports = mongoose.model('tv', tvSchema); //ES6 Module

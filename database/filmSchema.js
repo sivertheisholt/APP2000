@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vi lager et nytt schema
+//Schema til film
 const filmSchema = new mongoose.Schema({
     adult: {
         type: Boolean,

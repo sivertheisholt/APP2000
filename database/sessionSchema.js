@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vi lager et nytt schema
+//Schema til session
 const sessionSchema = new mongoose.Schema({
   _id: {
     type: String,

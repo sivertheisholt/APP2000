@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vi lager et nytt schema
+//Schema til pending ticket
 const pendingTicketSchema = new mongoose.Schema({
     mail: {
         type: String
