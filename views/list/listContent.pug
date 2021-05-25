@@ -19,12 +19,12 @@ body
             each item in medias
                 .uk-position-relative.uk-margin-bottom(id=item.id)
                     .uk-card.uk-card-default.upcoming-card-padding
-                        a(href=`/${urlPath}/${item.type == 'tv' ? 'mediainfo/serieinfo' : 'mediainfo/filminfo'}/${item.id}`)
+                        a(href=`/${urlPath}/${item.type == 'tv' ? 'mediainfo/serieinfo' : 'mediainfo/filminfo'}/${item.id}` class='anchor-remove-text-decoration')
                             .uk-card-media-top
                                 img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
-                            .uk-card-body
+                            .uk-card-body.uk-text-center
                                 h3.uk-card-title= `${item.title}`
-                                p.uk-text-meta= `${item.releaseDate}`
+                                p.uk-text-meta.uk-position-bottom.uk-margin-bottom= `${item.releaseDate}`
                         if isListAuthor
                             a.uk-position-bottom(href='#' uk-close='' onclick=`removeFromList("${item.id}", "${item.type}", "${item.listid}", event);` class='uk-margin-bottom uk-margin-left')
 

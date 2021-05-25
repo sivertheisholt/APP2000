@@ -22,10 +22,10 @@ p #{__("DASHBOARD_WATCHLIST_DESC")}
                             a(href=`/${urlPath}/mediainfo/${item.type == 'tv' ? 'serieinfo' : 'filminfo'}/${item.id}` class='uk-margin-bottom')
                                 .uk-card-media-top
                                     img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
-                                .uk-card-body
+                                .uk-card-body.uk-text-center
                                     h3.uk-card-title= item.title
-                                    p.uk-text-meta= item.releaseDate
-                            a.uk-position-bottom(href='#' uk-close='' onclick=`removeMediaWatched(${item.id}, "${item.type}");` class='uk-margin-bottom uk-margin-left')
+                                    p.uk-text-meta.uk-position-bottom.uk-margin-bottom= item.releaseDate
+                            a.uk-position-bottom(href='#' uk-close='' onclick=`removeMediaWatched(${item.id}, "${item.type}", event);` class='uk-margin-bottom uk-margin-left')
         li
             .uk-grid.uk-child-width-1-3.uk-grid-match
                 each item in movieWatched
@@ -37,7 +37,7 @@ p #{__("DASHBOARD_WATCHLIST_DESC")}
                                 .uk-card-body
                                     h3.uk-card-title= item.title
                                     p.uk-text-meta= item.releaseDate
-                            a.uk-position-bottom(href='#' uk-close='' onclick=`removeMediaWatched(${item.id}, "${item.type}");` class='uk-margin-bottom uk-margin-left')
+                            a.uk-position-bottom(href='#' uk-close='' onclick=`removeMediaWatched(${item.id}, "${item.type}", event);` class='uk-margin-bottom uk-margin-left')
         li 
             .uk-grid.uk-child-width-1-3.uk-grid-match
                 each item in tvWatched
@@ -49,4 +49,4 @@ p #{__("DASHBOARD_WATCHLIST_DESC")}
                                 .uk-card-body
                                     h3.uk-card-title= item.title
                                     p.uk-text-meta= item.releaseDate
-                            a.uk-position-bottom(href='#' uk-close='' onclick=`removeMediaWatched(${item.id}, "${item.type}");` class='uk-margin-bottom uk-margin-left')
+                            a.uk-position-bottom(href='#' uk-close='' onclick=`removeMediaWatched(${item.id}, "${item.type}", event);` class='uk-margin-bottom uk-margin-left')

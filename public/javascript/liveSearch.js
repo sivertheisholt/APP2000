@@ -47,7 +47,7 @@ socket.on('resultatMedia', (resultMedia) => {
         
     }
     for(const media of resultMedia) {
-        document.getElementById('searchDiv').innerHTML += `<a href= "/${urlPath}/mediainfo/${media.type == 'tv' ? 'serieinfo' : 'filminfo'}/${media.id}">
+        document.getElementById('searchDiv').innerHTML += `<a href= "/${urlPath}/mediainfo/${media.type == 'tv' ? 'serieinfo' : 'filminfo'}/${media.id}" class='anchor-remove-text-decoration'>
                                                                 <div class="uk-card uk-card-default uk-grid uk-grid-collapse uk-width-1-1@s search-result">
                                                                     <div class="uk-card-media-left uk-cover-container uk-width-auto">
                                                                         <img class="search-image-style center" src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${media.poster_path}" onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt="">
