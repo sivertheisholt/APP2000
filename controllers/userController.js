@@ -32,6 +32,7 @@ exports.user_get_dashboard = async function(req, res) {
     let tvWatched = [];
     let movieWatched = [];
     let lists = [];
+    let posters = [];
     let userStats = await userCharts.userStatistics(req.renderObject.user, req.renderObject.urlPath);
     
     //Oversettelse watched ratio
@@ -60,8 +61,18 @@ exports.user_get_dashboard = async function(req, res) {
 
     //Skaffer lister
     for(const item of req.renderObject.user.lists) {
-        const result = await listGetter.getListFromId(item);
+        let result = await listGetter.getListFromId(item);
         if(!result.status) break;
+        for(const movie of item.movies) {
+            let resultMovie = await movieHandler.getMovieById(movie, 'en');
+            if(!resultMovie.status) break;
+            posters.push(resultMovie.information.poster_path);
+        }
+        for(const tv of item.tvs) {
+            let resultTv = await tvHandler.getShowById(tv, 'en');
+            if(!resultTv.status) break;
+            posters.push(resultTv.information.poster_path);
+        }
         lists.push(result.information);
     }
 
@@ -126,6 +137,7 @@ exports.user_get_dashboard = async function(req, res) {
     req.renderObject.lists = lists;
     req.renderObject.userId = JSON.stringify(req.session.userId);
     req.renderObject.userStats = JSON.stringify(userStats.information);
+    req.renderObject.posters = posters;
     res.render("user/dashboard", req.renderObject);
 }
 

@@ -4,6 +4,12 @@ const charts = require('../handling/chartMaker');
 const hjelpemetoder = require('../handling/hjelpeMetoder');
 const recMediaHandler = require('../handling/recommendMediaHandler');
 
+/**
+ * GET for hjemmesiden
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Sivert - 233518, Ørjan - 233530
+ */
 exports.homepage = async function(req, res) {
     let tmdbInformasjon = tmdb.data.returnerTmdbInformasjon();
     let recommendedMovies = await recMediaHandler.recommendMovie(req.renderObject.user,req.renderObject.urlPath);
