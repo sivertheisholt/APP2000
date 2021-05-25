@@ -15,7 +15,7 @@ body
         if isListAuthor
             .uk-margin-top.uk-padding-remove.uk-grid.uk-text-center.uk-align-center.uk-flex.uk-flex-center
                 button.uk-button.uk-button-default(id='deleteListBtn' data-listid=`${listId}`) #{__("BUTTON_DELETE_LIST")}
-        .uk-grid.uk-margin-remove.uk-padding-remove.uk-grid-match(class='uk-child-width-1-4@s' uk-grid uk-scrollspy="cls: uk-animation-slide-bottom; target: .uk-card; delay: 300; repeat: true")
+        .uk-grid.uk-margin-remove.uk-padding-remove.uk-grid-match(class='uk-child-width-1-4@s' uk-grid uk-scrollspy="cls: uk-animation-slide-bottom; target: .uk-card; delay: 300; repeat: false")
             each item in medias
                 .uk-position-relative.uk-margin-bottom(id=item.id)
                     .uk-card.uk-card-default.upcoming-card-padding
