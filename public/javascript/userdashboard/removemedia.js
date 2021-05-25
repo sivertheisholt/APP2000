@@ -6,17 +6,18 @@
  * @returns Ingenting
  * @author Ørjan Dybevik - 233530
  */
-function removeMediaFav(favId, type){
+function removeMediaFav(favId, type, e){
+    e.preventDefault();
     switch(type){
         case 'movie':
             socket.emit('unFavoriteMovie', favId.toString());
-            document.getElementById(favId+'mov').innerHTML = "";
-            document.getElementById(favId+'all').innerHTML = "";
+            document.getElementById(favId+'mov').remove();
+            document.getElementById(favId+'all').remove();
             break;
         case 'tv':
             socket.emit('delFavoriteTv', favId.toString());
-            document.getElementById(favId+'tv').innerHTML = "";
-            document.getElementById(favId+'all').innerHTML = "";
+            document.getElementById(favId+'tv').remove();
+            document.getElementById(favId+'all').remove();
             break;
         default:
             return;
@@ -30,17 +31,18 @@ function removeMediaFav(favId, type){
  * @returns Ingenting
  * @author Ørjan Dybevik - 233530
  */
-function removeMediaWatched(watchId, type){
+function removeMediaWatched(watchId, type, e){
+    e.preventDefault();
     switch(type){
         case 'movie':
             socket.emit('removeWatchedMovie', watchId.toString());
-            document.getElementById(watchId+'mov').innerHTML = "";
-            document.getElementById(watchId+'all').innerHTML = "";
+            document.getElementById(watchId+'mov').remove();
+            document.getElementById(watchId+'all').remove();
             break;
         case 'tv':
             socket.emit('removeWatchedTv', watchId.toString());
-            document.getElementById(watchId+'tv').innerHTML = "";
-            document.getElementById(watchId+'all').innerHTML = "";
+            document.getElementById(watchId+'tv').remove();
+            document.getElementById(watchId+'all').remove();
             break;
         default:
             return;

@@ -9,15 +9,16 @@ let deleteListBtn = document.getElementById('deleteListBtn');
  */
 
 if(isListAuthor){
-    function removeFromList(id, type, listid){
+    function removeFromList(id, type, listid, e){
+        e.preventDefault();
         switch(type){
             case 'movie':
                 socket.emit('removeMovieFromList', {movieid: id, listid: listid});
-                document.getElementById(id).innerHTML = "";
+                document.getElementById(id).remove();
                 break;
             case 'tv':
                 socket.emit('removeTvFromList', {tvid: id, listid: listid});
-                document.getElementById(id).innerHTML = "";
+                document.getElementById(id).remove();
                 break;
             default:
                 return;
