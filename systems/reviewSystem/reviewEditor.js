@@ -9,7 +9,7 @@ const mailer = require('../../handling/mailer')
 
 /**
  * Klasse for  å klone review
- * @author Sivert - 233518
+ * @author Sivert - 233518, Sigve E. Eliassen - 233511.
  */
 class CloneReview {
     constructor(userId, movieId, tvId, text, stars, date) {

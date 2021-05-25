@@ -74,6 +74,7 @@ var methods = {
      * Skaffer discover movies fra genras
      * @param {Array} genreList Et array av sjangre lister
      * @returns JSON 
+     * @author Sigve E. Eliassen - 233511.
      */
     getDiscoverMoviesWithGenres: async function(genreList) {
         let string = "";
@@ -104,7 +105,8 @@ var methods = {
      * Skaffer film informasjon fra tittel
      * @param {String} movieTitle 
      * @param {String} languageCode Språkkode
-     * @returns JSON med 
+     * @returns JSON med filmer
+     * @author Sigve E. Eliassen - 233511.
      */
     getMovieInfo: function (movieTitle, languageCode) {
         return tmdb.getMovieResults(movieTitle, languageCode);
@@ -123,6 +125,7 @@ var methods = {
      * @param {Number} movieID 
      * @param {String} languageCode Språkkode
      * @returns Object
+     * @author Sigve E. Eliassen - 233511.
      */
     getMovieVideosByID: function (movieID, languageCode) {
         return tmdb.getMovieVideosByID(movieID, languageCode);
@@ -132,6 +135,7 @@ var methods = {
      * @param {Number} movieID 
      * @param {String} languageCode Språkkode
      * @returns Object
+     * @author Sigve E. Eliassen - 233511.
      */
     getMovieCastByID: function (movieID, languageCode) {
         return tmdb.getMovieCastByID(movieID, languageCode);
@@ -159,6 +163,7 @@ var methods = {
      * @param {Number} serieID 
      * @param {String} languageCode Språkkode
      * @returns Object
+     * @author Sigve E. Eliassen - 233511.
      */
     getSerieCastByID: function (serieID,languageCode) {
         return tmdb.getSerieCastByID(serieID, languageCode);
@@ -167,6 +172,7 @@ var methods = {
      * Søker etter serie fra tittel
      * @param {String} tvTitle 
      * @returns Object
+     * @author Sigve E. Eliassen - 233511.
      */
     getSerieInfo: function (tvTitle, languageCode) {
         return tmdb.getSerieResults(tvTitle, languageCode);
@@ -175,14 +181,16 @@ var methods = {
      * Skaffer info fra ID
      * @param {Number} serieID 
      * @returns Object
+     * @author Sigve E. Eliassen - 233511.
      */
     getSerieInfoByID: function (serieID, languageCode) {
         return tmdb.getSerieInfoByID(serieID, languageCode);
     },
     /**
-     * Skaffer serie videor fra ID
+     * Skaffer serie videoer fra ID
      * @param {Number} serieID 
      * @returns Object
+     * @author Sigve E. Eliassen - 233511.
      */
     getSerieVideosByID: function (serieID, languageCode) {
         return tmdb.getSerieVideosByID(serieID, languageCode);
@@ -190,6 +198,7 @@ var methods = {
     /**
      * Skaffer trending serier
      * @returns Object
+     * @author Sigve E. Eliassen - 233511.
      */
     getTrendingTv: function() {
         return tmdb.getTrendingTv();
@@ -205,6 +214,7 @@ var methods = {
      * Skaffer person fra ID
      * @param {Number} personID 
      * @returns Object 
+     * @author Sigve E. Eliassen - 233511.
      */
     getPersonByID: function (personID, languageCode) {
         return tmdb.getPersonByID(personID, languageCode);
@@ -213,6 +223,7 @@ var methods = {
      * Skaffer person linker fra ID
      * @param {Number} personID 
      * @returns Object
+     * @author Sigve E. Eliassen - 233511.
      */
     getPersonLinksByID: function (personID, languageCode) {
         return tmdb.getPersonLinksByID(personID, languageCode);
@@ -221,6 +232,7 @@ var methods = {
      * Skaffer person kombinert credit fra ID
      * @param {Number} personID 
      * @returns Object
+     * @author Sigve E. Eliassen - 233511.
      */
     getPersonCombinedCreditsByID: function (personID, languageCode) {
         return tmdb.getPersonCombinedCreditsByID(personID, languageCode);

@@ -6,7 +6,7 @@ let movieQuoteResult = document.getElementById('filminfo-quote-result');
 
 /**
  * EventListener for å legge quote til i film
- * @author Ørjan Dybevik - 233530
+ * @author Ørjan Dybevik - 233530 Sigve E. Eliassen - 233511.
  */
 movieQuoteBtn.addEventListener("click", function(){
     movieQuote = movieQuote.value;
@@ -15,7 +15,7 @@ movieQuoteBtn.addEventListener("click", function(){
 
 /**
  * Viser svar fra socket om quote er lagt til eller ikke
- * @author Ørjan Dybevik - 233530
+ * @author Ørjan Dybevik - 233530, Sigve E. Eliassen - 233511.
  */
 socket.on('quoteResult', function(result){
     movieQuoteForm.style.display = 'none';

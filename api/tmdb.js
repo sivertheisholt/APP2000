@@ -48,6 +48,7 @@ Tmdb.prototype.getSerieResults = function getSerieResults(tvTitle, languageCode)
  * @param {Number} movieID ID på filmen 
  * @param {String} languageCode språkkoden
  * @returns JSON med film info
+ * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
 Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID, languageCode) {
     var url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.token}&language=${languageCode}`;
@@ -61,6 +62,7 @@ Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID, languageCod
  * @param {Number} movieID ID på filmen
  * @param {String} languageCode språkkoden
  * @returns JSON med videor
+ * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
 Tmdb.prototype.getMovieVideosByID = function getMovieVideosByID(movieID, languageCode) {
     var url = `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${this.token}&language=${languageCode}`;
@@ -74,6 +76,7 @@ Tmdb.prototype.getMovieVideosByID = function getMovieVideosByID(movieID, languag
  * @param {Number} movieID ID på filmen 
  * @param {String} languageCode Språkkoden
  * @returns JSON med skuespillere
+ * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
 Tmdb.prototype.getMovieCastByID = function getCastMovieInfoByID(movieID, languageCode) {
     var url = `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.token}&language=${languageCode}`;
@@ -87,6 +90,7 @@ Tmdb.prototype.getMovieCastByID = function getCastMovieInfoByID(movieID, languag
  * @param {*} serieID ID på serien
  * @param {*} languageCode Språkkoden
  * @returns JSON med skuespillere
+ * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
 Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID, languageCode) {
     var url = `https://api.themoviedb.org/3/tv/${serieID}/credits?api_key=${this.token}&language=${languageCode}`;
@@ -100,6 +104,7 @@ Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID, languag
  * @param {Number} personID ID på personen 
  * @param {String} languageCode Språkkode
  * @returns JSON med person info
+ * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
 Tmdb.prototype.getPersonByID = function getPersonByID(personID, languageCode) {
     var url = `https://api.themoviedb.org/3/person/${personID}?api_key=${this.token}&language=${languageCode}`;
@@ -113,6 +118,7 @@ Tmdb.prototype.getPersonByID = function getPersonByID(personID, languageCode) {
  * @param {Number} personID ID på personen 
  * @param {String} languageCode Språkkode
  * @returns JSON med person linker
+ * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
 Tmdb.prototype.getPersonLinksByID = function getPersonLinksByID(personID, languageCode) {
     var url = `https://api.themoviedb.org/3/person/${personID}/external_ids?api_key=${this.token}&language=${languageCode}`;
@@ -126,6 +132,7 @@ Tmdb.prototype.getPersonLinksByID = function getPersonLinksByID(personID, langua
  * @param {Number} personID ID på personen 
  * @param {String} languageCode Språkkode
  * @returns JSON med person "credits"
+ * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
 Tmdb.prototype.getPersonCombinedCreditsByID = function getPersonCombinedCreditsByID(personID, languageCode) {
     var url = `https://api.themoviedb.org/3/person/${personID}/combined_credits?api_key=${this.token}&language=${languageCode}`;
@@ -139,6 +146,7 @@ Tmdb.prototype.getPersonCombinedCreditsByID = function getPersonCombinedCreditsB
  * @param {Number} serieID ID på serien 
  * @param {String} languageCode Språkkoden
  * @returns JSON med serie info
+ * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
 Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID, languageCode) {
     var url = `https://api.themoviedb.org/3/tv/${serieID}?api_key=${this.token}&language=${languageCode}`;
@@ -148,10 +156,11 @@ Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID, languageCod
     })
 }
 /**
- * Skaffer serie videor fra serie ID
+ * Skaffer serie videoer fra serie ID
  * @param {Number} serieID ID på serien 
  * @param {String} languageCode Språkkode
  * @returns JSON med serie videor
+ * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
 Tmdb.prototype.getSerieVideosByID = function getSerieVideosByID(serieID, languageCode) {
     var url = `https://api.themoviedb.org/3/tv/${serieID}/videos?api_key=${this.token}&language=${languageCode}`;

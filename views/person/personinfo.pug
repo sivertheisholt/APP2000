@@ -2,25 +2,31 @@
 - var username = session;
 - var person = person;
 - var credits = credits;
-
 - var gender = 'Other';
 - var status = 'Alive';
 - var popularity = '';
 
-
+//- Finner ut om personen er en mann eller kvinne, eller noe annet ('Other')
+    Author: Sigve E. Eliassen - 233511
 - if (person.personinfo.gender == 2)
     - gender = 'Male';
 - else if (person.personinfo.gender == 1)
     - gender = 'Female'; 
+//- Finner ut som personen er død, om død så legger den til datoen.
+    Author: Sigve E. Eliassen - 233511
 - if (person.personinfo.deathday != null)
     - status = 'Died ' + person.personinfo.deathday;
+
+//- Finner populariteten og avrunder den, og legger til % på slutten.
+    Author: Sigve E. Eliassen - 233511
 - popularity = Math.round(person.personinfo.popularity) + '%'
 
 include ../includes/head.pug
 include ../includes/nav.pug
 
 
-
+//- Pug/Html for person informasjon siden. Her kan en se det meste av viktig informasjon om personen i tillegg til filmer eller serier personen har vært med på å skape.
+    Author: Sigve E. Eliassen - 233511
 body
     div#searchDiv
     .overlayA(style=`background-image: url(/images/backgrounds/greybackground.jpg)`)
@@ -121,6 +127,5 @@ body
                                             p #{__("ACTOR_SCORE")}:
                                             p=`${item.vote_average*10}%`
                                         p=`${item.overview}`
-
-                                    
+    // Inkluderer footeren på bunn av siden.               
     include ../includes/footer.pug

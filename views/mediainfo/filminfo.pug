@@ -13,30 +13,38 @@
 - var hasPendingReview = hasPendingReview;
 - var hasAnyReview = hasAnyReview;
 
-
 script.
     let isMovFav = !{isMovFav};
     let isMovWatched = !{isMovWatched};
     let userID = !{userId};
     let movieId = !{movieId};
+
+//- Finner de første to sjangerne og setter dem inn i variabel (String).
+    Author: Sigve E. Eliassen - 233511
 each item in film.filminfo.genres
   - genres += item.name + " ";
   - if(counter == 1)
    - break;
   - counter++;
 
+//- Finner personen som har roller "Director" og deller personen i variabel.
+    Author: Sigve E. Eliassen - 233511
 each item in film.castinfo.crew
   - if(item.job == 'Director')
     - director = item.name;
     - directorId = item.id;
     - break;
 
+//- Finner personen som har roller "Screenplay" og deller personen i variabel.
+    Author: Sigve E. Eliassen - 233511
 each item in film.castinfo.crew
   - if(item.job == 'Screenplay')
     - screenplay = item.name;
     - screenplayId = item.id;
     - break;
 
+//- Finner bildene til alle skuespillerne og setter dem i liste, hvis ikke bilde er tilgjengelig kommer det standardbilde.
+    Author: Sigve E. Eliassen - 233511
 each item in film.castinfo.cast 
   - if (item.known_for_department == 'Acting')
     - var info = {id:item.id, navn:item.name, character:item.character, picture:'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' + item.profile_path, imdbID:""}
@@ -44,11 +52,15 @@ each item in film.castinfo.cast
         - info.picture = '/images/imgactors/altpicture.png'
     - actors.push(info);
 
+//- Finner alle youtube videotrailere og setter dem i liste "videoTrailers"
+    Author: Sigve E. Eliassen - 233511
 each item in film.videos.results
   - if(item.type == "Trailer" && item.site == "YouTube")
     - videoTrailers.push(item.key);
     - break;
 
+//- Skaffer IMDB ID til tilhørende person.
+    Author: Sigve E. Eliassen - 233511
 each actor in actors
   each person in film.listOfPersons 
     - if(actor.id == person.id)
@@ -56,7 +68,8 @@ each actor in actors
 include ../includes/head.pug
 include ../includes/nav.pug
 meta(property='og:image' content=`http://themoviedb.org/t/p/w600_and_h900_bestv2/${film.filminfo.poster_path}`)
-
+//- Pug/Html for film informasjon siden. Her kan en se det meste av viktig informasjon om film i tillegg til brukeranmeldelser.
+    Author: Sigve E. Eliassen - 233511, Ørjan Dybevik - 233530
 body
   div#searchDiv
   .overlay(style=`background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/${film.filminfo.poster_path})`)
@@ -96,7 +109,6 @@ body
                       p(id='listAddedResult')
                       button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') Cancel
                       button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') Save
-
               h3= `${film.filminfo.release_date} ${genres}`
               .close
                 h3(style='float: center;')=`${film.filminfo.runtime}` 
@@ -124,8 +136,7 @@ body
                       b= `${screenplay}`
                 .fb-share-button.uk-align-center(data-href=`https://filmatoryeksamen.herokuapp.com/en/mediainfo/filminfo/${film.filminfo.id}` data-layout='box_count' data-size='small')
                   a.fb-xfbml-parse-ignore.uk-text-center(target='_blank' href=`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffilmatoryeksamen.herokuapp.com%2Fen%2Fmediainfo%2Ffilminfo%2F${film.filminfo.id}`) #{__("MEDIAINFO_SHARE_BTN")}
-                
-      // Slider
+      // Slider med skuespillere
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')
           .uk-slider-container-offset(uk-slider='')
@@ -142,9 +153,8 @@ body
               a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slider-item='previous')
               a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slider-item='next')
             ul.uk-slider-nav.uk-dotnav.uk-flex-center.uk-margin
-          // Reviews og Media
+          // Reviews og Trailere
           div
-            
           ul(uk-tab='')
             li
               a(href='#') #{__("MOVIEINFO_TAB_REVIEWS")}
@@ -209,6 +219,7 @@ body
                     p=`${item.text}`
             li
               iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+    // Inkluderer footeren på bunn av siden.
     include ../includes/footer.pug
     script(src="/javascript/mediainfo/addmovie.js")
     script(src="/javascript/mediainfo/makeMovieReview.js")

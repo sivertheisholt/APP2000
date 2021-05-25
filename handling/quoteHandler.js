@@ -6,6 +6,7 @@ const ValidationHandler = require("./ValidationHandler");
  * Legger til quote i database
  * @param {Object} quote 
  * @returns ValidationHandler
+ * @author Sigve E. Eliassen - 233511.
  */
 function addToDatabase(quote) {
     logger.log({level: 'debug', message: `Adding quote to database from id: ${quote.id}...`});
@@ -17,6 +18,7 @@ function addToDatabase(quote) {
  * @param {Object} doc 
  * @param {Object} err 
  * @returns ValidationHandler
+ * @author Sigve E. Eliassen - 233511.
  */
 function returnHandler(doc, err) {
     if(err) {

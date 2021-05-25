@@ -10,7 +10,7 @@ const ApprovedQuote = require('../../database/pendingQuoteSchema');
  * @param {Object} quoteObj Quote objekt
  * @param {String} mediaType Type movie/tv
  * @returns ValidationHandler
- * @author Ørjan Dybevik 233530
+ * @author Ørjan Dybevik 233530, Sigve E. Eliassen - 233511
  */
 async function addQuote(quoteObj, mediaType){
     logger.log({level: 'debug', message: `Adding quote from user ${quoteObj.id} to ${quoteObj.mediaId}`}); 
@@ -32,7 +32,7 @@ async function addQuote(quoteObj, mediaType){
  * @param {Object} quote Quote objekt
  * @param {String} mediaType Type movie/tv
  * @returns ValidationHandler
- * @author Ørjan Dybevik 233530
+ * @author Ørjan Dybevik 233530, Sigve E. Eliassen - 233511
  */
 async function updateDatabase(quote, mediaType){
     switch(mediaType) {
@@ -48,7 +48,7 @@ async function updateDatabase(quote, mediaType){
  * @param {Number} mediaId MediaID
  * @param {String} mediaType MediaType movie/tv
  * @returns ValidationHandler
- * @author Ørjan Dybevik 233530
+ * @author Ørjan Dybevik 233530, Sigve E. Eliassen - 233511
  */
 async function getQuotesFromMediaIdApproved(mediaId, mediaType){
     switch(mediaType) {
@@ -64,7 +64,7 @@ async function getQuotesFromMediaIdApproved(mediaId, mediaType){
  * @param {Number} mediaId MediaID
  * @param {String} mediaType MediaType movie/tv
  * @returns ValidationHandler
- * @author Ørjan Dybevik 233530
+ * @author Ørjan Dybevik 233530, Sigve E. Eliassen - 233511
  */
 async function getQuotesFromMediaIdPending(mediaId, mediaType){
     switch(mediaType) {

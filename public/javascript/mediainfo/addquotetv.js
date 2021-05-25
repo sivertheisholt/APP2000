@@ -6,7 +6,7 @@ let tvQuoteResult = document.getElementById('serieinfo-quote-result');
 
 /**
  * EventListener for å legge quote til i serie
- * @author Ørjan Dybevik - 233530
+ * @author Ørjan Dybevik - 233530, Sigve E. Eliassen - 233511.
  */
 tvQuoteBtn.addEventListener("click", function(){
     tvQuote = tvQuote.value;
@@ -15,7 +15,7 @@ tvQuoteBtn.addEventListener("click", function(){
 
 /**
  * Viser svar fra socket om quote er lagt til eller ikke
- * @author Ørjan Dybevik - 233530
+ * @author Ørjan Dybevik - 233530, Sigve E. Eliassen - 233511.
  */
 socket.on('quoteResult', function(result){
     tvQuoteForm.style.display = 'none';

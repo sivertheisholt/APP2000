@@ -63,7 +63,6 @@ exports.film_get_info = async function(req, res) {
         hasAnyReview = checkIfAnyReview(isReviewed, hasPendingReview);
     }
 
-
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.film = film;
     if (req.renderObject.user != undefined){
@@ -84,7 +83,7 @@ exports.film_get_info = async function(req, res) {
  * Get for kommende filmer, henter filminformasjon og sender det videre til siden
  * @param {Object} req Forespørsel fra klient
  * @param {Object} res Respons fra server
- * @author Ørjan Dybevik - 233530
+ * @author Ørjan Dybevik - 233530.
  */
 exports.film_get_upcoming = async function(req, res) {
     let url = 'mediainfo/filminfo';
@@ -108,7 +107,7 @@ exports.film_get_upcoming = async function(req, res) {
  * Get for alle filmer, henter filminformasjon og sender det videre til siden
  * @param {Object} req Forespørsel fra klient
  * @param {Object} res Respons fra server
- * @author Ørjan Dybevik - 233530
+ * @author Ørjan Dybevik - 233530.
  */
 exports.film_get_list = async function(req, res) {
     let url = 'mediainfo/filminfo';
@@ -129,6 +128,13 @@ exports.film_get_list = async function(req, res) {
     res.render("mediainfo/movies", req.renderObject);
 }
 
+/**
+ * Metode for å skaffe alle personer som har jobbet på mediet i et Objekt ved å hente personen fra API med personID.
+ * @param {Object} cast Personer personer som har jobbet på mediet.
+ * @param {String} languageCode Språket brukeren har valgt på siden.
+ * @returns {Array} Array med personer
+ * @author Sigve E. Eliassen - 233511.
+ */
 function getPersons(cast, languageCode) {
     let personArray = [];
     for(const item of cast){
@@ -137,6 +143,13 @@ function getPersons(cast, languageCode) {
     return personArray;
 }
 
+/**
+ * Metode for å sjekke om personen som er logget inn har en godkjent anmeldelse av mediet.
+ * @param {Number} thisUserId 
+ * @param {Object} thisReviews 
+ * @returns {Boolean} True eller False, avhengig på om det er en godkjent anmeldelse eller ikke.
+ * @author Sigve E. Eliassen - 233511.
+ */
 function checkIfReviewed(thisUserId, thisReviews) {
     for (const item of thisReviews) {
         if(item.userId == thisUserId) {
@@ -146,6 +159,13 @@ function checkIfReviewed(thisUserId, thisReviews) {
     return false;
 }
 
+/**
+ * Metode for å sjekke om personen som er logget inn har en ubehandlet anmeldelse av mediet.
+ * @param {Number} thisUserId 
+ * @param {Object} thisReviews 
+ * @returns {Boolean} True eller False, avhengig på om det er en ubehandlet anmeldelse eller ikke. 
+ * @author Sigve E. Eliassen - 233511.
+ */
 function checkIfPendingReview(thisUserId, thisReviews) {
     for (const item of thisReviews) {
         if(item.userId == thisUserId) {
@@ -155,13 +175,26 @@ function checkIfPendingReview(thisUserId, thisReviews) {
     return false;
 }
 
+/**
+ * Sjekker om bruker har en ubehandlet, eller godkjent anmeldelse av mediet.
+ * @param {Object} reviews1 
+ * @param {Object} reviews2 
+ * @returns {Boolean} True = har review, False = har ikke review.
+ * @author Sigve E. Eliassen - 233511.
+ */
 function checkIfAnyReview(reviews1, reviews2) {
     if (reviews1 == true || reviews2 == true) {
         return true;
     }
     else return false;
 }
-  
+
+/**
+ * Metode for å skaffe brukeren fra ID og legge den til i Objektet.
+ * @param {Object} reviews 
+ * @returns {Array} userArray
+ * @author Sigve E. Eliassen - 233511.
+ */
 function getUsernames(reviews) {
     let userArray = [];
     for(const item of reviews){
@@ -170,6 +203,12 @@ function getUsernames(reviews) {
     return userArray;
 }
 
+/**
+ * Metode for å formatere datoen slik den ser bra ut.
+ * @param {Object} reviews 
+ * @returns {Array} dateArray
+ * @author Sigve E. Eliassen - 233511.
+ */
 function dateFixer(reviews){
     let dateArray = [];
     for(let item of reviews){

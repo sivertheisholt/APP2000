@@ -14,22 +14,31 @@ script.
     let isTvWatched = !{isTvWatched};
     let userID = !{userId};
     let serie_Id = !{tvId};
+
+//- Finner skaperne av serien og setter den inn i liste: "creators".
+    Author: Sigve E. Eliassen - 233511
 each item in serie.serieinfo.created_by 
   - creators.push(item.name);
   - creators.push(item.id);
 
+//- Finner de første to sjangerne og setter dem inn i variabel (String).
+    Author: Sigve E. Eliassen - 233511
 each item in serie.serieinfo.genres
   - genres += item.name + " ";
   - if(counter == 1)
    - break;
   - counter++;
 
+//- Finner personen som har roller "Executive Producer" og deller personen i variabel.
+    Author: Sigve E. Eliassen - 233511
 each item in serie.castinfo.crew
   - if(item.job == 'Executive Producer')
     - execProducer = item.name;
     - execProducerId = item.id;
     - break;
 
+//- Finner bildene til alle skuespillerne og setter dem i liste, hvis ikke bilde er tilgjengelig kommer det standardbilde.
+    Author: Sigve E. Eliassen - 233511
 each item in serie.castinfo.cast 
   - if (item.known_for_department == 'Acting')
     - var info = {id:item.id, navn:item.name, character:item.character, picture:'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' + item.profile_path, imdbID:""}
@@ -37,11 +46,15 @@ each item in serie.castinfo.cast
         - info.picture = '/images/imgactors/altpicture.png'
     - actors.push(info);
 
+//- Skaffer IMDB ID til tilhørende person.
+    Author: Sigve E. Eliassen - 233511
 each actor in actors
   each person in serie.listOfPersons 
     - if(actor.id == person.id)
       - actor.imdbID = person.imdb_id;
 
+//- Finner alle youtube videotrailere og setter dem i liste "videoTrailers"
+    Author: Sigve E. Eliassen - 233511
 each item in serie.videos.results
   - if(item.type == "Trailer" && item.site == "YouTube")
     - videoTrailers.push(item.key);
@@ -51,6 +64,8 @@ include ../includes/head.pug
 include ../includes/nav.pug
 meta(property='og:image' content=`http://themoviedb.org/t/p/w600_and_h900_bestv2/${serie.serieinfo.poster_path}`)
 
+//- Pug/Html for serie/tv informasjon siden. Her kan en se det meste av viktig informasjon om serier i tillegg til brukeranmeldelser.
+    Author: Sigve E. Eliassen - 233511, Ørjan Dybevik - 233530
 body
   div#searchDiv
   .overlay(style=`background-image: url(https://www.themoviedb.org//t/p/w1920_and_h800_multi_faces/${serie.serieinfo.poster_path})`)

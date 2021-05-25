@@ -73,6 +73,13 @@ exports.list_get_content = async function(req, res) {
     res.render("list/listContent", req.renderObject);
 }
 
+/**
+ * Metode for å skaffe URL til plakatene til filmene
+ * @param {Objekt} array Filmer
+ * @param {String} languageCode Språket brukeren har valgt
+ * @returns {Array} Array med URL til plakatene av filmene.
+ * @author Sigve E. Eliassen - 233511
+ */
 async function getMoviePosterUrls(array, languageCode){
     let posters = [];
     for (const movie of array) {
@@ -81,6 +88,14 @@ async function getMoviePosterUrls(array, languageCode){
     }
     return posters;
 }
+
+/**
+ * Metode for å skaffe URL til plakatene til seriene
+ * @param {Objekt} array Filmer
+ * @param {String} languageCode Språket brukeren har valgt
+ * @returns {Array} Array med URL til plakatene av seriene.
+ * @author Sigve E. Eliassen - 233511
+ */
 async function getTvPosterUrls(array, languageCode){
     let posters = [];
     for (const tv of array) {
@@ -90,6 +105,13 @@ async function getTvPosterUrls(array, languageCode){
     return posters;
 }
 
+/**
+ * Metode for å blande sammen alle film og TV posterne i tilfeldig rekkefølge.
+ * @param {Array} array1 film/serie urler
+ * @param {Array} array2 film/serie urler
+ * @returns {Array} movieAndTvPosters Blandede postere.
+ * @author Sigve E. Eliassen - 233511.
+ */
 async function getPosterUrls(array1, array2) {
     let movieAndTvPosters = array1.concat(array2);
     for (let i = movieAndTvPosters.length - 1; i > 0; i--) {
@@ -99,10 +121,22 @@ async function getPosterUrls(array1, array2) {
     return movieAndTvPosters;
 }
 
+/**
+ * Metode for å finne ut hvor mange filmer det er i objektet.
+ * @param {Object} Filmer 
+ * @returns {Number} Hvor mange filmer det er i objektet.
+ * @author Sigve E. Eliassen - 233511.
+ */
 function getNumberOfMovies(variabel) {
     return variabel.movies.length;
 }
 
+/**
+ * Metode for å finne ut hvor mange serier det er i objektet.
+ * @param {Object} Serier 
+ * @returns {Number} Hvor mange serier det er i objektet.
+ * @author Sigve E. Eliassen - 233511.
+ */
 function getNumberOfTvs(variabel) {
     return variabel.tvs.length;
 }
