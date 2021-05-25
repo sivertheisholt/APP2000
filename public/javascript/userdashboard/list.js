@@ -18,8 +18,8 @@ newList.addEventListener("click", function(){
 
 socket.on('newListResult', function(result){
     let media = mediaCard({
-        id: result,
-        title: newListName.value,
+        id: result._id,
+        title: result.name,
     })
     lists.innerHTML += media;
 });

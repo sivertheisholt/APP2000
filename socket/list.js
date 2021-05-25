@@ -1,6 +1,7 @@
 const listCreater = require('../systems/listSystem/listCreater');
 const userHandler = require('../handling/userHandler');
 const listEditor = require('../systems/listSystem/listEditor');
+const listGetter = require('../systems/listSystem/listGetter');
 
 /**
  * Lager en ny liste
@@ -11,7 +12,10 @@ const listEditor = require('../systems/listSystem/listEditor');
 exports.list_new = async function(socket, info) {
     const userResult = await userHandler.getUserFromId(info.userId);
     const result = await listCreater.createList(userResult.information, info.name);
-    socket.emit('newListResult', userResult.information.lists[userResult.information.lists.length-1]);
+    if(!result.status) return result;
+    const list = await listGetter.getListFromId(userResult.information.lists[userResult.information.lists.length-1])
+    if(!list.status) return list;
+    socket.emit('newListResult', list.information);
 }
 
 /**
