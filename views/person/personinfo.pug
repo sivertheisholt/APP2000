@@ -40,7 +40,6 @@ body
                         h4 #{__("ACTOR_POPULARITY")}
                         h1= `${popularity}`
                         h2 #{__("ACTOR_BIOGRAPHY")}
-                        //p= `${person.personinfo.biography}`
                         p= `${person.shortBio}`
                             - if(person.shortBio.length > 500)
                                 a.uk-text-bold(href='#modal-fullbio' uk-toggle='')  Read more..
