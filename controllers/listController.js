@@ -20,7 +20,7 @@ exports.list_get = async function(req, res) {
             listId: info._id,
             numberOfMovies: getNumberOfMovies(info),
             numberOfTvShows: getNumberOfTvs(info),
-            posters: await getPosterUrls(await getMoviePosterUrls(info.movies), await getTvPosterUrls(info.tvs)),
+            posters: await getPosterUrls(await getMoviePosterUrls(info.movies, req.renderObject.urlPath), await getTvPosterUrls(info.tvs)),
             userName: await (await userHandler.getUserFromId(info.userId)).information.username,
             listName: info.name
         })
@@ -42,7 +42,7 @@ exports.list_get_content = async function(req, res) {
     let isListAuthor = new ValidationHandler(false, "");
     //Skaffer filmer
     for(const movie of list.information.movies) {
-        let movieInfo = await movieHandler.getMovieById(movie);
+        let movieInfo = await movieHandler.getMovieById(movie, req.renderObject.urlPath);
         medias.push({
             id: movieInfo.information.id,
             listid: listId,
@@ -54,7 +54,7 @@ exports.list_get_content = async function(req, res) {
     }
     //Skaffer serier
     for(const tv of list.information.tvs) {
-        let tvInfo = await tvHandler.getShowById(tv);
+        let tvInfo = await tvHandler.getShowById(tv, req.renderObject.urlPath);
         medias.push({
             id: tvInfo.information.id,
             listid: listId,
@@ -73,10 +73,10 @@ exports.list_get_content = async function(req, res) {
     res.render("list/listContent", req.renderObject);
 }
 
-async function getMoviePosterUrls(array){
+async function getMoviePosterUrls(array, languageCode){
     let posters = [];
     for (const movie of array) {
-        let movies = await movieHandler.getMovieById(movie);
+        let movies = await movieHandler.getMovieById(movie, languageCode);
         posters.push(movies.information.poster_path);
     }
     return posters;
@@ -84,7 +84,7 @@ async function getMoviePosterUrls(array){
 async function getTvPosterUrls(array){
     let posters = [];
     for (const tv of array) {
-        let tvs = await tvHandler.getShowById(tv);
+        let tvs = await tvHandler.getShowById(tv, req.renderObject.urlPath);
         posters.push(tvs.information.poster_path);
     }
     return posters;

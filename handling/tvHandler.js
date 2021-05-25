@@ -40,9 +40,9 @@ function checkIfSaved(tvId, languageCode) {
  * @returns ValidationHandler
  * @author Govert - 233565
  */
-function getShowById(tvId) {
+function getShowById(tvId, languageCode) {
     logger.log({level:'debug', message: `Getting tv-show from database with id ${tvId}`});
-    return Tv.findOne({id: tvId}).then((doc,err) => returnHandler(doc,err));
+    return Tv.findOne({id: tvId, language: languageCode}).then((doc,err) => returnHandler(doc,err));
 }
 
 /**

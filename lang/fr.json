@@ -237,5 +237,7 @@
 	"ERROR_NO_FILE_FOUND": "Aucun fichier trouvé!",
 	"ERROR_NOT_GET_IMAGE": "Impossible d'obtenir l'image!",
 	"ERROR_SAVING_AVATAR": "Erreur lors de l'enregistrement de l'image sur l'utilisateur",
-	"SUCCESS_AVATAR_UPLOAD": "Avatar modifié avec succès, la page est mise à jour automatiquement ..."
+	"SUCCESS_AVATAR_UPLOAD": "Avatar modifié avec succès, la page est mise à jour automatiquement ...",
+	"DASHBOARD_BACKEND_CHART_WATCHED_GENRE_TITLE": "Genres favoris",
+	"DASHBOARD_BACKEND_CHART_FAVORITED_GENRE_TITLE": "Genres regardés"
 }

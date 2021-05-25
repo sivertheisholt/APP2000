@@ -237,5 +237,8 @@
 	"ERROR_NO_FILE_FOUND": "No file found!",
 	"ERROR_NOT_GET_IMAGE": "Could not get image!",
 	"ERROR_SAVING_AVATAR": "Error when saving image to user",
-	"SUCCESS_AVATAR_UPLOAD": "Successfully changed the avatar, the page is being updated automatically..."
+	"SUCCESS_AVATAR_UPLOAD": "Successfully changed the avatar, the page is being updated automatically...",
+	"DASHBOARD_BACKEND_CHART_WATCHED_GENRE_TITLE": "Favorited genres",
+	"DASHBOARD_BACKEND_CHART_FAVORITED_GENRE_TITLE": "Watched genres",
+	"DASHBOARD_BACKEND_CHART_FAVORITED_YAXIS_TITLE": "Amount"
 }

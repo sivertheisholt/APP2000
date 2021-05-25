@@ -32,16 +32,31 @@ exports.user_get_dashboard = async function(req, res) {
     let tvWatched = [];
     let movieWatched = [];
     let lists = [];
-    let userStats = await userCharts.userStatistics(req.renderObject.user);
+    let userStats = await userCharts.userStatistics(req.renderObject.user, req.renderObject.urlPath);
+    
+    //Oversettelse watched ratio
     userStats.information.charts[0].title.text = req.__('DASHBOARD_BACKEND_CHART_WATCHED_TITLE');
     userStats.information.charts[0].series[0].name = req.__('DASHBOARD_BACKEND_CHART_WATCHED_DATA_NAME');
     userStats.information.charts[0].series[0].data[0].name = req.__('DASHBOARD_BACKEND_CHART_WATCHED_DATA_MOVIE');
     userStats.information.charts[0].series[0].data[1].name = req.__('DASHBOARD_BACKEND_CHART_WATCHED_DATA_TV');
 
+    //Oversettelse favoritt ratio
     userStats.information.charts[1].title.text = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_TITLE');
-    userStats.information.charts[0].series[0].name = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME');
+    userStats.information.charts[1].series[0].name = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME');
     userStats.information.charts[1].series[0].data[0].name = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_MOVIE');
     userStats.information.charts[1].series[0].data[1].name = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_TV');
+
+    //Oversettelse watched genres
+    userStats.information.charts[2].title.text = req.__('DASHBOARD_BACKEND_CHART_WATCHED_GENRE_TITLE');
+    userStats.information.charts[2].series[0].name = req.__('DASHBOARD_BACKEND_CHART_WATCHED_DATA_MOVIE');
+    userStats.information.charts[2].series[1].name = req.__('DASHBOARD_BACKEND_CHART_WATCHED_DATA_TV');
+    userStats.information.charts[2].yAxis.title.text = req.__('DASHBOARD_BACKEND_CHART_WATCHED_DATA_TV');
+
+    //Oversettelse favorited genres
+    userStats.information.charts[3].title.text = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_GENRE_TITLE');
+    userStats.information.charts[3].series[0].name = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_MOVIE');
+    userStats.information.charts[3].series[1].name = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_TV');
+    userStats.information.charts[3].yAxis.title.text = req.__('DASHBOARD_BACKEND_CHART_FAVORITED_DATA_NAME');
 
     //Skaffer lister
     for(const item of req.renderObject.user.lists) {
@@ -51,7 +66,7 @@ exports.user_get_dashboard = async function(req, res) {
     }
 
     for(const item of favoriteMovies){
-        let result = await (await movieHandler.getMovieById(item));
+        let result = await (await movieHandler.getMovieById(item, req.renderObject.urlPath));
         let tempObj = {
             id: result.information.id,
             pictureUrl: result.information.poster_path,
@@ -64,7 +79,7 @@ exports.user_get_dashboard = async function(req, res) {
     }
     
     for(const item of favoriteTvs){
-        let result = await (await tvHandler.getShowById(item));
+        let result = await (await tvHandler.getShowById(item, req.renderObject.urlPath));
         let tempObj = {
             id: result.information.id,
             pictureUrl: result.information.poster_path,
@@ -77,7 +92,7 @@ exports.user_get_dashboard = async function(req, res) {
     }
 
     for(const item of watchedMovies){
-        let result = await(await movieHandler.getMovieById(item));
+        let result = await(await movieHandler.getMovieById(item, req.renderObject.urlPath));
         let tempObj = {
             id: result.information.id,
             pictureUrl: result.information.poster_path,
@@ -90,7 +105,7 @@ exports.user_get_dashboard = async function(req, res) {
     }
 
     for(const item of watchedTvs){
-        let result = await (await tvHandler.getShowById(item));
+        let result = await (await tvHandler.getShowById(item, req.renderObject.urlPath));
         let tempObj = {
             id: result.information.id,
             pictureUrl: result.information.poster_path,

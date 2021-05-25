@@ -237,5 +237,7 @@
 	"ERROR_NO_FILE_FOUND": "Файл не найден!",
 	"ERROR_NOT_GET_IMAGE": "Не удалось получить изображение!",
 	"ERROR_SAVING_AVATAR": "Ошибка при сохранении изображения пользователю",
-	"SUCCESS_AVATAR_UPLOAD": "Успешно сменил аватар, страница обновляется автоматически ..."
+	"SUCCESS_AVATAR_UPLOAD": "Успешно сменил аватар, страница обновляется автоматически ...",
+	"DASHBOARD_BACKEND_CHART_WATCHED_GENRE_TITLE": "Любимые жанры",
+	"DASHBOARD_BACKEND_CHART_FAVORITED_GENRE_TITLE": "Смотрели жанры"
 }

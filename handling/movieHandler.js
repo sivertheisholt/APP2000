@@ -44,7 +44,7 @@ function addToDatabase(movie) {
  */
 async function checkIfSaved(movieId, languageCode) {
     logger.log({level: 'debug', message: `Checking if movie is already saved in database! MovieId: ${movieId} `});
-    return Film.findOne({id: movieId, laanguage: languageCode}).then((doc, err) => returnHandler(doc, err));
+    return Film.findOne({id: movieId, language: languageCode}).then((doc, err) => returnHandler(doc, err));
 }
 
 /**
@@ -53,9 +53,9 @@ async function checkIfSaved(movieId, languageCode) {
  * @returns ValidationHandler
  * @author Sivert - 233518
  */
-async function getMovieById(movieId)  {
+async function getMovieById(movieId, languageCode)  {
     logger.log({level: 'debug', message: `Getting movie from database with id ${movieId}`});
-    return Film.findOne({id: movieId}).then((doc,err) => returnHandler(doc,err));
+    return Film.findOne({id: movieId, language: languageCode}).then((doc,err) => returnHandler(doc,err));
 }
 
 module.exports = {addToDatabase, checkIfSaved, getMovieById}

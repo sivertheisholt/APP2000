@@ -237,5 +237,7 @@
 	"ERROR_NO_FILE_FOUND": "Keine Datei gefunden!",
 	"ERROR_NOT_GET_IMAGE": "Konnte kein Bild bekommen!",
 	"ERROR_SAVING_AVATAR": "Fehler beim Speichern des Bildes im Benutzer",
-	"SUCCESS_AVATAR_UPLOAD": "Der Avatar wurde erfolgreich geändert, die Seite wird automatisch aktualisiert ..."
+	"SUCCESS_AVATAR_UPLOAD": "Der Avatar wurde erfolgreich geändert, die Seite wird automatisch aktualisiert ...",
+	"DASHBOARD_BACKEND_CHART_WATCHED_GENRE_TITLE": "Bevorzugte Genres",
+	"DASHBOARD_BACKEND_CHART_FAVORITED_GENRE_TITLE": "Genres gesehen"
 }

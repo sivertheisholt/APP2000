@@ -1,8 +1,9 @@
 const logger = require("../../logging/logger");
-const userHandler = require("../../handling/userHandler");
 const movieHandler = require("../../handling/movieHandler");
+const tvHandler = require("../../handling/tvHandler");
 const reviewGetter = require("../../systems/reviewSystem/reviewGetter");
 const ValidationHandler = require("../../handling/ValidationHandler");
+const tmdb = require("../../handling/tmdbHandler");
 
 /**
  * Lager default objekt til pie chart
@@ -32,7 +33,7 @@ function createObjectPie() {
  * @returns ValidationHandler
  * @author Sivert - 233518
  */
-exports.userStatistics = async function(user) {
+exports.userStatistics = async function(user, languageCode) {
     logger.log({level: 'debug', message: 'Creating statistics for user'});
     let statistics = {};
     let charts = [];
@@ -48,6 +49,8 @@ exports.userStatistics = async function(user) {
     //Lager og pusher charts
     charts.push(watchedRatioChart(user.moviesWatched, user.tvsWatched));
     charts.push(favoritedRatioChart(user.movieFavourites, user.tvFavourites));
+    charts.push(await genreChartWatched(user.moviesWatched, user.tvsWatched, languageCode));
+    charts.push(await genreChartFavorited(user.movieFavourites, user.tvFavourites, languageCode));
     
     //Setter info inn i hoved objekt
     statistics.charts = charts;
@@ -73,6 +76,7 @@ function calculateTotalRuntime(medias) {
         minutes: minutes % 60
     }
 }
+
 
 /**
  * Lager chart for watched
@@ -125,5 +129,216 @@ function favoritedRatioChart(favoritedMovies, favoritedTvs) {
     options.series[0].data.push(tvs);
     options.title.text = 'Favorited media';
     options.chart.renderTo = 'containerFavorite'
+    return options;
+}
+
+async function genreChartWatched(moviesUser, tvsUser, languageCode) {
+    logger.log({level: 'debug', message: 'Creating trending chart information'});
+
+    //Skaffer data fra API
+    const trendingMovies = [];
+    for(const movie of moviesUser) {
+        let movieResult = await movieHandler.getMovieById(movie, languageCode);
+        if(!movieResult.status) {
+            let tmdbResult = await tmdb.data.getMovieInfoByID(movie, languageCode);
+            trendingMovies.push(tmdbResult);
+            tmdbResult.language = languageCode;
+            movieHandler.addToDatabase(tmdbResult);
+            continue;
+        }
+        trendingMovies.push(movieResult.information)
+    }
+
+    const trendingTv = [];
+    for(const tv of tvsUser) {
+        let tvResult = await tvHandler.getShowById(tv,languageCode);
+        if(!tvResult.status) {
+            let tmdbResult = await tmdb.data.getSerieInfoByID(tv, languageCode);
+            tmdbResult.language = languageCode;
+            trendingTv.push(tmdbResult);
+            tvHandler.addToDatabase(tmdbResult);
+            continue;
+        }
+        trendingTv.push(tvResult.information);
+    }
+
+    //Deklarer variabler
+    let dataMovies = [];
+    let dataTv = [];
+    let xAxis = [];
+    let xAxisMapMovie = new Map();
+    let xAxisMapTv = new Map();
+
+    //Går imellom alle trending movies og finner/øker genre amount
+    for(const movie of trendingMovies) {
+        for(const genre of movie.genres) {
+            if(xAxisMapMovie.has(genre.id)) {
+                xAxisMapMovie.set(genre.id, {name: genre.name, amount: xAxisMapMovie.get(genre.id).amount+1})
+            } else {
+                xAxisMapMovie.set(genre.id, {name: genre.name, amount: 1})
+            }
+                
+        }
+    }
+    //Går imellom alle trending tv og finner/øker genre amount
+    for(const tv of trendingTv) {
+        for(const genre of tv.genres) {
+            if(xAxisMapTv.has(genre.id)) {
+                xAxisMapTv.set(genre.id, {name: genre.name, amount: xAxisMapTv.get(genre.id).amount+1})
+            } else {
+                xAxisMapTv.set(genre.id, {name: genre.name, amount: 1})
+            }
+        }
+    }
+    //Lager film data for chart
+    for(const genre of xAxisMapMovie.values()) {
+        if(genre.amount == 0)
+            continue;
+        xAxis.push(genre.name);
+        dataMovies.push(genre.amount);
+    }
+    //Lager TV data for chart
+    for(const genre of xAxisMapTv.values()) {
+        if(genre.amount == 0)
+            continue;
+        xAxis.push(genre.name);
+        dataTv.push(genre.amount);
+    }
+    //Lager options som brukes i highChart
+    //Options inneholder også dataen
+    let options = {
+        chart: {
+            renderTo: 'genreWatched',
+            type: 'bar'
+        },
+        title: {
+            text: 'Watched genres'
+        },
+        xAxis: {
+            categories: xAxis
+        },
+        yAxis: {
+            title: {
+                text: 'Amount'
+            }
+        },
+        series: [{
+            name: 'Movies',
+            dataSorting: {
+                enabled: true
+            },
+            data: dataMovies
+        }, {
+            name: "Tv-shows",
+            dataSorting: {
+                enabled: true
+            },
+            data: dataTv
+        }]
+    }
+    return options;
+}
+async function genreChartFavorited(moviesUser, tvsUser, languageCode) {
+    logger.log({level: 'debug', message: 'Creating trending chart information'});
+    //Skaffer data fra API
+    const trendingMovies = [];
+    for(const movie of moviesUser) {
+        const movieResult = await movieHandler.getMovieById(movie, languageCode);
+        if(!movieResult.status) {
+            let tmdbResult = await tmdb.data.getMovieInfoByID(movie, languageCode);
+            trendingMovies.push(tmdbResult);
+            tmdbResult.language = languageCode;
+            movieHandler.addToDatabase(tmdbResult);
+            continue;
+        }
+        trendingMovies.push(movieResult.information);
+    }
+
+    const trendingTv = [];
+    for(const tv of tvsUser) {
+        const tvResult = await tvHandler.getShowById(tv,languageCode);
+        if(!tvResult.status) {
+            let tmdbResult = await tmdb.data.getSerieInfoByID(tv, languageCode);
+            tmdbResult.language = languageCode;
+            trendingTv.push(tmdbResult);
+            tvHandler.addToDatabase(tmdbResult);
+            continue;
+        }
+        trendingTv.push(tvResult.information);
+    }
+
+    //Deklarer variabler
+    let dataMovies = [];
+    let dataTv = [];
+    let xAxis = [];
+    let xAxisMapMovie = new Map();
+    let xAxisMapTv = new Map();
+    //Går imellom alle trending movies og finner/øker genre amount
+    for(const movie of trendingMovies) {
+        for(const genre of movie.genres) {
+            if(xAxisMapMovie.has(genre.id)) {
+                xAxisMapMovie.set(genre.id, {name: genre.name, amount: xAxisMapMovie.get(genre.id).amount+1})
+            } else {
+                xAxisMapMovie.set(genre.id, {name: genre.name, amount: 1})
+            }
+                
+        }
+    }
+    //Går imellom alle trending tv og finner/øker genre amount
+    for(const tv of trendingTv) {
+        for(const genre of tv.genres) {
+            if(xAxisMapTv.has(genre.id)) {
+                xAxisMapTv.set(genre.id, {name: genre.name, amount: xAxisMapTv.get(genre.id).amount+1})
+            } else {
+                xAxisMapTv.set(genre.id, {name: genre.name, amount: 1})
+            }
+        }
+    }
+    //Lager film data for chart
+    for(const genre of xAxisMapMovie.values()) {
+        if(genre.amount == 0)
+            continue;
+        xAxis.push(genre.name);
+        dataMovies.push(genre.amount);
+    }
+    //Lager TV data for chart
+    for(const genre of xAxisMapTv.values()) {
+        if(genre.amount == 0)
+            continue;
+        xAxis.push(genre.name);
+        dataTv.push(genre.amount);
+    }
+    //Lager options som brukes i highChart
+    //Options inneholder også dataen
+    let options = {
+        chart: {
+            renderTo: 'genreFavorited',
+            type: 'bar'
+        },
+        title: {
+            text: 'Favorited genres'
+        },
+        xAxis: {
+            categories: xAxis
+        },
+        yAxis: {
+            title: {
+                text: 'Amount'
+            }
+        },
+        series: [{
+            name: 'Movies',
+            dataSorting: {
+                enabled: true
+            },
+            data: dataMovies
+        }, {
+            name: "Tv-shows",
+            dataSorting: {
+                enabled: true
+            },
+            data: dataTv
+        }]
+    }
     return options;
 }
