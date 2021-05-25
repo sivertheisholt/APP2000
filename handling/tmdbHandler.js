@@ -85,14 +85,16 @@ var methods = {
     },
     /**
      * Skaffer trending movies
+     * @param {String} languageCode Språkkode
      * @returns JSON med trending movies
      * @author Sivert - 233518
      */
-    getTrendingMovies: function() {
-        return tmdb.getTrendingMovies();
+    getTrendingMovies: function(languageCode) {
+        return tmdb.getTrendingMovies(languageCode);
     },
     /**
      * Skaffer genras for filmer
+     * @param {String} languageCode Språkkode
      * @returns JSON med genres
      */
     getGenreMovie: function(languageCode) {
@@ -101,6 +103,7 @@ var methods = {
     /**
      * Skaffer film informasjon fra tittel
      * @param {String} movieTitle 
+     * @param {String} languageCode Språkkode
      * @returns JSON med 
      */
     getMovieInfo: function (movieTitle, languageCode) {
@@ -109,6 +112,7 @@ var methods = {
     /**
      * Skaffer film informasjon fra film ID
      * @param {Number} movieID 
+     * @param {String} languageCode Språkkode
      * @returns Object
      */
     getMovieInfoByID: function (movieID, languageCode) {
@@ -117,6 +121,7 @@ var methods = {
     /**
      * Skaffer film videor fra ID
      * @param {Number} movieID 
+     * @param {String} languageCode Språkkode
      * @returns Object
      */
     getMovieVideosByID: function (movieID, languageCode) {
@@ -125,6 +130,7 @@ var methods = {
     /**
      * Skaffer film cast fra ID
      * @param {Number} movieID 
+     * @param {String} languageCode Språkkode
      * @returns Object
      */
     getMovieCastByID: function (movieID, languageCode) {
@@ -133,17 +139,25 @@ var methods = {
     /**
      * Skaffer recommended filmer fra en annen film
      * @param {Number} movieId 
+     * @param {String} languageCode Språkkode
      * @returns Object
      */
     getRecommendationsMovie: function(movieId, languageCode) {
         return tmdb.getRecommendationsMovie(movieId);
     },
+    /**
+     * Skaffer anbefalte serier fra en annen serie
+     * @param {Number} tvId ID til serien
+     * @param {String} languageCode Språkkode
+     * @returns 
+     */
     getRecommendationsTvs: function(tvId, languageCode) {
         return tmdb.getRecommendationsTvs(tvId, languageCode);
     },
     /**
      * Skaffer serie cast fra ID
      * @param {Number} serieID 
+     * @param {String} languageCode Språkkode
      * @returns Object
      */
     getSerieCastByID: function (serieID,languageCode) {

@@ -6,28 +6,6 @@ const ValidationHandler = require("../../handling/ValidationHandler");
 const tmdb = require("../../handling/tmdbHandler");
 
 /**
- * Lager default objekt til pie chart
- * @returns Objekt som brukes til pie chart
- * @author Sivert - 233518
- */
-function createObjectPie() {
-    return options = {
-        chart: {
-            renderTo: 'container',
-            type: 'pie'
-        },
-        title: {
-            text: 'Some text'
-        },
-        series: [{
-            name: 'Amount',
-            colorByPoint: true,
-            data: []
-        }]
-    }
-}
-
-/**
  * Lager statistikker for bruker 
  * @param {Object} user 
  * @returns ValidationHandler
@@ -46,19 +24,81 @@ exports.userStatistics = async function(user, languageCode) {
     const reviewsApproved = await reviewGetter.getAllReviewsMadeByUser(user._id, 'approved');
     if(!reviewsApproved.status) return reviewsPending;
 
+    //Skaffer alle filmer til bruker
+    let moviesWatched = [];
+    let movieFavourites = [];
+    //Watched
+    for(const movie of user.moviesWatched) {
+        let result = await movieHandler.getMovieById(movie, languageCode);
+        if(!result.status) {
+            result = await tmdb.data.getMovieInfoByID(movie, languageCode);
+            result.language = languageCode;
+            let databaseResult = await movieHandler.addToDatabase(result);
+            if(!databaseResult.status) return databaseResult;
+            moviesWatched.push(result);
+            continue;
+        }
+        moviesWatched.push(result.information);
+    }
+    //Favorited
+    for(const movie of user.movieFavourites) {
+        let result = await movieHandler.getMovieById(movie, languageCode);
+        if(!result.status) {
+            result = await tmdb.data.getMovieInfoByID(movie, languageCode);
+            result.language = languageCode;
+            let databaseResult = await movieHandler.addToDatabase(result);
+            if(!databaseResult.status) return databaseResult;
+            movieFavourites.push(result);
+            continue;
+        }
+        movieFavourites.push(result.information);
+    }
+
+    //Skaffer alle serier til bruker
+    let tvWatched = [];
+    let tvFavourites = [];
+    //Watched
+    for(const tv of user.tvsWatched) {
+        let result = await tvHandler.getShowById(tv, languageCode);
+        if(!result.status) {
+            result = await tmdb.data.getSerieInfoByID(tv, languageCode);
+            result.language = languageCode;
+            let databaseResult = await tvHandler.addToDatabase(result);
+            if(!databaseResult.status) return databaseResult;
+            tvWatched.push(result);
+            continue;
+        }
+        tvWatched.push(result.information);
+    }
+    //Favorited
+    for(const tv of user.tvFavourites) {
+        let result = await tvHandler.getShowById(tv, languageCode);
+        if(!result.status) {
+            result = await tmdb.data.getSerieInfoByID(tv, languageCode);
+            result.language = languageCode;
+            let databaseResult = await tvHandler.addToDatabase(result);
+            if(!databaseResult.status) return databaseResult;
+            tvFavourites.push(result);
+            continue;
+        }
+        tvFavourites.push(result.information);
+    }
+
     //Lager og pusher charts
-    charts.push(watchedRatioChart(user.moviesWatched, user.tvsWatched));
-    charts.push(favoritedRatioChart(user.movieFavourites, user.tvFavourites));
-    charts.push(await genreChartWatched(user.moviesWatched, user.tvsWatched, languageCode));
-    charts.push(await genreChartFavorited(user.movieFavourites, user.tvFavourites, languageCode));
+    charts.push(watchedRatioChart(moviesWatched, tvWatched));
+    charts.push(favoritedRatioChart(movieFavourites, tvFavourites));
+    charts.push(await genreChartWatched(moviesWatched, tvWatched, languageCode));
+    charts.push(await genreChartFavorited(movieFavourites, tvFavourites, languageCode));
     
     //Setter info inn i hoved objekt
     statistics.charts = charts;
-    statistics.runtimeMovie = calculateTotalRuntime(user.moviesWatched);
-    statistics.runtimeTv = calculateTotalRuntime(user.tvsWatched);
+    statistics.runtimeMovie = await calculateTotalRuntimeMovie(moviesWatched);
+    statistics.runtimeTv = await calculateTotalRuntimeSeries(tvWatched);
+    statistics.runtimeTotal = {hours: statistics.runtimeMovie.hours + statistics.runtimeTv.hours, minutes: statistics.runtimeMovie.minutes + statistics.runtimeTv.minutes}
     statistics.reviews = reviewsPending.information.length + reviewsApproved.information.length;
 
     //Suksess
+    logger.log({level: 'debug', message: 'Successfully created statistics for user'});
     return new ValidationHandler(true, statistics);
 }
 
@@ -68,15 +108,28 @@ exports.userStatistics = async function(user, languageCode) {
  * @returns Objekt med hours/minutes
  * @author Sivert - 233518
  */
-function calculateTotalRuntime(medias) {
+function calculateTotalRuntimeMovie(medias) {
     if(medias.length == 0) return {hours: 0, minutes: 0};
-    const minutes = medias.reduce((minutes, media) => minutes + media.runtime);
+    let minutes = 0;
+    medias.forEach(test => {
+        minutes += test.runtime
+    })
     return {
         hours: Math.floor(minutes / 60),
         minutes: minutes % 60
     }
 }
-
+function calculateTotalRuntimeSeries(medias) {
+    if(medias.length == 0) return {hours: 0, minutes: 0};
+    let minutes = 0;
+    medias.forEach(test => {
+        minutes += (test.episode_run_time[0] * test.number_of_episodes);
+    })
+    return {
+        hours: Math.floor(minutes / 60),
+        minutes: minutes % 60
+    }
+}
 
 /**
  * Lager chart for watched
@@ -86,19 +139,26 @@ function calculateTotalRuntime(medias) {
  * @author Sivert - 233518
  */
 function watchedRatioChart(watchedMovies, watchedTvs) {
-    let options = createObjectPie();
-    let movies = {
-        name: 'Movies',
-        y: watchedMovies.length
+    let options = {
+        chart: {
+            renderTo: 'containerWatched',
+            type: 'pie'
+        },
+        title: {
+            text: ''
+        },
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [{
+                name: 'Movies',
+                y: watchedMovies.length
+            },{
+                name: 'Tvs',
+                y: watchedTvs.length
+            }]
+        }]
     }
-    let tvs = {
-        name: 'Tvs',
-        y: watchedTvs.length
-    }
-    options.series[0].data.push(movies);
-    options.series[0].data.push(tvs);
-    options.title.text = 'Watched media';
-    options.chart.renderTo = 'containerWatched'
     return options;
 }
 
@@ -110,57 +170,39 @@ function watchedRatioChart(watchedMovies, watchedTvs) {
  * @author Sivert - 233518
  */
 function favoritedRatioChart(favoritedMovies, favoritedTvs) {
-    let options = createObjectPie();
-    let info = {
-        name: 'Types',
-        colorByPoint: true,
-        data: []
+    let options = {
+        chart: {
+            renderTo: 'containerFavorite',
+            type: 'pie'
+        },
+        title: {
+            text: ''
+        },
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [{
+                name: 'Movies',
+                y: favoritedMovies.length
+            },{
+                name: 'Tvs',
+                y: favoritedTvs.length
+            }]
+        }]
     }
-    let movies = {
-        name: 'Movies',
-        y: favoritedMovies.length
-    }
-    let tvs = {
-        name: 'Tvs',
-        y: favoritedTvs.length
-    }
-    options.series.push(info),
-    options.series[0].data.push(movies);
-    options.series[0].data.push(tvs);
-    options.title.text = 'Favorited media';
-    options.chart.renderTo = 'containerFavorite'
     return options;
 }
 
-async function genreChartWatched(moviesUser, tvsUser, languageCode) {
+/**
+ * Lager chart for watched genres
+ * @param {Array} moviesUser Watched filmer til bruker 
+ * @param {Array} tvsUser Watched serier til bruker
+ * @param {String} languageCode Språkkode
+ * @returns Objekt som skal brukes til chart
+ * @author Sivert - 233518
+ */
+async function genreChartWatched(moviesList, tvsList, languageCode) {
     logger.log({level: 'debug', message: 'Creating trending chart information'});
-
-    //Skaffer data fra API
-    const trendingMovies = [];
-    for(const movie of moviesUser) {
-        let movieResult = await movieHandler.getMovieById(movie, languageCode);
-        if(!movieResult.status) {
-            let tmdbResult = await tmdb.data.getMovieInfoByID(movie, languageCode);
-            trendingMovies.push(tmdbResult);
-            tmdbResult.language = languageCode;
-            movieHandler.addToDatabase(tmdbResult);
-            continue;
-        }
-        trendingMovies.push(movieResult.information)
-    }
-
-    const trendingTv = [];
-    for(const tv of tvsUser) {
-        let tvResult = await tvHandler.getShowById(tv,languageCode);
-        if(!tvResult.status) {
-            let tmdbResult = await tmdb.data.getSerieInfoByID(tv, languageCode);
-            tmdbResult.language = languageCode;
-            trendingTv.push(tmdbResult);
-            tvHandler.addToDatabase(tmdbResult);
-            continue;
-        }
-        trendingTv.push(tvResult.information);
-    }
 
     //Deklarer variabler
     let dataMovies = [];
@@ -170,7 +212,7 @@ async function genreChartWatched(moviesUser, tvsUser, languageCode) {
     let xAxisMapTv = new Map();
 
     //Går imellom alle trending movies og finner/øker genre amount
-    for(const movie of trendingMovies) {
+    for(const movie of moviesList) {
         for(const genre of movie.genres) {
             if(xAxisMapMovie.has(genre.id)) {
                 xAxisMapMovie.set(genre.id, {name: genre.name, amount: xAxisMapMovie.get(genre.id).amount+1})
@@ -181,7 +223,7 @@ async function genreChartWatched(moviesUser, tvsUser, languageCode) {
         }
     }
     //Går imellom alle trending tv og finner/øker genre amount
-    for(const tv of trendingTv) {
+    for(const tv of tvsList) {
         for(const genre of tv.genres) {
             if(xAxisMapTv.has(genre.id)) {
                 xAxisMapTv.set(genre.id, {name: genre.name, amount: xAxisMapTv.get(genre.id).amount+1})
@@ -238,34 +280,16 @@ async function genreChartWatched(moviesUser, tvsUser, languageCode) {
     }
     return options;
 }
-async function genreChartFavorited(moviesUser, tvsUser, languageCode) {
+/**
+ * Lager chart for favorited genres
+ * @param {Array} moviesUser Watched filmer til bruker 
+ * @param {Array} tvsUser Watched serier til bruker
+ * @param {String} languageCode Språkkode
+ * @returns Objekt som skal brukes til chart
+ * @author Sivert - 233518
+ */
+async function genreChartFavorited(moviesList, tvsList, languageCode) {
     logger.log({level: 'debug', message: 'Creating trending chart information'});
-    //Skaffer data fra API
-    const trendingMovies = [];
-    for(const movie of moviesUser) {
-        const movieResult = await movieHandler.getMovieById(movie, languageCode);
-        if(!movieResult.status) {
-            let tmdbResult = await tmdb.data.getMovieInfoByID(movie, languageCode);
-            trendingMovies.push(tmdbResult);
-            tmdbResult.language = languageCode;
-            movieHandler.addToDatabase(tmdbResult);
-            continue;
-        }
-        trendingMovies.push(movieResult.information);
-    }
-
-    const trendingTv = [];
-    for(const tv of tvsUser) {
-        const tvResult = await tvHandler.getShowById(tv,languageCode);
-        if(!tvResult.status) {
-            let tmdbResult = await tmdb.data.getSerieInfoByID(tv, languageCode);
-            tmdbResult.language = languageCode;
-            trendingTv.push(tmdbResult);
-            tvHandler.addToDatabase(tmdbResult);
-            continue;
-        }
-        trendingTv.push(tvResult.information);
-    }
 
     //Deklarer variabler
     let dataMovies = [];
@@ -273,8 +297,9 @@ async function genreChartFavorited(moviesUser, tvsUser, languageCode) {
     let xAxis = [];
     let xAxisMapMovie = new Map();
     let xAxisMapTv = new Map();
+
     //Går imellom alle trending movies og finner/øker genre amount
-    for(const movie of trendingMovies) {
+    for(const movie of moviesList) {
         for(const genre of movie.genres) {
             if(xAxisMapMovie.has(genre.id)) {
                 xAxisMapMovie.set(genre.id, {name: genre.name, amount: xAxisMapMovie.get(genre.id).amount+1})
@@ -285,7 +310,7 @@ async function genreChartFavorited(moviesUser, tvsUser, languageCode) {
         }
     }
     //Går imellom alle trending tv og finner/øker genre amount
-    for(const tv of trendingTv) {
+    for(const tv of tvsList) {
         for(const genre of tv.genres) {
             if(xAxisMapTv.has(genre.id)) {
                 xAxisMapTv.set(genre.id, {name: genre.name, amount: xAxisMapTv.get(genre.id).amount+1})
