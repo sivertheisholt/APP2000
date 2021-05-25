@@ -31,7 +31,10 @@ script.
                     p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_TV_RUNTIME")}
                     p.uk-text-large=`${userStatsPug.runtimeTv.hours} #{__("DASHBOARD_STATISTICS_HOURS")} ${userStatsPug.runtimeTv.minutes} #{__("DASHBOARD_STATISTICS_MINUTES")}`
             hr.uk-divider-icon
-        #containerWatched.uk-width-1-1
-        #containerFavorite.uk-width-1-1
-        #genreWatched.uk-width-1-1
-        #genreFavorited.uk-width-1-1
+        - if(user.tvsWatched.length != 0 || user.moviesWatched.length != 0)
+            #containerWatched.uk-width-1-1
+        - if(user.tvFavourites.length != 0 || user.movieFavourites.length != 0)
+            #containerFavorite.uk-width-1-1
+        - if(user.tvsWatched.length != 0 || user.moviesWatched.length != 0)
+            #genreWatched.uk-width-1-1
+            #genreFavorited.uk-width-1-1
