@@ -237,5 +237,12 @@
 	"ERROR_NO_FILE_FOUND": "No file found!",
 	"ERROR_NOT_GET_IMAGE": "Could not get image!",
 	"ERROR_SAVING_AVATAR": "Error when saving image to user",
-	"SUCCESS_AVATAR_UPLOAD": "Successfully changed the avatar, the page is being updated automatically..."
+	"SUCCESS_AVATAR_UPLOAD": "Successfully changed the avatar, the page is being updated automatically...",
+	"ERROR_LANGUAGE_CHARACTER_LIMIT": "Language code has to be 2 letters",
+	"ERROR_LANGCODE_LETTERS": "Language code has to be letters",
+	"ERROR_LANGUAGE_LETTERS": "Language name has to be letters",
+	"SUCCESS_LANGUAGE_ADDED": "Successfully added a new language, the page is being updated automatically...",
+	"SUCCESS_LANGUAGE_DELETED": "Successfully deleted the language, the page is being updated automatically...",
+	"ERROR_DELETE_LANGUAGE": "Could not delete language",
+	"ERROR_DELETE_LANGUAGE_NO_MATCH": "No matching language found"
 }

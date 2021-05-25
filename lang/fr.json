@@ -237,5 +237,12 @@
 	"ERROR_NO_FILE_FOUND": "Aucun fichier trouvé!",
 	"ERROR_NOT_GET_IMAGE": "Impossible d'obtenir l'image!",
 	"ERROR_SAVING_AVATAR": "Erreur lors de l'enregistrement de l'image sur l'utilisateur",
-	"SUCCESS_AVATAR_UPLOAD": "Avatar modifié avec succès, la page est mise à jour automatiquement ..."
+	"SUCCESS_AVATAR_UPLOAD": "Avatar modifié avec succès, la page est mise à jour automatiquement ...",
+	"ERROR_LANGUAGE_CHARACTER_LIMIT": "Le code de langue doit être composé de 2 lettres",
+	"ERROR_LANGCODE_LETTERS": "Le code de langue doit être des lettres",
+	"ERROR_LANGUAGE_LETTERS": "Le nom de la langue doit être des lettres",
+	"SUCCESS_LANGUAGE_ADDED": "Ajout d'une nouvelle langue avec succès, la page est mise à jour automatiquement ...",
+	"SUCCESS_LANGUAGE_DELETED": "La langue a bien été supprimée, la page est mise à jour automatiquement ...",
+	"ERROR_DELETE_LANGUAGE": "Impossible de supprimer la langue",
+	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Aucune langue correspondante trouvée"
 }

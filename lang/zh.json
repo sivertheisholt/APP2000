@@ -237,5 +237,12 @@
 	"ERROR_NO_FILE_FOUND": "找不到文件！",
 	"ERROR_NOT_GET_IMAGE": "无法获取图像！",
 	"ERROR_SAVING_AVATAR": "将图像保存给用户时出错",
-	"SUCCESS_AVATAR_UPLOAD": "成功更改了头像，页面正在自动更新..."
+	"SUCCESS_AVATAR_UPLOAD": "成功更改了头像，页面正在自动更新...",
+	"ERROR_LANGUAGE_CHARACTER_LIMIT": "语言代码必须为两个字母",
+	"ERROR_LANGCODE_LETTERS": "语言代码必须是字母",
+	"ERROR_LANGUAGE_LETTERS": "语言名称必须是字母",
+	"SUCCESS_LANGUAGE_ADDED": "成功添加新语言后，页面会自动更新...",
+	"SUCCESS_LANGUAGE_DELETED": "成功删除语言后，页面会自动更新...",
+	"ERROR_DELETE_LANGUAGE": "无法删除语言",
+	"ERROR_DELETE_LANGUAGE_NO_MATCH": "找不到匹配的语言"
 }

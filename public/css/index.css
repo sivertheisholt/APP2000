@@ -756,6 +756,34 @@ img.search-image-style{
   font-weight: bold;
 }
 
+#admin-add-language-error{
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
+  text-align: center;
+  font-size:14px;
+  display: none;
+  font-weight: bold;
+}
+
+#admin-deleted-language-error{
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
+  text-align: center;
+  font-size:14px;
+  display: none;
+  font-weight: bold;
+}
+
 /*********************************/
 /* Language menu */
 /* @Author Ørjan Dybevik - 233530
