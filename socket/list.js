@@ -10,12 +10,22 @@ const listGetter = require('../systems/listSystem/listGetter');
  * @author Sivert - 233518
  */
 exports.list_new = async function(socket, info) {
+    //Skaffer bruker
     let userResult = await userHandler.getUserFromId(info.userId);
+    if(!userResult.status) return userResult
+
+    //Lager ny liste
     const result = await listCreater.createList(userResult.information, info.name);
     if(!result.status) return result;
+
+    //Skaffer bruker igjen (Denne koden burde ikke fungere sånn)
     userResult = await userHandler.getUserFromId(info.userId);
+
+    //Skaffer liste
     const list = await listGetter.getListFromId(userResult.information.lists[userResult.information.lists.length-1])
     if(!list.status) return list;
+
+    //Suksess
     socket.emit('newListResult', list.information);
 }
 
