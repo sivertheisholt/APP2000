@@ -150,8 +150,8 @@ exports.userAuth_post_forgottenPassword = async function(req, res) {
         subject: 'Password Reset Link',
         html: `
         <h2>Please click on the link below reset your password</h2>
-        <p>This link will expire in 60 minutes</p>
-        <p>${link}</p>
+        <h3>This link will expire in 60 minutes</h3>
+        <a href='${link}'>Click here to reset your password</a>
         `
     });
 
