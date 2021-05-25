@@ -23,13 +23,13 @@ script.
             .uk-text-center(class='uk-child-width-1-3@s' uk-grid='')
                 div.uk-margin-top
                     p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_TOTAL_RUNTIME")}
-                    p.uk-text-large= `${userStatsPug.runtimeTotal.hours} hours ${userStatsPug.runtimeTotal.minutes} minutes`
+                    p.uk-text-large= `${userStatsPug.runtimeTotal.hours} #{__("DASHBOARD_STATISTICS_HOURS")} ${userStatsPug.runtimeTotal.minutes} #{__("DASHBOARD_STATISTICS_MINUTES")}`
                 div.uk-margin-top
                     p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_MOVIE_RUNTIME")}
-                    p.uk-text-large=`${userStatsPug.runtimeMovie.hours} hours ${userStatsPug.runtimeMovie.minutes} minutes`
+                    p.uk-text-large=`${userStatsPug.runtimeMovie.hours} #{__("DASHBOARD_STATISTICS_HOURS")} ${userStatsPug.runtimeMovie.minutes} #{__("DASHBOARD_STATISTICS_MINUTES")}`
                 div.uk-margin-top
                     p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_TV_RUNTIME")}
-                    p.uk-text-large=`${userStatsPug.runtimeTv.hours} hours ${userStatsPug.runtimeTv.minutes} minutes`
+                    p.uk-text-large=`${userStatsPug.runtimeTv.hours} #{__("DASHBOARD_STATISTICS_HOURS")} ${userStatsPug.runtimeTv.minutes} #{__("DASHBOARD_STATISTICS_MINUTES")}`
             hr.uk-divider-icon
         #containerWatched.uk-width-1-1
         #containerFavorite.uk-width-1-1
