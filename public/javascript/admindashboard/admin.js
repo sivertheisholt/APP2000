@@ -77,6 +77,10 @@ socket.on('savedLanguage', function(){
     langTextareaContent.value = '';
 });
 
+/**
+ * Eventlistener for å sende ajax call til å legge inn nytt språk
+ * @author Ørjan Dybevik - 233530
+ */
 adminAddLangBtn.addEventListener("click", function(e){
     e.preventDefault();
     adminAddLangErr.style.display = 'none';
@@ -109,6 +113,10 @@ adminAddLangBtn.addEventListener("click", function(e){
     });
 });
 
+/**
+ * Eventlistener for å sende ajax call til å slette språk
+ * @author Ørjan Dybevik - 233530
+ */
 adminDeleteLangBtn.addEventListener("click", function(e){
     e.preventDefault();
     adminLangDeleteError.style.display = 'none';
