@@ -13,7 +13,7 @@ exports.personInfo_get = async function (req, res) {
     let person = {
       personinfo: personInfo,
       links: await tmdb.data.getPersonLinksByID(personId, req.renderObject.urlPath),
-      shortBio: await hjelpeMetoder.data.maxText(personInfo.biography,600)
+      shortBio: await hjelpeMetoder.data.maxText(personInfo.biography,500)
     }
 
     if(person.personinfo.biography == "" || !person.personinfo.biography) {

@@ -42,7 +42,7 @@ body
                         h2 #{__("ACTOR_BIOGRAPHY")}
                         //p= `${person.personinfo.biography}`
                         p= `${person.shortBio}`
-                            - if(person.shortBio.length > 600)
+                            - if(person.shortBio.length > 500)
                                 a.uk-text-bold(href='#modal-fullbio' uk-toggle='')  Read more..
                         #modal-fullbio.uk-flex-top(uk-modal='')
                             .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical(class='uk-width-1-2@s')
