@@ -62,6 +62,10 @@ img.center {
   word-break: break-all;
 }
 
+.anchor-remove-text-decoration:hover{
+  text-decoration: none;
+}
+
 /*********************************/
 /* Navbar
 /* @Author Ørjan Dybevik - 233530
@@ -438,24 +442,12 @@ img.search-image-style{
 
 /*********************************/
 /* lists.pug                     */
-/* @Author Sigve Eliassen - 233511
+/* @Author Sigve Eliassen - 233511, Ørjan Dybevik - 233530
 /*********************************/
 
-.closelist h3 {
-  white-space: nowrap;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 40;
-}
-.closelist p {
-  white-space: nowrap;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  font-size: 30px;
-}
-
-#listslideshow{
-  height: 900px;
+.list-image-style{
+  width: 225;
+  height: 300;
 }
 
 /*********************************/

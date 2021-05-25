@@ -103,7 +103,7 @@ exports.userStatistics = async function(user, languageCode) {
 }
 
 /**
- * Regner ut timer/minutter
+ * Regner ut timer/minutter for filmer
  * @param {Array} medias 
  * @returns Objekt med hours/minutes
  * @author Sivert - 233518
@@ -119,6 +119,12 @@ function calculateTotalRuntimeMovie(medias) {
         minutes: minutes % 60
     }
 }
+/**
+ * Regner ut timer/minutter for serier
+ * @param {Array} medias 
+ * @returns Objekt med hours/minutes
+ * @author Sivert - 233518
+ */
 function calculateTotalRuntimeSeries(medias) {
     if(medias.length == 0) return {hours: 0, minutes: 0};
     let minutes = 0;
@@ -197,11 +203,10 @@ function favoritedRatioChart(favoritedMovies, favoritedTvs) {
  * Lager chart for watched genres
  * @param {Array} moviesUser Watched filmer til bruker 
  * @param {Array} tvsUser Watched serier til bruker
- * @param {String} languageCode Språkkode
  * @returns Objekt som skal brukes til chart
  * @author Sivert - 233518
  */
-async function genreChartWatched(moviesList, tvsList, languageCode) {
+async function genreChartWatched(moviesList, tvsList) {
     logger.log({level: 'debug', message: 'Creating trending chart information'});
 
     //Deklarer variabler
@@ -232,6 +237,7 @@ async function genreChartWatched(moviesList, tvsList, languageCode) {
             }
         }
     }
+    
     //Lager film data for chart
     for(const genre of xAxisMapMovie.values()) {
         if(genre.amount == 0)
@@ -284,11 +290,10 @@ async function genreChartWatched(moviesList, tvsList, languageCode) {
  * Lager chart for favorited genres
  * @param {Array} moviesUser Watched filmer til bruker 
  * @param {Array} tvsUser Watched serier til bruker
- * @param {String} languageCode Språkkode
  * @returns Objekt som skal brukes til chart
  * @author Sivert - 233518
  */
-async function genreChartFavorited(moviesList, tvsList, languageCode) {
+async function genreChartFavorited(moviesList, tvsList) {
     logger.log({level: 'debug', message: 'Creating trending chart information'});
 
     //Deklarer variabler
@@ -306,7 +311,6 @@ async function genreChartFavorited(moviesList, tvsList, languageCode) {
             } else {
                 xAxisMapMovie.set(genre.id, {name: genre.name, amount: 1})
             }
-                
         }
     }
     //Går imellom alle trending tv og finner/øker genre amount
