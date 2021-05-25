@@ -247,5 +247,7 @@
 	"SUCCESS_LANGUAGE_ADDED": "Successfully added a new language, the page is being updated automatically...",
 	"SUCCESS_LANGUAGE_DELETED": "Successfully deleted the language, the page is being updated automatically...",
 	"ERROR_DELETE_LANGUAGE": "Could not delete language",
-	"ERROR_DELETE_LANGUAGE_NO_MATCH": "No matching language found"
+	"ERROR_DELETE_LANGUAGE_NO_MATCH": "No matching language found",
+	"DASHBOARD_STATISTICS_HOURS": "Hours",
+	"DASHBOARD_STATISTICS_MINUTES": "Minutes"
 }

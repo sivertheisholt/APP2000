@@ -247,5 +247,7 @@
 	"SUCCESS_LANGUAGE_ADDED": "Språket ble lagt til, siden oppdateres automatisk ...",
 	"SUCCESS_LANGUAGE_DELETED": "Språket ble slettet, siden oppdateres automatisk ...",
 	"ERROR_DELETE_LANGUAGE": "Kunne ikke slette språket",
-	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Fant ingen samsvarende språk"
+	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Fant ingen samsvarende språk",
+	"DASHBOARD_STATISTICS_HOURS": "Timer",
+	"DASHBOARD_STATISTICS_MINUTES": "Minutter"
 }

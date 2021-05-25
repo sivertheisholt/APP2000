@@ -247,5 +247,7 @@
 	"SUCCESS_LANGUAGE_ADDED": "Ajout d'une nouvelle langue avec succès, la page est mise à jour automatiquement ...",
 	"SUCCESS_LANGUAGE_DELETED": "La langue a bien été supprimée, la page est mise à jour automatiquement ...",
 	"ERROR_DELETE_LANGUAGE": "Impossible de supprimer la langue",
-	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Aucune langue correspondante trouvée"
+	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Aucune langue correspondante trouvée",
+	"DASHBOARD_STATISTICS_HOURS": "Stunden",
+	"DASHBOARD_STATISTICS_MINUTES": "Minuten"
 }
