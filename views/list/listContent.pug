@@ -26,7 +26,7 @@ body
                                 h3.uk-card-title= `${item.title}`
                                 p.uk-text-meta= `${item.releaseDate}`
                         if isListAuthor
-                            a.uk-position-bottom(href='#' uk-close='' onclick=`removeFromList("${item.id}", "${item.type}", "${item.listid}");` class='uk-margin-bottom uk-margin-left')
+                            a.uk-position-bottom(href='#' uk-close='' onclick=`removeFromList("${item.id}", "${item.type}", "${item.listid}", event);` class='uk-margin-bottom uk-margin-left')
 
 include ../includes/footer.pug
 script(src="/javascript/list/listcontents.js")

@@ -20,7 +20,7 @@ exports.list_get = async function(req, res) {
             listId: info._id,
             numberOfMovies: getNumberOfMovies(info),
             numberOfTvShows: getNumberOfTvs(info),
-            posters: await getPosterUrls(await getMoviePosterUrls(info.movies, req.renderObject.urlPath), await getTvPosterUrls(info.tvs)),
+            posters: await getPosterUrls(await getMoviePosterUrls(info.movies, req.renderObject.urlPath), await getTvPosterUrls(info.tvs, req.renderObject.urlPath)),
             userName: await (await userHandler.getUserFromId(info.userId)).information.username,
             listName: info.name
         })
@@ -81,10 +81,10 @@ async function getMoviePosterUrls(array, languageCode){
     }
     return posters;
 }
-async function getTvPosterUrls(array){
+async function getTvPosterUrls(array, languageCode){
     let posters = [];
     for (const tv of array) {
-        let tvs = await tvHandler.getShowById(tv, req.renderObject.urlPath);
+        let tvs = await tvHandler.getShowById(tv, languageCode);
         posters.push(tvs.information.poster_path);
     }
     return posters;

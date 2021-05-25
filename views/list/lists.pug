@@ -9,7 +9,7 @@ body
     div#searchDiv
     .container
         h2 #{__("LIST_LISTS")}
-        ul(uk-accordion='collapsible: false')
+        ul(uk-accordion='collapsible: true')
             each item in listene
                 li
                     a.uk-accordion-title(href='#')=`${item.listName}`
