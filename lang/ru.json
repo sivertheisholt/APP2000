@@ -249,5 +249,7 @@
 	"ERROR_DELETE_LANGUAGE": "Не удалось удалить язык",
 	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Соответствующий язык не найден",
 	"DASHBOARD_STATISTICS_HOURS": "Часы",
-	"DASHBOARD_STATISTICS_MINUTES": "Минуты"
+	"DASHBOARD_STATISTICS_MINUTES": "Минуты",
+	"MEDIA_TOOLTIP_ADD_FAVORITES": "Избранное",
+	"MEDIA_TOOLTIP_ADD_WATCHLIST": "Список наблюдения"
 }

@@ -249,5 +249,7 @@
 	"ERROR_DELETE_LANGUAGE": "Sprache konnte nicht gelöscht werden",
 	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Keine passende Sprache gefunden",
 	"DASHBOARD_STATISTICS_HOURS": "Hours",
-	"DASHBOARD_STATISTICS_MINUTES": "Minutes"
+	"DASHBOARD_STATISTICS_MINUTES": "Minutes",
+	"MEDIA_TOOLTIP_ADD_FAVORITES": "Favoriten",
+	"MEDIA_TOOLTIP_ADD_WATCHLIST": "Beobachtungsliste"
 }

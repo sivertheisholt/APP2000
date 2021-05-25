@@ -904,13 +904,14 @@ img.search-image-style{
 }
 
 .tooltip .bottom {
-  min-width:260px;
+  min-width:220px;
   top:40px;
   left:50%;
   transform:translate(-50%, 0);
   padding:10px 20px;
   color:#3f3f3f;
-  background-color:#03aee7;
+  background-color:#c3ffc8;
+  text-align: center;
   font-weight: bold;
   font-size:13px;
   border-radius:8px;
@@ -922,5 +923,34 @@ img.search-image-style{
 }
 
 .tooltip:hover .bottom {
+  display:block;
+}
+
+.tooltip-add{
+  display:inline-block;
+  position:relative;
+  text-align:left;
+}
+
+.tooltip-add .bottom-add {
+  min-width: 100px;
+  top: 45px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  padding: 5px 20px;
+  color: #3f3f3f;
+  background-color: #c3ffc8;
+  font-weight: bold;
+  font-size: 13px;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 99999999;
+  box-sizing: border-box;
+  box-shadow: 0 1px 8px rgb(0 0 0 / 50%);
+  display: none;
+  height: 50px;
+}
+
+.tooltip-add:hover .bottom-add {
   display:block;
 }

@@ -224,7 +224,7 @@
 	"ERROR_PASSWORD_NOT_MATCH": "Passwords do not match",
 	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Unexpected error when creating user, try again",
 	"ERROR_USER_DOESNT_EXIST": "This email doesn't exist",
-	"ERROR_RESET_PASSWORD_LINK":"There was an error creating your resetlink, please try again",
+	"ERROR_RESET_PASSWORD_LINK": "There was an error creating your resetlink, please try again",
 	"ERROR_AUTHENTICATION": "Authentication error.",
 	"ERROR_EXPIRED_TOKEN": "Token has expired or is incorrect",
 	"ERROR_USER_TOKEN_DOESNT_EXIST": "User with this token doesn't exist",
@@ -249,5 +249,7 @@
 	"ERROR_DELETE_LANGUAGE": "Could not delete language",
 	"ERROR_DELETE_LANGUAGE_NO_MATCH": "No matching language found",
 	"DASHBOARD_STATISTICS_HOURS": "Hours",
-	"DASHBOARD_STATISTICS_MINUTES": "Minutes"
+	"DASHBOARD_STATISTICS_MINUTES": "Minutes",
+	"MEDIA_TOOLTIP_ADD_FAVORITES": "Favorites",
+	"MEDIA_TOOLTIP_ADD_WATCHLIST": "Watchlist"
 }
