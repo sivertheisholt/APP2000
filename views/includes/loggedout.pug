@@ -24,7 +24,7 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='
                                 .uk-inline
                                     span.uk-form-icon(uk-icon='icon: lock')
                                     input.uk-input(type='password' name='password' placeholder=`${__('PASSWORD')}` id='index-login-password')
-                            #login-error
+                            #login-error(uk-icon="icon: warning")
                             .uk-margin
                                 .uk-inline
                                     button.uk-button.uk-button-default.uk-margin-right(type='submit' id='login-btn') #{__("BUTTON_LOGIN")}
@@ -51,7 +51,7 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='
                                 .uk-inline
                                     span.uk-form-icon.uk-form-icon(uk-icon='icon: lock')
                                     input.uk-input(type='password' name='passwordRepeat' placeholder=`${__('REPEAT_PASSWORD')}` id='index-signup-password-repeat' required)
-                            #signup-error
+                            #signup-error(uk-icon="icon: warning")
                             .uk-margin
                                 .uk-inline
                                     button.uk-button.uk-button-default.uk-margin-right(type='submit' id='signup-btn') #{__("BUTTON_SIGNUP")}
@@ -73,7 +73,7 @@ a.uk-button.uk-button-default.nav-buttons(href='#modal-login-signup' uk-toggle='
                             .uk-inline
                                 input.uk-input.uk-margin-top.uk-text-small(type='text' name='emailForgottenPassword' placeholder=`${__('EMAIL')}` id='index-forgot-pw-email' required)
                         .uk-margin-bottom
-                            #forgot-error
+                            #forgot-error(uk-icon="icon: warning")
                         .uk-margin-bottom
                             .uk-inline
                                 button.uk-button.uk-button-default.uk-button-small(type='submit' id='forgot-password-btn') #{__("MODAL_FORGOT_PASSWORD_SEND")}

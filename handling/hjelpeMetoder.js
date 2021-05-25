@@ -161,16 +161,16 @@ const ValidationHandler = require('./ValidationHandler');
      * @returns ValidationHandler
      * @author Ørjan - 233530
      */
-    validateNewLang: function(input){
+    validateNewLang: function(input, req){
         const re = /[A-Za-z]/;
         if(input.admindashlangcode.length !== 2){
-            return new ValidationHandler(false, 'Has to be 2 characters');
+            return new ValidationHandler(false, req.__('ERROR_LANGUAGE_CHARACTER_LIMIT'));
         }
         if(!re.test(input.admindashlangcode)){
-            return new ValidationHandler(false, 'Langcode has to be letters');
+            return new ValidationHandler(false, req.__('ERROR_LANGCODE_LETTERS'));
         }
         if(!re.test(input.admindashlangname)){
-            return new ValidationHandler(false, 'Langcode has to be letters');
+            return new ValidationHandler(false, req.__('ERROR_LANGUAGE_LETTERS'));
         }
         var langObj = {
             "name": input.admindashlangname.toLowerCase(),
@@ -185,7 +185,7 @@ const ValidationHandler = require('./ValidationHandler');
      * @returns ValidationHandler
      * @author Ørjan - 233530
      */
-    validateDeleteLang: async function(input){
+    validateDeleteLang: async function(input, req){
         let languageJson = await methods.lesFil("./lang/langList.json");
         let langs = await JSON.parse(languageJson.information);
         let newLangList = [];
@@ -197,14 +197,14 @@ const ValidationHandler = require('./ValidationHandler');
                 newLangList = JSON.stringify(langs);
                 fs.writeFile('./lang/langList.json', newLangList, 'utf8', (err) => {
                     if(err){
-                        return new ValidationHandler(false, 'Could not delete language');
+                        return new ValidationHandler(false, req.__('ERROR_DELETE_LANGUAGE'));
                     }
-                    logger.log({level: 'info', message: 'Language edits been complete'});
+                    logger.log({level: 'info', message: 'Language edits completed'});
                 });
                 return new ValidationHandler(true, langToDelete);
             }
         }
-        return new ValidationHandler(false, 'No matching language found');
+        return new ValidationHandler(false, req.__('ERROR_DELETE_LANGUAGE_NO_MATCH'));
     },
     /**
      * Randomizer et array

@@ -64,7 +64,6 @@ exports.homepage = async function(req, res) {
         finalListRecommendedMovies.push(tempObjectMovie); //Pusher til array
     }
     let options = await charts.indexChart(req.renderObject.urlPath);
-    console.log(options.title);
     options.title.text = req.__('HOMEPAGE_CHART_TRENDING_TITLE');
     options.yAxis.title.text = req.__('HOMEPAGE_CHART_TRENDING_Y');
     options.series[0].name = req.__('HOMEPAGE_CHART_TRENDING_DATA_MOVIE')

@@ -20,7 +20,6 @@ exports.indexChart = async function(languageCode) {
     }
     const trendingTv = await tmdb.data.getTrendingTv();
     let genresTv = await tmdb.data.getGenreTv(languageCode);
-    console.log(genresTv.genres[0].name)
     for(const genre of genresTv.genres) {
         if(genre.name == null) {
             genresTv = await tmdb.data.getGenreTv('en');

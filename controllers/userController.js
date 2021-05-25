@@ -137,7 +137,6 @@ exports.user_get_dashboard = async function(req, res) {
  */
 exports.user_post_changepassword = async function(req, res) {
     const pugBody = req.body.dash_change_pw_details; //Skaffer body fra form
-    console.log(pugBody);
     BrukerDB.findOne({_id: req.session.userId}, async (err, bruker) => {
         if(err) {
             logger.log({level: 'error', message: `Error: ${err}`}); 
@@ -221,7 +220,6 @@ exports.user_post_changeavatar = function(req, res) {
             }
         });
         uploadHandle(req, res, function(err){
-            console.log(req.file);
             if(err){
                 logger.log({level: 'error', message: `Wrong file type!`}); 
                 return res.status(400).send({error: req.__('ERROR_WRONG_FILE_TYPE')});

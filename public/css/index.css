@@ -646,96 +646,142 @@ img.search-image-style{
 /*********************************/
 
 #login-error {
-  background-color: rgb(211, 123, 123);
-  border: 1px solid black;
-  padding: 5px;
-  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  font-size:14px;
   display: none;
+  font-weight: bold;
 }
 
 #signup-error {
-  background-color: rgb(211, 123, 123);
-  border: 1px solid black;
-  padding: 5px;
-  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  font-size:14px;
   display: none;
+  font-weight: bold;
 }
 
 #forgot-error {
-  background-color: rgb(211, 123, 123);
-  border: 1px solid black;
-  padding: 5px;
-  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  font-size:14px;
   display: none;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
+  font-weight: bold;
 }
 
 #dashboard-avatar-error{
-  background-color: rgb(211, 123, 123);
-  border: 1px solid black;
-  padding: 5px;
-  font-size: smaller;
-  border-radius: 20px;
-  width: 250px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  font-size:14px;
   display: none;
+  font-weight: bold;
 }
 
 #dashboard-username-error{
-  background-color: rgb(211, 123, 123);
-  border: 1px solid black;
-  font-size: smaller;
-  padding: 5px;
-  border-radius: 20px;
-  width: 250px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  font-size:14px;
   display: none;
+  font-weight: bold;
 }
 
 #dashboard-password-error{
-  background-color: rgb(211, 123, 123);
-  border: 1px solid black;
-  padding: 5px;
-  font-size: smaller;
-  width: 250px;
-  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  font-size:14px;
   display: none;
+  font-weight: bold;
 }
 
 #about-contact-error{
-  background-color: rgb(211, 123, 123);
-  border: 1px solid black;
-  padding: 5px;
-  font-size: smaller;
-  width: 250px;
-  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  font-size:14px;
   display: none;
+  font-weight: bold;
 }
 
 #reset-password-error{
-  background-color: rgb(211, 123, 123);
-  border: 1px solid black;
-  padding: 5px;
-  font-size: smaller;
-  width: 250px;
-  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  font-size:14px;
   display: none;
+  font-weight: bold;
+}
+
+#admin-add-language-error{
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
+  text-align: center;
+  font-size:14px;
+  display: none;
+  font-weight: bold;
+}
+
+#admin-deleted-language-error{
+  box-shadow: 0 1px 2px rgba(0,0,0,0.11);
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #5d2625;
+  min-height: 35px;
+  line-height: 35px;
+  border-radius: 10px;
+  text-align: center;
+  font-size:14px;
+  display: none;
+  font-weight: bold;
 }
 
 /*********************************/

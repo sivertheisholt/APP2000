@@ -5,6 +5,15 @@ let adminLangOptionDesc = document.getElementById('admin-lang-option-desc');
 let langTextareaContent = document.getElementById('admin-lang-textarea-content');
 let languageOutput = document.getElementById('selectLanguageOutput');
 
+let adminAddLangErr = document.getElementById('admin-add-language-error');
+let adminAddLangBtn = document.getElementById('admin-add-language-btn');
+let adminLangOriginalName = document.getElementById('admin-lang-orginal-name-input');
+let adminLangName = document.getElementById('admin-lang-name-input');
+let adminLangCode = document.getElementById('admin-lang-code-input');
+
+let adminDeleteLangBtn = document.getElementById('admin-lang-delete-btn');
+let adminLangDeleteInput = document.getElementById('admin-lang-delete-input');
+let adminLangDeleteError = document.getElementById('admin-deleted-language-error');
 /**
  * Henter valgt språk
  * @Author Ørjan Dybevik - 233530
@@ -66,5 +75,73 @@ socket.on('savedLanguage', function(){
     adminLangSelectbox.selectedIndex = 0;
     langTextareaContent.style.display = 'none';
     langTextareaContent.value = '';
+});
+
+/**
+ * Eventlistener for å sende ajax call til å legge inn nytt språk
+ * @author Ørjan Dybevik - 233530
+ */
+adminAddLangBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    adminAddLangErr.style.display = 'none';
+    adminAddLangErr.innerHTML = "";
+    //Lager info
+    admin_add_lang_details = {
+        admindashlangoriginalname: adminLangOriginalName.value,
+        admindashlangname: adminLangName.value,
+        admindashlangcode: adminLangCode.value
+    }
+    //Sender post
+    var jqxhr = $.post(`/${urlPath}/admin/addlanguage`, {admin_add_lang_details: admin_add_lang_details});
+
+    //Om suksess
+    jqxhr.done(async function(result) {
+        adminLangOriginalName.value = '';
+        adminLangName.value = '';
+        adminLangCode.value = '';
+        swal("Success!", result.message, "success",{
+            buttons: false,
+        });
+        await new Promise(r => setTimeout(r, 3000));
+        window.location.href = `/${urlPath}/admin/admindashboard`;
+    });
+
+    //Om failure
+    jqxhr.fail(function(result) {
+        adminAddLangErr.style.display = 'block';
+        adminAddLangErr.innerHTML = result.responseJSON.error;
+    });
+});
+
+/**
+ * Eventlistener for å sende ajax call til å slette språk
+ * @author Ørjan Dybevik - 233530
+ */
+adminDeleteLangBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    adminLangDeleteError.style.display = 'none';
+    adminLangDeleteError.innerHTML = "";
+    //Lager info
+    admin_delete_lang_details = {
+        admindashlangdelete: adminLangDeleteInput.value
+    }
+    //Sender post
+    var jqxhr = $.post(`/${urlPath}/admin/deletelanguage`, {admin_delete_lang_details: admin_delete_lang_details});
+
+    //Om suksess
+    jqxhr.done(async function(result) {
+        adminLangDeleteInput.value = '';
+        swal("Success!", result.message, "success",{
+            buttons: false,
+        });
+        await new Promise(r => setTimeout(r, 3000));
+        window.location.href = `/${urlPath}/admin/admindashboard`;
+    });
+
+    //Om failure
+    jqxhr.fail(function(result) {
+        adminLangDeleteError.style.display = 'block';
+        adminLangDeleteError.innerHTML = result.responseJSON.error;
+    });
 });
 

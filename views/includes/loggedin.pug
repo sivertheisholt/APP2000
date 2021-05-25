@@ -13,10 +13,10 @@ div(uk-dropdown='animation: uk-animation-slide-top-small;')
     li
       a(href=`/${urlPath}/user/dashboard`) #{__("NAV_MYACCOUNT")}
     li
-      a(href=`/${urlPath}/user/dashboard?error=redirected&errorType=favorites`) #{__("NAV_FAVORITES")}
+      a(href=`/${urlPath}/user/dashboard?redirect=redirected&to=favorites`) #{__("NAV_FAVORITES")}
     li
-      a(href=`/${urlPath}/user/dashboard?error=redirected&errorType=watchlist`) #{__("DASHBOARD_SWITCHER_WATCHLIST")}
+      a(href=`/${urlPath}/user/dashboard?redirect=redirected&to=watchlist`) #{__("DASHBOARD_SWITCHER_WATCHLIST")}
     li
-      a(href=`/${urlPath}/user/dashboard?error=redirected&errorType=mylist`) #{__("DASHBOARD_SWITCHER_LISTS")}
+      a(href=`/${urlPath}/user/dashboard?redirect=redirected&to=mylist`) #{__("DASHBOARD_SWITCHER_LISTS")}
     li
       a(href=`/${urlPath}/auth/logout`) #{__("NAV_LOGOUT")}

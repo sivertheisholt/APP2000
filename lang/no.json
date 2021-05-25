@@ -239,5 +239,12 @@
 	"ERROR_SAVING_AVATAR": "Feil ved lagring av bilde til bruker",
 	"SUCCESS_AVATAR_UPLOAD": "Avataren ble endret, siden oppdateres automatisk ...",
 	"DASHBOARD_BACKEND_CHART_WATCHED_GENRE_TITLE": "Favoritt sjangere",
-	"DASHBOARD_BACKEND_CHART_FAVORITED_GENRE_TITLE": "Sett sjangere"
+	"DASHBOARD_BACKEND_CHART_FAVORITED_GENRE_TITLE": "Sett sjangere",
+	"ERROR_LANGUAGE_CHARACTER_LIMIT": "Språkkoden må bestå av to bokstaver",
+	"ERROR_LANGCODE_LETTERS": "Språkkoden må være bokstaver",
+	"ERROR_LANGUAGE_LETTERS": "Språknavnet må være bokstaver",
+	"SUCCESS_LANGUAGE_ADDED": "Språket ble lagt til, siden oppdateres automatisk ...",
+	"SUCCESS_LANGUAGE_DELETED": "Språket ble slettet, siden oppdateres automatisk ...",
+	"ERROR_DELETE_LANGUAGE": "Kunne ikke slette språket",
+	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Fant ingen samsvarende språk"
 }

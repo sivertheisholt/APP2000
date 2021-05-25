@@ -22,11 +22,11 @@ exports.renderObject = async function (req, res, next) {
         renderObject.userId = JSON.stringify("");
     }
     renderObject.session = sessionResult.status;
-    renderObject.error = undefined
-    renderObject.errorType = undefined
-    if(req.query.error) {
-        renderObject.error = JSON.stringify(req.query.error);
-        renderObject.errorType = JSON.stringify(req.query.errorType);
+    renderObject.redirect = undefined
+    renderObject.to = undefined
+    if(req.query.redirect) {
+        renderObject.redirect = JSON.stringify(req.query.redirect);
+        renderObject.to = JSON.stringify(req.query.to);
     }
     renderObject.urlPath = res.locals.currentLang;
     renderObject.lang = res.locals.lang;

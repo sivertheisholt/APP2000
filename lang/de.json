@@ -239,5 +239,12 @@
 	"ERROR_SAVING_AVATAR": "Fehler beim Speichern des Bildes im Benutzer",
 	"SUCCESS_AVATAR_UPLOAD": "Der Avatar wurde erfolgreich geändert, die Seite wird automatisch aktualisiert ...",
 	"DASHBOARD_BACKEND_CHART_WATCHED_GENRE_TITLE": "Bevorzugte Genres",
-	"DASHBOARD_BACKEND_CHART_FAVORITED_GENRE_TITLE": "Genres gesehen"
+	"DASHBOARD_BACKEND_CHART_FAVORITED_GENRE_TITLE": "Genres gesehen",
+	"ERROR_LANGUAGE_CHARACTER_LIMIT": "Der Sprachcode muss aus 2 Buchstaben bestehen",
+	"ERROR_LANGCODE_LETTERS": "Sprachcode muss Buchstaben sein",
+	"ERROR_LANGUAGE_LETTERS": "Der Name der Sprache muss aus Buchstaben bestehen",
+	"SUCCESS_LANGUAGE_ADDED": "Erfolgreich eine neue Sprache hinzugefügt, wird die Seite automatisch aktualisiert ...",
+	"SUCCESS_LANGUAGE_DELETED": "Die Sprache wurde erfolgreich gelöscht, die Seite wird automatisch aktualisiert ...",
+	"ERROR_DELETE_LANGUAGE": "Sprache konnte nicht gelöscht werden",
+	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Keine passende Sprache gefunden"
 }

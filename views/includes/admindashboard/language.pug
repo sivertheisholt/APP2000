@@ -8,17 +8,19 @@
         li
             a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_LANGUAGE_ADD")}
             .uk-accordion-content
-                form(action=`/${urlPath}/admin/addlanguage` method='post')
+                form(action=`` method='post')
                     .uk-margin
                         p #{__("ADMIN_DASHBOARD_LANGUAGE_ADD_DESC_ONE")}
-                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangoriginalname' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_ORIGINAL_NAME')}`)
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangoriginalname' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_ORIGINAL_NAME')}` id='admin-lang-orginal-name-input')
                     .uk-margin
                         p #{__("ADMIN_DASHBOARD_LANGUAGE_ADD_DESC_TWO")}
-                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangname' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_NAME')}`)
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangname' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_NAME')}` id='admin-lang-name-input')
                     .uk-margin
                         p #{__("ADMIN_DASHBOARD_LANGUAGE_ADD_DESC_THREE")}
-                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangcode' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_CODE')}`)
-                    button.uk-button.uk-button-default.uk-margin-right(type='submit') #{__("BUTTON_SAVE")}
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangcode' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_CODE')}` id='admin-lang-code-input')
+                    .uk-margin
+                        #admin-add-language-error(uk-icon="icon: warning")
+                    button.uk-button.uk-button-default.uk-margin-right(type='submit' id='admin-add-language-btn') #{__("BUTTON_SAVE")}
 
         li
             a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_LANGUAGE_EDIT")}
@@ -42,8 +44,10 @@
         li
             a.uk-accordion-title(href='#') #{__("ADMIN_DASHBOARD_LANGUAGE_DELETE")}
             .uk-accordion-content
-                form(action=`/${urlPath}/admin/deletelanguage` method='post')
+                form(action=`` method='post')
                     .uk-margin
                         p #{__("ADMIN_DASHBOARD_LANGUAGE_DELETE_DESC_ONE")}
-                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangdelete' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_NAME')}`)
+                        input.uk-input.uk-form-width-medium(type='text' name='admindashlangdelete' placeholder=`${__('ADMINDASHBOARD_LANGUAGE_NAME')}` id='admin-lang-delete-input')
+                    .uk-margin
+                        #admin-deleted-language-error(uk-icon="icon: warning")
                     button.uk-button.uk-button-default.uk-margin-right(type='submit' id='admin-lang-delete-btn') #{__("BUTTON_DELETE")}
