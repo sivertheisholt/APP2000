@@ -39,6 +39,7 @@ exports.tv_get_info = async function(req, res) {
     }
     let serie = {
         serieinfo: res.locals.tvInfo,
+        shortBio: await hjelpeMetoder.data.maxText(res.locals.tvInfo.overview, 500),
         castinfo: castinfolet,
         videos: await tmdb.data.getSerieVideosByID(req.url.slice(11), req.renderObject.urlPath),
         listOfPersons: await Promise.all(getPersons(castinfolet.cast, req.renderObject.urlPath)),
