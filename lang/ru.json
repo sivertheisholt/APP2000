@@ -247,5 +247,7 @@
 	"SUCCESS_LANGUAGE_ADDED": "Успешно добавлен новый язык, страница обновляется автоматически ...",
 	"SUCCESS_LANGUAGE_DELETED": "Язык успешно удален, страница обновляется автоматически ...",
 	"ERROR_DELETE_LANGUAGE": "Не удалось удалить язык",
-	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Соответствующий язык не найден"
+	"ERROR_DELETE_LANGUAGE_NO_MATCH": "Соответствующий язык не найден",
+	"DASHBOARD_STATISTICS_HOURS": "Часы",
+	"DASHBOARD_STATISTICS_MINUTES": "Минуты"
 }

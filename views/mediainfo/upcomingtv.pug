@@ -20,7 +20,7 @@ include ../includes/nav.pug
 body
     div#searchDiv
     .container.uk-grid.uk-margin-top
-        .upcomingMovies.uk-grid(class='uk-width-1-1@s')
+        .upcomingMovies.uk-grid(class='uk-width-1-1@s' uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 100; repeat: false")
             .uk-grid(class='uk-child-width-1-4@s')#mediaCard
             .uk-grid.uk-button.uk-button-default.uk-align-center(class='uk-width-1-2@s')
                 a#loadMore(onclick="load(upcomingTv, event)")
