@@ -37,7 +37,6 @@ exports.film_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Getting reviews..'});
     let reviews = await reviewGetter.getApprovedReviews(req.url.slice(10), "movie");
     let pendingReviews = await reviewGetter.getPendingReviews(req.url.slice(10), "movie");
-    console.log(reviews)
     logger.log({level: 'debug', message: 'Getting movieinfo, tailers, lists of persons & making object..'});
 
     let film = {

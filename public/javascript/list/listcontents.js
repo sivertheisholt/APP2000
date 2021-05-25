@@ -34,7 +34,7 @@ if(isListAuthor){
     deleteListBtn.addEventListener("click", function(){
         let listid = deleteListBtn.getAttribute('data-listid');
         socket.emit('deleteList', listid);
-        window.location.href = `/${urlPath}/user/dashboard?error=redirected&errorType=mylist`;
+        window.location.href = `/${urlPath}/user/dashboard?redirect=redirected&to=mylist`;
     });
 }
  
