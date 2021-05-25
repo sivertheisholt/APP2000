@@ -12,16 +12,13 @@ script.
         .uk-width-1-1
             h1.uk-text-center #{__("DASHBOARD_STATISTICS_TITLE")}
             hr.uk-divider-icon
-            .uk-text-center(class='uk-child-width-1-3@s' uk-grid='')
+            .uk-text-center(class='uk-child-width-1-2@s' uk-grid='')
                 div.uk-margin-top
                     p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_REVIEWS")}
                     p.uk-text-large= userStatsPug.reviews
                 div.uk-margin-top
                     p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_LISTS")}
                     p.uk-text-large= user.lists.length
-                div.uk-margin-top
-                    p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_HVASKALVIHAHER")}
-                    p.uk-text-large="2"
             hr.uk-divider-icon
             .uk-text-center(class='uk-child-width-1-3@s' uk-grid='')
                 div.uk-margin-top
