@@ -12,7 +12,7 @@ const listGetter = require('../systems/listSystem/listGetter');
  * Get for filmsiden, henter filminformasjon, anmeldelser, sjekker om brukeren har den som favoritt/sett
  * @param {Object} req Forespørsel fra klient
  * @param {Object} res Respons fra server
- * @author Ørjan Dybevik - 233530, Sigve - 233511
+ * @author Ørjan Dybevik - 233530, Sigve E. Eliassen - 233511
  */
 exports.film_get_info = async function(req, res) {
     let isReviewed = new ValidationHandler(false, "");
@@ -41,6 +41,7 @@ exports.film_get_info = async function(req, res) {
 
     let film = {
         filminfo: res.locals.movieInfo,
+        shortBio: await hjelpeMetoder.data.maxText(res.locals.movieInfo.overview, 500),
         castinfo: castinfolet,
         videos: await tmdb.data.getMovieVideosByID(req.url.slice(10), req.renderObject.urlPath),
         listOfPersons: await Promise.all(getPersons(castinfolet.cast, req.renderObject.urlPath)),

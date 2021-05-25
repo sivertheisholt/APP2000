@@ -104,7 +104,14 @@ body
               br
               h1= `${film.filminfo.vote_average*10}%`
               h2 #{__("MOVIEINFO_OVERVIEW")}
-              p= film.filminfo.overview
+              p= `${film.shortBio}`
+                - if(film.filminfo.overview.length > 500)
+                  a.uk-text-bold(href='#modal-fullbio' uk-toggle='')  Read more..
+              #modal-fullbio.uk-flex-top(uk-modal='')
+                .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical(class='uk-width-1-2@s')
+                  button.uk-modal-close-default(type='button' uk-close='')
+                  p= `${film.filminfo.overview}` 
+              //p= film.filminfo.overview
               .direc(uk-grid='')
                 .uk-width-1-2
                   - if(director != undefined)
