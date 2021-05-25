@@ -4,7 +4,7 @@ include ../includes/nav.pug
 
 //-
     Pug/Html for liste siden. Her er en liste over alle tilgjenglige lister
-    Author: Sigve - 233511
+    Author: Sigve - 233511, Ørjan - 233530
 body
     div#searchDiv
     .container
@@ -12,39 +12,35 @@ body
         ul(uk-accordion='collapsible: true')
             each item in listene
                 li
-                    a.uk-accordion-title(href='#')=`${item.listName}`
+                    a.uk-accordion-title(href='')=`${item.listName}`
                     .uk-accordion-content
-                        .uk-card.uk-card-default.uk-grid-collapse.uk-margin(class='uk-child-width-1-2@s' uk-grid='')
-                            .uk-card-media-left.uk-cover-container
-                                a(href=`/${urlPath}/list/lists/${item.listId}`)
+                        a(href=`/${urlPath}/list/lists/${item.listId}` class='anchor-remove-text-decoration')
+                            .uk-card.uk-card-default.uk-grid.uk-grid-collapse(class='uk-width-1-1@s')
+                                .uk-card-media-left.uk-cover-container.uk-width-auto.uk-height-auto
                                     .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1' uk-slideshow='autoplay: true')
-                                        ul.uk-slideshow-items(id="listslideshow")
+                                        .uk-slideshow-items(class='list-image-style')
                                             - if (item.posters.length != 0)
                                                 each poster in item.posters
-                                                    li
-                                                        - if (poster != null || poster != undefined)
-                                                            img(data-src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${poster}` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')(id="listslideshow")
-                                                        - else
-                                                            img(data-src=`/images/filmatory_default_poster.png` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')(id="listslideshow")
+                                                    - if (poster != null || poster != undefined)
+                                                        img(data-src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${poster}` alt='' uk-img='' class='list-image-style')
+                                                    - else
+                                                        img(data-src=`/images/filmatory_default_poster.png` alt='' uk-img='' class='list-image-style')
                                             - else
-                                                li
-                                                    img(data-src=`/images/filmatory_default_poster.png` sizes='(min-width: 650px) 650px, 100vw' width='650' height='433' alt='' uk-img='')(id="listslideshow")
-                                        a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
-                                        a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slideshow-item='next')
-                            div
-                                .uk-card-body
-                                    a(href=`/${urlPath}/list/lists/${item.listId}`)
-                                        h3.uk-card-title=`${item.listName}`
-                                    .closelist
-                                        p #{__("LIST_CREATED_BY")}
-                                        p=`${item.userName}`
-                                    p= ""
-                                    .closelist
-                                        p #{__("LIST_NUMBER_OF_MOVIES")}
-                                        p=`${item.numberOfMovies}`
-                                    p= ""
-                                    .closelist
-                                        p #{__("LIST_NUMBER_OF_TVS")}
-                                        p=`${item.numberOfTvShows}`
-
+                                                img(data-src=`/images/filmatory_default_poster.png` alt='' uk-img='' class='list-image-style')
+                                        .uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
+                                        .uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slideshow-item='next')
+                                .uk-width-expand.uk-align-center
+                                    .uk-card-body
+                                        div.uk-grid(class='uk-width-1-1@s')
+                                            div.uk-text-center(class='uk-width-1-4@s')
+                                                h3.uk-card-title=`${item.listName}`
+                                            div.uk-text-center(class='uk-width-1-4@s')
+                                                p.uk-text-bold #{__("LIST_CREATED_BY")}
+                                                p.uk-text-meta=`${item.userName}`
+                                            div.uk-text-center(class='uk-width-1-4@s')
+                                                p.uk-text-bold #{__("LIST_NUMBER_OF_MOVIES")}
+                                                p.uk-text-meta=`${item.numberOfMovies}`
+                                            div.uk-text-center(class='uk-width-1-4@s')
+                                                p.uk-text-bold #{__("LIST_NUMBER_OF_TVS")}
+                                                p.uk-text-meta=`${item.numberOfTvShows}`
 include ../includes/footer.pug
