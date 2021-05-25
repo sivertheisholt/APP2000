@@ -40,7 +40,15 @@ body
                         h4 #{__("ACTOR_POPULARITY")}
                         h1= `${popularity}`
                         h2 #{__("ACTOR_BIOGRAPHY")}
-                        p= `${person.personinfo.biography}`
+                        //p= `${person.personinfo.biography}`
+                        p= `${person.shortBio}`
+                            - if(person.shortBio.length > 600)
+                                a.uk-text-bold(href='#modal-fullbio' uk-toggle='')  Read more..
+                        #modal-fullbio.uk-flex-top(uk-modal='')
+                            .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical(class='uk-width-1-2@s')
+                                button.uk-modal-close-default(type='button' uk-close='')
+                                p= `${person.personinfo.biography}` 
+
                         .direc(uk-grid='')
                             .uk-width-1-3
                                 p Gender

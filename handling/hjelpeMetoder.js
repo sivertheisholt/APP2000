@@ -218,6 +218,23 @@ const ValidationHandler = require('./ValidationHandler');
             [array[i], array[j]] = [array[j], array[i]];
         }
         return array;
+    },
+    /**
+     * Lager en maks tekst lengde
+     * @param {String} data Tekst som skal bli forkortet
+     * @param {Number} max Maks lengde på tekst i antall chars
+     * @returns String
+     * @author Ørjan - 233530, Sigve - 233511
+     */
+    maxText: function(data, max){
+        if(data.length > max){
+            for(let i = max; i < max+20; i++){
+                if(data.charAt(i) == ' '){
+                    return data.slice(0,i-1) + '...';
+                }
+            }
+        }
+        return data;
     }
  };
  
