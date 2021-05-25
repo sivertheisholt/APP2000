@@ -10,8 +10,8 @@ const listGetter = require('../systems/listSystem/listGetter');
  * @author Sivert - 233518
  */
 exports.list_new = async function(socket, info) {
-    const userResult = await userHandler.getUserFromId(info.userId);
     const result = await listCreater.createList(userResult.information, info.name);
+    const userResult = await userHandler.getUserFromId(info.userId);
     if(!result.status) return result;
     const list = await listGetter.getListFromId(userResult.information.lists[userResult.information.lists.length-1])
     if(!list.status) return list;
