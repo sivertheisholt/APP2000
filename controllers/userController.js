@@ -63,12 +63,12 @@ exports.user_get_dashboard = async function(req, res) {
         let result = await listGetter.getListFromId(item);
         let posters = [];
         if(!result.status) break;
-        for(const movie of result.movies) {
+        for(const movie of result.information.movies) {
             let resultMovie = await movieHandler.getMovieById(movie, 'en');
             if(!resultMovie.status) break;
             posters.push(resultMovie.information.poster_path);
         }
-        for(const tv of result.tvs) {
+        for(const tv of result.information.tvs) {
             let resultTv = await tvHandler.getShowById(tv, 'en');
             if(!resultTv.status) break;
             posters.push(resultTv.information.poster_path);
