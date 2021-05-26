@@ -17,9 +17,9 @@ p #{__("DASHBOARD_FAVORITES_DESC")}
         li
             .uk-grid.uk-child-width-1-3.uk-grid-match(uk-scrollspy="cls: uk-animation-slide-bottom; target: .uk-card; delay: 300; repeat: false")
                 each item in allFavorites
-                    .uk-position-relative.uk-margin-bottom(id=`${item.id}all`)
+                    .uk-position-relative.uk-margin-bottom(id=`${item.id}allfav`)
                         .uk-card.uk-card-default.dashboard-favorite-padding
-                            a(href=`/${urlPath}/mediainfo/${item.type == 'tv' ? 'serieinfo' : 'filminfo'}/${item.id}`)
+                            a(href=`/${urlPath}/mediainfo/${item.type == 'tv' ? 'serieinfo' : 'filminfo'}/${item.id}` class='uk-margin-bottom')
                                 .uk-card-media-top
                                     img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
                                 .uk-card-body.uk-text-center
@@ -29,9 +29,9 @@ p #{__("DASHBOARD_FAVORITES_DESC")}
         li
             .uk-grid.uk-child-width-1-3.uk-grid-match
                 each item in movieFavorites
-                    .uk-position-relative.uk-margin-bottom(id=`${item.id}mov`)
+                    .uk-position-relative.uk-margin-bottom(id=`${item.id}movfav`)
                         .uk-card.uk-card-default.dashboard-favorite-padding
-                            a(href=`/${urlPath}/mediainfo/filminfo/${item.id}`)
+                            a(href=`/${urlPath}/mediainfo/filminfo/${item.id}` class='uk-margin-bottom')
                                 .uk-card-media-top
                                     img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
                                 .uk-card-body
@@ -41,9 +41,9 @@ p #{__("DASHBOARD_FAVORITES_DESC")}
         li
             .uk-grid.uk-child-width-1-3.uk-grid-match
                 each item in tvFavorites
-                    .uk-position-relative.uk-margin-bottom(id=`${item.id}tv`)
+                    .uk-position-relative.uk-margin-bottom(id=`${item.id}tvfav`)
                         .uk-card.uk-card-default.dashboard-favorite-padding
-                            a(href=`/${urlPath}/mediainfo/serieinfo/${item.id}`)
+                            a(href=`/${urlPath}/mediainfo/serieinfo/${item.id}` class='uk-margin-bottom')
                                 .uk-card-media-top
                                     img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.pictureUrl}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
                                 .uk-card-body

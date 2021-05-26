@@ -24,6 +24,26 @@ exports.about_info = async function(req, res) {
 }
 
 /**
+ * Get for Terms of use siden.
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530
+ */
+exports.terms_of_use = async function(req, res) {
+  res.render("infosider/termsofuse", req.renderObject);
+}
+
+/**
+ * Get for Privacy Policy siden
+ * @param {Object} req Forespørsel fra klient
+ * @param {Object} res Respons fra server
+ * @author Ørjan Dybevik - 233530
+ */
+exports.privacy_policy = async function(req, res) {
+  res.render("infosider/privacypolicy", req.renderObject);
+}
+
+/**
  *  Post for å sende ticket til support, gjør sjekker om felt er tomme
  * @param {Object} req Forespørsel fra klient
  * @param {Object} res Respons fra server

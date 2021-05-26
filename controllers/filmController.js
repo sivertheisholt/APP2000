@@ -49,7 +49,6 @@ exports.film_get_info = async function(req, res) {
         reviews: dateFixer(reviews.information)
     }
     logger.log({level: 'debug', message: 'Getting username..'});
-    film.reviews.username = await Promise.all(getUsernames(film.reviews));
 
     logger.log({level: 'debug', message: 'Checking if favorited..'});
     if(req.renderObject.session){
@@ -190,20 +189,6 @@ function checkIfAnyReview(reviews1, reviews2) {
         return true;
     }
     else return false;
-}
-
-/**
- * Metode for å skaffe brukeren fra ID og legge den til i Objektet.
- * @param {Object} reviews 
- * @returns {Array} userArray
- * @author Sigve E. Eliassen - 233511
- */
-function getUsernames(reviews) {
-    let userArray = [];
-    for(const item of reviews){
-        userArray.push(userHandler.getUserFromId(item.userId))
-    }
-    return userArray;
 }
 
 /**

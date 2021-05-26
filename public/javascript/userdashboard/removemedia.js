@@ -11,13 +11,13 @@ function removeMediaFav(favId, type, e){
     switch(type){
         case 'movie':
             socket.emit('unFavoriteMovie', favId.toString());
-            document.getElementById(favId+'mov').remove();
-            document.getElementById(favId+'all').remove();
+            document.getElementById(favId+'movfav').remove();
+            document.getElementById(favId+'allfav').remove();
             break;
         case 'tv':
             socket.emit('delFavoriteTv', favId.toString());
-            document.getElementById(favId+'tv').remove();
-            document.getElementById(favId+'all').remove();
+            document.getElementById(favId+'tvfav').remove();
+            document.getElementById(favId+'allfav').remove();
             break;
         default:
             return;
@@ -36,13 +36,13 @@ function removeMediaWatched(watchId, type, e){
     switch(type){
         case 'movie':
             socket.emit('removeWatchedMovie', watchId.toString());
-            document.getElementById(watchId+'mov').remove();
-            document.getElementById(watchId+'all').remove();
+            document.getElementById(watchId+'movwat').remove();
+            document.getElementById(watchId+'allwat').remove();
             break;
         case 'tv':
             socket.emit('removeWatchedTv', watchId.toString());
-            document.getElementById(watchId+'tv').remove();
-            document.getElementById(watchId+'all').remove();
+            document.getElementById(watchId+'tvwat').remove();
+            document.getElementById(watchId+'allwat').remove();
             break;
         default:
             return;
