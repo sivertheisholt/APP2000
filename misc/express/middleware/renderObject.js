@@ -1,3 +1,5 @@
+const { indexOf } = require('lodash');
+const { render } = require('pug');
 const sessionHandler = require('../../../handling/sessionHandler.js');
 const userhandler = require('../../../handling/userHandler.js');
 
@@ -28,10 +30,16 @@ exports.renderObject = async function (req, res, next) {
         renderObject.redirect = JSON.stringify(req.query.redirect);
         renderObject.to = JSON.stringify(req.query.to);
     }
+    for(let i = 0; i < res.locals.langsInMenu.length; i++){
+        if(res.locals.langsInMenu[i].id === res.locals.currentLang){
+            res.locals.langsInMenu.splice(i, 1);
+        }
+    }
+    renderObject.langsInMenu = res.locals.langsInMenu;
+    renderObject.langs = res.locals.langs;
     renderObject.urlPath = res.locals.currentLang;
     renderObject.lang = res.locals.lang;
     renderObject.langCode = res.locals.langCode;
-    renderObject.langs = res.locals.langs;
     renderObject.url = process.env.NODE_ENV == 'debug' ? 'localhost:3000' : 'https://filmatoryeksamen.herokuapp.com';
     req.renderObject = renderObject;
     next();

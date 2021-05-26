@@ -5,7 +5,7 @@
 - var username = session;
 - var lang = lang;
 - var urlPath = urlPath;
-- var langs = langs;
+- var langsInMenu = langsInMenu;
 script(src="/socket.io/socket.io.js")
 .nav-wrapper
   .uk-position-relative
@@ -64,6 +64,6 @@ script(src="/socket.io/socket.io.js")
             button.uk-button.uk-button-default(type='button').lang.nav-buttons #{lang}
             div(uk-dropdown='mode: click; boundary: ! .uk-button-group; boundary-align: true;').lang-wrapper
               ul.uk-nav.uk-dropdown-nav.select
-                each item in langs
+                each item in langsInMenu
                   li.menu-item
                     a(href=`/${item.id}/homepage`) #{item.originalname}
