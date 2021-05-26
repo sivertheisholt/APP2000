@@ -114,10 +114,7 @@ async function getTvPosterUrls(array, languageCode){
  */
 async function getPosterUrls(array1, array2) {
     let movieAndTvPosters = array1.concat(array2);
-    for (let i = movieAndTvPosters.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [movieAndTvPosters[i], movieAndTvPosters[j]] = [movieAndTvPosters[j], movieAndTvPosters[i]];
-    }
+    hjelpeMetoder.data.shuffleArray(movieAndTvPosters);
     return movieAndTvPosters;
 }
 
