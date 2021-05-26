@@ -194,20 +194,6 @@ function checkIfAnyReview(reviews1, reviews2) {
 }
 
 /**
- * Metode for å skaffe brukeren fra ID og legge den til i Objektet.
- * @param {Object} reviews 
- * @returns {Array} userArray
- * @author Sigve E. Eliassen - 233511.
- */
-function getUsernames(reviews) {
-    let userArray = [];
-    for(const item of reviews){
-        userArray.push(userHandler.getUserFromId(item.userId))
-    }
-    return userArray;
-}
-
-/**
  * Metode for å formatere datoen slik den ser bra ut.
  * @param {Object} reviews 
  * @returns {Array} dateArray
