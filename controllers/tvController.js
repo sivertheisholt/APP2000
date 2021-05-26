@@ -37,6 +37,7 @@ exports.tv_get_info = async function(req, res) {
             userMediaList.push(tempObj);
         }
     }
+
     let serie = {
         serieinfo: res.locals.tvInfo,
         shortBio: await hjelpeMetoder.data.maxText(res.locals.tvInfo.overview, 500),
@@ -45,11 +46,12 @@ exports.tv_get_info = async function(req, res) {
         listOfPersons: await Promise.all(getPersons(castinfolet.cast, req.renderObject.urlPath)),
         reviews: dateFixer(reviews.information)
     }
+
     logger.log({level: 'debug', message: 'Getting list of persons'});
     for(const item of serie.castinfo.cast){
-        //let person = await tmdb.data.getPersonByID(item.id);
         serie.listOfPersons.push(await tmdb.data.getPersonByID(item.id, req.renderObject.urlPath));
     }
+
     logger.log({level: 'debug', message: 'Checking if favorited..'});
     if(req.renderObject.session){
         isTvFav = await tvFavorite.checkIfFavorited(serie.serieinfo.id,(await userHandler.getUserFromId(req.session.userId)).information);
@@ -62,16 +64,19 @@ exports.tv_get_info = async function(req, res) {
         hasPendingReview = checkIfPendingReview(await (req.session.userId), pendingReviews.information);
         hasAnyReview = checkIfAnyReview(isReviewed, hasPendingReview);
     }
+
     serie.serieinfo.first_air_date = hjelpeMetoder.data.lagfinÅrstall(serie.serieinfo.first_air_date, '-');
     serie.serieinfo.last_air_date = hjelpeMetoder.data.lagfinÅrstall(serie.serieinfo.last_air_date, '-');
     if(serie.serieinfo.last_air_date == null){
         serie.serieinfo.last_air_date = req.__('SERIEINFO_LAST_AIR_DATE')
     }
+
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.serie = serie;
     if (req.renderObject.user != undefined){
         req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
     }
+    
     req.renderObject.isLoggedIn = req.renderObject.session;
     req.renderObject.userMediaList = userMediaList;
     req.renderObject.tvId = JSON.stringify(req.params.id);
