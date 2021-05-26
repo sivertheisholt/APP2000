@@ -33,47 +33,53 @@ document.addEventListener('DOMContentLoaded', function () {
  * Eventlistener for hjerteikonet, legger til favoritt eller fjerner som favoritt
  * @author Ørjan Dybevik - 233530
  */
-tvFavoriteEle.addEventListener("click", function(){
-    if(isTvFav){
-        isTvFav = false;
-        heartTvImg.src = '/images/icons/heart-border.png';
-        socket.emit('delFavoriteTv', tvId);
-    } else {
-        isTvFav = true;
-        heartTvImg.src = "/images/icons/heart-filled.png";
-        socket.emit('addFavoriteTv', tvId);
-    }
-});
+if(isLoggedIn){
+    tvFavoriteEle.addEventListener("click", function(){
+        if(isTvFav){
+            isTvFav = false;
+            heartTvImg.src = '/images/icons/heart-border.png';
+            socket.emit('delFavoriteTv', tvId);
+        } else {
+            isTvFav = true;
+            heartTvImg.src = "/images/icons/heart-filled.png";
+            socket.emit('addFavoriteTv', tvId);
+        }
+    });
+}
 
 /**
  * Eventlistener for bookmarkikonet, legger til i watchlist eller fjerner fra watchlist
  * @author Ørjan Dybevik - 233530
  */
-tvBookmarkEle.addEventListener("click", function(){
-    if(isTvWatched){
-        isTvWatched = false;
-        bookmarkTvImg.src = '/images/icons/bookmark-border.png';
-        socket.emit('removeWatchedTv', tvId);
-    } else {
-        isTvFav = true;
-        bookmarkTvImg.src = "/images/icons/bookmark-filled.png";
-        socket.emit('addWatchedTv', tvId);
-    }
-});
+if(isLoggedIn){
+    tvBookmarkEle.addEventListener("click", function(){
+        if(isTvWatched){
+            isTvWatched = false;
+            bookmarkTvImg.src = '/images/icons/bookmark-border.png';
+            socket.emit('removeWatchedTv', tvId);
+        } else {
+            isTvFav = true;
+            bookmarkTvImg.src = "/images/icons/bookmark-filled.png";
+            socket.emit('addWatchedTv', tvId);
+        }
+    });
+}
 
 /**
  * Eventlistener for å legge til i en liste, legger serie til i valgt liste
  * @author Ørjan Dybevik - 233530
  */
-serieinfoListSaveBtn.addEventListener("click", function(){
-    serieinfoUserList.style.display = 'none';
-    let selectedList = serieinfoListSelectbox.options[serieinfoListSelectbox.selectedIndex].getAttribute('data-list-id');
-    if(selectedList !== null){
-        socket.emit('addTvToList', {tvid: serieinfoListTvId, listid: selectedList});
-    } else {
-        filminfoListResult.innerHTML = 'Select a list';
-    }
-}); 
+if(isLoggedIn){
+    serieinfoListSaveBtn.addEventListener("click", function(){
+        serieinfoUserList.style.display = 'none';
+        let selectedList = serieinfoListSelectbox.options[serieinfoListSelectbox.selectedIndex].getAttribute('data-list-id');
+        if(selectedList !== null){
+            socket.emit('addTvToList', {tvid: serieinfoListTvId, listid: selectedList});
+        } else {
+            filminfoListResult.innerHTML = 'Select a list';
+        }
+    }); 
+}
 
 /**
  * Tilbakemelding fra socket om den blir lagt til i liste eller ikke

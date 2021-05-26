@@ -33,47 +33,56 @@ document.addEventListener('DOMContentLoaded', function () {
  * Eventlistener for hjerteikonet, legger til favoritt eller fjerner som favoritt
  * @author Ørjan Dybevik - 233530
  */
-movieEleFav.addEventListener("click", function(){
-    if(isMovFav){
-        isMovFav = false;
-        heartMovieImg.src = '/images/icons/heart-border.png';
-        socket.emit('unFavoriteMovie', movieid);
-    } else {
-        isMovFav = true;
-        heartMovieImg.src = "/images/icons/heart-filled.png";
-        socket.emit('favoriteMovie', movieid);
-    }
-});
+if(isLoggedIn){
+    movieEleFav.addEventListener("click", function(){
+        if(isMovFav){
+            isMovFav = false;
+            heartMovieImg.src = '/images/icons/heart-border.png';
+            socket.emit('unFavoriteMovie', movieid);
+        } else {
+            isMovFav = true;
+            heartMovieImg.src = "/images/icons/heart-filled.png";
+            socket.emit('favoriteMovie', movieid);
+        }
+    });
+}
+
 
 /**
  * Eventlistener for bookmarkikonet, legger til i watchlist eller fjerner fra watchlist
  * @author Ørjan Dybevik - 233530
  */
-movieEleBookmark.addEventListener("click", function(){
-    if(isMovWatched){
-        isMovWatched = false;
-        bookmarkMovieImg.src = '/images/icons/bookmark-border.png';
-        socket.emit('removeWatchedMovie', movieid);
-    } else {
-        isMovWatched = true;
-        bookmarkMovieImg.src = "/images/icons/bookmark-filled.png";
-        socket.emit('addWatchedMovie', movieid);
-    }
-}); 
+if(isLoggedIn){
+    movieEleBookmark.addEventListener("click", function(){
+        if(isMovWatched){
+            isMovWatched = false;
+            bookmarkMovieImg.src = '/images/icons/bookmark-border.png';
+            socket.emit('removeWatchedMovie', movieid);
+        } else {
+            isMovWatched = true;
+            bookmarkMovieImg.src = "/images/icons/bookmark-filled.png";
+            socket.emit('addWatchedMovie', movieid);
+        }
+    }); 
+}
+
 
 /**
  * Eventlistener for å legge til i en liste, legger film til i valgt liste
  * @author Ørjan Dybevik - 233530
  */
-filminfoListSaveBtn.addEventListener("click", function(){
-    filminfoUserList.style.display = 'none';
-    let selectedList = filminfoListSelectbox.options[filminfoListSelectbox.selectedIndex].getAttribute('data-list-id');
-    if(selectedList !== null){
-        socket.emit('addMovieToList', {movieid: filminfoListMovieId, listid: selectedList});
-    } else {
-        filminfoListResult.innerHTML = 'Select a list';
-    }
-}); 
+if(isLoggedIn){
+    filminfoListSaveBtn.addEventListener("click", function(){
+        filminfoUserList.style.display = 'none';
+        let selectedList = filminfoListSelectbox.options[filminfoListSelectbox.selectedIndex].getAttribute('data-list-id');
+        if(selectedList !== null){
+            socket.emit('addMovieToList', {movieid: filminfoListMovieId, listid: selectedList});
+        } else {
+            filminfoListResult.innerHTML = 'Select a list';
+        }
+    }); 
+}
+
 
 /**
  * Tilbakemelding fra socket om den blir lagt til i liste eller ikke

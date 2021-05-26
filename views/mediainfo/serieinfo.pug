@@ -14,6 +14,7 @@ script.
     let isTvWatched = !{isTvWatched};
     let userID = !{userId};
     let serie_Id = !{tvId};
+    let isLoggedIn = !{isLoggedIn};
 
 //- Finner skaperne av serien og setter den inn i liste: "creators".
     Author: Sigve E. Eliassen - 233511
@@ -110,7 +111,7 @@ body
                       button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') #{__("BUTTON_CANCEL")}
                       button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') #{__("BUTTON_SAVE")}
               - if(serie.serieinfo.first_air_date != undefined || serie.serieinfo.last_air_date != undefined || serie.serieinfo.first_air_date != null || serie.serieinfo.last_air_date != null)
-                h3= `${serie.serieinfo.first_air_date.substring(0,4)} - ${serie.serieinfo.last_air_date.substring(0,4)} ${genres}`
+                h3= `${serie.serieinfo.first_air_date} - ${serie.serieinfo.last_air_date} ${genres}`
               .close
                 h3(style='float: center;')=`${serie.serieinfo.number_of_seasons}`
                 -  if (serie.serieinfo.number_of_seasons == 1)
