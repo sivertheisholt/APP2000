@@ -14,6 +14,7 @@
 - var hasAnyReview = hasAnyReview;
 
 script.
+    let isLoggedIn = !{isLoggedIn};
     let isMovFav = !{isMovFav};
     let isMovWatched = !{isMovWatched};
     let userID = !{userId};
@@ -85,7 +86,7 @@ body
               h2= film.filminfo.title
                 a(href='#' id="heart-movie-favorite" data-favorite-movieid=`${film.filminfo.id}`).tooltip.tooltip-add
                   .bottom-add
-                      p #{__("MEDIA_TOOLTIP_ADD_FAVORITES")}
+                    p #{__("MEDIA_TOOLTIP_ADD_FAVORITES")}
                   img(src='/images/icons/heart-border.png' id='heart-movie-img' width="40" height ="40")
                   if !username
                     .bottom

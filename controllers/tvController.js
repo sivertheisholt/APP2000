@@ -72,6 +72,7 @@ exports.tv_get_info = async function(req, res) {
     if (req.renderObject.user != undefined){
         req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
     }
+    req.renderObject.isLoggedIn = req.renderObject.session;
     req.renderObject.userMediaList = userMediaList;
     req.renderObject.tvId = JSON.stringify(req.params.id);
     req.renderObject.isTvFav = JSON.stringify(isTvFav.status);

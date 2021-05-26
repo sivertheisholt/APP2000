@@ -21,6 +21,7 @@ exports.film_get_info = async function(req, res) {
     let isMovFav = new ValidationHandler(false, "");
     let isMovWatched = new ValidationHandler(false, "");
     let userMediaList = [];
+
     if(req.renderObject.user){
         for(let i = 0; i < req.renderObject.user.lists.length; i++){
             let userLists = await listGetter.getListFromId(req.renderObject.user.lists[i]);
@@ -68,7 +69,9 @@ exports.film_get_info = async function(req, res) {
     if (req.renderObject.user != undefined){
         req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
     }
+
     film.filminfo.release_date = hjelpeMetoder.data.lagFinDatoFraDB(film.filminfo.release_date);
+    req.renderObject.isLoggedIn = req.renderObject.session;
     req.renderObject.movieId = JSON.stringify(req.params.id);
     req.renderObject.isMovFav = isMovFav.status;
     req.renderObject.isMovWatched = isMovWatched.status;
