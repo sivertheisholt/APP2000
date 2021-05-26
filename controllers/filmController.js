@@ -12,7 +12,7 @@ const listGetter = require('../systems/listSystem/listGetter');
  * Get for filmsiden, henter filminformasjon, anmeldelser, sjekker om brukeren har den som favoritt/sett
  * @param {Object} req Forespørsel fra klient
  * @param {Object} res Respons fra server
- * @author Ørjan Dybevik - 233530, Sigve E. Eliassen - 233511
+ * @author Ørjan Dybevik - 233530, Sigve E. Eliassen - 233511, Sivert - 233518
  */
 exports.film_get_info = async function(req, res) {
     let isReviewed = new ValidationHandler(false, "");
@@ -49,7 +49,6 @@ exports.film_get_info = async function(req, res) {
         reviews: dateFixer(reviews.information)
     }
     logger.log({level: 'debug', message: 'Getting username..'});
-    film.reviews.username = await Promise.all(getUsernames(film.reviews));
 
     logger.log({level: 'debug', message: 'Checking if favorited..'});
     if(req.renderObject.session){
@@ -86,7 +85,7 @@ exports.film_get_info = async function(req, res) {
  * Get for kommende filmer, henter filminformasjon og sender det videre til siden
  * @param {Object} req Forespørsel fra klient
  * @param {Object} res Respons fra server
- * @author Ørjan Dybevik - 233530.
+ * @author Ørjan Dybevik - 233530
  */
 exports.film_get_upcoming = async function(req, res) {
     let url = 'mediainfo/filminfo';
@@ -110,7 +109,7 @@ exports.film_get_upcoming = async function(req, res) {
  * Get for alle filmer, henter filminformasjon og sender det videre til siden
  * @param {Object} req Forespørsel fra klient
  * @param {Object} res Respons fra server
- * @author Ørjan Dybevik - 233530.
+ * @author Ørjan Dybevik - 233530
  */
 exports.film_get_list = async function(req, res) {
     let url = 'mediainfo/filminfo';
@@ -151,7 +150,7 @@ function getPersons(cast, languageCode) {
  * @param {Number} thisUserId 
  * @param {Object} thisReviews 
  * @returns {Boolean} True eller False, avhengig på om det er en godkjent anmeldelse eller ikke.
- * @author Sigve E. Eliassen - 233511.
+ * @author Sigve E. Eliassen - 233511
  */
 function checkIfReviewed(thisUserId, thisReviews) {
     for (const item of thisReviews) {
@@ -167,7 +166,7 @@ function checkIfReviewed(thisUserId, thisReviews) {
  * @param {Number} thisUserId 
  * @param {Object} thisReviews 
  * @returns {Boolean} True eller False, avhengig på om det er en ubehandlet anmeldelse eller ikke. 
- * @author Sigve E. Eliassen - 233511.
+ * @author Sigve E. Eliassen - 233511
  */
 function checkIfPendingReview(thisUserId, thisReviews) {
     for (const item of thisReviews) {
@@ -183,7 +182,7 @@ function checkIfPendingReview(thisUserId, thisReviews) {
  * @param {Object} reviews1 
  * @param {Object} reviews2 
  * @returns {Boolean} True = har review, False = har ikke review.
- * @author Sigve E. Eliassen - 233511.
+ * @author Sigve E. Eliassen - 233511
  */
 function checkIfAnyReview(reviews1, reviews2) {
     if (reviews1 == true || reviews2 == true) {
@@ -193,24 +192,10 @@ function checkIfAnyReview(reviews1, reviews2) {
 }
 
 /**
- * Metode for å skaffe brukeren fra ID og legge den til i Objektet.
- * @param {Object} reviews 
- * @returns {Array} userArray
- * @author Sigve E. Eliassen - 233511.
- */
-function getUsernames(reviews) {
-    let userArray = [];
-    for(const item of reviews){
-        userArray.push(userHandler.getUserFromId(item.userId))
-    }
-    return userArray;
-}
-
-/**
  * Metode for å formatere datoen slik den ser bra ut.
  * @param {Object} reviews 
  * @returns {Array} dateArray
- * @author Sigve E. Eliassen - 233511.
+ * @author Sigve E. Eliassen - 233511
  */
 function dateFixer(reviews){
     let dateArray = [];
