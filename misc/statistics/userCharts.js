@@ -7,11 +7,13 @@ const tmdb = require("../../handling/tmdbHandler");
 
 /**
  * Lager statistikker for bruker 
- * @param {Object} user 
+ * @param {Object} user Bruker som skal lages statistikk for
+ * @param {String} languageCode Språkkode
+ * @param {Object} req Forespørsel fra klient
  * @returns ValidationHandler
  * @author Sivert - 233518
  */
-exports.userStatistics = async function(user, languageCode) {
+exports.userStatistics = async function(user, languageCode, req) {
     logger.log({level: 'debug', message: 'Creating statistics for user'});
     let statistics = {};
     let charts = [];
@@ -92,9 +94,9 @@ exports.userStatistics = async function(user, languageCode) {
     
     //Setter info inn i hoved objekt
     statistics.charts = charts;
-    statistics.runtimeMovie = await calculateTotalRuntimeMovie(moviesWatched);
-    statistics.runtimeTv = await calculateTotalRuntimeSeries(tvWatched);
-    statistics.runtimeTotal = {hours: statistics.runtimeMovie.hours + statistics.runtimeTv.hours, minutes: statistics.runtimeMovie.minutes + statistics.runtimeTv.minutes}
+    statistics.runtimeMovie = await calculateTotalRuntimeMovie(moviesWatched, req);
+    statistics.runtimeTv = await calculateTotalRuntimeSeries(tvWatched, req);
+    statistics.runtimeTotal = await calculateTotalRuntime(statistics.runtimeMovie, statistics.runtimeTv, req);
     statistics.reviews = reviewsPending.information.length + reviewsApproved.information.length;
 
     //Suksess
@@ -103,37 +105,58 @@ exports.userStatistics = async function(user, languageCode) {
 }
 
 /**
+ * Regner ut total timer/minutter for filmer og serier sammenslått
+ * @param {Object} mediaMovie Film total runtime info
+ * @param {Object} mediaTv Tv total runtime info
+ * @param {Object} req Forespørsel fra klient
+ */
+function calculateTotalRuntime(mediaMovie, mediaTv, req) {
+    let splitMovieHours = mediaMovie.hours.split(' ');
+    let splitTvHours = mediaTv.hours.split(' ');
+    let splitMovieMinutes = mediaMovie.minutes.split(' ');
+    let splitTvMinutes = mediaTv.minutes.split(' ');
+    let minutes = (parseFloat(splitMovieHours[0]) * 60) + (parseFloat(splitTvHours[0]) * 60) + parseFloat(splitMovieMinutes[0]) + parseFloat(splitTvMinutes[0]);
+    console.log(minutes);
+    return {
+        hours: `${Math.floor(minutes / 60)} ${req.__('DASHBOARD_STATISTICS_HOURS')}`,
+        minutes: `${minutes % 60} ${req.__('DASHBOARD_STATISTICS_MINUTES')}`
+    }
+}
+
+/**
  * Regner ut timer/minutter for filmer
- * @param {Array} medias 
+ * @param {Array} medias Media som skal regnes ut
+ * @param {Object} req Forespørsel fra klient
  * @returns Objekt med hours/minutes
  * @author Sivert - 233518
  */
-function calculateTotalRuntimeMovie(medias) {
-    if(medias.length == 0) return {hours: 0, minutes: 0};
+function calculateTotalRuntimeMovie(medias, req) {
+    if(medias.length == 0) return {hours: `0 ${req.__('DASHBOARD_STATISTICS_HOURS')}`, minutes: `0 ${req.__('DASHBOARD_STATISTICS_MINUTES')}`};
     let minutes = 0;
     medias.forEach(test => {
         minutes += test.runtime
     })
     return {
-        hours: Math.floor(minutes / 60),
-        minutes: minutes % 60
+        hours: `${Math.floor(minutes / 60)} ${req.__('DASHBOARD_STATISTICS_HOURS')}`,
+        minutes: `${minutes % 60} ${req.__('DASHBOARD_STATISTICS_MINUTES')}`
     }
 }
 /**
  * Regner ut timer/minutter for serier
  * @param {Array} medias 
+ * @param {Object} req Forespørsel fra klient
  * @returns Objekt med hours/minutes
  * @author Sivert - 233518
  */
-function calculateTotalRuntimeSeries(medias) {
-    if(medias.length == 0) return {hours: 0, minutes: 0};
+function calculateTotalRuntimeSeries(medias, req) {
+    if(medias.length == 0) return {hours: `0 ${req.__('DASHBOARD_STATISTICS_HOURS')}`, minutes: `0 ${req.__('DASHBOARD_STATISTICS_MINUTES')}`};
     let minutes = 0;
     medias.forEach(test => {
         minutes += (test.episode_run_time[0] * test.number_of_episodes);
     })
     return {
-        hours: Math.floor(minutes / 60),
-        minutes: minutes % 60
+        hours: `${Math.floor(minutes / 60)} ${req.__('DASHBOARD_STATISTICS_HOURS')}`,
+        minutes: `${minutes % 60} ${req.__('DASHBOARD_STATISTICS_MINUTES')}`
     }
 }
 

@@ -23,13 +23,13 @@ script.
             .uk-text-center(class='uk-child-width-1-3@s' uk-grid='')
                 div.uk-margin-top
                     p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_TOTAL_RUNTIME")}
-                    p.uk-text-large= `${userStatsPug.runtimeTotal.hours} #{__("DASHBOARD_STATISTICS_HOURS")} ${userStatsPug.runtimeTotal.minutes} #{__("DASHBOARD_STATISTICS_MINUTES")}`
-                div.uk-margin-top
+                    p.uk-text-large= `${userStatsPug.runtimeTotal.hours} ${userStatsPug.runtimeTotal.minutes}`
+                div.uk-margin-top 
                     p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_MOVIE_RUNTIME")}
-                    p.uk-text-large=`${userStatsPug.runtimeMovie.hours} #{__("DASHBOARD_STATISTICS_HOURS")} ${userStatsPug.runtimeMovie.minutes} #{__("DASHBOARD_STATISTICS_MINUTES")}`
+                    p.uk-text-large=`${userStatsPug.runtimeMovie.hours} ${userStatsPug.runtimeMovie.minutes}`
                 div.uk-margin-top
                     p.uk-text-large.uk-text-bold #{__("DASHBOARD_STATISTICS_TV_RUNTIME")}
-                    p.uk-text-large=`${userStatsPug.runtimeTv.hours} #{__("DASHBOARD_STATISTICS_HOURS")} ${userStatsPug.runtimeTv.minutes} #{__("DASHBOARD_STATISTICS_MINUTES")}`
+                    p.uk-text-large=`${userStatsPug.runtimeTv.hours} ${userStatsPug.runtimeTv.minutes}`
             hr.uk-divider-icon
         - if(user.tvsWatched.length != 0 || user.moviesWatched.length != 0)
             #containerWatched.uk-width-1-1

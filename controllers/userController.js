@@ -32,7 +32,7 @@ exports.user_get_dashboard = async function(req, res) {
     let tvWatched = [];
     let movieWatched = [];
     let lists = [];
-    let userStats = await userCharts.userStatistics(req.renderObject.user, req.renderObject.urlPath);
+    let userStats = await userCharts.userStatistics(req.renderObject.user, req.renderObject.urlPath, req);
     
     //Oversettelse watched ratio
     userStats.information.charts[0].title.text = req.__('DASHBOARD_BACKEND_CHART_WATCHED_TITLE');
