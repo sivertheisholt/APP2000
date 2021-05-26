@@ -12,7 +12,7 @@ const listGetter = require('../systems/listSystem/listGetter');
  * Get for seriesiden, henter serieinformasjon, anmeldelser, sjekker om brukeren har den som favoritt/sett
  * @param {Object} req Forespørsel fra klient
  * @param {Object} res Respons fra server
- * @author Ørjan Dybevik - 233530, Sigve - 233511
+ * @author Ørjan Dybevik - 233530, Sigve - 233511, Sivert - 233518
  */
 exports.tv_get_info = async function(req, res) {
     let isReviewed = new ValidationHandler(false, "");
