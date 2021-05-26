@@ -11,12 +11,23 @@ p #{__("DASHBOARD_LISTS_TITLE")}
             button.uk-button.uk-button-default.uk-margin-right#newList #{__("NEW_LIST_BUTTON")}
         #createListOutput.uk-margin-top
     .uk-margin 
-        .uk-grid.uk-child-width-1-3.uk-grid-match#lists(uk-scrollspy="cls: uk-animation-slide-right; target: .uk-card; delay: 200; repeat: false")
+        .uk-grid.uk-grid-match#lists(class='uk-child-width-1-3@s')
             each item in lists
                 a(href=`/${urlPath}/list/lists/${item.id}` class='uk-margin-bottom')
-                    .uk-card.uk-card-default.dashboard-favorite-padding
-                        .uk-card-media-top
-                            img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
+                    .uk-card.uk-card-default
+                        .uk-card-media-top.uk-cover-container.uk-width-auto
+                            .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1' uk-slideshow='autoplay: true')
+                                .uk-slideshow-items(class='image-slider-mylists')
+                                    - if (item.posters.length != 0)
+                                        each poster in item.posters
+                                            - if (poster != null || poster != undefined)
+                                                img(data-src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${poster}` alt='' uk-img='' class='image-slider-mylists')
+                                            - else
+                                                img(data-src=`/images/filmatory_default_poster.png` alt='' uk-img='' class='image-slider-mylists')
+                                    - else
+                                        img(data-src=`/images/filmatory_default_poster.png` alt='' uk-img='' class='image-slider-mylists')
+                                .uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
+                                .uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slideshow-item='next')
                         .uk-card-body
                             h3.uk-card-title= item.name
                             p= `Movies: ${item.movies.length}`

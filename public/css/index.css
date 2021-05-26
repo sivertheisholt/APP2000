@@ -665,6 +665,11 @@ img.search-image-style{
   padding: 15px 15px 15px 15px;
 }
 
+.image-slider-mylists{
+  min-height: 400px !important;
+  width: 100%;
+}
+
 /*********************************/
 /* Errors */
 /* @Author Ørjan Dybevik - 233530
