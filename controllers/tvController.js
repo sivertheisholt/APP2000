@@ -65,7 +65,7 @@ exports.tv_get_info = async function(req, res) {
     serie.serieinfo.first_air_date = hjelpeMetoder.data.lagfinÅrstall(serie.serieinfo.first_air_date, '-');
     serie.serieinfo.last_air_date = hjelpeMetoder.data.lagfinÅrstall(serie.serieinfo.last_air_date, '-');
     if(serie.serieinfo.last_air_date == null){
-        serie.serieinfo.last_air_date = 'Today'
+        serie.serieinfo.last_air_date = req.__('SERIEINFO_LAST_AIR_DATE')
     }
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.serie = serie;

@@ -251,5 +251,6 @@
 	"DASHBOARD_STATISTICS_HOURS": "Stunden",
 	"DASHBOARD_STATISTICS_MINUTES": "Minuten",
 	"MEDIA_TOOLTIP_ADD_FAVORITES": "Favoris",
-	"MEDIA_TOOLTIP_ADD_WATCHLIST": "Liste de surveillance"
+	"MEDIA_TOOLTIP_ADD_WATCHLIST": "Liste de surveillance",
+	"SERIEINFO_LAST_AIR_DATE": "Aujourd'hui"
 }
