@@ -33,17 +33,17 @@ exports.film_get_info = async function(req, res) {
     }
 
     logger.log({level: 'debug', message: 'Getting castinfo..'});
-    let castinfolet = await tmdb.data.getMovieCastByID(req.url.slice(10), req.renderObject.urlPath);
+    let castinfolet = await tmdb.data.getMovieCastByID(req.params.id, req.renderObject.urlPath);
     logger.log({level: 'debug', message: 'Getting reviews..'});
-    let reviews = await reviewGetter.getApprovedReviews(req.url.slice(10), "movie");
-    let pendingReviews = await reviewGetter.getPendingReviews(req.url.slice(10), "movie");
+    let reviews = await reviewGetter.getApprovedReviews(req.params.id, "movie");
+    let pendingReviews = await reviewGetter.getPendingReviews(req.params.id, "movie");
     logger.log({level: 'debug', message: 'Getting movieinfo, tailers, lists of persons & making object..'});
 
     let film = {
         filminfo: res.locals.movieInfo,
         shortBio: await hjelpeMetoder.data.maxText(res.locals.movieInfo.overview, 500),
         castinfo: castinfolet,
-        videos: await tmdb.data.getMovieVideosByID(req.url.slice(10), req.renderObject.urlPath),
+        videos: await tmdb.data.getMovieVideosByID(req.params.id, req.renderObject.urlPath),
         listOfPersons: await Promise.all(getPersons(castinfolet.cast, req.renderObject.urlPath)),
         reviews: dateFixer(reviews.information)
     }
@@ -69,7 +69,7 @@ exports.film_get_info = async function(req, res) {
         req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
     }
     film.filminfo.release_date = hjelpeMetoder.data.lagFinDatoFraDB(film.filminfo.release_date);
-    req.renderObject.movieId = JSON.stringify(req.url.slice(10));
+    req.renderObject.movieId = JSON.stringify(req.params.id);
     req.renderObject.isMovFav = isMovFav.status;
     req.renderObject.isMovWatched = isMovWatched.status;
     req.renderObject.isReviewed = isReviewed;

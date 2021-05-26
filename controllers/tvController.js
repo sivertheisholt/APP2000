@@ -19,10 +19,10 @@ exports.tv_get_info = async function(req, res) {
     let hasPendingReview = new ValidationHandler(false, "");
     let hasAnyReview = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting castinfo..'});
-    let castinfolet = await tmdb.data.getSerieCastByID(req.url.slice(11), req.renderObject.urlPath);
+    let castinfolet = await tmdb.data.getSerieCastByID(req.params.id, req.renderObject.urlPath);
     logger.log({level: 'debug', message: 'Getting reviews..'});
-    let reviews = await reviewGetter.getApprovedReviews(req.url.slice(11), 'tv');
-    let pendingReviews = await reviewGetter.getPendingReviews(req.url.slice(11), 'tv');
+    let reviews = await reviewGetter.getApprovedReviews(req.params.id, 'tv');
+    let pendingReviews = await reviewGetter.getPendingReviews(req.params.id, 'tv');
     let isTvFav = new ValidationHandler(false, "");
     let isTvWatched = new ValidationHandler(false, "");
     logger.log({level: 'debug', message: 'Getting serieinfo, tailers, lists of persons & making object..'});
@@ -41,7 +41,7 @@ exports.tv_get_info = async function(req, res) {
         serieinfo: res.locals.tvInfo,
         shortBio: await hjelpeMetoder.data.maxText(res.locals.tvInfo.overview, 500),
         castinfo: castinfolet,
-        videos: await tmdb.data.getSerieVideosByID(req.url.slice(11), req.renderObject.urlPath),
+        videos: await tmdb.data.getSerieVideosByID(req.params.id, req.renderObject.urlPath),
         listOfPersons: await Promise.all(getPersons(castinfolet.cast, req.renderObject.urlPath)),
         reviews: dateFixer(reviews.information)
     }
@@ -62,14 +62,18 @@ exports.tv_get_info = async function(req, res) {
         hasPendingReview = checkIfPendingReview(await (req.session.userId), pendingReviews.information);
         hasAnyReview = checkIfAnyReview(isReviewed, hasPendingReview);
     }
-
+    serie.serieinfo.first_air_date = hjelpeMetoder.data.lagfinÅrstall(serie.serieinfo.first_air_date, '-');
+    serie.serieinfo.last_air_date = hjelpeMetoder.data.lagfinÅrstall(serie.serieinfo.last_air_date, '-');
+    if(serie.serieinfo.last_air_date == null){
+        serie.serieinfo.last_air_date = 'Today'
+    }
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.serie = serie;
     if (req.renderObject.user != undefined){
         req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
     }
     req.renderObject.userMediaList = userMediaList;
-    req.renderObject.tvId = JSON.stringify(req.url.slice(11));
+    req.renderObject.tvId = JSON.stringify(req.params.id);
     req.renderObject.isTvFav = JSON.stringify(isTvFav.status);
     req.renderObject.isTvWatched = JSON.stringify(isTvWatched.status);
     req.renderObject.isReviewed = isReviewed;
