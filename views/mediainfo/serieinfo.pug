@@ -79,38 +79,38 @@ body
         // Informasjon on film
         div(class='uk-width-1-2@s')
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
-              h2= serie.serieinfo.name
-                a(href='#' id="heart-tv-favorite" data-favorite-tvid=`${serie.serieinfo.id}`).tooltip.tooltip-add
-                  .bottom-add
-                      p #{__("MEDIA_TOOLTIP_ADD_FAVORITES")}
-                  img(src='/images/icons/heart-border.png' id='heart-tv-img' width="40" height ="40")
+              a(href='#' id="heart-tv-favorite" data-favorite-tvid=`${serie.serieinfo.id}`).tooltip.tooltip-add
+                .bottom-add
+                    p #{__("MEDIA_TOOLTIP_ADD_FAVORITES")}
+                img(src='/images/icons/heart-border.png' id='heart-tv-img' width="40" height ="40")
+                if !username
+                  .bottom
+                    p #{__("MEDIA_TOOLTIP_FAVORITES")}
+              a(href='#' id="bookmark-tv-watched" data-watched-tvid=`${serie.serieinfo.id}`).tooltip.tooltip-add
+                .bottom-add
+                  p #{__("MEDIA_TOOLTIP_ADD_WATCHLIST")}
+                img(src='/images/icons/bookmark-border.png' id='bookmark-tv-img' width="40" height ="40")
+                if !username
+                  .bottom
+                    p #{__("MEDIA_TOOLTIP_WATCHLIST")}
+              if username
+                a(href='#add-list-modal' id="list-tv-add" data-list-tvid=`${serie.serieinfo.id}` uk-toggle='').tooltip
+                  p(class="uk-text-small uk-text-bold") Add to list
                   if !username
                     .bottom
-                      p #{__("MEDIA_TOOLTIP_FAVORITES")}
-                a(href='#' id="bookmark-tv-watched" data-watched-tvid=`${serie.serieinfo.id}`).tooltip.tooltip-add
-                  .bottom-add
-                    p #{__("MEDIA_TOOLTIP_ADD_WATCHLIST")}
-                  img(src='/images/icons/bookmark-border.png' id='bookmark-tv-img' width="40" height ="40")
-                  if !username
-                    .bottom
-                      p #{__("MEDIA_TOOLTIP_WATCHLIST")}
-                if username
-                  a(href='#add-list-modal' id="list-tv-add" data-list-tvid=`${serie.serieinfo.id}` uk-toggle='').tooltip
-                    p(class="uk-text-small uk-text-bold") Add to list
-                    if !username
-                      .bottom
-                        p #{__("MEDIA_TOOLTIP_LIST")}
-                  #add-list-modal.uk-flex-top(uk-modal='')
-                    .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
-                      h2.uk-modal-title #{__("MEDIA_MODAL_LIST_TITLE")}
-                      select(id="serieinfo-user-list" data-list-tvid=`${serie.serieinfo.id}`).uk-select
-                        option(selected='selected' id='serieinfo-options-lists') #{__("MEDIA_MODAL_LIST_SELECT")}
-                            each item in userMediaList
-                                option(id='serieinfo-list-select' data-list-id=`${item.id}`) #{item.name}
-                      p.uk-text-right
-                        p(id='listAddedResult')
-                        button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') #{__("BUTTON_CANCEL")}
-                        button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') #{__("BUTTON_SAVE")}
+                      p #{__("MEDIA_TOOLTIP_LIST")}
+                #add-list-modal.uk-flex-top(uk-modal='')
+                  .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
+                    h2.uk-modal-title #{__("MEDIA_MODAL_LIST_TITLE")}
+                    select(id="serieinfo-user-list" data-list-tvid=`${serie.serieinfo.id}`).uk-select
+                      option(selected='selected' id='serieinfo-options-lists') #{__("MEDIA_MODAL_LIST_SELECT")}
+                          each item in userMediaList
+                              option(id='serieinfo-list-select' data-list-id=`${item.id}`) #{item.name}
+                    p.uk-text-right
+                      p(id='listAddedResult')
+                      button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') #{__("BUTTON_CANCEL")}
+                      button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') #{__("BUTTON_SAVE")}
+                h2= serie.serieinfo.name
               - if(serie.serieinfo.first_air_date != undefined || serie.serieinfo.last_air_date != undefined || serie.serieinfo.first_air_date != null || serie.serieinfo.last_air_date != null)
                 h3= `${serie.serieinfo.first_air_date} - ${serie.serieinfo.last_air_date} ${genres}`
               .close

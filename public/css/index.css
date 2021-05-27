@@ -652,6 +652,23 @@ img.search-image-style{
   .mediainfo_img{
     display: none;
   }
+
+  .film_oversikt {
+    font-size: 14px;
+  }
+
+  .filminfo_text_wrap h2{
+    font-size: 24px;
+  }
+  .filminfo_text_wrap h3{
+    font-size:18px;
+  }
+
+  .filminfo_text_wrap h1{
+    font-size:18px;
+    font-weight: bold;
+    width: 100px;
+  }
 }
 
 
