@@ -22,6 +22,7 @@ exports.personInfo_get = async function (req, res) {
     }
     if(person.personinfo.biography == "" || !person.personinfo.biography) {
       person.personinfo = await tmdb.data.getPersonByID(personId, 'en')
+      person.shortBio = await hjelpeMetoder.data.maxText(person.personinfo.biography,500)
     }
     req.renderObject.credits = await tmdb.data.getPersonCombinedCreditsByID(personId, req.renderObject.urlPath);
     req.renderObject.person = person;
