@@ -36,41 +36,45 @@ exports.list_get = async function(req, res) {
  * @author Sivert - 233518, Ørjan - 233530
  */
 exports.list_get_content = async function(req, res) {
-    let medias = []
-    let listId = req.params.id;
-    let list = await listGetter.getListFromId(listId);
-    let isListAuthor = new ValidationHandler(false, "");
-    //Skaffer filmer
-    for(const movie of list.information.movies) {
-        let movieInfo = await movieHandler.getMovieById(movie, req.renderObject.urlPath);
-        medias.push({
-            id: movieInfo.information.id,
-            listid: listId,
-            pictureUrl: movieInfo.information.poster_path,
-            title: movieInfo.information.original_title,
-            releaseDate: await hjelpeMetoder.data.lagFinDato(movieInfo.information.release_date, '-'),
-            type: 'movie'
-        })
+    try {
+        let medias = []
+        let listId = req.params.id;
+        let list = await listGetter.getListFromId(listId);
+        let isListAuthor = new ValidationHandler(false, "");
+        //Skaffer filmer
+        for(const movie of list.information.movies) {
+            let movieInfo = await movieHandler.getMovieById(movie, req.renderObject.urlPath);
+            medias.push({
+                id: movieInfo.information.id,
+                listid: listId,
+                pictureUrl: movieInfo.information.poster_path,
+                title: movieInfo.information.original_title,
+                releaseDate: await hjelpeMetoder.data.lagFinDato(movieInfo.information.release_date, '-'),
+                type: 'movie'
+            })
+        }
+        //Skaffer serier
+        for(const tv of list.information.tvs) {
+            let tvInfo = await tvHandler.getShowById(tv, req.renderObject.urlPath);
+            medias.push({
+                id: tvInfo.information.id,
+                listid: listId,
+                pictureUrl: tvInfo.information.poster_path,
+                title: tvInfo.information.name,
+                releaseDate: await hjelpeMetoder.data.lagFinDato(tvInfo.information.first_air_date, '-'),
+                type : 'tv'
+              })
+        }
+        if(req.renderObject.session){
+            isListAuthor = await listGetter.checkIfListAuthor(listId, req.renderObject.user._id);
+        }
+        req.renderObject.listId = listId;
+        req.renderObject.medias = medias;
+        req.renderObject.isListAuthor = isListAuthor.status;
+        res.render("list/listContent", req.renderObject);
+    } catch(err) {
+        res.redirect('/');
     }
-    //Skaffer serier
-    for(const tv of list.information.tvs) {
-        let tvInfo = await tvHandler.getShowById(tv, req.renderObject.urlPath);
-        medias.push({
-            id: tvInfo.information.id,
-            listid: listId,
-            pictureUrl: tvInfo.information.poster_path,
-            title: tvInfo.information.name,
-            releaseDate: await hjelpeMetoder.data.lagFinDato(tvInfo.information.first_air_date, '-'),
-            type : 'tv'
-          })
-    }
-    if(req.renderObject.session){
-        isListAuthor = await listGetter.checkIfListAuthor(listId, req.renderObject.user._id);
-    }
-    req.renderObject.listId = listId;
-    req.renderObject.medias = medias;
-    req.renderObject.isListAuthor = isListAuthor.status;
-    res.render("list/listContent", req.renderObject);
 }
 
 /**

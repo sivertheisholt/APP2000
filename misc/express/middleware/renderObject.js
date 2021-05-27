@@ -1,5 +1,3 @@
-const { indexOf } = require('lodash');
-const { render } = require('pug');
 const sessionHandler = require('../../../handling/sessionHandler.js');
 const userhandler = require('../../../handling/userHandler.js');
 
