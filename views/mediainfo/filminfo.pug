@@ -114,34 +114,34 @@ body
                     p(id='listAddedResult')
                     button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') Cancel
                     button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') Save
-              h2= film.filminfo.title
-              h3= `${film.filminfo.release_date} ${genres}`
-              .close
-                h3(style='float: center;')=`${film.filminfo.runtime}` 
-                h3(style='float: center;') #{__("MOVIEINFO_MINUTES")}
-              br
-              h1= `${film.filminfo.vote_average*10}%`
-              h2 #{__("MOVIEINFO_OVERVIEW")}
-              p= `${film.shortBio}`
-                - if(film.filminfo.overview.length > 500)
-                  a.uk-text-bold(href='#modal-fullbio' uk-toggle='')  #{__("MEDIAINFO_MODAL_READ_MORE")}
-              #modal-fullbio.uk-flex-top(uk-modal='')
-                .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical(class='uk-width-1-2@s')
-                  button.uk-modal-close-default(type='button' uk-close='')
-                  p= `${film.filminfo.overview}` 
-              .direc(uk-grid='')
-                div(class='uk-width-1-2@s')
-                  - if(director != undefined)
-                    p #{__("MOVIEINFO_DIRECTOR")}
-                    a(href=`/${urlPath}/person/${directorId}`)
-                      b= `${director}`
-                div(class='uk-width-1-2@s')
-                  - if(screenplay != undefined)
-                    p #{__("MOVIEINFO_SCREENWRITER")}
-                    a(href=`/${urlPath}/person/${screenplayId}`)
-                      b= `${screenplay}`
-                .fb-share-button.uk-align-center(data-href=`https://filmatoryeksamen.herokuapp.com/en/mediainfo/filminfo/${film.filminfo.id}` data-layout='box_count' data-size='small')
-                  a.fb-xfbml-parse-ignore.uk-text-center(target='_blank' href=`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffilmatoryeksamen.herokuapp.com%2Fen%2Fmediainfo%2Ffilminfo%2F${film.filminfo.id}`) #{__("MEDIAINFO_SHARE_BTN")}
+            h2= film.filminfo.title
+            h3= `${film.filminfo.release_date} ${genres}`
+            .close
+              h3(style='float: center;')=`${film.filminfo.runtime}` 
+              h3(style='float: center;') #{__("MOVIEINFO_MINUTES")}
+            br
+            h1= `${film.filminfo.vote_average*10}%`
+            h2 #{__("MOVIEINFO_OVERVIEW")}
+            p= `${film.shortBio}`
+              - if(film.filminfo.overview.length > 500)
+                a.uk-text-bold(href='#modal-fullbio' uk-toggle='')  #{__("MEDIAINFO_MODAL_READ_MORE")}
+            #modal-fullbio.uk-flex-top(uk-modal='')
+              .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical(class='uk-width-1-2@s')
+                button.uk-modal-close-default(type='button' uk-close='')
+                p= `${film.filminfo.overview}` 
+            .direc(uk-grid='')
+              div(class='uk-width-1-2@s')
+                - if(director != undefined)
+                  p #{__("MOVIEINFO_DIRECTOR")}
+                  a(href=`/${urlPath}/person/${directorId}`)
+                    b= `${director}`
+              div(class='uk-width-1-2@s')
+                - if(screenplay != undefined)
+                  p #{__("MOVIEINFO_SCREENWRITER")}
+                  a(href=`/${urlPath}/person/${screenplayId}`)
+                    b= `${screenplay}`
+              .fb-share-button.uk-align-center(data-href=`https://filmatoryeksamen.herokuapp.com/en/mediainfo/filminfo/${film.filminfo.id}` data-layout='box_count' data-size='small')
+                a.fb-xfbml-parse-ignore.uk-text-center(target='_blank' href=`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffilmatoryeksamen.herokuapp.com%2Fen%2Fmediainfo%2Ffilminfo%2F${film.filminfo.id}`) #{__("MEDIAINFO_SHARE_BTN")}
       // Slider med skuespillere
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')
