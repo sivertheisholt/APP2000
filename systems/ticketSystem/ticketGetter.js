@@ -9,6 +9,7 @@ const TicketPending = require('../../database/pendingTicketSchema');
  */
 async function getAllPendingTickets() {
     try {
+        logger.log({level: "info", message: "Getting all pending tickets..."});
         return new ValidationHandler(true, await TicketPending.find());
     } catch(err) {
         logger.log({level: 'error', message: `Something unexpected happen while trying to get information! Error: ${err}`})
