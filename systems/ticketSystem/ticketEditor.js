@@ -24,6 +24,7 @@ class CloneTicket {
  * @author Ørjan Dybevik 233530, Govert - 233565
  */
 async function finishTicket(ticket) {
+    logger.log({level: "info", message: "Finishing ticket..."});
     //Sjekker id
     const checkIdResult = await checkId(ticket.ticketId);
     if(!checkIdResult.status) {
