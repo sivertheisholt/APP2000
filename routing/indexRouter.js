@@ -12,7 +12,7 @@ router.use("/auth", require('./userAuth'));
 router.use("/infosider", require('./info'));
 router.use("/user", require('./dashboard'));
 router.use("/person", require('./personinfo'));
-router.use("/homepage", require('./homepage'));
+router.use("/home", require('./homepage'));
 router.use("/list", require('./list'));
 
 module.exports = router;
