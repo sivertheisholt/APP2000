@@ -70,14 +70,6 @@ async function makeReview(review) {
     const userResult = await userHandler.getUserFromId(review.userId);
     if(!userResult.status) return userResult;
 
-    //Send mail
-    mailer({
-        from: process.env.EMAIL,
-        to: userResult.information.email, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
-        subject: 'Review approved',
-        html: `<h1>Your review has been approved!</h1>`
-    })
-
     //Suksess
     logger.log({level:'debug', message: `Review was successfully created for user ${review.userId}`});
     return new ValidationHandler(true, 'Review was successfully created for user');

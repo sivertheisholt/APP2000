@@ -243,6 +243,18 @@ async function approveReview(reviewId) {
     const deletePendingResult = await deletePending(reviewId);
     if(!deletePendingResult.status) return deletePendingResult;
 
+    //Skaffer bruker
+    const userResult = await userHandler.getUserFromId(pendingReview.information.userId);
+    if(!userResult.status) return userResult;
+
+    //Send mail
+    mailer({
+        from: process.env.EMAIL,
+        to: userResult.information.email, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
+        subject: 'Review approved',
+        html: `<h1>Your review has been approved!</h1>`
+    })
+
     //Suksess
     logger.log({level: 'info', message: `Review with id ${reviewId} was sucessfully approved`});
     return new ValidationHandler(true, `Review with id ${reviewId} was sucessfully approved`);
