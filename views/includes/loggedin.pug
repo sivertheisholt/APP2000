@@ -4,7 +4,8 @@
 
 - var urlPath = urlPath;
 - var admin = admin;
-button.uk-button.uk-button-default.nav-buttons(type='button') #{__("NAV_ACCOUNT")}
+button.uk-button.uk-button-default.nav-buttons(type='button' id='account-btn')
+  span(uk-icon='icon:  triangle-down') #{__("NAV_ACCOUNT")}
 div(uk-dropdown='animation: uk-animation-slide-top-small;')
   ul.uk-nav.uk-dropdown-nav
     if admin

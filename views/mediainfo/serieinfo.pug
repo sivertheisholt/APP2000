@@ -74,10 +74,10 @@ body
       // Grid
       div(uk-grid='').film_oversikt
         // Poster image
-        .uk-width-1-2.uk-flex-middle.filminfo_img
-          img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${serie.serieinfo.poster_path}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
+        .uk-flex-middle(class='uk-width-1-2@s')
+          img.mediainfo_img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${serie.serieinfo.poster_path}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
         // Informasjon on film
-        .uk-width-1-2
+        div(class='uk-width-1-2@s')
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
               h2= serie.serieinfo.name
                 a(href='#' id="heart-tv-favorite" data-favorite-tvid=`${serie.serieinfo.id}`).tooltip.tooltip-add
@@ -130,12 +130,12 @@ body
                   button.uk-modal-close-default(type='button' uk-close='')
                   p= `${serie.serieinfo.overview}` 
               .direc(uk-grid='')
-                .uk-width-1-2
+                div(class='uk-width-1-2@s')
                   - if (execProducer != undefined)
                     p #{__("TVINFO_EXEC_PRODUCER")}
                     a(href=`/${urlPath}/person/${execProducerId}`)
                       b= `${execProducer}`
-                .uk-width-1-2
+                div(class='uk-width-1-2@s')
                   - if (creators[0] != undefined)
                     p #{__("TVINFO_CREATED_BY")}
                     a(href=`/${urlPath}/person/${creators[1]}`)

@@ -225,7 +225,7 @@
 	"ERROR_PASSWORD_NOT_MATCH": "Les mots de passe ne correspondent pas",
 	"ERROR_SIGNUP_UNEXPECTED_ERROR": "Erreur inattendue lors de la création de l'utilisateur, réessayez",
 	"ERROR_USER_DOESNT_EXIST": "Cet e-mail n'existe pas",
-	"ERROR_RESET_PASSWORD_LINK":"Une erreur s'est produite lors de la création de votre lien de réinitialisation, veuillez réessayer",
+	"ERROR_RESET_PASSWORD_LINK": "Une erreur s'est produite lors de la création de votre lien de réinitialisation, veuillez réessayer",
 	"ERROR_AUTHENTICATION": "Erreur d'authentification.",
 	"ERROR_EXPIRED_TOKEN": "Le jeton a expiré ou est incorrect",
 	"ERROR_USER_TOKEN_DOESNT_EXIST": "L'utilisateur avec ce jeton n'existe pas",
@@ -298,5 +298,6 @@
 	"SORT_MOVIE_GENRE_SIXTEEN": "Film télévisé",
 	"SORT_MOVIE_GENRE_SEVENTEEN": "Thriller",
 	"SORT_MOVIE_GENRE_EIGHTEEN": "Guerre",
-	"SORT_MOVIE_GENRE_NINETEEN": "Occidental"
+	"SORT_MOVIE_GENRE_NINETEEN": "Occidental",
+	"SORT": "Sorte"
 }

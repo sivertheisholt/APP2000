@@ -17,7 +17,8 @@ script(src="/socket.io/socket.io.js")
             li
               a(href=`/${urlPath}/infosider/about`) #{__("NAV_ABOUT")}
             li
-              a(href='#' uk-icon="icon: menu" ) #{__("NAV_EXPLORE")}
+              a(href='#') #{__("NAV_EXPLORE")}
+                span(uk-icon="icon: menu")
               .uk-navbar-dropdown
                 ul.uk-nav.uk-dropdown-nav
                   li
@@ -61,7 +62,8 @@ script(src="/socket.io/socket.io.js")
           else
             include loggedout.pug
           .uk-inline
-            button.uk-button.uk-button-default(type='button').lang.nav-buttons #{lang}
+            button.uk-button.uk-button-default(type='button' id='choose-lang-btn').lang.nav-buttons 
+              span(uk-icon='icon:  triangle-down') #{lang}
             div(uk-dropdown='mode: click; boundary: ! .uk-button-group; boundary-align: true;').lang-wrapper
               ul.uk-nav.uk-dropdown-nav.select
                 each item in langsInMenu

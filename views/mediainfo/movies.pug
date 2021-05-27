@@ -22,63 +22,64 @@ include ../includes/nav.pug
 body
     div#searchDiv
     .container
-        .uk-margin-auto.uk-padding-remove.uk-grid.uk-text-center.uk-align-center.uk-flex.uk-flex-center
-            h2 #{__("SORT")}
-                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') #{__("SORT_BY_BTN")}
-                div.movies-filter-list.upcoming-scroll-bar(uk-dropdown='mode: click')
-                    ul
-                        a(id="popularMediaDesc") #{__("SORT_OPT_ONE")}
-                    ul
-                        a(id='popularMediaAsc') #{__("SORT_OPT_TWO")}
-                    ul
-                        a(id='popularMediaSortByDateDesc') #{__("SORT_OPT_THREE")}
-                    ul
-                        a(id='popularMediaSortByDateAsc') #{__("SORT_OPT_FOUR")}
-                    ul
-                        a(id='popularMediaSortByTitleAZ') #{__("SORT_OPT_FIVE")}
-                    ul
-                        a(id='popularMediaSortByTitleZA') #{__("SORT_OPT_SIX")}
-            h2 Sort by genre
-                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') #{__("SORT_BY_GENRE_BTN")}
-                div.media-genre-list.upcoming-scroll-bar(uk-dropdown='mode: click')
-                    ul
-                        a(id='28') #{__("SORT_MOVIE_GENRE_ONE")}
-                    ul
-                        a(id='12') #{__("SORT_MOVIE_GENRE_TWO")}
-                    ul
-                        a(id='16') #{__("SORT_MOVIE_GENRE_THREE")}
-                    ul
-                        a(id='35') #{__("SORT_MOVIE_GENRE_FOUR")}
-                    ul
-                        a(id='80') #{__("SORT_MOVIE_GENRE_FIVE")}
-                    ul
-                        a(id='99') #{__("SORT_MOVIE_GENRE_SIX")}
-                    ul
-                        a(id='18') #{__("SORT_MOVIE_GENRE_SEVEN")}
-                    ul
-                        a(id='10751') #{__("SORT_MOVIE_GENRE_EIGHT")}
-                    ul
-                        a(id='14') #{__("SORT_MOVIE_GENRE_NINE")}
-                    ul
-                        a(id='36') #{__("SORT_MOVIE_GENRE_TEN")}
-                    ul
-                        a(id='27') #{__("SORT_MOVIE_GENRE_ELEVEN")}
-                    ul
-                        a(id='10402') #{__("SORT_MOVIE_GENRE_TWELVE")}
-                    ul
-                        a(id='9648') #{__("SORT_MOVIE_GENRE_THIRTEEN")}
-                    ul
-                        a(id='10749') #{__("SORT_MOVIE_GENRE_FOURTEEN")}
-                    ul
-                        a(id='878') #{__("SORT_MOVIE_GENRE_FIFTEEN")}
-                    ul
-                        a(id='10770') #{__("SORT_MOVIE_GENRE_SIXTEEN")}
-                    ul
-                        a(id='53') #{__("SORT_MOVIE_GENRE_SEVENTEEN")}
-                    ul
-                        a(id='10752') #{__("SORT_MOVIE_GENRE_EIGHTEEN")}
-                    ul
-                        a(id='37') #{__("SORT_MOVIE_GENRE_NINETEEN")}
+        .uk-padding-remove.uk-text-center.uk-align-center
+            .uk-grid.uk-margin-auto.uk-flex.uk-flex-center.uk-margin-top(class='uk-width-1-1@s')
+                h2(class='uk-width-1-3@s') #{__("SORT")}
+                    button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') #{__("SORT_BY_BTN")}
+                    div.movies-filter-list.upcoming-scroll-bar(uk-dropdown='mode: click')
+                        ul
+                            a(id="popularMediaDesc") #{__("SORT_OPT_ONE")}
+                        ul
+                            a(id='popularMediaAsc') #{__("SORT_OPT_TWO")}
+                        ul
+                            a(id='popularMediaSortByDateDesc') #{__("SORT_OPT_THREE")}
+                        ul
+                            a(id='popularMediaSortByDateAsc') #{__("SORT_OPT_FOUR")}
+                        ul
+                            a(id='popularMediaSortByTitleAZ') #{__("SORT_OPT_FIVE")}
+                        ul
+                            a(id='popularMediaSortByTitleZA') #{__("SORT_OPT_SIX")}
+                h2(class='uk-width-1-3@s') #{__("SORT_BY_GENRE_BTN")}
+                    button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') #{__("SORT_BY_GENRE_BTN")}
+                    div.media-genre-list.upcoming-scroll-bar(uk-dropdown='mode: click')
+                        ul
+                            a(id='28') #{__("SORT_MOVIE_GENRE_ONE")}
+                        ul
+                            a(id='12') #{__("SORT_MOVIE_GENRE_TWO")}
+                        ul
+                            a(id='16') #{__("SORT_MOVIE_GENRE_THREE")}
+                        ul
+                            a(id='35') #{__("SORT_MOVIE_GENRE_FOUR")}
+                        ul
+                            a(id='80') #{__("SORT_MOVIE_GENRE_FIVE")}
+                        ul
+                            a(id='99') #{__("SORT_MOVIE_GENRE_SIX")}
+                        ul
+                            a(id='18') #{__("SORT_MOVIE_GENRE_SEVEN")}
+                        ul
+                            a(id='10751') #{__("SORT_MOVIE_GENRE_EIGHT")}
+                        ul
+                            a(id='14') #{__("SORT_MOVIE_GENRE_NINE")}
+                        ul
+                            a(id='36') #{__("SORT_MOVIE_GENRE_TEN")}
+                        ul
+                            a(id='27') #{__("SORT_MOVIE_GENRE_ELEVEN")}
+                        ul
+                            a(id='10402') #{__("SORT_MOVIE_GENRE_TWELVE")}
+                        ul
+                            a(id='9648') #{__("SORT_MOVIE_GENRE_THIRTEEN")}
+                        ul
+                            a(id='10749') #{__("SORT_MOVIE_GENRE_FOURTEEN")}
+                        ul
+                            a(id='878') #{__("SORT_MOVIE_GENRE_FIFTEEN")}
+                        ul
+                            a(id='10770') #{__("SORT_MOVIE_GENRE_SIXTEEN")}
+                        ul
+                            a(id='53') #{__("SORT_MOVIE_GENRE_SEVENTEEN")}
+                        ul
+                            a(id='10752') #{__("SORT_MOVIE_GENRE_EIGHTEEN")}
+                        ul
+                            a(id='37') #{__("SORT_MOVIE_GENRE_NINETEEN")}
         .uk-grid.uk-margin-remove.uk-padding-remove(class='uk-child-width-1-4@s' uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 200; repeat: false")#mediaCard
         .uk-grid.uk-button.uk-button-default.uk-align-center(class='uk-width-1-2@s')
             a#loadMore(onclick="load(currentMediaDisplayed, event)")

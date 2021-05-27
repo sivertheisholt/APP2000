@@ -78,10 +78,10 @@ body
       // Grid
       div(uk-grid='').film_oversikt
         // Poster image
-        .uk-width-1-2.uk-flex-middle.filminfo_img
-          img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${film.filminfo.poster_path}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
+        .uk-flex-middle(class='uk-width-1-2@s')
+          img.mediainfo_img(src=`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${film.filminfo.poster_path}` onerror="this.onerror=null; this.src='/images/filmatory_default_poster.png'" alt='')
         // Informasjon on film
-        .uk-width-1-2
+        div(class='uk-width-1-2@s')
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
               h2= film.filminfo.title
                 a(href='#' id="heart-movie-favorite" data-favorite-movieid=`${film.filminfo.id}`).tooltip.tooltip-add
@@ -130,12 +130,12 @@ body
                   button.uk-modal-close-default(type='button' uk-close='')
                   p= `${film.filminfo.overview}` 
               .direc(uk-grid='')
-                .uk-width-1-2
+                div(class='uk-width-1-2@s')
                   - if(director != undefined)
                     p #{__("MOVIEINFO_DIRECTOR")}
                     a(href=`/${urlPath}/person/${directorId}`)
                       b= `${director}`
-                .uk-width-1-2
+                div(class='uk-width-1-2@s')
                   - if(screenplay != undefined)
                     p #{__("MOVIEINFO_SCREENWRITER")}
                     a(href=`/${urlPath}/person/${screenplayId}`)
