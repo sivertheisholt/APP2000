@@ -13,7 +13,7 @@ script(src="/socket.io/socket.io.js")
         .desktop-nav
           ul.uk-navbar-nav
             li
-              a(href=`/${urlPath}/homepage`) #{__("NAV_HOME")}
+              a(href=`/${urlPath}/home`) #{__("NAV_HOME")}
             li
               a(href=`/${urlPath}/infosider/about`) #{__("NAV_ABOUT")}
             li
@@ -41,7 +41,7 @@ script(src="/socket.io/socket.io.js")
           .menu
             ul
               li
-                a(href=`/${urlPath}/homepage`) #{__("NAV_HOME")}
+                a(href=`/${urlPath}/home`) #{__("NAV_HOME")}
               li
                 a(href=`/${urlPath}/mediainfo/movies`) #{__("NAV_MOVIES")}
               li
@@ -66,4 +66,4 @@ script(src="/socket.io/socket.io.js")
               ul.uk-nav.uk-dropdown-nav.select
                 each item in langsInMenu
                   li.menu-item
-                    a(href=`/${item.id}/homepage`) #{item.originalname}
+                    a(href=`/${item.id}/home`) #{item.originalname}

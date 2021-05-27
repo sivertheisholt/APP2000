@@ -28,7 +28,7 @@ resetPasswordBtn.addEventListener("click", function(e){
             buttons: false,
         });
         await new Promise(r => setTimeout(r, 3000));
-        window.location.href = `/${urlPath}/homepage`;
+        window.location.href = `/${urlPath}/home`;
     });
 
     //Om failure

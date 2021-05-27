@@ -16,7 +16,7 @@ exports.userAuth_get_logout = async function(req, res) {
     logger.log({level: 'debug', message: `Request received for /logout`}); 
     req.session.destroy(err => {
         res.clearCookie('connect.sid')
-        res.redirect(`/${req.renderObject.langCode}/homepage`)
+        res.redirect(`/${req.renderObject.langCode}/home`)
     })
 }
 
@@ -198,7 +198,6 @@ exports.userAuth_get_login = async function(req,res ) {
 
     //Suksess
     res.status(200).send({message: req.__('SUCCESS_LOGIN')});
-    //res.redirect(`/${req.renderObject.langCode}/homepage`);
 }
 
 /**

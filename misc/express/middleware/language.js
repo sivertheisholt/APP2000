@@ -31,7 +31,7 @@ exports.set_language = async function(req, res, next) {
     let langList = await hjelpemetoder.data.lesFil("./lang/langList.json");
     if(!langList.status){
         logger.log({level: 'error', message: 'Something went wrong when retrieving language list!'});
-        res.redirect('/en/homepage');
+        res.redirect('/en/home');
         return;
     }
     res.locals.langs = await JSON.parse(langList.information).availableLanguage;
