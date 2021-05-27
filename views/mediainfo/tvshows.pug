@@ -24,61 +24,61 @@ body
     div#searchDiv
     .container
         .uk-margin-auto.uk-padding-remove.uk-grid.uk-text-center.uk-flex.uk-flex-center
-            h2 Sort
-                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by
+            h2 #{__("SORT")}
+                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') #{__("SORT_BY_BTN")}
                 div.tv-shows-filter-list.upcoming-scroll-bar(uk-dropdown='mode: click')
                     ul
-                        a(id="popularMediaDesc") Popularity Descending
+                        a(id="popularMediaDesc") #{__("SORT_OPT_ONE")}
                     ul
-                        a(id='popularMediaAsc') Popularity Ascending
+                        a(id='popularMediaAsc') #{__("SORT_OPT_TWO")}
                     ul
-                        a(id='popularMediaSortByDateDesc') Release Date Descending
+                        a(id='popularMediaSortByDateDesc') #{__("SORT_OPT_THREE")}
                     ul
-                        a(id='popularMediaSortByDateAsc') Release Date Ascending
+                        a(id='popularMediaSortByDateAsc') #{__("SORT_OPT_FOUR")}
                     ul
-                        a(id='popularMediaSortByTitleAZ') Title (A-Z)
+                        a(id='popularMediaSortByTitleAZ') #{__("SORT_OPT_FIVE")}
                     ul
-                        a(id='popularMediaSortByTitleZA') Title (Z-A)
-            h2 Sort by genre
-                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') Sort by genre
+                        a(id='popularMediaSortByTitleZA') #{__("SORT_OPT_SIX")}
+            h2 #{__("SORT_BY_GENRE_BTN")}
+                button.uk-button.uk-button-default.uk-align-center.uk-margin-top(type='button') #{__("SORT_BY_GENRE_BTN")}
                 div.media-genre-list.upcoming-scroll-bar(uk-dropdown='mode: click')
                     ul
-                        a(id='10759') Action & Adventure
+                        a(id='10759') #{__("SORT_TV_GENRE_ONE")}
                     ul
-                        a(id='16') Animation
+                        a(id='16') #{__("SORT_TV_GENRE_TWO")}
                     ul
-                        a(id='35') Comedy
+                        a(id='35') #{__("SORT_TV_GENRE_THREE")}
                     ul
-                        a(id='80') Crime
+                        a(id='80') #{__("SORT_TV_GENRE_FOUR")}
                     ul
-                        a(id='99') Documentary
+                        a(id='99') #{__("SORT_TV_GENRE_FIVE")}
                     ul
-                        a(id='18') Drama
+                        a(id='18') #{__("SORT_TV_GENRE_SIX")}
                     ul
-                        a(id='10751') Family
+                        a(id='10751') #{__("SORT_TV_GENRE_SEVEN")} 
                     ul
-                        a(id='10762') Kids
+                        a(id='10762') #{__("SORT_TV_GENRE_EIGHT")} 
                     ul
-                        a(id='10763') News
+                        a(id='10763') #{__("SORT_TV_GENRE_NINE")}
                     ul
-                        a(id='10764') Reality
+                        a(id='10764') #{__("SORT_TV_GENRE_TEN")} 
                     ul
-                        a(id='10765') Sci-Fi & Fantasy
+                        a(id='10765') #{__("SORT_TV_GENRE_ELEVEN")} 
                     ul
-                        a(id='10766') Soap
+                        a(id='10766') #{__("SORT_TV_GENRE_TWELVE")} 
                     ul
-                        a(id='10767') Talk
+                        a(id='10767') #{__("SORT_TV_GENRE_THIRTEEN")} 
                     ul
-                        a(id='10768') War & Politics
+                        a(id='10768') #{__("SORT_TV_GENRE_FOURTEEN")} 
                     ul
-                        a(id='37') Western
+                        a(id='37') #{__("SORT_TV_GENRE_FIFTEEN")} 
         .uk-grid.uk-margin-remove.uk-padding-remove(class='uk-child-width-1-4@s' uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 100; repeat: false")#mediaCard
         .uk-grid.uk-button.uk-button-default.uk-align-center(class='uk-width-1-2@s')
             a#loadMore(onclick="load(currentMediaDisplayed, event)")
-                span.text Load More
+                span.text #{__("BUTTON_LOAD_MORE")}
             #noMoreMedia
                 a(href="#")
-                    span.text No more movies, click to go to top.
+                    span.text #{__("BUTTON_LOAD_MORE_END")}
 
 script.
     
