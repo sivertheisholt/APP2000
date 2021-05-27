@@ -12,39 +12,43 @@ const tmdb = require('../../../handling/tmdbHandler');
  * @author Sivert - 233518
  */
 exports.movie_check_database = async function(req, res, next) {    
-    //Sjekker om film er lagret i database
-    const movieId = req.url.slice(10)
-    let isSaved = await movieHandler.checkIfSaved(movieId,req.renderObject.urlPath);
-    if(isSaved.status && isSaved.information.overview == "" || !isSaved.information.overview) {
-        isSaved = await movieHandler.checkIfSaved(movieId,'en');
-    }
-    if(isSaved.status) {
-        res.locals.movieInfo = isSaved.information
-        next();
-        return;
-    }
-        
-    //Skaffer film informasjon
-    let movieInfo = await tmdb.data.getMovieInfoByID(movieId, req.renderObject.urlPath);
-    if(!movieInfo|| movieInfo.overview == "" || !movieInfo.overview) {
-        movieInfo = await tmdb.data.getMovieInfoByID(movieId, 'en');
-        if(!movieInfo) {
+    try {
+        //Sjekker om film er lagret i database
+        const movieId = req.params.id
+        let isSaved = await movieHandler.checkIfSaved(movieId,req.renderObject.urlPath);
+        if(isSaved.status && isSaved.information.overview == "" || !isSaved.information.overview) {
+            isSaved = await movieHandler.checkIfSaved(movieId,'en');
+        }
+        if(isSaved.status) {
+            res.locals.movieInfo = isSaved.information
             next();
             return;
         }
-    }
+            
+        //Skaffer film informasjon
+        let movieInfo = await tmdb.data.getMovieInfoByID(movieId, req.renderObject.urlPath);
+        if(!movieInfo|| movieInfo.overview == "" || !movieInfo.overview) {
+            movieInfo = await tmdb.data.getMovieInfoByID(movieId, 'en');
+            if(!movieInfo) {
+                next();
+                return;
+            }
+        }
 
-    //Setter språk
-    movieInfo.language = req.renderObject.urlPath;
-        
-    res.locals.movieInfo = movieInfo;
-    //Legger til film i database
-    const addToDatabaseResult = await movieHandler.addToDatabase(movieInfo);
-    if(!addToDatabaseResult.status) {
+        //Setter språk
+        movieInfo.language = req.renderObject.urlPath;
+            
+        res.locals.movieInfo = movieInfo;
+        //Legger til film i database
+        const addToDatabaseResult = await movieHandler.addToDatabase(movieInfo);
+        if(!addToDatabaseResult.status) {
+            next();
+            return;
+        }
         next();
-        return;
+    }catch(err) {
+        res.redirect('/');
     }
-    next();
 }
 
 /**
@@ -57,39 +61,43 @@ exports.movie_check_database = async function(req, res, next) {
  * @author Sivert - 233518
  */
 exports.tv_check_database = async function(req, res, next) {    
-    //Sjekker om tv er lagret i database
-    const tvId = req.url.slice(11)
-    let isSaved = await tvHandler.checkIfSaved(tvId,req.renderObject.urlPath);
+    try {
+        //Sjekker om tv er lagret i database
+        const tvId = req.params.id
+        let isSaved = await tvHandler.checkIfSaved(tvId,req.renderObject.urlPath);
 
-    //Sjekker om info ikke er tom
-    if(isSaved.status && isSaved.information.overview == "" || !isSaved.information.overview) {
-        isSaved = await tvHandler.checkIfSaved(tvId, 'en');
-    }
-    
-    if(isSaved.status) {
-        res.locals.tvInfo = isSaved.information;
-        next();
-        return;
-    }
+        //Sjekker om info ikke er tom
+        if(isSaved.status && isSaved.information.overview == "" || !isSaved.information.overview) {
+            isSaved = await tvHandler.checkIfSaved(tvId, 'en');
+        }
 
-    //Skaffer tv informasjon
-    let tvInfo = await tmdb.data.getSerieInfoByID(tvId, req.renderObject.urlPath);
-    if(!tvInfo || tvInfo.overview == "" || !tvInfo.overview) {
-        tvInfo = await tmdb.data.getSerieInfoByID(tvId, 'en');
-        if(!tvInfo) {
+        if(isSaved.status) {
+            res.locals.tvInfo = isSaved.information;
             next();
             return;
         }
-    }
 
-    tvInfo.language = req.renderObject.urlPath;
+        //Skaffer tv informasjon
+        let tvInfo = await tmdb.data.getSerieInfoByID(tvId, req.renderObject.urlPath);
+        if(!tvInfo || tvInfo.overview == "" || !tvInfo.overview) {
+            tvInfo = await tmdb.data.getSerieInfoByID(tvId, 'en');
+            if(!tvInfo) {
+                next();
+                return;
+            }
+        }
 
-    res.locals.tvInfo = tvInfo;
-    //Legger til tv i database
-    const addToDatabaseResult = await tvHandler.addToDatabase(tvInfo);
-    if(!addToDatabaseResult.status) {
+        tvInfo.language = req.renderObject.urlPath;
+
+        res.locals.tvInfo = tvInfo;
+        //Legger til tv i database
+        const addToDatabaseResult = await tvHandler.addToDatabase(tvInfo);
+        if(!addToDatabaseResult.status) {
+            next();
+            return;
+        }
         next();
-        return;
+    } catch(err) {
+        res.redirect('/');
     }
-    next();
 }
