@@ -98,22 +98,23 @@ body
                   if !username
                     .bottom
                       p #{__("MEDIA_TOOLTIP_WATCHLIST")}
-                a(href='#add-list-modal' id="list-movie-add" data-list-movieid=`${film.filminfo.id}` uk-toggle='').tooltip
-                  p(class="uk-text-small uk-text-bold") Add to list
-                  if !username
-                    .bottom
-                      p #{__("MEDIA_TOOLTIP_LIST")}
-                #add-list-modal.uk-flex-top(uk-modal='')
-                  .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
-                    h2.uk-modal-title #{__("MEDIA_MODAL_LIST_TITLE")}
-                    select(id="filminfo-user-list" data-list-movieid=`${film.filminfo.id}`).uk-select
-                      option(selected='selected' id='filminfo-options-lists') #{__("MEDIA_MODAL_LIST_TITLE")}
-                          each item in userMediaList
-                              option(id='filminfo-list-select' data-list-id=`${item.id}`) #{item.name}
-                    p.uk-text-right
-                      p(id='listAddedResult')
-                      button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') Cancel
-                      button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') Save
+                if username
+                  a(href='#add-list-modal' id="list-movie-add" data-list-movieid=`${film.filminfo.id}` uk-toggle='').tooltip
+                    p(class="uk-text-small uk-text-bold") Add to list
+                    if !username
+                      .bottom
+                        p #{__("MEDIA_TOOLTIP_LIST")}
+                  #add-list-modal.uk-flex-top(uk-modal='')
+                    .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
+                      h2.uk-modal-title #{__("MEDIA_MODAL_LIST_TITLE")}
+                      select(id="filminfo-user-list" data-list-movieid=`${film.filminfo.id}`).uk-select
+                        option(selected='selected' id='filminfo-options-lists') #{__("MEDIA_MODAL_LIST_TITLE")}
+                            each item in userMediaList
+                                option(id='filminfo-list-select' data-list-id=`${item.id}`) #{item.name}
+                      p.uk-text-right
+                        p(id='listAddedResult')
+                        button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') Cancel
+                        button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') Save
               h3= `${film.filminfo.release_date} ${genres}`
               .close
                 h3(style='float: center;')=`${film.filminfo.runtime}` 

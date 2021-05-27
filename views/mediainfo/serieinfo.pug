@@ -94,22 +94,23 @@ body
                   if !username
                     .bottom
                       p #{__("MEDIA_TOOLTIP_WATCHLIST")}
-                a(href='#add-list-modal' id="list-tv-add" data-list-tvid=`${serie.serieinfo.id}` uk-toggle='').tooltip
-                  p(class="uk-text-small uk-text-bold") Add to list
-                  if !username
-                    .bottom
-                      p #{__("MEDIA_TOOLTIP_LIST")}
-                #add-list-modal.uk-flex-top(uk-modal='')
-                  .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
-                    h2.uk-modal-title #{__("MEDIA_MODAL_LIST_TITLE")}
-                    select(id="serieinfo-user-list" data-list-tvid=`${serie.serieinfo.id}`).uk-select
-                      option(selected='selected' id='serieinfo-options-lists') #{__("MEDIA_MODAL_LIST_SELECT")}
-                          each item in userMediaList
-                              option(id='serieinfo-list-select' data-list-id=`${item.id}`) #{item.name}
-                    p.uk-text-right
-                      p(id='listAddedResult')
-                      button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') #{__("BUTTON_CANCEL")}
-                      button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') #{__("BUTTON_SAVE")}
+                if username
+                  a(href='#add-list-modal' id="list-tv-add" data-list-tvid=`${serie.serieinfo.id}` uk-toggle='').tooltip
+                    p(class="uk-text-small uk-text-bold") Add to list
+                    if !username
+                      .bottom
+                        p #{__("MEDIA_TOOLTIP_LIST")}
+                  #add-list-modal.uk-flex-top(uk-modal='')
+                    .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical
+                      h2.uk-modal-title #{__("MEDIA_MODAL_LIST_TITLE")}
+                      select(id="serieinfo-user-list" data-list-tvid=`${serie.serieinfo.id}`).uk-select
+                        option(selected='selected' id='serieinfo-options-lists') #{__("MEDIA_MODAL_LIST_SELECT")}
+                            each item in userMediaList
+                                option(id='serieinfo-list-select' data-list-id=`${item.id}`) #{item.name}
+                      p.uk-text-right
+                        p(id='listAddedResult')
+                        button.uk-button.uk-button-default.uk-modal-close(type='button' id='cancel-list-btn') #{__("BUTTON_CANCEL")}
+                        button.uk-button.uk-button-primary(type='button' id='save-to-list-btn') #{__("BUTTON_SAVE")}
               - if(serie.serieinfo.first_air_date != undefined || serie.serieinfo.last_air_date != undefined || serie.serieinfo.first_air_date != null || serie.serieinfo.last_air_date != null)
                 h3= `${serie.serieinfo.first_air_date} - ${serie.serieinfo.last_air_date} ${genres}`
               .close
