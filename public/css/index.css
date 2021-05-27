@@ -245,6 +245,7 @@ footer {
   margin-top: 100px;
   height: 350px;
   width: 100%;
+  bottom: 0px;
 }
 
 .footer-wrapper {
@@ -258,14 +259,18 @@ footer {
 .footerlogo {
   align-self: center;
   margin: 0 auto;
-  width: 200px;
-  height: 200px;
   display: block;
+}
+
+.footerlogo img {
+  height: 150px;
+  width: 240px;
 }
 
 .footer-list {
   align-self: center;
   margin: 0 auto;
+  text-align: center;
 }
 
 .footer-list a {
@@ -292,6 +297,22 @@ footer {
 .footer-socials-wrapper a {
   margin: 5px;
 }
+
+@media (max-width: 640px) {
+  .footer-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .footerlogo img {
+    display: block;
+    height: 80px;
+    width: 180px;
+    }
+  }
 
 /*********************************/
 /* Searchbar
