@@ -5,6 +5,7 @@ const reviewGetter = require('../systems/reviewSystem/reviewGetter');
 const ticketEditor = require('../systems/ticketSystem/ticketEditor');
 const userHandler = require('../handling/userHandler');
 const ValidationHandler = require('../handling/ValidationHandler');
+const logger = require('../logging/logger');
 
 
 /**
