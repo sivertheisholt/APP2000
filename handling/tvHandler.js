@@ -30,7 +30,7 @@ function returnHandler(doc, err) {
  * @author Sivert - 233518
  */
 function checkIfSaved(tvId, languageCode) {
-    logger.log({level: 'debug', message: `Checking if tv-show is already saved in database! TvId: ${tvId}`});
+    logger.log({level: 'info', message: `Checking if tv-show is already saved in database! TvId: ${tvId}`});
     return Tv.findOne({id: tvId, language: languageCode}).then((doc,err) => returnHandler(doc,err));
 }
 
@@ -41,7 +41,7 @@ function checkIfSaved(tvId, languageCode) {
  * @author Govert - 233565
  */
 function getShowById(tvId, languageCode) {
-    logger.log({level:'debug', message: `Getting tv-show from database with id ${tvId}`});
+    logger.log({level:'info', message: `Getting tv-show from database with id ${tvId}`});
     return Tv.findOne({id: tvId, language: languageCode}).then((doc,err) => returnHandler(doc,err));
 }
 
@@ -52,7 +52,7 @@ function getShowById(tvId, languageCode) {
  * @author Govert - 233565
  */
 function addToDatabase(serie) {
-    logger.log({level: 'debug', message: `Adding tv-show to database with id: ${serie.id}...`});
+    logger.log({level: 'info', message: `Adding tv-show to database with id: ${serie.id}...`});
     delete serie.next_episode_to_air
     const tv = new Tv(serie);
     return tv.save().then((doc, err) => returnHandler(doc, err));

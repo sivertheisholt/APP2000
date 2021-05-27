@@ -27,7 +27,7 @@ function returnHandler(doc, err) {
  * @returns ValidationHandler
  */
 function addToDatabase(ticket) {
-    logger.log({level: 'debug', message: `Adding ticket to database...`});
+    logger.log({level: 'info', message: `Adding ticket to database...`});
     const contact = new Ticket(ticket);
     return contact.save().then((doc, err) => returnHandler(doc, err));
 }

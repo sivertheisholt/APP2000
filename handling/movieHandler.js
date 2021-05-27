@@ -29,7 +29,7 @@ function returnHandler(doc, err) {
  * @author Sivert - 233518
  */
 function addToDatabase(movie) {
-    logger.log({level: 'debug', message: `Adding movie to database with id: ${movie.id}...`});
+    logger.log({level: 'info', message: `Adding movie to database with id: ${movie.id}...`});
     delete movie.production_companies, movie.production_countries, movie.spoken_languages
     const film = new Film(movie);
     return film.save().then((doc, err) => returnHandler(doc, err));
@@ -43,7 +43,7 @@ function addToDatabase(movie) {
  * @author Sivert - 233518
  */
 async function checkIfSaved(movieId, languageCode) {
-    logger.log({level: 'debug', message: `Checking if movie is already saved in database! MovieId: ${movieId} `});
+    logger.log({level: 'info', message: `Checking if movie is already saved in database! MovieId: ${movieId} `});
     return Film.findOne({id: movieId, language: languageCode}).then((doc, err) => returnHandler(doc, err));
 }
 
@@ -54,7 +54,7 @@ async function checkIfSaved(movieId, languageCode) {
  * @author Sivert - 233518
  */
 async function getMovieById(movieId, languageCode)  {
-    logger.log({level: 'debug', message: `Getting movie from database with id ${movieId}`});
+    logger.log({level: 'info', message: `Getting movie from database with id ${movieId}`});
     return Film.findOne({id: movieId, language: languageCode}).then((doc,err) => returnHandler(doc,err));
 }
 
