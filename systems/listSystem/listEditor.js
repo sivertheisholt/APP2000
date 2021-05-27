@@ -140,7 +140,7 @@ exports.deleteList = async function(listId) {
  * @author Sivert - 233518
  */
 function updateList(list, options) {
-    logger.log({level: 'debug', message: `Updating list with id ${list._id}`});
+    logger.log({level: 'info', message: `Updating list with id ${list._id}`});
     return list.updateOne(options).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error updating list with options ${options}! ${err}`});
@@ -158,7 +158,7 @@ function updateList(list, options) {
  * @author Sivert - 233518
  */
 function deleteList(listId) {
-    logger.log({level: 'debug', message: `Deleting list with id: ${listId}`});
+    logger.log({level: 'info', message: `Deleting list with id: ${listId}`});
     return List.deleteOne({_id: listId}).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error delete list with id ${listId}! ${err}`});

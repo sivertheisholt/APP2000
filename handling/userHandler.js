@@ -9,7 +9,7 @@ const Bruker = require('../database/brukerSchema');
  * @author Sivert - 233518
  */
 async function getUser(filter) {
-    logger.log({level: 'debug', message: `Getting user with filter ${filter} from database`})
+    logger.log({level: 'info', message: `Getting user with filter ${filter} from database`})
     const user = await Bruker.findOne(filter);
     if(!user) {
         logger.log({level: 'error', message: `User with filter ${filter} was not found`}); 
@@ -25,7 +25,7 @@ async function getUser(filter) {
  * @author Sivert - 233518
  */
 async function getUserFromId(userId) {
-    logger.log({level: 'debug', message: `Getting user with id ${userId} from database`})
+    logger.log({level: 'info', message: `Getting user with id ${userId} from database`})
     const user = await Bruker.findOne({_id: userId});
     if(!user) {
         logger.log({level: 'error', message: `User with id ${userId} was not found`}); 
@@ -41,7 +41,7 @@ async function getUserFromId(userId) {
  * @author Ørjan - 233530
  */
 async function getUserFromEmail(userEmail) {
-    logger.log({level: 'debug', message: `Getting user with email ${userEmail} from database`})
+    logger.log({level: 'info', message: `Getting user with email ${userEmail} from database`})
     const user = await Bruker.findOne({email: userEmail});
     if(!user) {
         logger.log({level: 'error', message: `User with email ${userEmail} was not found`}); 
@@ -58,7 +58,7 @@ async function getUserFromEmail(userEmail) {
  * @author Sivert - 233518
  */
 async function updateUser(user, options) {
-    logger.log({level: 'debug', message: `Updating user ${user._id} with ${options}`});
+    logger.log({level: 'info', message: `Updating user ${user._id} with ${options}`});
     return user.updateOne(options).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error updating user with options ${options}! ${err}`});
@@ -77,7 +77,7 @@ async function updateUser(user, options) {
  * @author Sivert - 233518
  */
 function getFieldsFromUserById(userId, fields) {
-    logger.log({level: 'debug', message: `Getting user ${userId} with ${fields}`});
+    logger.log({level: 'info', message: `Getting user ${userId} with ${fields}`});
     return Bruker.findOne({_id: userId}).select(fields).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error getting user with fields ${fields}! ${err}`});

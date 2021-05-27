@@ -10,7 +10,7 @@ const ListModel = require('../../database/listSchema');
  * @author Sivert - 233518
  */
 exports.getListFromId = async function(listId) {
-    logger.log({level: 'debug', message: `Getting list with id ${listId}`})
+    logger.log({level: 'info', message: `Getting list with id ${listId}`})
     
     //Skaffer liste
     const result =  await ListModel.findOne(({_id: listId}));
@@ -23,7 +23,7 @@ exports.getListFromId = async function(listId) {
  * @author Sivert - 233518 
 */
 exports.getAllLists = async function() {
-    logger.log({level: 'debug', message: `Getting all lists from database`})
+    logger.log({level: 'info', message: `Getting all lists from database`})
 
     //Skaffer lister
     const result = await ListModel.find({});
