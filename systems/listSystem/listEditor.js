@@ -141,7 +141,7 @@ exports.deleteList = async function(listId) {
  */
 function updateList(list, options) {
     logger.log({level: 'debug', message: `Updating list with id ${list._id}`});
-    return list.update(options).then((doc, err) => {
+    return list.updateOne(options).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error updating list with options ${options}! ${err}`});
             return new ValidationHandler(false, 'Could not update list');
