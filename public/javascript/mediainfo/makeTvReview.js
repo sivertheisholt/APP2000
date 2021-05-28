@@ -29,11 +29,14 @@ function lagObjekt() {
 
 /**
  * Eventlistener som sender review informasjon til server via socket.
- * @author Sigve E. Eliassen - 233511.
+ * @author Sigve E. Eliassen - 233511, , Ørjan Dybevik - 233530
  */
-postReview.addEventListener("click", ()=>{
-    socket.emit('makeATvReview', lagObjekt());
-});
+ if(isLoggedIn && !hasPendingReview && !hasAnyReview && !isReviewed){
+    postReview.addEventListener("click", ()=>{
+        socket.emit('makeATvReview', lagObjekt());
+    });
+}
+
 
 /**
  * Funksjon som ser etter svar på server via socket om review informasjon kom fler ordentlig.

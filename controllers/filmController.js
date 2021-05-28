@@ -15,9 +15,9 @@ const listGetter = require('../systems/listSystem/listGetter');
  * @author Ørjan Dybevik - 233530, Sigve E. Eliassen - 233511, Sivert - 233518
  */
 exports.film_get_info = async function(req, res) {
-    let isReviewed = new ValidationHandler(false, "");
-    let hasPendingReview = new ValidationHandler(false, "");
-    let hasAnyReview = new ValidationHandler(false, "");
+    let isReviewed = false;
+    let hasPendingReview = false;
+    let hasAnyReview = false;
     let isMovFav = new ValidationHandler(false, "");
     let isMovWatched = new ValidationHandler(false, "");
     let userMediaList = [];

@@ -7,7 +7,7 @@ let bookmarkMovieImg = document.getElementById('bookmark-movie-img');
 
 let filminfoUserList = document.getElementById('filminfo-options-lists');
 let filminfoListSelectbox = document.getElementById('filminfo-user-list');
-let filminfoListMovieId = filminfoListSelectbox.getAttribute('data-list-movieid');
+let filminfoListMovieId;
 let filminfoListSaveBtn = document.getElementById('save-to-list-btn');
 let filminfoListResult = document.getElementById('listAddedResult');
 let filminfoListCancelBtn = document.getElementById('cancel-list-btn');
@@ -76,6 +76,7 @@ if(isLoggedIn){
         filminfoUserList.style.display = 'none';
         let selectedList = filminfoListSelectbox.options[filminfoListSelectbox.selectedIndex].getAttribute('data-list-id');
         if(selectedList !== null){
+            filminfoListMovieId = filminfoListSelectbox.getAttribute('data-list-movieid');
             socket.emit('addMovieToList', {movieid: filminfoListMovieId, listid: selectedList});
         } else {
             filminfoListResult.innerHTML = 'Select a list';

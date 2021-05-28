@@ -7,7 +7,7 @@ let bookmarkTvImg = document.getElementById('bookmark-tv-img');
 
 let serieinfoUserList = document.getElementById('serieinfo-options-lists');
 let serieinfoListSelectbox = document.getElementById('serieinfo-user-list');
-let serieinfoListTvId = serieinfoListSelectbox.getAttribute('data-list-tvid');
+let serieinfoListTvId;
 let serieinfoListSaveBtn = document.getElementById('save-to-list-btn');
 let serieinfoListResult = document.getElementById('listAddedResult');
 let serieinfoListCancelBtn = document.getElementById('cancel-list-btn');
@@ -74,6 +74,7 @@ if(isLoggedIn){
         serieinfoUserList.style.display = 'none';
         let selectedList = serieinfoListSelectbox.options[serieinfoListSelectbox.selectedIndex].getAttribute('data-list-id');
         if(selectedList !== null){
+            serieinfoListTvId = serieinfoListSelectbox.getAttribute('data-list-tvid');
             socket.emit('addTvToList', {tvid: serieinfoListTvId, listid: selectedList});
         } else {
             filminfoListResult.innerHTML = 'Select a list';

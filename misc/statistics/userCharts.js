@@ -116,7 +116,6 @@ function calculateTotalRuntime(mediaMovie, mediaTv, req) {
     let splitMovieMinutes = mediaMovie.minutes.split(' ');
     let splitTvMinutes = mediaTv.minutes.split(' ');
     let minutes = (parseFloat(splitMovieHours[0]) * 60) + (parseFloat(splitTvHours[0]) * 60) + parseFloat(splitMovieMinutes[0]) + parseFloat(splitTvMinutes[0]);
-    console.log(minutes);
     return {
         hours: `${Math.floor(minutes / 60)} ${req.__('DASHBOARD_STATISTICS_HOURS')}`,
         minutes: `${minutes % 60} ${req.__('DASHBOARD_STATISTICS_MINUTES')}`

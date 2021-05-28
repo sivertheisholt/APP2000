@@ -15,9 +15,9 @@ const listGetter = require('../systems/listSystem/listGetter');
  * @author Ørjan Dybevik - 233530, Sigve - 233511, Sivert - 233518
  */
 exports.tv_get_info = async function(req, res) {
-    let isReviewed = new ValidationHandler(false, "");
-    let hasPendingReview = new ValidationHandler(false, "");
-    let hasAnyReview = new ValidationHandler(false, "");
+    let isReviewed = false;
+    let hasPendingReview = false;
+    let hasAnyReview = false;
     logger.log({level: 'debug', message: 'Getting castinfo..'});
     let castinfolet = await tmdb.data.getSerieCastByID(req.params.id, req.renderObject.urlPath);
     logger.log({level: 'debug', message: 'Getting reviews..'});
