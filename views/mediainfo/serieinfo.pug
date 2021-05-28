@@ -225,8 +225,8 @@ body
                                   p=`★★★★★`
                   .uk-comment-body
                     p=`${item.text}`
-            li
-              iframe(width='1280' height='720' src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+            li.media-switcher
+              iframe(src=`https://www.youtube.com/embed/${videoTrailers[0]}?autoplay=0` class='media-youtube-video' allowframeborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
     include ../includes/footer.pug
     script(src="/javascript/mediainfo/addtv.js")
     script(src="/javascript/mediainfo/makeTvReview.js")
