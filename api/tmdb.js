@@ -35,6 +35,7 @@ Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle, languageCo
  * @param {String} tvTitle tittel på serie
  * @param {String} languageCode språkkoden
  * @returns JSON med serie info
+ * @author Sivert - 233518
  */
 Tmdb.prototype.getSerieResults = function getSerieResults(tvTitle, languageCode) {
     var url = `https://api.themoviedb.org/3/search/tv?api_key=${this.token}&query=${tvTitle.replace(/ /g, "+")}&language=${languageCode}`;
@@ -174,6 +175,7 @@ Tmdb.prototype.getSerieVideosByID = function getSerieVideosByID(serieID, languag
  * @param {String} addParams Ekstra filter 
  * @param {String} languageCode Språkkode
  * @returns JSON med discover filmer
+ * @author Sivert - 233518
  */
 Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies(addParams, languageCode) {
     var url = `https://api.themoviedb.org/3/discover/movie?api_key=${this.token}&language=${languageCode}`;
@@ -201,6 +203,7 @@ Tmdb.prototype.getRecommendationsMovie = function getRecommendationsMovie(movieI
  * @param {Number} tvId ID på serien 
  * @param {String} languageCode Språkkode
  * @returns JSON med anbefalte filmer
+ * @author Sivert - 233518
  */
 Tmdb.prototype.getRecommendationsTvs = function getRecommendationsTvs(tvId, languageCode) {
     var url = `https://api.themoviedb.org/3/tv/${tvId}/recommendations?api_key=${this.token}&language=${languageCode}`;
@@ -214,6 +217,7 @@ Tmdb.prototype.getRecommendationsTvs = function getRecommendationsTvs(tvId, lang
  * @param {String} addParams Ekstra filter 
  * @param {String} languageCode Språkkode 
  * @returns JSON med discover serier
+ * @author Sivert - 233518
  */
 Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams, languageCode) {
     var url = `https://api.themoviedb.org/3/discover/tv?api_key=${this.token}&language=${languageCode}`;
@@ -228,6 +232,7 @@ Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams, langu
  * @param {String} addParams Ekstra filter 
  * @param {String} languageCode Språkkode
  * @returns JSON med trending filmer
+ * @author Sivert - 233518
  */
 Tmdb.prototype.getTrendingMovies = function getTrendingMovies(addParams, languageCode) {
     var url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${this.token}&language=${languageCode}`;
@@ -242,6 +247,7 @@ Tmdb.prototype.getTrendingMovies = function getTrendingMovies(addParams, languag
  * @param {String} addParams Ekstra filter 
  * @param {*} languageCode Språkkode
  * @returns JSON med trending serier 
+ * @author Sivert - 233518
  */
 Tmdb.prototype.getTrendingTv = function getTrendingTv(addParams, languageCode) {
     var url = `https://api.themoviedb.org/3/trending/tv/week?api_key=${this.token}&language=${languageCode}`;
@@ -258,6 +264,7 @@ Tmdb.prototype.getTrendingTv = function getTrendingTv(addParams, languageCode) {
  * Derfor skaffer vi denne for å skaffe navnet
  * @param {String} languageCode Språkkode
  * @returns JSON med sjangre
+ * @author Sivert - 233518
  */
 Tmdb.prototype.getGenresMovie = function getGenresMovie(languageCode) {
     var url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.token}&language=${languageCode}`;
@@ -273,6 +280,7 @@ Tmdb.prototype.getGenresMovie = function getGenresMovie(languageCode) {
  * Derfor skaffer vi denne for å skaffe navnet
  * @param {String} languageCode Språkkode
  * @returns JSON med sjangre
+ * @author Sivert - 233518
  */
 Tmdb.prototype.getGenresTv = function getGenresTv(languageCode) {
     var url = `https://api.themoviedb.org/3/genre/tv/list?api_key=${this.token}&language=${languageCode}`;
