@@ -21,7 +21,6 @@ function lagObjekt() {
     var objekt = {};
     objekt.tekst = reviewText.value;
     objekt.stars = numberOfStars;
-    objekt.userId = userID;
     objekt.movieId = movieId;
 
     return objekt;

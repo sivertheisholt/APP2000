@@ -7,7 +7,7 @@ const reviewCreater = require('../systems/reviewSystem/reviewCreater');
  * @author Sigve E. Eliassen - 233511
  */
 async function makeAMovieReview(socket, review) {
-    const aReview = await reviewCreater.makeReview(new reviewCreater.ReviewMovie(review.userId, review.movieId, review.tekst, review.stars));
+    const aReview = await reviewCreater.makeReview(new reviewCreater.ReviewMovie(socket.handshake.session.userId, review.movieId, review.tekst, review.stars));
     socket.emit('makeAMovieReview_result', aReview);
 }
 
