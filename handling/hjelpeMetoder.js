@@ -210,7 +210,9 @@ const ValidationHandler = require('./ValidationHandler');
      * Randomizer et array
      * @param {String} array  Array som skal bli randomiza
      * @returns Et array som er shuffla
-     * @author Sivert - 233518
+     * @author Internett
+     * https://www.w3docs.com/snippets/javascript/how-to-randomize-shuffle-a-javascript-array.html
+     * Hentet dato: 23/04/2021
      */
     shuffleArray: function(array) { 
         for (let i = array.length - 1; i > 0; i--) {
