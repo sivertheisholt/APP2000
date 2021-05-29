@@ -58,11 +58,13 @@ body{
   font-size: 58px;
   font-weight: bold;
 }
+
 @media screen and (max-width: 680px) {
   .header-img h1 {
     font-size: 44px;
   }
 }
+
 .form-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
