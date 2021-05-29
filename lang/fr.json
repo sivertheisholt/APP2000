@@ -235,7 +235,7 @@
 	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "Une erreur s'est produite, réessayez plus tard",
 	"ERROR_COULD_NOT_CHANGE_USERNAME": "Impossible de changer le nom d'utilisateur, assurez-vous qu'il contient au moins 4 caractères",
 	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "Le nom d'utilisateur a bien été modifié, la page est mise à jour automatiquement ...",
-	"ERROR_WRONG_FILE_TYPE": "Mauvais type de fichier!",
+	"ERROR_WRONG_FILE_TYPE": "Oups! Vérifiez votre type de fichier et que votre image fait moins de 8 Mo",
 	"ERROR_NO_FILE_FOUND": "Aucun fichier trouvé!",
 	"ERROR_NOT_GET_IMAGE": "Impossible d'obtenir l'image!",
 	"ERROR_SAVING_AVATAR": "Erreur lors de l'enregistrement de l'image sur l'utilisateur",

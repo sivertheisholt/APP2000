@@ -235,7 +235,7 @@
 	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "Es ist ein Fehler aufgetreten. Versuchen Sie es später erneut",
 	"ERROR_COULD_NOT_CHANGE_USERNAME": "Der Benutzername konnte nicht geändert werden. Stellen Sie sicher, dass er mindestens 4 Zeichen lang ist",
 	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "Der Benutzername wurde erfolgreich geändert, die Seite wird automatisch aktualisiert ...",
-	"ERROR_WRONG_FILE_TYPE": "Falscher Dateityp!",
+	"ERROR_WRONG_FILE_TYPE": "Hoppla! Überprüfen Sie Ihren Dateityp und ob Ihr Bild weniger als 8 MB groß ist",
 	"ERROR_NO_FILE_FOUND": "Keine Datei gefunden!",
 	"ERROR_NOT_GET_IMAGE": "Konnte kein Bild bekommen!",
 	"ERROR_SAVING_AVATAR": "Fehler beim Speichern des Bildes im Benutzer",

@@ -235,7 +235,7 @@
 	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "Noe gikk galt, prøv igjen senere",
 	"ERROR_COULD_NOT_CHANGE_USERNAME": "Kunne ikke endre brukernavnet, sørg for at det inneholder minst 4 tegn",
 	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "Endret brukernavnet, siden oppdateres automatisk ...",
-	"ERROR_WRONG_FILE_TYPE": "Feil filtype!",
+	"ERROR_WRONG_FILE_TYPE": "Ups! Sjekk filtypen din og at bildet ditt er mindre enn 8 MB",
 	"ERROR_NO_FILE_FOUND": "Ingen fil funnet!",
 	"ERROR_NOT_GET_IMAGE": "Kunne ikke hente bilde!",
 	"ERROR_SAVING_AVATAR": "Feil ved lagring av bilde til bruker",

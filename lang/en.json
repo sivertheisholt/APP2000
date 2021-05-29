@@ -235,7 +235,7 @@
 	"ERROR_DASHBOARD_UNEXPECTED_ERROR": "Something went wrong, try again later",
 	"ERROR_COULD_NOT_CHANGE_USERNAME": "Could not change the username, make sure its atleast 4 characters long",
 	"SUCCESS_USERNAME_CHANGE_DASHBOARD": "Successfully changed the username, the page is being updated automatically...",
-	"ERROR_WRONG_FILE_TYPE": "Wrong file type!",
+	"ERROR_WRONG_FILE_TYPE": "Oops! Check your filetype and that your image is less than 8MB",
 	"ERROR_NO_FILE_FOUND": "No file found!",
 	"ERROR_NOT_GET_IMAGE": "Could not get image!",
 	"ERROR_SAVING_AVATAR": "Error when saving image to user",
