@@ -29,7 +29,7 @@ exports.recommendMovie = async function(user, languageCode) {
 exports.recommendTv = async function(user, languageCode) {
     logger.log({level: 'debug', message: 'Creating recommended tv for user'})
     if(!user || user.tvsWatched.length == 0) {
-        return new ValidationHandler(true, (await tmdb.data.getTrendingTv()).results.splice(0, 10));
+        return new ValidationHandler(true, (await tmdb.data.getTrendingTv(languageCode)).results.splice(0, 10));
     }
     const tvs = await hjelpeMetoder.data.shuffleArray(getRecommendedTvs(user.tvsWatched, languageCode));
     return new ValidationHandler(true, tvs.splice(0,10));

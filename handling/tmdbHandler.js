@@ -15,7 +15,7 @@ var methods = {
             logger.log({level: 'info', message: 'Starting collection of tmdb information...'});
             let currentDate = new Date();
             let currentDateFormated = `${currentDate.getFullYear()}-${(currentDate.getMonth()+1).toString().padStart(2, "0")}-${currentDate.getDate().toString().padStart(2,"0")}`
-            const antallPages = 10; //Antall sider som skal bli hentet
+            const antallPages = 25; //Antall sider som skal bli hentet
             let tmdbInformasjon = {
                 discoverMoviesUpcoming: [],
                 discoverMoviesPopular: [],
@@ -200,8 +200,8 @@ var methods = {
      * @returns Object
      * @author Sigve E. Eliassen - 233511.
      */
-    getTrendingTv: function() {
-        return tmdb.getTrendingTv();
+    getTrendingTv: function(languageCode) {
+        return tmdb.getTrendingTv(languageCode);
     },
     /**
      * Skaffer genras for serier
