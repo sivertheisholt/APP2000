@@ -22,6 +22,7 @@ var Tmdb = function Tmdb(token) {
  * @param {String} movieTitle tittel på filmen
  * @param {String} languageCode språkkoden
  * @returns JSON med film info
+ * @author Sivert - 233518
  */
 Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle, languageCode) {
     var url = `https://api.themoviedb.org/3/search/movie?api_key=${this.token}&query=${movieTitle.replace(/ /g, "+")}&language=${languageCode}`;
