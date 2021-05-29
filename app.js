@@ -24,7 +24,7 @@ let io = socketIO(server);
 async function startSystems() {
 
   //Skaff start informasjon fra tmdb
-  const makeInformationResult = await start.makeInformation();
+  let makeInformationResult = await start.makeInformation();
   if(!makeInformationResult.status) {
     throw new Error(makeInformationResult.information);
   }
