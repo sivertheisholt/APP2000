@@ -89,8 +89,8 @@ exports.userStatistics = async function(user, languageCode, req) {
     //Lager og pusher charts
     charts.push(watchedRatioChart(moviesWatched, tvWatched));
     charts.push(favoritedRatioChart(movieFavourites, tvFavourites));
-    charts.push(await genreChartWatched(moviesWatched, tvWatched, languageCode));
-    charts.push(await genreChartFavorited(movieFavourites, tvFavourites, languageCode));
+    charts.push(await genreChartWatched(moviesWatched, tvWatched));
+    charts.push(await genreChartFavorited(movieFavourites, tvFavourites));
     
     //Setter info inn i hoved objekt
     statistics.charts = charts;

@@ -58,7 +58,7 @@ async function startSystems() {
    * @author Sivert - 233518
    */
   setInterval(async function() {
-    const makeInformationResult = await start.makeInformation();
+    makeInformationResult = await start.makeInformation();
     if(!makeInformationResult.status) {
       throw new Error(makeInformationResult.information);
     }
