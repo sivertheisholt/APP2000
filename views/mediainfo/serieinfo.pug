@@ -79,14 +79,14 @@ body
         // Informasjon on film
         div(class='uk-width-1-2@s')
           .uk-padding.uk-padding-remove-left.uk-padding-remove-right.filminfo_text_wrap
-              a(href='#' id="heart-tv-favorite" data-favorite-tvid=`${serie.serieinfo.id}`).tooltip.tooltip-add
+              a(href='#' id="heart-tv-favorite" data-favorite-tvid=`${serie.serieinfo.id}`).tooltip.tooltip-add.circle.uk-margin-small-right
                 .bottom-add
                     p #{__("MEDIA_TOOLTIP_ADD_FAVORITES")}
                 img(src='/images/icons/heart-border.png' id='heart-tv-img' width="40" height ="40")
                 if !username
                   .bottom
                     p #{__("MEDIA_TOOLTIP_FAVORITES")}
-              a(href='#' id="bookmark-tv-watched" data-watched-tvid=`${serie.serieinfo.id}`).tooltip.tooltip-add
+              a(href='#' id="bookmark-tv-watched" data-watched-tvid=`${serie.serieinfo.id}`).tooltip.tooltip-add.circle.uk-margin-small-right
                 .bottom-add
                   p #{__("MEDIA_TOOLTIP_ADD_WATCHLIST")}
                 img(src='/images/icons/bookmark-border.png' id='bookmark-tv-img' width="40" height ="40")

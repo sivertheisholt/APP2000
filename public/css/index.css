@@ -544,6 +544,19 @@ img.search-image-style{
 /* @Author Ørjan Dybevik - 233530, Sigve E. Eliassen - 233511
 /*********************************/
 
+.circle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.651);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 10px;
+  border: black solid 2px;
+}
+
 .media-youtube-video{
   position: absolute;
   width: 100%;
