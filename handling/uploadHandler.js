@@ -25,7 +25,7 @@ var upload = multer ({
     fileFilter: function(req, file, cb){
         checkFileType(file, cb);
     },
-    limits: { fileSize: 8000 }
+    limits: { fileSize: 8*1024*1024 }
 }).single('avatar');
 
 /**
