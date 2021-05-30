@@ -146,7 +146,7 @@ body
       .uk-grid
         .uk-width-5-6.uk-align-center(style='max-width: 1150px;')
           .uk-slider-container-offset(uk-slider='')
-            .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
+            .uk-position-relative.uk-visible-toggle(tabindex='-1')
               ul.uk-slider-items.uk-grid(class='uk-child-width-1-5@s uk-grid-match')
                 each item in actors
                   a(href=`/${urlPath}/person/${item.id}`)
@@ -156,8 +156,8 @@ body
                       .uk-card-body
                         h3.uk-card-title= `${item.navn}`
                         p= `${item.character}`
-              a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slider-item='previous')
-              a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slider-item='next')
+              a.uk-position-center-left.uk-position-small.uk-hidden-hover.slider-circle(href='#' uk-slidenav-previous='' uk-slider-item='previous')
+              a.uk-position-center-right.uk-position-small.uk-hidden-hover.slider-circle(href='#' uk-slidenav-next='' uk-slider-item='next')
             ul.uk-slider-nav.uk-dotnav.uk-flex-center.uk-margin
           // Reviews og Trailere
           div

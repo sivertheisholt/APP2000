@@ -16,7 +16,7 @@ p #{__("DASHBOARD_LISTS_TITLE")}
                 a(href=`/${urlPath}/list/lists/${item.id}` class='uk-margin-bottom')
                     .uk-card.uk-card-default
                         .uk-card-media-top.uk-cover-container.uk-width-auto
-                            .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1' uk-slideshow='autoplay: true')
+                            .uk-position-relative.uk-visible-toggle(tabindex='-1' uk-slideshow='autoplay: true')
                                 .uk-slideshow-items(class='image-slider-mylists')
                                     - if (item.posters.length != 0)
                                         each poster in item.posters
@@ -26,8 +26,8 @@ p #{__("DASHBOARD_LISTS_TITLE")}
                                                 img(data-src=`/images/filmatory_default_poster.png` alt='' uk-img='' class='image-slider-mylists')
                                     - else
                                         img(data-src=`/images/filmatory_default_poster.png` alt='' uk-img='' class='image-slider-mylists')
-                                .uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
-                                .uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slideshow-item='next')
+                                .uk-position-center-left.uk-position-small.uk-hidden-hover.slider-circle(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
+                                .uk-position-center-right.uk-position-small.uk-hidden-hover.slider-circle(href='#' uk-slidenav-next='' uk-slideshow-item='next')
                         .uk-card-body
                             h3.uk-card-title= item.name
                             p= `Movies: ${item.movies.length}`

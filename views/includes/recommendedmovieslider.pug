@@ -4,7 +4,7 @@
 
 - var recommendedMovies = recommendedMovies;
 .uk-slider-container-offset(uk-slider='')
-  .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1')
+  .uk-position-relative.uk-visible-toggle(tabindex='-1')
     .uk-slider-items.uk-grid.uk-grid-match(class='uk-child-width-1-5@s')
       each item in recommendedMovies
         a(href=`/${urlPath}/mediainfo/filminfo/${item.id}`)
@@ -14,6 +14,6 @@
                 .uk-card-body.uk-text-center
                     h3.slider-card-heading.uk-card-title= item.title
                     p.uk-position-bottom.uk-margin-bottom= item.releaseDate
-    a.uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slider-item='previous')
-    a.uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slider-item='next')
+    a.uk-position-center-left.uk-position-small.uk-hidden-hover.slider-circle(href='#' uk-slidenav-previous='' uk-slider-item='previous')
+    a.uk-position-center-right.uk-position-small.uk-hidden-hover.slider-circle(href='#' uk-slidenav-next='' uk-slider-item='next')
   ul.uk-slider-nav.uk-dotnav.uk-flex-center.uk-margin

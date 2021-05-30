@@ -17,7 +17,7 @@ body
                         a(href=`/${urlPath}/list/lists/${item.listId}` class='anchor-remove-text-decoration')
                             .uk-card.uk-card-default.uk-grid.uk-grid-collapse(class='uk-width-1-1@s')
                                 .uk-card-media-left.uk-cover-container.uk-width-auto
-                                    .uk-position-relative.uk-visible-toggle.uk-light(tabindex='-1' uk-slideshow='autoplay: true')
+                                    .uk-position-relative.uk-visible-toggle(tabindex='-1' uk-slideshow='autoplay: true')
                                         .uk-slideshow-items(class='list-image-style')
                                             - if (item.posters.length != 0)
                                                 each poster in item.posters
@@ -27,8 +27,8 @@ body
                                                         img(data-src=`/images/filmatory_default_poster.png` alt='' uk-img='' class='list-image-style')
                                             - else
                                                 img(data-src=`/images/filmatory_default_poster.png` alt='' uk-img='' class='list-image-style')
-                                        .uk-position-center-left.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
-                                        .uk-position-center-right.uk-position-small.uk-hidden-hover(href='#' uk-slidenav-next='' uk-slideshow-item='next')
+                                        .uk-position-center-left.uk-position-small.uk-hidden-hover.slider-circle(href='#' uk-slidenav-previous='' uk-slideshow-item='previous')
+                                        .uk-position-center-right.uk-position-small.uk-hidden-hover.slider-circle(href='#' uk-slidenav-next='' uk-slideshow-item='next')
                                 .uk-width-expand.uk-align-center
                                     .uk-card-body
                                         div.uk-grid(class='uk-width-1-1@s')
