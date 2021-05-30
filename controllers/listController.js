@@ -99,6 +99,7 @@ async function getMoviePosterUrls(array, languageCode){
         let movies = await movieHandler.getMovieById(movie, languageCode);
         if(!movies.status) {
             movies = new ValidationHandler(true, await tmdb.data.getMovieInfoByID(movie, languageCode));
+            movies.information.language = languageCode;
             movieHandler.addToDatabase(movies.information);
         }
         posters.push(movies.information.poster_path);
@@ -119,6 +120,7 @@ async function getTvPosterUrls(array, languageCode){
         let tvs = await tvHandler.getShowById(tv, languageCode);
         if(!tvs.status) {
             tvs = new ValidationHandler(true, await tmdb.data.getSerieInfoByID(tv, languageCode));
+            tvs.information.language = languageCode;
             tvHandler.addToDatabase(tvs.information);
         }
         posters.push(tvs.information.poster_path);
