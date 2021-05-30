@@ -5,6 +5,7 @@ const listGetter = require('../systems/listSystem/listGetter');
 const movieHandler = require('../handling/movieHandler');
 const tvHandler = require('../handling/tvHandler');
 const userHandler = require('../handling/userHandler');
+const tmdb = require('../handling/tmdbHandler');
 
 /**
  * GET for liste side
@@ -44,6 +45,10 @@ exports.list_get_content = async function(req, res) {
         //Skaffer filmer
         for(const movie of list.information.movies) {
             let movieInfo = await movieHandler.getMovieById(movie, req.renderObject.urlPath);
+            if(!movieInfo.status) {
+                movieInfo = new ValidationHandler(true, await tmdb.data.getMovieInfoByID(movie, req.renderObject.urlPath));
+                movieHandler.addToDatabase(movieInfo.information);
+            }
             medias.push({
                 id: movieInfo.information.id,
                 listid: listId,
@@ -56,6 +61,10 @@ exports.list_get_content = async function(req, res) {
         //Skaffer serier
         for(const tv of list.information.tvs) {
             let tvInfo = await tvHandler.getShowById(tv, req.renderObject.urlPath);
+            if(!tvInfo.status) {
+                tvInfo = new ValidationHandler(true, await tmdb.data.getSerieInfoByID(tv, req.renderObject.urlPath));
+                tvHandler.addToDatabase(tvInfo.information);
+            }
             medias.push({
                 id: tvInfo.information.id,
                 listid: listId,
@@ -88,6 +97,10 @@ async function getMoviePosterUrls(array, languageCode){
     let posters = [];
     for (const movie of array) {
         let movies = await movieHandler.getMovieById(movie, languageCode);
+        if(!movies.status) {
+            movies = new ValidationHandler(true, await tmdb.data.getMovieInfoByID(movie, languageCode));
+            movieHandler.addToDatabase(movies.information);
+        }
         posters.push(movies.information.poster_path);
     }
     return posters;
@@ -104,6 +117,10 @@ async function getTvPosterUrls(array, languageCode){
     let posters = [];
     for (const tv of array) {
         let tvs = await tvHandler.getShowById(tv, languageCode);
+        if(!tvs.status) {
+            tvs = new ValidationHandler(true, await tmdb.data.getSerieInfoByID(tv, languageCode));
+            tvHandler.addToDatabase(tvs.information);
+        }
         posters.push(tvs.information.poster_path);
     }
     return posters;
