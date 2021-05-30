@@ -115,6 +115,10 @@ img.center {
   color: #3f3f3f;
 }
 
+.uk-slidenav svg polyline{
+  stroke-width: 3px;
+}
+
 .slider-circle{
   display: flex;
   align-items: center;
