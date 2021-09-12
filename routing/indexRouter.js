@@ -14,5 +14,6 @@ router.use("/user", require('./dashboard'));
 router.use("/person", require('./personinfo'));
 router.use("/home", require('./homepage'));
 router.use("/list", require('./list'));
+router.use("/api", require('./api'));
 
 module.exports = router;
