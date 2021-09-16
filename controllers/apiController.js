@@ -7,6 +7,7 @@ const UserSchema = require('../database/brukerSchema');
 const movieHandler = require('../handling/movieHandler');
 const tmdbHandler = require('../handling/tmdbHandler');
 const tvHandler = require('../handling/tvHandler');
+const recommendedMediaHandler = require('../handling/recommendMediaHandler');
 
 //**** Reviews *****/
 
@@ -144,6 +145,24 @@ exports.movie_get = async function(req, res) {
     res.status(200).json(reviewApprovedResult.information);
 }
 
+exports.movie_get_frontpage = async function(req, res) {
+    let userResult;
+    if(!req.params.userid == undefined) {
+        userResult.information = undefined
+    } else {
+        userResult = await userHandler.getUserFromId(req.params.userId);
+        if(!userResult.status) {
+            res.status(400).send('Could not find user');
+        }
+    }  
+    
+    const moviesResult = await recommendedMediaHandler.recommendMovie(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
+    if(!moviesResult.status) {
+        res.status(400).send('Something unexpected happen');
+    }
+    res.status(200).json(moviesResult.information);
+}
+
 //**** TV *****/
 
 exports.tv_get = async function(req, res) {
@@ -153,4 +172,22 @@ exports.tv_get = async function(req, res) {
         res.status(200).json(tvResultTmdb.information)
     }
     res.status(200).json(tvResult.information);
+}
+
+exports.tv_get_frontpage = async function(req, res) {
+    let userResult;
+    if(!req.params.userid == undefined) {
+        userResult.information = undefined
+    } else {
+        userResult = await userHandler.getUserFromId(req.params.userId);
+        if(!userResult.status) {
+            res.status(400).send('Could not find user');
+        }
+    }  
+    
+    const tvsResult = await recommendedMediaHandler.recommendTv(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
+    if(!tvsResult.status) {
+        res.status(400).send('Something unexpected happen');
+    }
+    res.status(200).json(tvsResult.information);
 }

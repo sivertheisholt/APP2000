@@ -39,8 +39,14 @@ router.route("/ticket/:ticketId")
 router.route("/movie/:movieId")
     .get(asyncExpress(apiController.movie_get))
 
+router.route("/movie/frontpage")
+    .get(asyncExpress(apiController.movie_get_frontpage));
+
 //TV
 router.route("/tv/:tvId")
     .get(asyncExpress(apiController.tv_get))
+
+router.route("/tv/frontpage")
+    .get(asyncExpress(apiController.tv_get_frontpage));
 
 module.exports = router;
