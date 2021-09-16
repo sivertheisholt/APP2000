@@ -41,6 +41,7 @@ class ReviewMovie extends Review {
 /**
  * Lager review og lagrer i databasen
  * @param {ReviewTv|ReviewMovie} review En av underklassene til Review
+ * @returns ValidationHandler
  * @author Sivert - 233518, Sigve - 233511
  */
 async function makeReview(review) {
