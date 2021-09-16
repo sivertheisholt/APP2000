@@ -8,6 +8,7 @@ const movieHandler = require('../handling/movieHandler');
 const tmdbHandler = require('../handling/tmdbHandler');
 const tvHandler = require('../handling/tvHandler');
 const recommendedMediaHandler = require('../handling/recommendMediaHandler');
+const ValidationHandler = require('../handling/ValidationHandler');
 
 //**** Reviews *****/
 
@@ -146,15 +147,13 @@ exports.movie_get = async function(req, res) {
 }
 
 exports.movie_get_frontpage = async function(req, res) {
-    let userResult;
+    let userResult = new ValidationHandler(undefined, undefined);
     if(!req.params.userid == undefined) {
-        userResult.information = undefined
-    } else {
         userResult = await userHandler.getUserFromId(req.params.userId);
         if(!userResult.status) {
             res.status(400).send('Could not find user');
         }
-    }  
+    }
     
     const moviesResult = await recommendedMediaHandler.recommendMovie(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
     if(!moviesResult.status) {
@@ -175,7 +174,7 @@ exports.tv_get = async function(req, res) {
 }
 
 exports.tv_get_frontpage = async function(req, res) {
-    let userResult;
+    let userResult = new ValidationHandler(undefined, undefined);
     if(!req.params.userid == undefined) {
         userResult = await userHandler.getUserFromId(req.params.userId);
         if(!userResult.status) {
