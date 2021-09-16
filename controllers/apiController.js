@@ -176,15 +176,12 @@ exports.tv_get = async function(req, res) {
 
 exports.tv_get_frontpage = async function(req, res) {
     let userResult;
-    if(req.params.userid == undefined) {
-        userResult.information = undefined
-    } else {
+    if(!req.params.userid == undefined) {
         userResult = await userHandler.getUserFromId(req.params.userId);
         if(!userResult.status) {
             res.status(400).send('Could not find user');
         }
-    }  
-    
+    }
     const tvsResult = await recommendedMediaHandler.recommendTv(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
     if(!tvsResult.status) {
         res.status(400).send('Something unexpected happen');
