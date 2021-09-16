@@ -8,22 +8,22 @@ const asyncExpress = require('../handling/expressUtils');
 const apiController = require('../controllers/apiController');
 
 //Reviews
-router.route("/review/approved/:reviewId")
+router.route("/review/approved/get/:reviewId")
     .get(asyncExpress(apiController.review_get_approved))
-router.route("/review/denied/:reviewId")
+router.route("/review/denied/get/:reviewId")
     .get(asyncExpress(apiController.review_get_denied))
-router.route("/review/pending/:reviewId")
+router.route("/review/pending/get/:reviewId")
     .get(asyncExpress(apiController.review_get_pending))
 
-router.route("/review/pending/:reviewId/approve")
+router.route("/review/pending/approve/:reviewId")
     .post(apiController.review_post_pending_approve)
-router.route("/review/pending/:reviewId/deny")
+router.route("/review/pending/deny/:reviewId")
     .post(apiController.review_post_pending_deny)
 router.route("/review/new")
     .post(apiController.review_post_pending)
 
 //Bruker
-router.route("/user/:userId")
+router.route("/user/get/:userId")
     .get(asyncExpress(apiController.bruker_get))
     .delete();
 router.route("/user/new")
@@ -36,14 +36,14 @@ router.route("/ticket/:ticketId")
     .delete();
 
 //Movie
-router.route("/movie/:movieId")
+router.route("/movie/get/:movieId")
     .get(asyncExpress(apiController.movie_get))
 
 router.route("/movie/frontpage")
     .get(asyncExpress(apiController.movie_get_frontpage));
 
 //TV
-router.route("/tv/:tvId")
+router.route("/tv/get/:tvId")
     .get(asyncExpress(apiController.tv_get))
 
 router.route("/tv/frontpage")
