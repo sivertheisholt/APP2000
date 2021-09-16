@@ -176,7 +176,7 @@ exports.tv_get = async function(req, res) {
 
 exports.tv_get_frontpage = async function(req, res) {
     let userResult;
-    if(!req.params.userid == undefined) {
+    if(req.params.userid == undefined) {
         userResult.information = undefined
     } else {
         userResult = await userHandler.getUserFromId(req.params.userId);
