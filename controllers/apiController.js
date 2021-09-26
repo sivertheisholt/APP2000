@@ -9,6 +9,7 @@ const tmdbHandler = require('../handling/tmdbHandler');
 const tvHandler = require('../handling/tvHandler');
 const recommendedMediaHandler = require('../handling/recommendMediaHandler');
 const ValidationHandler = require('../handling/ValidationHandler');
+const hjelpeMetoder = require('../handling/hjelpeMetoder');
 
 //**** Reviews *****/
 
@@ -133,7 +134,7 @@ exports.bruker_post = async function(req, res) {
     });
 
     //Suksess
-    res.status(200).send('SUCCESS_SIGNUP');
+    res.status(200).send('User successfully created');
 }
 
 //**** Movie *****/
