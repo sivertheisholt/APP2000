@@ -76,9 +76,9 @@ exports.bruker_get = async function(req, res) {
 }
 
 exports.bruker_post = async function(req, res) { 
-    console.log(req.params)
+    console.log(req.body)
     //Skaffer body fra form
-    const pugBody = req.params.body;
+    const pugBody = req.body;
 
     //Sjekker at mail tilfredsstiller krav
     if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
