@@ -168,7 +168,7 @@ exports.tv_get = async function(req, res) {
     const tvResult = await tvHandler.checkIfSaved(req.params.tvId, req.params.languageCode);
     if(!tvResult.status) {
         const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, req.params.languageCode);
-        res.status(200).json(tvResultTmdb.information)
+        res.status(200).json(tvResultTmdb)
     }
     res.status(200).json(tvResult.information);
 }
