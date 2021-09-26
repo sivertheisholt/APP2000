@@ -10,6 +10,9 @@ const tvHandler = require('../handling/tvHandler');
 const recommendedMediaHandler = require('../handling/recommendMediaHandler');
 const ValidationHandler = require('../handling/ValidationHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
+const bcrypt = require("bcrypt");
+let mailer = require('../handling/mailer');
+const jwt = require('jsonwebtoken');
 
 //**** Reviews *****/
 
@@ -76,7 +79,6 @@ exports.bruker_get = async function(req, res) {
 }
 
 exports.bruker_post = async function(req, res) { 
-    console.log(req.body)
     //Skaffer body fra form
     const pugBody = req.body;
 
