@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 const asyncExpress = require('../handling/expressUtils');
 const apiController = require('../controllers/apiController');
+const apiMiddleware = require('../misc/express/middleware/checkApi');
 
 //Reviews
 router.route("/review/approved/get/:reviewId")
@@ -16,18 +17,18 @@ router.route("/review/pending/get/:reviewId")
     .get(asyncExpress(apiController.review_get_pending))
 
 router.route("/review/pending/approve/:reviewId")
-    .post(api_check_token, asyncExpress(apiController.review_post_pending_approve))
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.review_post_pending_approve))
 router.route("/review/pending/deny/:reviewId")
-    .post(api_check_token, asyncExpress(apiController.review_post_pending_deny))
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.review_post_pending_deny))
 router.route("/review/new")
-    .post(api_check_token, asyncExpress(apiController.review_post_pending))
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.review_post_pending))
 
 //Bruker
 router.route("/user/get/:userId")
     .get(asyncExpress(apiController.bruker_get))
     .delete();
 router.route("/user/new")
-    .post(api_check_token, asyncExpress(apiController.bruker_post))
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_post))
 
 //Ticket
 router.route("/ticket/:ticketId")
