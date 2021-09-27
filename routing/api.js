@@ -16,18 +16,18 @@ router.route("/review/pending/get/:reviewId")
     .get(asyncExpress(apiController.review_get_pending))
 
 router.route("/review/pending/approve/:reviewId")
-    .post(apiController.review_post_pending_approve)
+    .post(api_check_token, asyncExpress(apiController.review_post_pending_approve))
 router.route("/review/pending/deny/:reviewId")
-    .post(apiController.review_post_pending_deny)
+    .post(api_check_token, asyncExpress(apiController.review_post_pending_deny))
 router.route("/review/new")
-    .post(apiController.review_post_pending)
+    .post(api_check_token, asyncExpress(apiController.review_post_pending))
 
 //Bruker
 router.route("/user/get/:userId")
     .get(asyncExpress(apiController.bruker_get))
     .delete();
 router.route("/user/new")
-    .post(asyncExpress(apiController.bruker_post))
+    .post(api_check_token, asyncExpress(apiController.bruker_post))
 
 //Ticket
 router.route("/ticket/:ticketId")
@@ -48,5 +48,9 @@ router.route("/tv/get/:tvId")
 
 router.route("/tv/frontpage")
     .get(asyncExpress(apiController.tv_get_frontpage));
+
+//Lists
+
+//
 
 module.exports = router;
