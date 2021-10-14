@@ -167,7 +167,7 @@ exports.movie_get_frontpage = async function(req, res) {
 }
 
 exports.movie_get_upcoming = async function(req, res) {    
-    let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
     let finalListUpcomingMovies = [];
     for(const movie of tmdbInformasjon.discoverMoviesUpcoming) {
       let tempObj = {
