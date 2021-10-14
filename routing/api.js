@@ -43,6 +43,11 @@ router.route("/movie/get/:movieId")
 router.route("/movie/frontpage")
     .get(asyncExpress(apiController.movie_get_frontpage));
 
+router.route("/movie/upcomingmovies")
+    .get(asyncExpress(apiController.movie_get_upcoming));
+
+    
+
 //TV
 router.route("/tv/get/:tvId")
     .get(asyncExpress(apiController.tv_get))

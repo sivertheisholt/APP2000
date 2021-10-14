@@ -166,6 +166,21 @@ exports.movie_get_frontpage = async function(req, res) {
     res.status(200).json(moviesResult.information);
 }
 
+exports.movie_get_upcoming = async function(req, res) {    
+    let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
+    let finalListUpcomingMovies = [];
+    for(const movie of tmdbInformasjon.discoverMoviesUpcoming) {
+      let tempObj = {
+        id: movie.id,
+        pictureUrl: movie.poster_path,
+        title: movie.original_title,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-')
+      }
+      finalListUpcomingMovies.push(tempObj);
+    }
+    res.status(200).json(finalListUpcomingMovies);
+}
+
 //**** TV *****/
 
 exports.tv_get = async function(req, res) {
