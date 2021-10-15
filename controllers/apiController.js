@@ -239,7 +239,7 @@ exports.tv_get_upcoming = async function(req, res) {
 }
 
 exports.tv_get_tvs = async function (req, res){
-    let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
     let finalListTvshowsPopular = [];
     for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
         let tempObj = {
