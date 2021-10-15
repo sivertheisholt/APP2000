@@ -58,10 +58,10 @@ router.route("/tv/get/:tvId")
 router.route("/tv/frontpage")
     .get(asyncExpress(apiController.tv_get_frontpage));
 
-router.route("tv/upcomingtvs")
+router.route("/tv/upcomingtvs")
     .get(asyncExpress(apiController.tv_get_upcoming));
 
-router.route("tv/tvs")
+router.route("/tv/tvs")
     .get(asyncExpress(apiController.tv_get_tvs));
 
 //Lists
