@@ -181,6 +181,21 @@ exports.movie_get_upcoming = async function(req, res) {
     res.status(200).json(finalListUpcomingMovies);
 }
 
+exports.movie_get_movies = async function(req, res) {    
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListPopularMovies = [];
+    for(const movie of tmdbInformasjon.discoverMoviesPopular) {
+        let tempObj = {
+        id: movie.id,
+        pictureUrl: movie.poster_path,
+        title: movie.title,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-'),
+        genre: movie.genre_ids
+        }
+        finalListPopularMovies.push(tempObj);
+    }
+    res.status(200).json(finalListPopularMovies);
+}
 //**** TV *****/
 
 exports.tv_get = async function(req, res) {
@@ -205,4 +220,36 @@ exports.tv_get_frontpage = async function(req, res) {
         res.status(400).send('Something unexpected happen');
     }
     res.status(200).json(tvsResult.information);
+}
+
+
+exports.tv_get_upcoming = async function(req, res) {
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListUpcomingTv = [];
+    for(const tv of tmdbInformasjon.discoverTvshowsUpcoming) {
+      let tempObj = {
+        id: tv.id,
+        pictureUrl: tv.poster_path,
+        title: tv.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, '-')
+      }
+      finalListUpcomingTv.push(tempObj);
+    }
+    res.status(200).json(finalListUpcomingTv);
+}
+
+exports.tv_get_tvs = async function (req, res){
+    let tmdbInformasjon = await tmdb.data.returnerTmdbInformasjon();
+    let finalListTvshowsPopular = [];
+    for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
+        let tempObj = {
+        id: tv.id,
+        pictureUrl: tv.poster_path,
+        title: tv.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, "-"),
+        genre: tv.genre_ids
+        }
+        finalListTvshowsPopular.push(tempObj);
+    }
+    res.status(200).json(finalListTvshowsPopular);
 }

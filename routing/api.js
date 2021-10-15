@@ -46,14 +46,23 @@ router.route("/movie/frontpage")
 router.route("/movie/upcomingmovies")
     .get(asyncExpress(apiController.movie_get_upcoming));
 
+router.route("/movie/movies")
+    .get(asyncExpress(apiController.movie_get_movies));
+
     
 
 //TV
 router.route("/tv/get/:tvId")
-    .get(asyncExpress(apiController.tv_get))
+    .get(asyncExpress(apiController.tv_get));
 
 router.route("/tv/frontpage")
     .get(asyncExpress(apiController.tv_get_frontpage));
+
+router.route("tv/upcomingtvs")
+    .get(asyncExpress(apiController.tv_get_upcoming));
+
+router.route("tv/tvs")
+    .get(asyncExpress(apiController.tv_get_tvs));
 
 //Lists
 
