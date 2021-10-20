@@ -64,6 +64,11 @@ router.route("/tv/upcomingtvs")
 router.route("/tv/tvs")
     .get(asyncExpress(apiController.tv_get_tvs));
 
+
+//Persons
+router.route("/person/get/:personId")
+    .get(asyncExpress(apiController.person_get));
+
 //Lists
 
 //

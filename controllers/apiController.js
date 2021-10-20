@@ -126,6 +126,7 @@ exports.bruker_post = async function(req, res) {
     if(!userResult.status) {
         logger.log({level: 'error', message: `Unexpected error when creating user`}); 
         return res.status(400).send(`Unexpected error when creating user`);
+        return;
     }
 
     //Sender mail til bruker
@@ -146,6 +147,7 @@ exports.movie_get = async function(req, res) {
     if(!movieResult.status) {
         const movieResultTmdb = await tmdbHandler.data.getMovieInfoByID(req.params.movieId, req.params.languageCode);
         res.status(200).json(movieResultTmdb);
+        return;
     }
     res.status(200).json(reviewApprovedResult.information);
 }
@@ -156,12 +158,14 @@ exports.movie_get_frontpage = async function(req, res) {
         userResult = await userHandler.getUserFromId(req.params.userId);
         if(!userResult.status) {
             res.status(400).send('Could not find user');
+            return;
         }
     }
     
     const moviesResult = await recommendedMediaHandler.recommendMovie(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
     if(!moviesResult.status) {
         res.status(400).send('Something unexpected happen');
+        return;
     }
     res.status(200).json(moviesResult.information);
 }
@@ -203,6 +207,7 @@ exports.tv_get = async function(req, res) {
     if(!tvResult.status) {
         const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, req.params.languageCode);
         res.status(200).json(tvResultTmdb)
+        return;
     }
     res.status(200).json(tvResult.information);
 }
@@ -213,11 +218,13 @@ exports.tv_get_frontpage = async function(req, res) {
         userResult = await userHandler.getUserFromId(req.params.userId);
         if(!userResult.status) {
             res.status(400).send('Could not find user');
+            return;
         }
     }
     const tvsResult = await recommendedMediaHandler.recommendTv(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
     if(!tvsResult.status) {
         res.status(400).send('Something unexpected happen');
+        return;
     }
     res.status(200).json(tvsResult.information);
 }
@@ -252,4 +259,20 @@ exports.tv_get_tvs = async function (req, res){
         finalListTvshowsPopular.push(tempObj);
     }
     res.status(200).json(finalListTvshowsPopular);
+}
+
+exports.person_get = async function (req, res){
+    const personId = req.params.personId;
+    let personInfo = await tmdbHandler.data.getPersonByID(personId, req.renderObject.urlPath);
+    //Lager person objekt
+    let person = {
+      personinfo: personInfo,
+      links: await tmdbHandler.data.getPersonLinksByID(personId, req.renderObject.urlPath),
+      shortBio: await hjelpeMetoder.data.maxText(personInfo.biography,500)
+    }
+    if(person.personinfo.biography == "" || !person.personinfo.biography) {
+      person.personinfo = await tmdbHandler.data.getPersonByID(personId, 'en')
+      person.shortBio = await hjelpeMetoder.data.maxText(person.personinfo.biography,500)
+    }
+    res.status(200).json(person);
 }
