@@ -70,6 +70,12 @@ router.route("/person/get/:personId")
     .get(asyncExpress(apiController.person_get));
 
 //Lists
+router.route("/lists/get")
+    .get(asyncExpress(apiController.all_lists_get));
+
+router.route("/list/get/:listId")
+    .get(asyncExpress(apiController.list_get));
+
 
 //
 

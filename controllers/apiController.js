@@ -11,7 +11,9 @@ const recommendedMediaHandler = require('../handling/recommendMediaHandler');
 const ValidationHandler = require('../handling/ValidationHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
 const bcrypt = require("bcrypt");
+const listeMetoder = require('../handling/listeMetoder');
 let mailer = require('../handling/mailer');
+const listGetter = require('../systems/listSystem/listGetter');
 const jwt = require('jsonwebtoken');
 
 //**** Reviews *****/
@@ -275,4 +277,60 @@ exports.person_get = async function (req, res){
       person.shortBio = await hjelpeMetoder.data.maxText(person.personinfo.biography,500)
     }
     res.status(200).json(person);
+}
+
+exports.all_lists_get = async function (req, res){
+    let lister = await listGetter.getAllLists();
+    let listene = [];
+    for (const info of lister.information) {
+        listene.push({
+            listId: info._id,
+            numberOfMovies: listeMetoder.getNumberOfMovies(info),
+            numberOfTvShows: listeMetoder.getNumberOfTvs(info),
+            posters: await listeMetoder.getPosterUrls(await listeMetoder.getMoviePosterUrls(info.movies, req.renderObject.urlPath), await listeMetoder.getTvPosterUrls(info.tvs, req.renderObject.urlPath)),
+            userName: await (await userHandler.getUserFromId(info.userId)).information.username,
+            listName: info.name
+        })
+    }
+    res.status(200).json(listene);
+}
+
+exports.list_get = async function (req, res){
+    let medias = []
+    let listId = req.params.listId;
+    let list = await listGetter.getListFromId(listId);
+    let isListAuthor = new ValidationHandler(false, "");
+    //Skaffer filmer
+    for(const movie of list.information.movies) {
+        let movieInfo = await movieHandler.getMovieById(movie, req.renderObject.urlPath);
+        if(!movieInfo.status) {
+            movieInfo = new ValidationHandler(true, await tmdb.data.getMovieInfoByID(movie, req.renderObject.urlPath));
+            movieHandler.addToDatabase(movieInfo.information);
+        }
+        medias.push({
+            id: movieInfo.information.id,
+            listid: listId,
+            pictureUrl: movieInfo.information.poster_path,
+            title: movieInfo.information.original_title,
+            releaseDate: await hjelpeMetoder.data.lagFinDato(movieInfo.information.release_date, '-'),
+            type: 'movie'
+        })
+    }
+    //Skaffer serier
+    for(const tv of list.information.tvs) {
+        let tvInfo = await tvHandler.getShowById(tv, req.renderObject.urlPath);
+        if(!tvInfo.status) {
+            tvInfo = new ValidationHandler(true, await tmdb.data.getSerieInfoByID(tv, req.renderObject.urlPath));
+            tvHandler.addToDatabase(tvInfo.information);
+        }
+        medias.push({
+            id: tvInfo.information.id,
+            listid: listId,
+            pictureUrl: tvInfo.information.poster_path,
+            title: tvInfo.information.name,
+            releaseDate: await hjelpeMetoder.data.lagFinDato(tvInfo.information.first_air_date, '-'),
+            type : 'tv'
+          })
+    }
+    res.status(200).json(medias);
 }
