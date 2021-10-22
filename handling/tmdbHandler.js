@@ -237,6 +237,9 @@ var methods = {
     getPersonCombinedCreditsByID: function (personID, languageCode) {
         return tmdb.getPersonCombinedCreditsByID(personID, languageCode);
     },
+    getMovieWatchProvider: function(movieId){
+        return tmdb.getMovieWatchProvider(movieId);
+    },
 };
 
 /**

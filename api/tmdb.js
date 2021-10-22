@@ -289,7 +289,15 @@ Tmdb.prototype.getGenresTv = function getGenresTv(languageCode) {
         makeLog(res, url);
         return resultHandler(res);
     })
-} 
+}
+
+Tmdb.prototype.getMovieWatchProvider = function getMovieWatchProvider(movieID) {
+    var url = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${this.token}`;
+    return fetch(url).then(res => {
+        makeLog(res, url);
+        return resultHandler(res);
+    })
+}
 
 /**
  * Denne lager URLen til API requesten

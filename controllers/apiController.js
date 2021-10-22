@@ -334,3 +334,18 @@ exports.list_get = async function (req, res){
     }
     res.status(200).json(medias);
 }
+
+exports.movie_get_watch_providers = async function (req, res){
+    try {
+        let watchProviders = await tmdbHandler.data.getMovieWatchProvider(req.params.movieId);
+        if(Object.keys(watchProviders.results).length === 0){
+            res.status(204).send("No results");
+            return;
+        }
+        res.status(200).json(watchProviders);
+    } catch (error) {
+        res.status(400).send('Something unexpected happen');
+        logger.log({level: 'error' ,message: error})
+        return;
+    }
+}

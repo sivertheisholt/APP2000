@@ -49,6 +49,8 @@ router.route("/movie/upcomingmovies")
 router.route("/movie/movies")
     .get(asyncExpress(apiController.movie_get_movies));
 
+router.route("/movie/get/watch/providers/:movieId")
+    .get(asyncExpress(apiController.movie_get_watch_providers))
     
 
 //TV
