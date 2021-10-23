@@ -146,11 +146,18 @@ exports.bruker_post = async function(req, res) {
 //**** Movie *****/
 exports.movie_get = async function(req, res) {
     const movieResult = await movieHandler.checkIfSaved(req.params.movieId, req.params.languageCode);
+
     if(!movieResult.status) {
         const movieResultTmdb = await tmdbHandler.data.getMovieInfoByID(req.params.movieId, req.params.languageCode);
-        res.status(200).json(movieResultTmdb);
+        const castinfo = await tmdbHandler.data.getMovieCastByID(req.params.movieId, req.params.languageCode);
+        let film = {
+            filminfo: movieResultTmdb,
+            cast: castinfo
+        }
+        res.status(200).json(film);
         return;
     }
+    
     res.status(200).json(reviewApprovedResult.information);
 }
 
