@@ -75,7 +75,7 @@ exports.list_get_content = async function(req, res) {
               })
         }
         if(req.renderObject.session){
-            isListAuthor = await listGetter.checkIfListAuthor(listId, req.renderObject.user._id);
+            isListAuthor = await listGetter.checkIfListAuthor(listId, req.renderObject.user.uid);
         }
         req.renderObject.listId = listId;
         req.renderObject.medias = medias;

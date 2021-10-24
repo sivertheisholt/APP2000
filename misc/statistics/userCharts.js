@@ -19,11 +19,11 @@ exports.userStatistics = async function(user, languageCode, req) {
     let charts = [];
 
     //Skaffer pending reviews
-    const reviewsPending = await reviewGetter.getAllReviewsMadeByUser(user._id, 'pending');
+    const reviewsPending = await reviewGetter.getAllReviewsMadeByUser(user.uid, 'pending');
     if(!reviewsPending.status) return reviewsPending;
 
     //Skaffer approved reviews
-    const reviewsApproved = await reviewGetter.getAllReviewsMadeByUser(user._id, 'approved');
+    const reviewsApproved = await reviewGetter.getAllReviewsMadeByUser(user.uid, 'approved');
     if(!reviewsApproved.status) return reviewsPending;
 
     //Skaffer alle filmer til bruker

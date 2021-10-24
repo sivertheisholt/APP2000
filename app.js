@@ -49,6 +49,9 @@ async function startSystems() {
 
   //Start socket
   start.startRouting(app, io);
+
+  //Konfigurer firebase
+  start.intializeFirebase();
   
   //"Lytter" serveren
   server.listen(port, () => logger.log({level: 'info', message: `Application is now listening on port ${port}`}));

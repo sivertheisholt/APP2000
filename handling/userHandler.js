@@ -26,7 +26,7 @@ async function getUser(filter) {
  */
 async function getUserFromId(userId) {
     logger.log({level: 'info', message: `Getting user with id ${userId} from database`})
-    const user = await Bruker.findOne({_id: userId});
+    const user = await Bruker.findOne({uid: userId});
     if(!user) {
         logger.log({level: 'error', message: `User with id ${userId} was not found`}); 
         return new ValidationHandler(false, `Can't find user with id ${userId} in database`);
@@ -58,13 +58,13 @@ async function getUserFromEmail(userEmail) {
  * @author Sivert - 233518
  */
 async function updateUser(user, options) {
-    logger.log({level: 'info', message: `Updating user ${user._id} with ${options}`});
+    logger.log({level: 'info', message: `Updating user ${user.uid} with ${options}`});
     return user.updateOne(options).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error updating user with options ${options}! ${err}`});
             return new ValidationHandler(false, 'Could not update user');
         }
-        logger.log({level: 'info', message: `User with id ${user._id} was successfully updated with options ${options}`});
+        logger.log({level: 'info', message: `User with id ${user.uid} was successfully updated with options ${options}`});
         return new ValidationHandler(true, 'User successfully updated');
     });
 }
@@ -78,7 +78,7 @@ async function updateUser(user, options) {
  */
 function getFieldsFromUserById(userId, fields) {
     logger.log({level: 'info', message: `Getting user ${userId} with ${fields}`});
-    return Bruker.findOne({_id: userId}).select(fields).then((doc, err) => {
+    return Bruker.findOne({uid: userId}).select(fields).then((doc, err) => {
         if(err) {
             logger.log({level: 'error', message: `There was an error getting user with fields ${fields}! ${err}`});
             return new ValidationHandler(false, 'Could not retrieve user fields');

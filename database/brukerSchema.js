@@ -2,18 +2,10 @@ const mongoose = require('mongoose');
 
 //Schema til bruker
 const brukerSchema = new mongoose.Schema({
-  email: {
+  uid: {
     type: String,
     required: true,
-    minlength: 5,
-    maxlength: 255,
     unique: true
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 8,
-    maxlength: 1024
   },
   username: {
     type: String,

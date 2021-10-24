@@ -1,3 +1,4 @@
+
 const Bruker = require('../database/brukerSchema');
 const bcrypt = require("bcrypt");
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
@@ -5,6 +6,18 @@ let mailer = require('../handling/mailer');
 const jwt = require('jsonwebtoken');
 const logger = require('../logging/logger');
 const userHandler = require('../handling/userHandler');
+//const firebase = import('firebase/auth')
+
+/*
+import Bruker from '../database/brukerSchema'
+import bcrypt from 'bcrypt';
+import hjelpeMetoder from '../handling/hjelpeMetoder';
+import mailer from '../handling/mailer';
+import jwt from 'jsonwebtoken';
+import logger from '../logging/logger';
+import userHandler from '../handling/userHandler';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+*/
 
 /**
  * Get for å logge ut. Clearer cookies
@@ -78,37 +91,38 @@ exports.userAuth_post_signup = async function(req,res ) {
         return res.status(400).send({error: req.__('ERROR_PASSWORD_NOT_MATCH')});
     }
 
-    //Nå må vi lage et nytt bruker objekt
-    const bruker = new Bruker(pugBody);
-    
-    //Nå må vi lage ny salt for å hashe passord
-    const salt = await bcrypt.genSalt(10);
+    //Firebase
+    const firebase = await import('firebase/auth')
+    const auth = firebase.getAuth();
+    firebase.createUserWithEmailAndPassword(auth, pugBody.email, pugBody.password)
+        .then(async (userCredential) => {
+            // Signed in 
+            const bruker = new Bruker({uid: userCredential.user.uid});
+            
+            // Lagrer bruker i databasen
+            const userResult = await userHandler.newUser(bruker);
+            if(!userResult.status) {
+                logger.log({level: 'error', message: `Unexpected error when creating user`}); 
+                return res.status(400).send({error: req.__('ERROR_SIGNUP_UNEXPECTED_ERROR')});
+            }
 
-    //Nå setter vi passord til det hasha passordet
-    bruker.password = await bcrypt.hash(bruker.password, salt);
+            // Setter session
+            logger.log({level: 'debug', message: `Setting session`});
+            req.session.userId = bruker.uid;
 
-    //Lagrer bruker i databasen
-    const userResult = await userHandler.newUser(bruker);
-    if(!userResult.status) {
-        logger.log({level: 'error', message: `Unexpected error when creating user`}); 
-        return res.status(400).send({error: req.__('ERROR_SIGNUP_UNEXPECTED_ERROR')});
-    }
-
-    //Sender mail til bruker
-    mailer({
-        from: process.env.EMAIL,
-        to: bruker.email, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
-        subject: 'Welcome to Filmatory!',
-        html: `<h1>Hope you enjoy your time at Filmatory!</h1>`
-    });
-
-    
-    //Setter session
-    logger.log({level: 'debug', message: `Setting session`});
-    req.session.userId = bruker._id;
-    
-    //Suksess
-    res.status(200).send({message: req.__('SUCCESS_SIGNUP')});
+            //Sender mail til bruker
+            mailer({
+                from: process.env.EMAIL,
+                to: pugBody.email,
+                subject: 'Welcome to Filmatory!',
+                html: `<h1>Hope you enjoy your time at Filmatory!</h1>`
+            });
+            //Suksess
+            res.status(200).send({message: req.__('SUCCESS_SIGNUP')});
+        })
+        .catch((error) => {
+            res.status(400).send({error: req.__('ERROR_SIGNUP_UNEXPECTED_ERROR')});
+        });
 }
 
 /**
@@ -132,7 +146,7 @@ exports.userAuth_post_forgottenPassword = async function(req, res) {
     }
 
     //Lager token og oppdaterer bruker
-    const token = jwt.sign({_id: userResult.information._id}, process.env.RESET_PASSWORD_KEY, {expiresIn:'60m'});
+    const token = jwt.sign({uid: userResult.information.uid}, process.env.RESET_PASSWORD_KEY, {expiresIn:'60m'});
     const updateUser = await userHandler.updateUser(userResult.information, {resetLink: token});
     if(!updateUser.status) {
         logger.log({level: 'debug', message: `Reset password link error`}); 
@@ -171,33 +185,43 @@ exports.userAuth_get_login = async function(req,res ) {
 
     //Skaffer body fra form
     const pugBody = req.body.login_details;
-    //Skaffer bruker
-    const userResult = await userHandler.getUserFromEmail(pugBody.email);
-    if(!userResult.status) {
-        logger.log({level: 'debug', message: `Invalid login: User does not exist`});
-        return res.status(400).send({error: req.__('ERROR_USER_DOES_NOT_EXIST')});
-    }
 
-    //Sjekker om bruker er banna
-    if(userResult.information.banned) {
-        logger.log({level: 'debug', message: `Access denied: User ${userResult.information._id} is banned`});
-        return res.status(400).send({error: req.__('ERROR_USER_IS_BANNED')});
-    }
+    const firebase = await import('firebase/auth')
+    const auth = firebase.getAuth();
+    firebase.signInWithEmailAndPassword(auth, pugBody.email, pugBody.password)
+        .then(async (userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
 
-    //Sjekker passord
-    const sjekkPassword = await bcrypt.compare(pugBody.password, userResult.information.password);
-    if(!sjekkPassword) {
-        logger.log({level: 'debug', message: `Invalid password for ${userResult.information._id}`});
-        return res.status(400).send({error: req.__('ERROR_INVALID_PASSWORD')});
+            //Sjekker om bruker er banna
+            const userResult = await userHandler.getUserFromId(userCredential.uid);
+            if(userResult.information.banned) {
+                logger.log({level: 'debug', message: `Access denied: User ${userResult.information.uid} is banned`});
+                return res.status(400).send({error: req.__('ERROR_USER_IS_BANNED')});
+            }
+                    
+            //Setter session
+            logger.log({level: 'debug', message: `Setting session`});
+            req.session.userId = user.uid;
 
-    }
-
-    //Setter session
-    logger.log({level: 'debug', message: `Setting session`});
-    req.session.userId = userResult.information._id;
-
-    //Suksess
-    res.status(200).send({message: req.__('SUCCESS_LOGIN')});
+            //Suksess
+            res.status(200).send({message: req.__('SUCCESS_LOGIN')});
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            switch(errorCode) {
+                case 'invalid-email':
+                    return res.status(400).send({error: req.__('ERROR_USER_DOES_NOT_EXIST')});
+                case 'user-disabled':
+                    return res.status(400).send({error: req.__('ERROR_USER_DOES_NOT_EXIST')});
+                case 'user-not-found':
+                    return res.status(400).send({error: req.__('ERROR_USER_DOES_NOT_EXIST')});
+                case 'wrong-password':
+                    return res.status(400).send({error: req.__('ERROR_INVALID_PASSWORD')});
+                default:
+                    return res.redirect(`/${req.renderObject.langCode}/home`)
+            }
+        });
 }
 
 /**

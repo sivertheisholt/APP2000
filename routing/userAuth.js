@@ -6,7 +6,6 @@
 const express = require('express');
 const router = express.Router();
 const asyncExpress = require('../handling/expressUtils');
-
 const userAuthController = require('../controllers/userAuthController');
 
 router.get("/logout", asyncExpress(userAuthController.userAuth_get_logout));

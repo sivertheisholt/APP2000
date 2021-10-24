@@ -12,18 +12,18 @@ const movieHandler = require('../../handling/movieHandler')
  * @author Sivert - 233518
  */
 async function checkIfFavorited(movieId, user) {
-    logger.log({level: 'debug', message: `Checking if movie is already favourited for user! MovieId: ${movieId} - UserId: ${user._id} `});
+    logger.log({level: 'debug', message: `Checking if movie is already favourited for user! MovieId: ${movieId} - UserId: ${user.uid} `});
 
     //Looper mellom og sjekker om film eksisterer hos bruker
     for(const movie of user.movieFavourites) {
         if(movie == movieId) {
-            logger.log({level: 'debug', message: `UserId: ${user._id} already got movie with id ${movieId} favourited`});
+            logger.log({level: 'debug', message: `UserId: ${user.uid} already got movie with id ${movieId} favourited`});
             return new ValidationHandler(true, `Movie is already favourited`);
         }
     }
 
     //Suksess - Film eksisterer ikke
-    logger.log({level: 'debug', message: `UserId: ${user._id} does not have movie with id ${movieId} favourited`});
+    logger.log({level: 'debug', message: `UserId: ${user.uid} does not have movie with id ${movieId} favourited`});
     return new ValidationHandler(false, `Movie is not favourited`);
 }
 

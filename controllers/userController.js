@@ -21,6 +21,7 @@ const listGetter = require('../systems/listSystem/listGetter');
  * @author Ørjan Dybevik - 233530, Sivert - 233518
  */
 exports.user_get_dashboard = async function(req, res) {
+    logger.log({level: 'debug', message: 'Request received for dashboard'})
     let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.session.userId)).information;
     let favoriteTvs = (await favoriteTv.getAllTvFavourites(req.session.userId)).information;
     let watchedMovies = (await watchedGetter.getWatchedMovies(req.session.userId)).information.moviesWatched;
@@ -149,7 +150,7 @@ exports.user_get_dashboard = async function(req, res) {
  */
 exports.user_post_changepassword = async function(req, res) {
     const pugBody = req.body.dash_change_pw_details; //Skaffer body fra form
-    BrukerDB.findOne({_id: req.session.userId}, async (err, bruker) => {
+    BrukerDB.findOne({uid: req.session.userId}, async (err, bruker) => {
         if(err) {
             logger.log({level: 'error', message: `Error: ${err}`}); 
             return res.status(400).send({error: req.__('ERROR_DASHBOARD_UNEXPECTED_ERROR')});
@@ -193,7 +194,7 @@ exports.user_post_changepassword = async function(req, res) {
  */
 exports.user_post_changeusername = function(req, res) {
     const pugBody = req.body.dash_change_username_details; //Skaffer body fra form
-    BrukerDB.findOne({_id: req.session.userId}, async (err, bruker) => {
+    BrukerDB.findOne({uid: req.session.userId}, async (err, bruker) => {
         if(err) {
             logger.log({level: 'error', message: `Error: ${err}`}); 
             return res.status(400).send({error: req.__('ERROR_DASHBOARD_UNEXPECTED_ERROR')});
@@ -220,7 +221,7 @@ exports.user_post_changeusername = function(req, res) {
 exports.user_post_changeavatar = function(req, res) {
     const dest = '/uploads/';
     const defaultDest = '/uploads/default.png';
-    BrukerDB.findOne({_id: req.session.userId}, async (err, bruker) => {
+    BrukerDB.findOne({uid: req.session.userId}, async (err, bruker) => {
         let fileExists = fs.stat('public' + bruker.avatar, function(err, stat) {
             if(err == null) {
                 return fileExists = true;

@@ -74,7 +74,7 @@ exports.tv_get_info = async function(req, res) {
     logger.log({level: 'debug', message: 'Rendering page..'});
     req.renderObject.serie = serie;
     if (req.renderObject.user != undefined){
-        req.renderObject.userId = JSON.stringify(req.renderObject.user._id)
+        req.renderObject.userId = JSON.stringify(req.renderObject.user.uid)
     }
     
     req.renderObject.isLoggedIn = req.renderObject.session;

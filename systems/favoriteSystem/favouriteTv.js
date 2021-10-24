@@ -12,18 +12,18 @@ const tvHandler = require('../../handling/tvHandler')
  * @author Ørjan - 233530
  */
 async function checkIfFavorited(tvId, user) {
-    logger.log({level: 'debug', message: `Checking if movie is already favourited for user! TvId: ${tvId} - UserId: ${user._id} `});
+    logger.log({level: 'debug', message: `Checking if movie is already favourited for user! TvId: ${tvId} - UserId: ${user.uid} `});
 
     //Sjekker om tv eksisterer hos bruker
     for(const tv of user.tvFavourites) {
         if(tv == tvId) {
-            logger.log({level: 'debug', message: `UserId: ${user._id} already got tv-show with id ${tvId} favourited`});
+            logger.log({level: 'debug', message: `UserId: ${user.uid} already got tv-show with id ${tvId} favourited`});
             return new ValidationHandler(true, `Tv-show is already favourited`);
         }
     }
 
     //Suksess - Serie ekeisterer ikke
-    logger.log({level: 'debug', message: `UserId: ${user._id} does not have tv-show with id ${tvId} favourited`});
+    logger.log({level: 'debug', message: `UserId: ${user.uid} does not have tv-show with id ${tvId} favourited`});
     return new ValidationHandler(false, `Tv-show is not favourited`);
 }
 

@@ -11,11 +11,11 @@ const ListModel = require('../../database/listSchema');
  * @author Sivert - 233518
  */
 exports.createList = async function(user, name) {
-    logger.log({level: 'debug', message: `Creating list for user with id ${user._id}`});
+    logger.log({level: 'debug', message: `Creating list for user with id ${user.uid}`});
     
     //Lagrer liste til database
     const resultList = await saveToDatabase({
-        userId: user._id,
+        userId: user.uid,
         name: name
     });
     if(!resultList.status) return resultList;
@@ -25,7 +25,7 @@ exports.createList = async function(user, name) {
     if(!userResult.status) return userResult;
     
     //Suksess
-    logger.log({level: 'debug', message: `Successfully created list with id ${resultList.information._id} for user with id ${user._id}`});
+    logger.log({level: 'debug', message: `Successfully created list with id ${resultList.information._id} for user with id ${user.uid}`});
     return new ValidationHandler(true, 'Successfully created list');
 }
 

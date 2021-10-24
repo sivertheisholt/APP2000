@@ -6,6 +6,10 @@ const bodyParser = require('body-parser');
 const path = require("path");
 const logger = require('../../logging/logger');
 const socketRouter = require('../../socket/socketRouter');
+// Import the functions you need from the SDKs you need
+const firebase = require('firebase/compat/app');
+//import { initializeApp } from "firebase/app";
+//import { getAnalytics } from "firebase/analytics";
 
 /**
  * Skaffer start informasjon
@@ -120,4 +124,24 @@ exports.startRouting = function(app, io) {
         //Sender over til fil som fungerer som en router
         socketRouter(socket);
     });
+}
+
+exports.intializeFirebase = async function() {
+    const firebase = await import('firebase/app')
+    const firebaseAnalytics = await import('firebase/analytics')
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyAuLJsEpv4oVm9kH7pMD-VkB1KLUAe7My0",
+        authDomain: "filmatory-7266f.firebaseapp.com",
+        projectId: "filmatory-7266f",
+        storageBucket: "filmatory-7266f.appspot.com",
+        messagingSenderId: "355339460870",
+        appId: "1:355339460870:web:9c66ac17b8ca9d54e8fe87",
+        measurementId: "G-2FPX0MND9K"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
 }
