@@ -11,7 +11,9 @@ const recommendedMediaHandler = require('../handling/recommendMediaHandler');
 const ValidationHandler = require('../handling/ValidationHandler');
 const hjelpeMetoder = require('../handling/hjelpeMetoder');
 const bcrypt = require("bcrypt");
+const listeMetoder = require('../handling/listeMetoder');
 let mailer = require('../handling/mailer');
+const listGetter = require('../systems/listSystem/listGetter');
 const jwt = require('jsonwebtoken');
 
 //**** Reviews *****/
@@ -126,6 +128,7 @@ exports.bruker_post = async function(req, res) {
     if(!userResult.status) {
         logger.log({level: 'error', message: `Unexpected error when creating user`}); 
         return res.status(400).send(`Unexpected error when creating user`);
+        return;
     }
 
     //Sender mail til bruker
@@ -143,10 +146,18 @@ exports.bruker_post = async function(req, res) {
 //**** Movie *****/
 exports.movie_get = async function(req, res) {
     const movieResult = await movieHandler.checkIfSaved(req.params.movieId, req.params.languageCode);
+
     if(!movieResult.status) {
         const movieResultTmdb = await tmdbHandler.data.getMovieInfoByID(req.params.movieId, req.params.languageCode);
-        res.status(200).json(movieResultTmdb);
+        const castinfo = await tmdbHandler.data.getMovieCastByID(req.params.movieId, req.params.languageCode);
+        let film = {
+            filminfo: movieResultTmdb,
+            cast: castinfo
+        }
+        res.status(200).json(film);
+        return;
     }
+    
     res.status(200).json(reviewApprovedResult.information);
 }
 
@@ -156,16 +167,48 @@ exports.movie_get_frontpage = async function(req, res) {
         userResult = await userHandler.getUserFromId(req.params.userId);
         if(!userResult.status) {
             res.status(400).send('Could not find user');
+            return;
         }
     }
     
     const moviesResult = await recommendedMediaHandler.recommendMovie(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
     if(!moviesResult.status) {
         res.status(400).send('Something unexpected happen');
+        return;
     }
     res.status(200).json(moviesResult.information);
 }
 
+exports.movie_get_upcoming = async function(req, res) {    
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListUpcomingMovies = [];
+    for(const movie of tmdbInformasjon.discoverMoviesUpcoming) {
+      let tempObj = {
+        id: movie.id,
+        pictureUrl: movie.poster_path,
+        title: movie.original_title,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-')
+      }
+      finalListUpcomingMovies.push(tempObj);
+    }
+    res.status(200).json(finalListUpcomingMovies);
+}
+
+exports.movie_get_movies = async function(req, res) {    
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListPopularMovies = [];
+    for(const movie of tmdbInformasjon.discoverMoviesPopular) {
+        let tempObj = {
+        id: movie.id,
+        pictureUrl: movie.poster_path,
+        title: movie.title,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-'),
+        genre: movie.genre_ids
+        }
+        finalListPopularMovies.push(tempObj);
+    }
+    res.status(200).json(finalListPopularMovies);
+}
 //**** TV *****/
 
 exports.tv_get = async function(req, res) {
@@ -173,6 +216,7 @@ exports.tv_get = async function(req, res) {
     if(!tvResult.status) {
         const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, req.params.languageCode);
         res.status(200).json(tvResultTmdb)
+        return;
     }
     res.status(200).json(tvResult.information);
 }
@@ -183,11 +227,132 @@ exports.tv_get_frontpage = async function(req, res) {
         userResult = await userHandler.getUserFromId(req.params.userId);
         if(!userResult.status) {
             res.status(400).send('Could not find user');
+            return;
         }
     }
     const tvsResult = await recommendedMediaHandler.recommendTv(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
     if(!tvsResult.status) {
         res.status(400).send('Something unexpected happen');
+        return;
     }
     res.status(200).json(tvsResult.information);
+}
+
+
+exports.tv_get_upcoming = async function(req, res) {
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListUpcomingTv = [];
+    for(const tv of tmdbInformasjon.discoverTvshowsUpcoming) {
+      let tempObj = {
+        id: tv.id,
+        pictureUrl: tv.poster_path,
+        title: tv.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, '-')
+      }
+      finalListUpcomingTv.push(tempObj);
+    }
+    res.status(200).json(finalListUpcomingTv);
+}
+
+exports.tv_get_tvs = async function (req, res){
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListTvshowsPopular = [];
+    for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
+        let tempObj = {
+        id: tv.id,
+        pictureUrl: tv.poster_path,
+        title: tv.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, "-"),
+        genre: tv.genre_ids
+        }
+        finalListTvshowsPopular.push(tempObj);
+    }
+    res.status(200).json(finalListTvshowsPopular);
+}
+
+exports.person_get = async function (req, res){
+    const personId = req.params.personId;
+    let personInfo = await tmdbHandler.data.getPersonByID(personId, req.renderObject.urlPath);
+    //Lager person objekt
+    let person = {
+      personinfo: personInfo,
+      links: await tmdbHandler.data.getPersonLinksByID(personId, req.renderObject.urlPath),
+      shortBio: await hjelpeMetoder.data.maxText(personInfo.biography,500)
+    }
+    if(person.personinfo.biography == "" || !person.personinfo.biography) {
+      person.personinfo = await tmdbHandler.data.getPersonByID(personId, 'en')
+      person.shortBio = await hjelpeMetoder.data.maxText(person.personinfo.biography,500)
+    }
+    res.status(200).json(person);
+}
+
+exports.all_lists_get = async function (req, res){
+    let lister = await listGetter.getAllLists();
+    let listene = [];
+    for (const info of lister.information) {
+        listene.push({
+            listId: info._id,
+            numberOfMovies: listeMetoder.getNumberOfMovies(info),
+            numberOfTvShows: listeMetoder.getNumberOfTvs(info),
+            posters: await listeMetoder.getPosterUrls(await listeMetoder.getMoviePosterUrls(info.movies, req.renderObject.urlPath), await listeMetoder.getTvPosterUrls(info.tvs, req.renderObject.urlPath)),
+            userName: await (await userHandler.getUserFromId(info.userId)).information.username,
+            listName: info.name
+        })
+    }
+    res.status(200).json(listene);
+}
+
+exports.list_get = async function (req, res){
+    let medias = []
+    let listId = req.params.listId;
+    let list = await listGetter.getListFromId(listId);
+    let isListAuthor = new ValidationHandler(false, "");
+    //Skaffer filmer
+    for(const movie of list.information.movies) {
+        let movieInfo = await movieHandler.getMovieById(movie, req.renderObject.urlPath);
+        if(!movieInfo.status) {
+            movieInfo = new ValidationHandler(true, await tmdb.data.getMovieInfoByID(movie, req.renderObject.urlPath));
+            movieHandler.addToDatabase(movieInfo.information);
+        }
+        medias.push({
+            id: movieInfo.information.id,
+            listid: listId,
+            pictureUrl: movieInfo.information.poster_path,
+            title: movieInfo.information.original_title,
+            releaseDate: await hjelpeMetoder.data.lagFinDato(movieInfo.information.release_date, '-'),
+            type: 'movie'
+        })
+    }
+    //Skaffer serier
+    for(const tv of list.information.tvs) {
+        let tvInfo = await tvHandler.getShowById(tv, req.renderObject.urlPath);
+        if(!tvInfo.status) {
+            tvInfo = new ValidationHandler(true, await tmdb.data.getSerieInfoByID(tv, req.renderObject.urlPath));
+            tvHandler.addToDatabase(tvInfo.information);
+        }
+        medias.push({
+            id: tvInfo.information.id,
+            listid: listId,
+            pictureUrl: tvInfo.information.poster_path,
+            title: tvInfo.information.name,
+            releaseDate: await hjelpeMetoder.data.lagFinDato(tvInfo.information.first_air_date, '-'),
+            type : 'tv'
+          })
+    }
+    res.status(200).json(medias);
+}
+
+exports.movie_get_watch_providers = async function (req, res){
+    try {
+        let watchProviders = await tmdbHandler.data.getMovieWatchProvider(req.params.movieId);
+        if(Object.keys(watchProviders.results).length === 0){
+            res.status(204).send("No results");
+            return;
+        }
+        res.status(200).json(watchProviders);
+    } catch (error) {
+        res.status(400).send('Something unexpected happen');
+        logger.log({level: 'error' ,message: error})
+        return;
+    }
 }
