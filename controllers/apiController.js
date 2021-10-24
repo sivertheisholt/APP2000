@@ -80,64 +80,20 @@ exports.bruker_get = async function(req, res) {
     res.status(200).json(userResult.information);
 }
 
+
 exports.bruker_post = async function(req, res) { 
     //Skaffer body fra form
-    const pugBody = req.body;
-
-    //Sjekker at mail tilfredsstiller krav
-    if(!(hjelpeMetoder.data.validateEmail(pugBody.email))){
-        logger.log({level: 'debug', message: `Email ${pugBody.email} is not properly formatted!`}); 
-        return res.status(400).send(`Email ${pugBody.email} is not properly formatted!`);
-    }
-
-    //Sjekker om epost er tatt
-    if((await userHandler.getUserFromEmail(pugBody.email)).status) {
-        logger.log({level: 'debug', message: `Email ${pugBody.email} is already taken!`}); 
-        return res.status(400).send(`Email ${pugBody.email} is already taken!`);
-    }
-
-    //Sjekker at passord tilfredstiller krav
-    if(!(hjelpeMetoder.data.validatePassword(pugBody.password))){
-        logger.log({level: 'debug', message: `Password is not properly formatted!`}); 
-        return res.status(400).send(`Password is not properly formatted!`);
-    }
-
-    //Vi gjør en sjekk at alle feltene er fylt inn
-    if(!(pugBody.email && pugBody.password && pugBody.passwordRepeat)) {
-        logger.log({level: 'debug', message: `All form inputs are not filled!`}); 
-        return res.status(400).send(`All form inputs are not filled!`);
-    }
-
-    //Vi gjør en sjekk at passord 1 er lik passord 2 (Repeat password)
-    if(!(pugBody.password == pugBody.passwordRepeat)) {
-        logger.log({level: 'debug', message: `Passwords do not match each other!`}); 
-        return res.status(400).send(`Passwords do not match each other!`);
-    }
+    const uid = req.body.uid;
 
     //Nå må vi lage et nytt bruker objekt
-    const bruker = new UserSchema(pugBody);
-    
-    //Nå må vi lage ny salt for å hashe passord
-    const salt = await bcrypt.genSalt(10);
-
-    //Nå setter vi passord til det hasha passordet
-    bruker.password = await bcrypt.hash(bruker.password, salt);
+    const bruker = new UserSchema({uid: uid});
 
     //Lagrer bruker i databasen
     const userResult = await userHandler.newUser(bruker);
     if(!userResult.status) {
         logger.log({level: 'error', message: `Unexpected error when creating user`}); 
         return res.status(400).send(`Unexpected error when creating user`);
-        return;
     }
-
-    //Sender mail til bruker
-    mailer({
-        from: process.env.EMAIL,
-        to: bruker.email, //bruker.email skal brukes her når det skal testes mot "ekte" bruker,
-        subject: 'Welcome to Filmatory!',
-        html: `<h1>Hope you enjoy your time at Filmatory!</h1>`
-    });
 
     //Suksess
     res.status(200).send('User successfully created');
