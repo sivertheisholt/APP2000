@@ -14,6 +14,9 @@ const bcrypt = require("bcrypt");
 const listeMetoder = require('../handling/listeMetoder');
 let mailer = require('../handling/mailer');
 const listGetter = require('../systems/listSystem/listGetter');
+const favoriteMovie = require('../systems/favoriteSystem/favouriteMovie');
+const favoriteTv = require('../systems/favoriteSystem/favouriteTv');
+const watchedGetter = require('../systems/watchedSystem/watchedGetter');
 const jwt = require('jsonwebtoken');
 
 //**** Reviews *****/
@@ -311,4 +314,107 @@ exports.movie_get_watch_providers = async function (req, res){
         logger.log({level: 'error' ,message: error})
         return;
     }
+}
+
+exports.user_get_favorites = async function (req, res){
+    let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.params.userId)).information;
+    let favoriteTvs = (await favoriteTv.getAllTvFavourites(req.params.userId)).information;
+    let allFavorites = [];
+    let tvFavorites = [];
+    let movieFavorites = [];
+
+    for(const item of favoriteMovies){
+        let result = await (await movieHandler.getMovieById(item, req.renderObject.urlPath));
+        let tempObj = {
+            id: result.information.id,
+            pictureUrl: result.information.poster_path,
+            title: result.information.original_title,
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.release_date),
+            type: 'movie'
+        }
+        allFavorites.push(tempObj);
+        movieFavorites.push(tempObj);
+    }
+    
+    for(const item of favoriteTvs){
+        let result = await (await tvHandler.getShowById(item, req.renderObject.urlPath));
+        let tempObj = {
+            id: result.information.id,
+            pictureUrl: result.information.poster_path,
+            title: result.information.name,
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.first_air_date),
+            type: 'tv'
+        }
+        allFavorites.push(tempObj);
+        tvFavorites.push(tempObj);
+    }
+    let userFavorites = {
+        userTvFavorites : tvFavorites,
+        userMovieFavorites : movieFavorites,
+        userAllFavorites : allFavorites
+    }
+    res.status(200).json(userFavorites);
+}
+
+exports.user_get_watchlist = async function (req, res){
+    let watchedMovies = (await watchedGetter.getWatchedMovies(req.params.userId)).information.moviesWatched;
+    let watchedTvs = (await watchedGetter.getWatchedTvs(req.params.userId)).information.tvsWatched;
+    let allWatched = [];
+    let tvWatched = [];
+    let movieWatched = [];
+
+    for(const item of watchedMovies){
+        let result = await(await movieHandler.getMovieById(item, req.renderObject.urlPath));
+        let tempObj = {
+            id: result.information.id,
+            pictureUrl: result.information.poster_path,
+            title: result.information.title,
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.release_date),
+            type: 'movie'
+        }
+        allWatched.push(tempObj);
+        movieWatched.push(tempObj);
+    }
+
+    for(const item of watchedTvs){
+        let result = await (await tvHandler.getShowById(item, req.renderObject.urlPath));
+        let tempObj = {
+            id: result.information.id,
+            pictureUrl: result.information.poster_path,
+            title: result.information.name,
+            releaseDate: await hjelpeMetoder.data.lagFinDatoFraDB(result.information.first_air_date),
+            type: 'tv'
+        }
+        allWatched.push(tempObj);
+        tvWatched.push(tempObj);
+    }
+
+    let userWatched = {
+        userTvWatched : movieWatched,
+        userMovieWatched : tvWatched,
+        userAllWatched : allWatched
+    };
+    res.status(200).json(userWatched);
+}
+
+exports.user_get_lists = async function (req, res){
+    let lists = [];
+    for(const item of req.renderObject.user.lists) {
+        let result = await listGetter.getListFromId(item);
+        let posters = [];
+        if(!result.status) break;
+        for(const movie of result.information.movies) {
+            let resultMovie = await movieHandler.getMovieById(movie, 'en');
+            if(!resultMovie.status) break;
+            posters.push(resultMovie.information.poster_path);
+        }
+        for(const tv of result.information.tvs) {
+            let resultTv = await tvHandler.getShowById(tv, 'en');
+            if(!resultTv.status) break;
+            posters.push(resultTv.information.poster_path);
+        }
+        result.information.posters = posters;
+        lists.push(result.information);
+    }
+    res.status(200).json(lists);
 }

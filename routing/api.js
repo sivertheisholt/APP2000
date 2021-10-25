@@ -30,6 +30,15 @@ router.route("/user/get/:userId")
 router.route("/user/new")
     .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_post))
 
+router.route('/user/get/favorites/:userId')
+    .get(asyncExpress(apiController.user_get_favorites));
+
+router.route('/user/get/watchlist/:userId')
+    .get(asyncExpress(apiController.user_get_watchlist));
+
+router.route('/user/get/lists/:userId')
+    .get(asyncExpress(apiController.user_get_lists));
+
 //Ticket
 router.route("/ticket/:ticketId")
     .get()
