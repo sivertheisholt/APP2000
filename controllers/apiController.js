@@ -176,7 +176,7 @@ exports.tv_get = async function(req, res) {
         const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, req.params.languageCode);
         const castinfo = await tmdbHandler.data.getSerieCastByID(req.params.tvId, req.params.languageCode);
         let serie = {
-            serieinfo: tvResult.information,
+            serieinfo: tvResultTmdb.information,
             cast: castinfo
         }
         res.status(200).json(serie)
