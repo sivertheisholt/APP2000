@@ -299,6 +299,14 @@ Tmdb.prototype.getMovieWatchProvider = function getMovieWatchProvider(movieID) {
     })
 }
 
+Tmdb.prototype.getTvWatchProvider = function getTvWatchProvider(tvId) {
+    var url = `https://api.themoviedb.org/3/tv/${tvId}/watch/providers?api_key=${this.token}`;
+    return fetch(url).then(res => {
+        makeLog(res, url);
+        return resultHandler(res);
+    })
+}
+
 /**
  * Denne lager URLen til API requesten
  * @param {String} url Selve URLen

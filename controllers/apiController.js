@@ -322,6 +322,21 @@ exports.movie_get_watch_providers = async function (req, res){
     }
 }
 
+exports.tv_get_watch_providers = async function (req, res){
+    try {
+        let watchProviders = await tmdbHandler.data.getTVWatchProvider(req.params.tvId);
+        if(Object.keys(watchProviders.results).length === 0){
+            res.status(204).send("No results");
+            return;
+        }
+        res.status(200).json(watchProviders);
+    } catch (error) {
+        res.status(400).send('Something unexpected happen');
+        logger.log({level: 'error' ,message: error})
+        return;
+    }
+}
+
 exports.user_get_favorites = async function (req, res){
     let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.params.userId)).information;
     let favoriteTvs = (await favoriteTv.getAllTvFavourites(req.params.userId)).information;
