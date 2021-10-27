@@ -174,10 +174,16 @@ exports.tv_get = async function(req, res) {
     const tvResult = await tvHandler.checkIfSaved(req.params.tvId, req.params.languageCode);
     if(!tvResult.status) {
         const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, req.params.languageCode);
-        res.status(200).json(tvResultTmdb)
+        const castinfo = await tmdbHandler.data.getSerieCastByID(req.params.tvId, req.params.languageCode);
+        let serie = {
+            serieinfo: tvResult.information,
+            cast: castinfo
+        }
+        res.status(200).json(serie)
         return;
     }
-    res.status(200).json(tvResult.information);
+    //res.status(200).json(tvResult.information);
+    res.status(200).json(reviewApprovedResult.information);
 }
 
 exports.tv_get_frontpage = async function(req, res) {
