@@ -75,7 +75,7 @@ router.route("/tv/upcomingtvs")
 router.route("/tv/tvs")
     .get(asyncExpress(apiController.tv_get_tvs));
 
-router.route("tv/get/watch/providers/:tvId")
+router.route("/tv/get/watch/providers/:tvId")
     .get(asyncExpress(apiController.tv_get_watch_providers))
 
 
