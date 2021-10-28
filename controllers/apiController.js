@@ -324,7 +324,7 @@ exports.movie_get_watch_providers = async function (req, res){
 
 exports.tv_get_watch_providers = async function (req, res){
     try {
-        let watchProviders = await tmdbHandler.data.getTVWatchProvider(req.params.tvId);
+        let watchProviders = await tmdbHandler.data.getTvWatchProvider(req.params.tvId);
         if(Object.keys(watchProviders.results).length === 0){
             res.status(204).send("No results");
             return;

@@ -240,8 +240,8 @@ var methods = {
     getMovieWatchProvider: function(movieId){
         return tmdb.getMovieWatchProvider(movieId);
     },
-    getTVWatchProvider: function(tvId){
-        return tmdb.getTVWatchProvider(tvId);
+    getTvWatchProvider: function(tvId){
+        return tmdb.getTvWatchProvider(tvId);
     },
 };
 
