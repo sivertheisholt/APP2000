@@ -43,4 +43,4 @@ function deleteFromDatabase(user, mediaId, mediaType) {
     }
 }
 
-module.exports = {deleteWatched}
+module.exports = {deleteWatched, deleteFromDatabase}

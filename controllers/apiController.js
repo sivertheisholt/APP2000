@@ -17,6 +17,8 @@ const listGetter = require('../systems/listSystem/listGetter');
 const favoriteMovie = require('../systems/favoriteSystem/favouriteMovie');
 const favoriteTv = require('../systems/favoriteSystem/favouriteTv');
 const watchedGetter = require('../systems/watchedSystem/watchedGetter');
+const watchedCreater = require('../systems/watchedSystem/watchedCreater');
+const watchedEditor = require('../systems/watchedSystem/watchedEditor');
 const jwt = require('jsonwebtoken');
 
 //**** Reviews *****/
@@ -116,16 +118,14 @@ exports.bruker_update_username = async function(req, res) {
 
 }
 
-exports.bruker_add_favorite = async function(req, res){
+//**** Favorittsystem, watchlistsystem og listsystem for user *****/
+
+exports.bruker_add_movie_favorite = async function(req, res){
     //Skaffer bruker
     const uid = req.body.uid;
     const movieId = req.body.movieId;
     const user = await userHandler.getUserFromId(uid);
     if(!user.status) return res.status(400).json(user);
-
-    //Sjekker om bruker allerede har filmen som favoritt
-/*     const isFavorited = await checkIfFavorited(movieId, user.information);
-    if(isFavorited.status) return res.status(400).json("Movie is already favorited") */
 
     //Prøver å oppdatere bruker
     const updateUserResult = await userHandler.updateUser(user.information, {$push: {movieFavourites: movieId}});
@@ -151,6 +151,191 @@ exports.bruker_add_favorite = async function(req, res){
     return res.status(200).json("Successfully added movie");
 }
 
+exports.movie_check_if_favorited = async function(req, res){
+    const uid = req.body.uid;
+    const movieId = req.body.movieId;
+    logger.log({level: 'debug', message: `Checking if movie is already favourited for user! MovieId: ${movieId} - UserId: ${user.uid} `});
+    const user = await userHandler.getUserFromId(uid);
+    if(!user.status) return res.status(400).json(user);
+    //Looper mellom og sjekker om film eksisterer hos bruker
+    for(const movie of user.information.movieFavourites) {
+        if(movie == movieId) {
+            logger.log({level: 'debug', message: `UserId: ${user.uid} already got movie with id ${movieId} favourited`});
+            res.setHeader('movIsFavorited', 'false')
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            return res.end('Movie is not favorited');
+        }
+    }
+
+    //Suksess - Film eksisterer ikke
+    logger.log({level: 'debug', message: `UserId: ${user.uid} does not have movie with id ${movieId} favourited`});
+    res.setHeader('movIsFavorited', 'false')
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    return res.end('Movie is not favorited');
+}
+
+exports.movie_remove_favorite = async function(req, res){
+    const uid = req.params.uid;
+    const movieId = req.params.movieId;
+    logger.log({level: 'debug', message: `Removing movie with id ${movieId} from ${uid}`});
+    //Skaffer bruker
+    const user = await userHandler.getUserFromId(uid);
+    if(!user.status) return res.status(400).json(user);
+
+    //Oppdaterer bruker
+    const userUpdateResult = await userHandler.updateUser(user.information, {$pull: {movieFavourites: movieId}});
+    if(!userUpdateResult.status) return res.status(400).json(userUpdateResult);
+    
+    //Suksess
+    logger.log({level: 'debug', message: `Successfully removed movie with id ${movieId} from ${uid}`});
+    return res.status(200).json('Successfully removed movie from favorites');
+}
+
+exports.bruker_add_tv_favorite = async function(req, res){
+    const uid = req.body.uid;
+    const tvId = req.body.tvId;
+    logger.log({level: 'debug', message: `Adding tv-show with id ${tvId} to ${uid}'s favourite list`}); 
+
+    //Skaffer bruker
+    const user = await userHandler.getUserFromId(uid);
+    if(!user.status) return res.status(400).json(user);
+
+    const isFavorited = await favoriteTv.checkIfFavorited(tvId, user.information);
+    if(isFavorited.status) return res.status(400).json(isFavorited);
+
+    //Prøver å oppdatere bruker
+    const updateUserResult = await userHandler.updateUser(user.information, {$push: {tvFavourites: tvId}});
+    if(!updateUserResult.status) return res.status(400).json(updateUserResult);
+
+    //Sjekker om serie er lagret i database
+    const isSaved = await tvHandler.checkIfSaved(tvId);
+    if(isSaved.status) return res.status(400).json(updateUserResult);
+
+    //Skaffer serie informasjon
+    const serieInfo = await tmdbHandler.data.getSerieInfoByID(tvId);
+    if(!serieInfo) {
+        logger.log('error', `Could not retrieve information for tv-show with id ${tvId}`)
+        return res.status(400).json('Could not retrieve information for tv-show');
+    }
+
+    //Legger til serie i database
+    const addToDatabaseResult = await tvHandler.addToDatabase(serieInfo);
+    if(!addToDatabaseResult.status) return res.status(400).json(addToDatabaseResult);
+
+    //Suksess
+    logger.log({level: 'debug', message: `Successfully added tv-show with id ${tvId} to ${uid}'s favourite list`}); 
+    return res.status(200).json('Successfully added tv to favorites');
+
+}
+
+exports.tv_check_if_favorited = async function(req, res){
+    const uid = req.body.uid;
+    const tvId = req.body.tvId;
+    logger.log({level: 'debug', message: `Checking if tv-show is already favourited for user! TvId: ${tvId} - UserId: ${uid} `});
+
+    const user = await userHandler.getUserFromId(uid);
+    if(!user.status) return res.status(400).json(user);
+    //Sjekker om tv eksisterer hos bruker
+    for(const tv of user.information.tvFavourites) {
+        if(tv == tvId) {
+            logger.log({level: 'debug', message: `UserId: ${user.uid} already got tv-show with id ${tvId} favourited`});
+            res.setHeader('tvIsFavorited', 'true');
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            return res.end('Tv-show is favorited');
+        }
+    }
+
+    //Suksess - Serie eksisterer ikke
+    logger.log({level: 'debug', message: `UserId: ${user.uid} does not have tv-show with id ${tvId} favourited`});
+    res.setHeader('tvIsFavorited', 'false')
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    return res.end('Tv-show is not favorited');
+}
+
+exports.tv_remove_favorite = async function(req, res){
+    const uid = req.params.uid;
+    const tvId = req.params.tvId;
+    logger.log({level: 'debug', message: `Removing movie with id ${tvId} from ${uid}`});
+    //Skaffer bruker
+    const userResult = await userHandler.getUserFromId(uid);
+    if(!userResult.status) return res.status(400).json(userResult);
+
+    //Oppdaterer bruker
+    const userUpdateResult = await userHandler.updateUser(userResult.information, {$pull: {tvFavourites: tvId}});
+    if(!userUpdateResult.status) return res.status(400).json(userUpdateResult);
+
+    //Suksess
+    res.status(200).json('Successfully removed tv-show from favorites');
+}
+
+
+exports.user_add_watchlist = async function(req, res){
+    const uid = req.params.uid;
+    const mediaId = req.params.mediaId;
+    const type = req.params.mediaType;
+
+    logger.log({level: 'debug', message: `Adding media with id ${mediaId} to ${uid}'s watched list`});
+
+    //Skaffer bruker
+    const userResult = await userHandler.getUserFromId(uid);
+    if(!userResult.status) return res.status(400).json(userResult);
+
+    //Sjekker om film er i liste
+    const watchedResult = await watchedCreater.checkIfWatched(userResult.information, mediaId, type);
+    if(watchedResult.status) return res.status(400).json(watchedResult);
+
+    //Oppdaterer database
+    const updateDatabaseResult = await watchedCreater.updateDatabase(userResult.information, mediaId, type);
+    if(!updateDatabaseResult.status) return updateDatabaseResult;
+
+    //Legger til i database
+    const addToDbResult = await watchedCreater.addMediaToDB(mediaId, type);
+    if(!addToDbResult.status) return res.status(400).json(addToDbResult);
+    
+    //Suksess
+    logger.log({level: 'debug', message: `Successfully added media with id ${mediaId} to ${uid}'s watched list`});
+    return res.status(200).json('Successfully added media to watchlist');
+}
+
+exports.user_remove_watchlist = async function(req, res){
+    const uid = req.params.uid;
+    const mediaId = req.params.mediaId;
+    const type = req.params.mediaType;
+
+    logger.log({level: 'debug', message:`Deleting media with id ${mediaId} from user ${uid}`})
+    
+    //Skaffer bruker fra database
+    const userResult = await userHandler.getUserFromId(uid);
+    if(!userResult.status) return res.status(400).json(userResult);
+
+    //Sletter fra database
+    const databaseResult = await watchedEditor.deleteFromDatabase(userResult.information, mediaId, type);
+    if(!databaseResult.status) return res.status(400).json(addToDdatabaseResultbResult);
+
+    //Suksess
+    logger.log({level: 'debug', message: `Media with id ${mediaId} was successfully deleted from user ${uid}'s list`});
+    return res.status(400).json('Successfully removed media from watchlist');
+}
+
+exports.media_check_if_watchlist = async function(req, res){
+    const uid = req.params.uid;
+    const mediaId = req.params.mediaId;
+    const type = req.params.mediaType;
+
+    const userResult = await userHandler.getUserFromId(uid);
+    if(!userResult.status) return res.status(400).json(userResult);
+
+    const checkWatched = await watchedCreater.checkIfWatched(userResult.information, mediaId, type);
+    if(!checkWatched.status) {
+        res.setHeader('movIsFavorited', 'false')
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        return res.end('Media is not watchlist');
+    }
+
+    res.setHeader('mediaIsWatchlist', 'true')
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    return res.end('Media is in watchlist');
+}
 
 
 //**** Movie *****/

@@ -136,4 +136,4 @@ async function addMediaToDB(mediaId, mediaType) {
     }
 }
 
-module.exports = {addToWatched, checkIfWatched}
+module.exports = {addToWatched, checkIfWatched, addMediaToDB, updateDatabase}

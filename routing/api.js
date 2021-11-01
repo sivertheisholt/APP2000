@@ -42,8 +42,25 @@ router.route('/user/get/lists/:userId')
 router.route('/user/update/username')
     .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_update_username));
 
-router.route("/user/add/favorite")
-    .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_add_favorite));
+router.route('/user/add/movie/favorite')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_add_movie_favorite));
+
+router.route('/user/remove/movie/favorite')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.movie_remove_favorite));
+
+router.route('/user/add/tv/favorite')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_add_tv_favorite));
+
+router.route('/user/remove/tv/favorite')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.tv_remove_favorite));
+
+router.route('/user/add/watchlist')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.tv_remove_favorite));
+
+router.route('/user/remove/watchlist')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.tv_remove_favorite));
+
+
 //Ticket
 router.route("/ticket/:ticketId")
     .get()
