@@ -133,13 +133,13 @@ exports.intializeFirebase = async function() {
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
-        apiKey: "AIzaSyAuLJsEpv4oVm9kH7pMD-VkB1KLUAe7My0",
-        authDomain: "filmatory-7266f.firebaseapp.com",
-        projectId: "filmatory-7266f",
-        storageBucket: "filmatory-7266f.appspot.com",
-        messagingSenderId: "355339460870",
-        appId: "1:355339460870:web:9c66ac17b8ca9d54e8fe87",
-        measurementId: "G-2FPX0MND9K"
+        apiKey: process.env.API_KEY_FIREBASE,
+        authDomain: "filmatory-76dec.firebaseapp.com",
+        projectId: "filmatory-76dec",
+        storageBucket: "filmatory-76dec.appspot.com",
+        messagingSenderId: "328667583783",
+        appId: "1:328667583783:web:55137126d9df5fd34bc502",
+        measurementId: "G-4X6S7J5TED"
     };
 
     // Initialize Firebase
