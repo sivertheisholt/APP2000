@@ -225,10 +225,16 @@ exports.tv_get = async function(req, res) {
     const tvResult = await tvHandler.checkIfSaved(req.params.tvId, req.params.languageCode);
     if(!tvResult.status) {
         const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, req.params.languageCode);
-        res.status(200).json(tvResultTmdb)
+        const castinfo = await tmdbHandler.data.getSerieCastByID(req.params.tvId, req.params.languageCode);
+        let serie = {
+            serieinfo: tvResultTmdb,
+            personer: castinfo
+        }
+        res.status(200).json(serie)
         return;
     }
-    res.status(200).json(tvResult.information);
+    //res.status(200).json(tvResult.information);
+    res.status(200).json(reviewApprovedResult.information);
 }
 
 exports.tv_get_frontpage = async function(req, res) {
@@ -355,6 +361,21 @@ exports.list_get = async function (req, res){
 exports.movie_get_watch_providers = async function (req, res){
     try {
         let watchProviders = await tmdbHandler.data.getMovieWatchProvider(req.params.movieId);
+        if(Object.keys(watchProviders.results).length === 0){
+            res.status(204).send("No results");
+            return;
+        }
+        res.status(200).json(watchProviders);
+    } catch (error) {
+        res.status(400).send('Something unexpected happen');
+        logger.log({level: 'error' ,message: error})
+        return;
+    }
+}
+
+exports.tv_get_watch_providers = async function (req, res){
+    try {
+        let watchProviders = await tmdbHandler.data.getTvWatchProvider(req.params.tvId);
         if(Object.keys(watchProviders.results).length === 0){
             res.status(204).send("No results");
             return;
