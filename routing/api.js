@@ -28,7 +28,7 @@ router.route("/user/get/:userId")
     .get(asyncExpress(apiController.bruker_get))
     .delete();
 router.route("/user/new")
-    .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_post))
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_post));
 
 router.route('/user/get/favorites/:userId')
     .get(asyncExpress(apiController.user_get_favorites));
@@ -39,6 +39,11 @@ router.route('/user/get/watchlist/:userId')
 router.route('/user/get/lists/:userId')
     .get(asyncExpress(apiController.user_get_lists));
 
+router.route('/user/update/username')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_update_username));
+
+router.route("/user/add/favorite")
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.bruker_add_favorite));
 //Ticket
 router.route("/ticket/:ticketId")
     .get()
