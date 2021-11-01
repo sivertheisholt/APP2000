@@ -109,7 +109,7 @@ exports.bruker_update_username = async function(req, res) {
     const user = await userHandler.getUserFromId(uid);
     if(!user.status) return res.status(400).json("Could not retrieve user");
 
-    const updateUserResult = await userHandler.updateUser(user, {$push: {username: username}});
+    const updateUserResult = await userHandler.updateUser(user.information, {$set: {username: username}});
     if(!updateUserResult.status) return res.status(400).json(updateUserResult);
 
     return res.status(200).json("Successfully changed username");
