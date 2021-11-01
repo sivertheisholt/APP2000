@@ -133,7 +133,7 @@ exports.bruker_add_favorite = async function(req, res){
 
     //Sjekker om film er lagret i database
     const isSaved = await movieHandler.checkIfSaved(movieId);
-    if(isSaved.status) return res.status(200).json(isSaved);
+    if(!isSaved.status) return res.status(400).json(isSaved);
 
     //Skaffer film informasjon
     const movieInfo = await tmdb.data.getMovieInfoByID(movieId);
