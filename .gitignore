@@ -105,3 +105,4 @@ dist
 .tern-port
 public/uploads/avatar_1618505990473_govert.jpg
 routing/testing.js
+yarn.lock

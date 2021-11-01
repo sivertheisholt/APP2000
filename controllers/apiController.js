@@ -102,6 +102,57 @@ exports.bruker_post = async function(req, res) {
     res.status(200).send('User successfully created');
 }
 
+exports.bruker_update_username = async function(req, res) { 
+    const uid = req.body.uid;
+    const username = req.body.username;
+
+    const user = await userHandler.getUserFromId(uid);
+    if(!user.status) return res.status(400).json("Could not retrieve user");
+
+    const updateUserResult = await userHandler.updateUser(user.information, {$set: {username: username}});
+    if(!updateUserResult.status) return res.status(400).json(updateUserResult);
+
+    return res.status(200).json("Successfully changed username");
+
+}
+
+exports.bruker_add_favorite = async function(req, res){
+    //Skaffer bruker
+    const uid = req.body.uid;
+    const movieId = req.body.movieId;
+    const user = await userHandler.getUserFromId(uid);
+    if(!user.status) return res.status(400).json(user);
+
+    //Sjekker om bruker allerede har filmen som favoritt
+/*     const isFavorited = await checkIfFavorited(movieId, user.information);
+    if(isFavorited.status) return res.status(400).json("Movie is already favorited") */
+
+    //Prøver å oppdatere bruker
+    const updateUserResult = await userHandler.updateUser(user.information, {$push: {movieFavourites: movieId}});
+    if(!updateUserResult.status) return res.status(400).json(updateUserResult);
+
+    //Sjekker om film er lagret i database
+    const isSaved = await movieHandler.checkIfSaved(movieId);
+    if(!isSaved.status) return res.status(400).json(isSaved);
+
+    //Skaffer film informasjon
+    const movieInfo = await tmdb.data.getMovieInfoByID(movieId);
+    if(!movieInfo) {
+        logger.log('error', `Could not retrieve information for movie with id ${movieId}`);
+        return res.status(400).json("Could not retrive information for movie");
+    }
+
+    //Legger til film i database
+    const addToDatabaseResult = await movieHandler.addToDatabase(movieInfo);
+    if(!addToDatabaseResult.status) return res.status(400).json(addToDatabaseResult);
+
+    //Suksess
+    logger.log({level: 'debug', message: `Successfully added movie with id ${movieId} to ${userId}'s favourite list`}); 
+    return res.status(200).json("Successfully added movie");
+}
+
+
+
 //**** Movie *****/
 exports.movie_get = async function(req, res) {
     const movieResult = await movieHandler.checkIfSaved(req.params.movieId, req.params.languageCode);
@@ -174,10 +225,16 @@ exports.tv_get = async function(req, res) {
     const tvResult = await tvHandler.checkIfSaved(req.params.tvId, req.params.languageCode);
     if(!tvResult.status) {
         const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, req.params.languageCode);
-        res.status(200).json(tvResultTmdb)
+        const castinfo = await tmdbHandler.data.getSerieCastByID(req.params.tvId, req.params.languageCode);
+        let serie = {
+            serieinfo: tvResultTmdb,
+            personer: castinfo
+        }
+        res.status(200).json(serie)
         return;
     }
-    res.status(200).json(tvResult.information);
+    //res.status(200).json(tvResult.information);
+    res.status(200).json(reviewApprovedResult.information);
 }
 
 exports.tv_get_frontpage = async function(req, res) {
@@ -316,6 +373,21 @@ exports.movie_get_watch_providers = async function (req, res){
     }
 }
 
+exports.tv_get_watch_providers = async function (req, res){
+    try {
+        let watchProviders = await tmdbHandler.data.getTvWatchProvider(req.params.tvId);
+        if(Object.keys(watchProviders.results).length === 0){
+            res.status(204).send("No results");
+            return;
+        }
+        res.status(200).json(watchProviders);
+    } catch (error) {
+        res.status(400).send('Something unexpected happen');
+        logger.log({level: 'error' ,message: error})
+        return;
+    }
+}
+
 exports.user_get_favorites = async function (req, res){
     let favoriteMovies = (await favoriteMovie.getAllMovieFavourites(req.params.userId)).information;
     let favoriteTvs = (await favoriteTv.getAllTvFavourites(req.params.userId)).information;
@@ -401,20 +473,26 @@ exports.user_get_lists = async function (req, res){
     let lists = [];
     for(const item of req.renderObject.user.lists) {
         let result = await listGetter.getListFromId(item);
-        let posters = [];
         if(!result.status) break;
         for(const movie of result.information.movies) {
             let resultMovie = await movieHandler.getMovieById(movie, 'en');
             if(!resultMovie.status) break;
-            posters.push(resultMovie.information.poster_path);
+            let tempObj = {
+                posterPath : resultMovie.information.poster_path,
+                movieId : resultMovie.information.id
+            }
+            lists.push(tempObj);
         }
         for(const tv of result.information.tvs) {
             let resultTv = await tvHandler.getShowById(tv, 'en');
             if(!resultTv.status) break;
-            posters.push(resultTv.information.poster_path);
+            let tempObj = {
+                posterPath : resultTv.information.poster_path,
+                tvId : resultTv.information.id
+            }
+            lists.push(tempObj);
         }
-        result.information.posters = posters;
-        lists.push(result.information);
+        //console.log(lists);
     }
     res.status(200).json(lists);
 }
