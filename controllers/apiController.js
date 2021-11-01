@@ -124,8 +124,8 @@ exports.bruker_add_favorite = async function(req, res){
     if(!user.status) return res.status(400).json(user);
 
     //Sjekker om bruker allerede har filmen som favoritt
-    const isFavorited = await checkIfFavorited(movieId, user.information);
-    if(isFavorited.status) return res.status(400).json("Movie is already favorited")
+/*     const isFavorited = await checkIfFavorited(movieId, user.information);
+    if(isFavorited.status) return res.status(400).json("Movie is already favorited") */
 
     //Prøver å oppdatere bruker
     const updateUserResult = await userHandler.updateUser(user.information, {$push: {movieFavourites: movieId}});
