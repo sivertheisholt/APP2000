@@ -151,29 +151,6 @@ exports.bruker_add_movie_favorite = async function(req, res){
     return res.status(200).json("Successfully added movie");
 }
 
-exports.movie_check_if_favorited = async function(req, res){
-    const uid = req.body.uid;
-    const movieId = req.body.movieId;
-    logger.log({level: 'debug', message: `Checking if movie is already favourited for user! MovieId: ${movieId} - UserId: ${user.uid} `});
-    const user = await userHandler.getUserFromId(uid);
-    if(!user.status) return res.status(400).json(user);
-    //Looper mellom og sjekker om film eksisterer hos bruker
-    for(const movie of user.information.movieFavourites) {
-        if(movie == movieId) {
-            logger.log({level: 'debug', message: `UserId: ${user.uid} already got movie with id ${movieId} favourited`});
-            res.setHeader('movIsFavorited', 'false')
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            return res.end('Movie is not favorited');
-        }
-    }
-
-    //Suksess - Film eksisterer ikke
-    logger.log({level: 'debug', message: `UserId: ${user.uid} does not have movie with id ${movieId} favourited`});
-    res.setHeader('movIsFavorited', 'false')
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    return res.end('Movie is not favorited');
-}
-
 exports.movie_remove_favorite = async function(req, res){
     const uid = req.params.uid;
     const movieId = req.params.movieId;
@@ -226,30 +203,6 @@ exports.bruker_add_tv_favorite = async function(req, res){
     logger.log({level: 'debug', message: `Successfully added tv-show with id ${tvId} to ${uid}'s favourite list`}); 
     return res.status(200).json('Successfully added tv to favorites');
 
-}
-
-exports.tv_check_if_favorited = async function(req, res){
-    const uid = req.body.uid;
-    const tvId = req.body.tvId;
-    logger.log({level: 'debug', message: `Checking if tv-show is already favourited for user! TvId: ${tvId} - UserId: ${uid} `});
-
-    const user = await userHandler.getUserFromId(uid);
-    if(!user.status) return res.status(400).json(user);
-    //Sjekker om tv eksisterer hos bruker
-    for(const tv of user.information.tvFavourites) {
-        if(tv == tvId) {
-            logger.log({level: 'debug', message: `UserId: ${user.uid} already got tv-show with id ${tvId} favourited`});
-            res.setHeader('tvIsFavorited', 'true');
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            return res.end('Tv-show is favorited');
-        }
-    }
-
-    //Suksess - Serie eksisterer ikke
-    logger.log({level: 'debug', message: `UserId: ${user.uid} does not have tv-show with id ${tvId} favourited`});
-    res.setHeader('tvIsFavorited', 'false')
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    return res.end('Tv-show is not favorited');
 }
 
 exports.tv_remove_favorite = async function(req, res){
@@ -316,27 +269,6 @@ exports.user_remove_watchlist = async function(req, res){
     logger.log({level: 'debug', message: `Media with id ${mediaId} was successfully deleted from user ${uid}'s list`});
     return res.status(400).json('Successfully removed media from watchlist');
 }
-
-exports.media_check_if_watchlist = async function(req, res){
-    const uid = req.params.uid;
-    const mediaId = req.params.mediaId;
-    const type = req.params.mediaType;
-
-    const userResult = await userHandler.getUserFromId(uid);
-    if(!userResult.status) return res.status(400).json(userResult);
-
-    const checkWatched = await watchedCreater.checkIfWatched(userResult.information, mediaId, type);
-    if(!checkWatched.status) {
-        res.setHeader('movIsFavorited', 'false')
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        return res.end('Media is not watchlist');
-    }
-
-    res.setHeader('mediaIsWatchlist', 'true')
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    return res.end('Media is in watchlist');
-}
-
 
 //**** Movie *****/
 exports.movie_get = async function(req, res) {
@@ -647,8 +579,8 @@ exports.user_get_watchlist = async function (req, res){
     }
 
     let userWatched = {
-        userTvWatched : movieWatched,
-        userMovieWatched : tvWatched,
+        userTvWatched : tvWatched,
+        userMovieWatched : movieWatched,
         userAllWatched : allWatched
     };
     res.status(200).json(userWatched);
