@@ -55,10 +55,10 @@ router.route('/user/remove/tv/favorite')
     .post(apiMiddleware.api_check_token, asyncExpress(apiController.tv_remove_favorite));
 
 router.route('/user/add/watchlist')
-    .post(apiMiddleware.api_check_token, asyncExpress(apiController.tv_remove_favorite));
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.user_add_watchlist));
 
 router.route('/user/remove/watchlist')
-    .post(apiMiddleware.api_check_token, asyncExpress(apiController.tv_remove_favorite));
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.user_remove_watchlist));
 
 
 //Ticket
