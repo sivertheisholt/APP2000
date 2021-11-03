@@ -108,6 +108,7 @@ exports.bruker_update_username = async function(req, res) {
     const uid = req.body.uid;
     const username = req.body.username;
 
+
     const user = await userHandler.getUserFromId(uid);
     if(!user.status) return res.status(400).json("Could not retrieve user");
 
@@ -152,8 +153,8 @@ exports.bruker_add_movie_favorite = async function(req, res){
 }
 
 exports.movie_remove_favorite = async function(req, res){
-    const uid = req.params.uid;
-    const movieId = req.params.movieId;
+    const uid = req.body.uid;
+    const movieId = req.body.movieId;
     logger.log({level: 'debug', message: `Removing movie with id ${movieId} from ${uid}`});
     //Skaffer bruker
     const user = await userHandler.getUserFromId(uid);
@@ -206,8 +207,8 @@ exports.bruker_add_tv_favorite = async function(req, res){
 }
 
 exports.tv_remove_favorite = async function(req, res){
-    const uid = req.params.uid;
-    const tvId = req.params.tvId;
+    const uid = req.body.uid;
+    const tvId = req.body.tvId;
     logger.log({level: 'debug', message: `Removing movie with id ${tvId} from ${uid}`});
     //Skaffer bruker
     const userResult = await userHandler.getUserFromId(uid);
@@ -223,9 +224,9 @@ exports.tv_remove_favorite = async function(req, res){
 
 
 exports.user_add_watchlist = async function(req, res){
-    const uid = req.params.uid;
-    const mediaId = req.params.mediaId;
-    const type = req.params.mediaType;
+    const uid = req.body.uid;
+    const mediaId = req.body.mediaId;
+    const type = req.body.mediaType;
 
     logger.log({level: 'debug', message: `Adding media with id ${mediaId} to ${uid}'s watched list`});
 
@@ -251,9 +252,9 @@ exports.user_add_watchlist = async function(req, res){
 }
 
 exports.user_remove_watchlist = async function(req, res){
-    const uid = req.params.uid;
-    const mediaId = req.params.mediaId;
-    const type = req.params.mediaType;
+    const uid = req.body.uid;
+    const mediaId = req.body.mediaId;
+    const type = req.body.mediaType;
 
     logger.log({level: 'debug', message:`Deleting media with id ${mediaId} from user ${uid}`})
     
