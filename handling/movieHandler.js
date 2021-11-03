@@ -43,8 +43,12 @@ function addToDatabase(movie) {
  * @author Sivert - 233518
  */
 async function checkIfSaved(movieId, languageCode) {
-    logger.log({level: 'info', message: `Checking if movie is already saved in database! MovieId: ${movieId} `});
-    return Film.findOne({id: movieId, language: languageCode}).then((doc, err) => returnHandler(doc, err));
+    try{
+        logger.log({level: 'info', message: `Checking if movie is already saved in database! MovieId: ${movieId} `});
+        return Film.findOne({id: movieId, language: languageCode}).then((doc, err) => returnHandler(doc, err));
+    } catch(err) {
+        return new ValidationHandler(false, 'Something unexpected happen');
+    }
 }
 
 /**
