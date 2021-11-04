@@ -475,3 +475,8 @@ exports.user_get_lists = async function (req, res){
     }
     return res.status(200).json(lists);
 }
+
+
+exports.test = async function(req, res) {
+    res.status(400).send("Not working");
+}

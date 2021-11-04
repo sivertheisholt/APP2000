@@ -113,6 +113,8 @@ router.route("/list/get/:listId")
     .get(asyncExpress(apiController.list_get));
 
 
-//
+//Test
+router.route("/test")
+    .get(asyncExpress(apiController.test));
 
 module.exports = router;
