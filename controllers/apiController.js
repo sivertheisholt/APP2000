@@ -111,7 +111,7 @@ exports.bruker_add_movie_favorite = async function(req, res){
     //Skaffer bruker
     const uid = req.body.uid;
     const movieId = req.body.movieId;
-    const result = await favoriteMovie.addFavourite(uid, movieId);
+    const result = await favoriteMovie.addFavourite(movieId,uid);
     if(!result.status) return res.status(400).send(result.information);
     return res.status(200).send(result.information);
 }
@@ -119,7 +119,7 @@ exports.bruker_add_movie_favorite = async function(req, res){
 exports.movie_remove_favorite = async function(req, res){
     const uid = req.body.uid;
     const movieId = req.body.movieId;
-    const result = await favoriteMovie.removeFavorite(uid, movieId);
+    const result = await favoriteMovie.removeFavorite(movieId, uid);
     if(!result.status) return res.status(400).send(result.information);
     return res.status(200).send(result.information);
 }
@@ -127,7 +127,7 @@ exports.movie_remove_favorite = async function(req, res){
 exports.bruker_add_tv_favorite = async function(req, res){
     const uid = req.body.uid;
     const tvId = req.body.tvId;
-    const result = await favoriteTv.addFavourite(uid, tvId);
+    const result = await favoriteTv.addFavourite(tvId, uid);
     if(!result.status) return res.status(400).send(result.information);
     return res.status(200).send(result.information);
 }
