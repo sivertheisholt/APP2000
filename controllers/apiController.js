@@ -453,7 +453,9 @@ exports.user_get_watchlist = async function (req, res){
 exports.user_get_lists = async function (req, res){
     let lists = [];
     const userLists = await userHandler.getFieldsFromUserById(req.params.userId, "lists");
+    console.log(userLists.information)
     if(!userLists.status) return res.status(404).send('Could not find user');
+    if(userLists.information.lists.length == 0) return res.status(200).json([]);
     for(const list of userLists.information) {
         const listResult = await listGetter.getListFromId(list);
         let listInfo = {
