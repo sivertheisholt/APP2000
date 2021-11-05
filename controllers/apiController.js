@@ -454,7 +454,7 @@ exports.user_get_lists = async function (req, res){
     let lists = [];
     const userLists = await userHandler.getFieldsFromUserById(req.params.userId, "lists");
     if(!userLists.status) return res.status(404).send('Could not find user');
-    for(const list of userList.information) {
+    for(const list of userLists.information) {
         const listResult = await listGetter.getListFromId(list);
         let listInfo = {
             movies: [],
