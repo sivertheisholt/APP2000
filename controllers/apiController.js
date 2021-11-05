@@ -453,18 +453,21 @@ exports.user_get_watchlist = async function (req, res){
 exports.user_get_lists = async function (req, res){
     let lists = [];
     const userLists = await userHandler.getFieldsFromUserById(req.params.userId, "lists");
-    console.log(userLists.information)
     if(!userLists.status) return res.status(404).send('Could not find user');
     if(userLists.information.lists.length == 0) return res.status(200).json([]);
-    for(const list of userLists.information) {
+    for(const list of userLists.information.lists) {
         const listResult = await listGetter.getListFromId(list);
+        console.log(listResult)
         let listInfo = {
+            listname: listResult.information.name,
+            listUserId: listResult.information.userId,
+            listId: listResult.information._id,
             movies: [],
             tvs: []
         }
         if(!listResult.status) return res.status(500).send('Something unexpected happen');
         for(const movie of listResult.information.movies) {
-            const movieResult = await movieHandler.getMovieById(movie);
+            const movieResult = await movieHandler.getMovieById(movie, "en");
             if(!movieResult.status) return res.status(404).send('Could not find movie');
             listInfo.movies.push({
                 posterPath: movieResult.information.poster_path,
@@ -472,7 +475,7 @@ exports.user_get_lists = async function (req, res){
             });
         }
         for(const tv of listResult.information.tvs) {
-            const tvResult = await tvHandler.getShowById(tv);
+            const tvResult = await tvHandler.getShowById(tv, "en");
             if(!tvResult.status) return res.status(404).send('Could not find tv');
             listInfo.tvs.push({
                 posterPath: tvResult.information.poster_path,
