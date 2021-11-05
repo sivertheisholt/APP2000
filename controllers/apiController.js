@@ -145,7 +145,7 @@ exports.user_add_watchlist = async function(req, res){
     const mediaId = req.body.mediaId;
     const type = req.body.mediaType;
     const result = await watchedCreater.addToWatched(uid, mediaId, type);
-    if(!result.status) res.status(400).send(result.information);
+    if(!result.status) return res.status(400).send(result.information);
     return res.status(200).send(result.information);
 }
 
@@ -155,6 +155,7 @@ exports.user_remove_watchlist = async function(req, res){
     const type = req.body.mediaType;
     const result = await watchedEditor.deleteWatched(uid, mediaId, type);
     if(!result.status) res.status(400).send(result.information);
+    return res.status(200).send(result.information);
 }
 
 //**** Movie *****/
