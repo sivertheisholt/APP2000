@@ -452,32 +452,36 @@ exports.user_get_watchlist = async function (req, res){
 
 exports.user_get_lists = async function (req, res){
     let lists = [];
-    for(const item of req.renderObject.user.lists) {
-        let result = await listGetter.getListFromId(item);
-        if(!result.status) break;
-        for(const movie of result.information.movies) {
-            let resultMovie = await movieHandler.getMovieById(movie, 'en');
-            if(!resultMovie.status) break;
-            let tempObj = {
-                posterPath : resultMovie.information.poster_path,
-                movieId : resultMovie.information.id
-            }
-            lists.push(tempObj);
+    const userLists = await userHandler.getFieldsFromUserById(req.params.userId, lists);
+    if(!userLists.status) return res.status(404).send('Could not find user');
+    for(const list of userList.information) {
+        const listResult = await listGetter.getListFromId(list);
+        let listInfo = {
+            movies: [],
+            tvs: []
         }
-        for(const tv of result.information.tvs) {
-            let resultTv = await tvHandler.getShowById(tv, 'en');
-            if(!resultTv.status) break;
-            let tempObj = {
-                posterPath : resultTv.information.poster_path,
-                tvId : resultTv.information.id
-            }
-            lists.push(tempObj);
+        if(!listResult.status) return res.status(500).send('Something unexpected happen');
+        for(const movie of listResult.information.movies) {
+            const movieResult = await movieHandler.getMovieById(movie);
+            if(!movieResult.status) return res.status(404).send('Could not find movie');
+            listInfo.movies.push({
+                posterPath: movieResult.information.poster_path,
+                id: movieResult.information.id
+            });
         }
+        for(const tv of listResult.information.tvs) {
+            const tvResult = await tvHandler.getShowById(tv);
+            if(!tvResult.status) return res.status(404).send('Could not find tv');
+            listInfo.tvs.push({
+                posterPath: tvResult.information.poster_path,
+                id: tvResult.information.id
+            });
+        }
+        lists.push(listInfo);
     }
-    return res.status(200).json(lists);
+    return res.status(200).json(lists)
 }
 
-
 exports.test = async function(req, res) {
-    res.status(400).send("Not working");
+    return res.status(200).send("test")
 }
