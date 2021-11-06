@@ -60,6 +60,18 @@ router.route('/user/add/watchlist')
 router.route('/user/remove/watchlist')
     .post(apiMiddleware.api_check_token, asyncExpress(apiController.user_remove_watchlist));
 
+router.route('/list/add/movie')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.list_add_movie));
+
+router.route('/list/remove/movie')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.list_remove_movie));
+
+router.route('/list/add/tv')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.list_add_tv));
+
+router.route('/list/remove/tv')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.list_remove_tv));
+
 
 //Ticket
 router.route("/ticket/:ticketId")

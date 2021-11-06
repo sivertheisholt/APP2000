@@ -19,6 +19,7 @@ const favoriteTv = require('../systems/favoriteSystem/favouriteTv');
 const watchedGetter = require('../systems/watchedSystem/watchedGetter');
 const watchedCreater = require('../systems/watchedSystem/watchedCreater');
 const watchedEditor = require('../systems/watchedSystem/watchedEditor');
+const listEditor = require('../systems/listSystem/listEditor');
 const jwt = require('jsonwebtoken');
 
 //**** Reviews *****/
@@ -154,9 +155,46 @@ exports.user_remove_watchlist = async function(req, res){
     const mediaId = req.body.mediaId;
     const type = req.body.mediaType;
     const result = await watchedEditor.deleteWatched(uid, mediaId, type);
-    if(!result.status) res.status(400).send(result.information);
+    if(!result.status) return res.status(400).send(result.information);
     return res.status(200).send(result.information);
 }
+
+exports.list_add_movie = async function(req, res){
+    const listId = req.body.listId;
+    const movieId = req.body.movieId;
+    const result = await listEditor.addMovieToList(listId, movieId);
+    if(!result.status) return res.status(400).send(result.information);
+    return res.status(200).send(result.information);
+}
+
+exports.list_remove_movie = async function(req, res){
+    const listId = req.body.listId;
+    const tvId = req.body.tvId;
+    const result = await listEditor.deleteMovieFromList(listId, tvId);
+    if(!result.status) return res.status(400).send(result.information);
+    return res.status(200).send(result.information);
+}
+
+exports.list_add_tv = async function(req, res){
+    const listId = req.body.listId;
+    const tvId = req.body.tvId;
+    const result = await listEditor.addTvToList(listId, tvId);
+    if(!result.status) return res.status(400).send(result.information);
+    return res.status(200).send(result.information);
+}
+
+exports.list_remove_tv = async function(req, res){
+    const listId = req.body.listId;
+    const tvId = req.body.tvId;
+    const result = await listEditor.deleteTvFromList(listId, tvId);
+    if(!result.status) return res.status(400).send(result.information);
+    return res.status(200).send(result.information);
+}
+
+
+
+
+
 
 //**** Movie *****/
 exports.movie_get = async function(req, res) {
