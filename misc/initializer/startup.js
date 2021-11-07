@@ -28,7 +28,7 @@ exports.makeInformation = async function() {
 exports.connectToDatabase = function(mongoose) {
     const clientP = mongoose.connect(
         process.env.MONGO_DB_URL || "mongodb://localhost:27017/app",
-        { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+        { useNewUrlParser: true, useUnifiedTopology: true})
         .then(m => m.connection.getClient())
         .catch((err) => {
         logger.log({level: 'error', message: `Cant connect to database! ${err}`})
