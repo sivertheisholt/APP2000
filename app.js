@@ -2,8 +2,7 @@ require('dotenv').config();
 const http = require("http");
 const express = require("express");
 let session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
-const mongoose = require('mongoose');
+let mongoose = require('mongoose');
 const socketIO = require('socket.io');
 const logger = require('./logging/logger');
 const start = require('./misc/initializer/startup');
@@ -36,7 +35,7 @@ async function startSystems() {
   }
 
   //Konfigurer session
-  session = await start.configureSession(mongoose, session, MongoStore);
+  session = await start.configureSession(connectDatabaseResult.information, session);
 
   //Konfigurer app
   const configureAppResult = await start.configureApp(app, session, express);

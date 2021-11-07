@@ -6,10 +6,7 @@ const bodyParser = require('body-parser');
 const path = require("path");
 const logger = require('../../logging/logger');
 const socketRouter = require('../../socket/socketRouter');
-// Import the functions you need from the SDKs you need
-const firebase = require('firebase/compat/app');
-//import { initializeApp } from "firebase/app";
-//import { getAnalytics } from "firebase/analytics";
+const MongoStore = require('connect-mongo');
 
 /**
  * Skaffer start informasjon
@@ -29,16 +26,15 @@ exports.makeInformation = async function() {
  * @author Alle
  */
 exports.connectToDatabase = function(mongoose) {
-    return mongoose
-    .connect(process.env.MONGO_DB_URL || "mongodb://localhost:27017/app", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-    .then((_) => {
-        logger.log({level: 'info', message: 'Successfully connected to database!'})
-        return new ValidationHandler(true, 'Successfully connected to database!');
-    })
-    .catch((err) => {
+    const clientP = mongoose.connect(
+        process.env.MONGO_DB_URL || "mongodb://localhost:27017/app",
+        { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+        .then(m => m.connection.getClient())
+        .catch((err) => {
         logger.log({level: 'error', message: `Cant connect to database! ${err}`})
         return new ValidationHandler(false, 'Cant connect to database!');
     });
+    return new ValidationHandler(true, clientP);
 }
 
 /**
@@ -91,19 +87,21 @@ exports.configureIo = function(io, session) {
  * Konfigurerer session
  * @param {Object} mongoose Databasen som skal brukes 
  * @param {Object} session Session som skal brukes
- * @param {Object} MongoStore MongoStore som skal brukes 
  * @returns Session objekt
  * @author Sivert - 233518
  */
-exports.configureSession = function(mongoose, session, MongoStore) {
+exports.configureSession = function(mongoose, session) {
     return session({
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
-        store: new MongoStore({
-            mongooseConnection: mongoose.connection,
-            touchAfter: 12 * 3600
-        }),
+        store: MongoStore.create({
+            clientPromise: mongoose,
+            dbName: "app",
+            stringify: false,
+            autoRemove: 'interval',
+            autoRemoveInterval: 1
+          }),
         cookie: {
             maxAge: 1000 * 60 * 60 * 24 //Setter cookies til å slettes etter 1 day
         },
