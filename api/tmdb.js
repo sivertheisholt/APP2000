@@ -1,5 +1,5 @@
-const fetch = require('node-fetch');
 const logger = require('../logging/logger');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 /**
  * Lager ny instanse av en Tmdb objekt
  * Sjekker om token er satt
@@ -24,7 +24,7 @@ var Tmdb = function Tmdb(token) {
  * @returns JSON med film info
  * @author Sivert - 233518
  */
-Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle, languageCode) {
+Tmdb.prototype.getMovieResults = async function getMovieResults(movieTitle, languageCode) {
     var url = `https://api.themoviedb.org/3/search/movie?api_key=${this.token}&query=${movieTitle.replace(/ /g, "+")}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -38,7 +38,7 @@ Tmdb.prototype.getMovieResults = function getMovieResults(movieTitle, languageCo
  * @returns JSON med serie info
  * @author Sivert - 233518
  */
-Tmdb.prototype.getSerieResults = function getSerieResults(tvTitle, languageCode) {
+Tmdb.prototype.getSerieResults = async function getSerieResults(tvTitle, languageCode) {
     var url = `https://api.themoviedb.org/3/search/tv?api_key=${this.token}&query=${tvTitle.replace(/ /g, "+")}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -52,7 +52,7 @@ Tmdb.prototype.getSerieResults = function getSerieResults(tvTitle, languageCode)
  * @returns JSON med film info
  * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
-Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID, languageCode) {
+Tmdb.prototype.getMovieInfoByID = async function getMovieInfoByID(movieID, languageCode) {
     var url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -66,7 +66,7 @@ Tmdb.prototype.getMovieInfoByID = function getMovieInfoByID(movieID, languageCod
  * @returns JSON med videor
  * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
-Tmdb.prototype.getMovieVideosByID = function getMovieVideosByID(movieID, languageCode) {
+Tmdb.prototype.getMovieVideosByID = async function getMovieVideosByID(movieID, languageCode) {
     var url = `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -80,7 +80,7 @@ Tmdb.prototype.getMovieVideosByID = function getMovieVideosByID(movieID, languag
  * @returns JSON med skuespillere
  * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
-Tmdb.prototype.getMovieCastByID = function getCastMovieInfoByID(movieID, languageCode) {
+Tmdb.prototype.getMovieCastByID = async function getCastMovieInfoByID(movieID, languageCode) {
     var url = `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -94,7 +94,7 @@ Tmdb.prototype.getMovieCastByID = function getCastMovieInfoByID(movieID, languag
  * @returns JSON med skuespillere
  * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
-Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID, languageCode) {
+Tmdb.prototype.getSerieCastByID = async function getCastSerieInfoByID(serieID, languageCode) {
     var url = `https://api.themoviedb.org/3/tv/${serieID}/credits?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -108,7 +108,7 @@ Tmdb.prototype.getSerieCastByID = function getCastSerieInfoByID(serieID, languag
  * @returns JSON med person info
  * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
-Tmdb.prototype.getPersonByID = function getPersonByID(personID, languageCode) {
+Tmdb.prototype.getPersonByID = async function getPersonByID(personID, languageCode) {
     var url = `https://api.themoviedb.org/3/person/${personID}?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -122,7 +122,7 @@ Tmdb.prototype.getPersonByID = function getPersonByID(personID, languageCode) {
  * @returns JSON med person linker
  * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
-Tmdb.prototype.getPersonLinksByID = function getPersonLinksByID(personID, languageCode) {
+Tmdb.prototype.getPersonLinksByID = async function getPersonLinksByID(personID, languageCode) {
     var url = `https://api.themoviedb.org/3/person/${personID}/external_ids?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -136,7 +136,7 @@ Tmdb.prototype.getPersonLinksByID = function getPersonLinksByID(personID, langua
  * @returns JSON med person "credits"
  * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
-Tmdb.prototype.getPersonCombinedCreditsByID = function getPersonCombinedCreditsByID(personID, languageCode) {
+Tmdb.prototype.getPersonCombinedCreditsByID = async function getPersonCombinedCreditsByID(personID, languageCode) {
     var url = `https://api.themoviedb.org/3/person/${personID}/combined_credits?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -150,7 +150,7 @@ Tmdb.prototype.getPersonCombinedCreditsByID = function getPersonCombinedCreditsB
  * @returns JSON med serie info
  * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
-Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID, languageCode) {
+Tmdb.prototype.getSerieInfoByID = async function getSerieInfoByID(serieID, languageCode) {
     var url = `https://api.themoviedb.org/3/tv/${serieID}?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -164,7 +164,7 @@ Tmdb.prototype.getSerieInfoByID = function getSerieInfoByID(serieID, languageCod
  * @returns JSON med serie videor
  * @author Sigve E. Eliassen - 233511, Sivert - 233518
  */
-Tmdb.prototype.getSerieVideosByID = function getSerieVideosByID(serieID, languageCode) {
+Tmdb.prototype.getSerieVideosByID = async function getSerieVideosByID(serieID, languageCode) {
     var url = `https://api.themoviedb.org/3/tv/${serieID}/videos?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -178,7 +178,7 @@ Tmdb.prototype.getSerieVideosByID = function getSerieVideosByID(serieID, languag
  * @returns JSON med discover filmer
  * @author Sivert - 233518
  */
-Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies(addParams, languageCode) {
+Tmdb.prototype.getDiscoverMovies = async function getDiscoverMovies(addParams, languageCode) {
     var url = `https://api.themoviedb.org/3/discover/movie?api_key=${this.token}&language=${languageCode}`;
     url = makeUrl(url, addParams);
     return fetch(url).then(res => {
@@ -192,7 +192,7 @@ Tmdb.prototype.getDiscoverMovies = function getDiscoverMovies(addParams, languag
  * @param {String} languageCode Språkkode
  * @returns JSON med anbefalte filmer
  */
-Tmdb.prototype.getRecommendationsMovie = function getRecommendationsMovie(movieId, languageCode) {
+Tmdb.prototype.getRecommendationsMovie = async function getRecommendationsMovie(movieId, languageCode) {
     var url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -206,7 +206,7 @@ Tmdb.prototype.getRecommendationsMovie = function getRecommendationsMovie(movieI
  * @returns JSON med anbefalte filmer
  * @author Sivert - 233518
  */
-Tmdb.prototype.getRecommendationsTvs = function getRecommendationsTvs(tvId, languageCode) {
+Tmdb.prototype.getRecommendationsTvs = async function getRecommendationsTvs(tvId, languageCode) {
     var url = `https://api.themoviedb.org/3/tv/${tvId}/recommendations?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -220,7 +220,7 @@ Tmdb.prototype.getRecommendationsTvs = function getRecommendationsTvs(tvId, lang
  * @returns JSON med discover serier
  * @author Sivert - 233518
  */
-Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams, languageCode) {
+Tmdb.prototype.getDiscoverTvshows = async function getDiscoverTvshows(addParams, languageCode) {
     var url = `https://api.themoviedb.org/3/discover/tv?api_key=${this.token}&language=${languageCode}`;
     url = makeUrl(url, addParams);
     return fetch(url).then(res => {
@@ -235,7 +235,7 @@ Tmdb.prototype.getDiscoverTvshows = function getDiscoverTvshows(addParams, langu
  * @returns JSON med trending filmer
  * @author Sivert - 233518
  */
-Tmdb.prototype.getTrendingMovies = function getTrendingMovies(addParams, languageCode) {
+Tmdb.prototype.getTrendingMovies = async function getTrendingMovies(addParams, languageCode) {
     var url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${this.token}&language=${languageCode}`;
     url = makeUrl(url, addParams);
     return fetch(url).then(res => {
@@ -250,7 +250,7 @@ Tmdb.prototype.getTrendingMovies = function getTrendingMovies(addParams, languag
  * @returns JSON med trending serier 
  * @author Sivert - 233518
  */
-Tmdb.prototype.getTrendingTv = function getTrendingTv(addParams, languageCode) {
+Tmdb.prototype.getTrendingTv = async function getTrendingTv(addParams, languageCode) {
     var url = `https://api.themoviedb.org/3/trending/tv/week?api_key=${this.token}&language=${languageCode}`;
     url = makeUrl(url, addParams);
     return fetch(url).then(res => {
@@ -267,7 +267,7 @@ Tmdb.prototype.getTrendingTv = function getTrendingTv(addParams, languageCode) {
  * @returns JSON med sjangre
  * @author Sivert - 233518
  */
-Tmdb.prototype.getGenresMovie = function getGenresMovie(languageCode) {
+Tmdb.prototype.getGenresMovie = async function getGenresMovie(languageCode) {
     var url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -283,7 +283,7 @@ Tmdb.prototype.getGenresMovie = function getGenresMovie(languageCode) {
  * @returns JSON med sjangre
  * @author Sivert - 233518
  */
-Tmdb.prototype.getGenresTv = function getGenresTv(languageCode) {
+Tmdb.prototype.getGenresTv = async function getGenresTv(languageCode) {
     var url = `https://api.themoviedb.org/3/genre/tv/list?api_key=${this.token}&language=${languageCode}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -291,7 +291,7 @@ Tmdb.prototype.getGenresTv = function getGenresTv(languageCode) {
     })
 }
 
-Tmdb.prototype.getMovieWatchProvider = function getMovieWatchProvider(movieID) {
+Tmdb.prototype.getMovieWatchProvider = async function getMovieWatchProvider(movieID) {
     var url = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${this.token}`;
     return fetch(url).then(res => {
         makeLog(res, url);
@@ -299,7 +299,7 @@ Tmdb.prototype.getMovieWatchProvider = function getMovieWatchProvider(movieID) {
     })
 }
 
-Tmdb.prototype.getTvWatchProvider = function getTvWatchProvider(tvId) {
+Tmdb.prototype.getTvWatchProvider = async function getTvWatchProvider(tvId) {
     var url = `https://api.themoviedb.org/3/tv/${tvId}/watch/providers?api_key=${this.token}`;
     return fetch(url).then(res => {
         makeLog(res, url);
