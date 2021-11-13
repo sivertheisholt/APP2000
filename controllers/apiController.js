@@ -528,7 +528,7 @@ exports.user_get_lists = async function (req, res){
 
 //**** SEARCH *****/
 exports.search_get = async function(req, res) {
-    const searchResult = await searchHandle(req.params.title, 'en')
+    const searchResult = await searchHandler(req.params.title, 'en')
     if(!searchResult.status) return res.status(404).send('Could not find any result')
     return res.status(200).json(searchResult.information);
 }
