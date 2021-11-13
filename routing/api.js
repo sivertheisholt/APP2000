@@ -124,6 +124,9 @@ router.route("/lists/get")
 router.route("/list/get/:listId")
     .get(asyncExpress(apiController.list_get));
 
+//Søk
+router.route("/search/get/:title")
+    .get(asyncExpress(apiController.search_get));
 
 //Test
 router.route("/test")

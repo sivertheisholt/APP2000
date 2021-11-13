@@ -21,6 +21,7 @@ const watchedCreater = require('../systems/watchedSystem/watchedCreater');
 const watchedEditor = require('../systems/watchedSystem/watchedEditor');
 const listEditor = require('../systems/listSystem/listEditor');
 const jwt = require('jsonwebtoken');
+const searchHandler = require('../handling/searchHandler');
 
 //**** Reviews *****/
 
@@ -523,6 +524,13 @@ exports.user_get_lists = async function (req, res){
         lists.push(listInfo);
     }
     return res.status(200).json(lists)
+}
+
+//**** SEARCH *****/
+exports.search_get = async function(req, res) {
+    const searchResult = await searchHandle(req.params.title, 'en')
+    if(!searchResult.status) return res.status(404).send('Could not find any result')
+    return res.status(200).json(searchResult.information);
 }
 
 exports.test = async function(req, res) {
