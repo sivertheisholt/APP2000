@@ -193,10 +193,6 @@ exports.list_remove_tv = async function(req, res){
 }
 
 
-
-
-
-
 //**** Movie *****/
 exports.movie_get = async function(req, res) {
     const movieResult = await movieHandler.checkIfSaved(req.params.movieId, req.params.languageCode);
@@ -258,10 +254,10 @@ exports.movie_get_movies = async function(req, res) {
 //**** TV *****/
 
 exports.tv_get = async function(req, res) {
-    const tvResult = await tvHandler.checkIfSaved(req.params.tvId, req.params.languageCode);
+    const tvResult = await tvHandler.checkIfSaved(req.params.tvId, !req.params.languageCode ? req.params.languageCode : 'en');
     if(!tvResult.status) {
-        const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, req.params.languageCode);
-        const castinfo = await tmdbHandler.data.getSerieCastByID(req.params.tvId, req.params.languageCode);
+        const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, !req.params.languageCode ? req.params.languageCode : 'en');
+        const castinfo = await tmdbHandler.data.getSerieCastByID(req.params.tvId, !req.params.languageCode ? req.params.languageCode : 'en');
         let serie = {
             serieinfo: tvResultTmdb,
             personer: castinfo
@@ -323,7 +319,7 @@ exports.person_get = async function (req, res){
       shortBio: await hjelpeMetoder.data.maxText(personInfo.biography,500)
     }
     if(person.personinfo.biography == "" || !person.personinfo.biography) {
-      person.personinfo = await tmdbHandler.data.getPersonByID(personId, 'en')
+      person.personinfo = await tmdbHandler.data.getPersonByID(personId, !req.params.languageCode ? req.params.languageCode : 'en'!req.params.languageCode ? req.params.languageCode : 'en')
       person.shortBio = await hjelpeMetoder.data.maxText(person.personinfo.biography,500)
     }
     return res.status(200).json(person);
@@ -506,7 +502,7 @@ exports.user_get_lists = async function (req, res){
         }
         if(!listResult.status) return res.status(500).send('Something unexpected happen');
         for(const movie of listResult.information.movies) {
-            const movieResult = await movieHandler.getMovieById(movie, "en");
+            const movieResult = await movieHandler.getMovieById(movie, !req.params.languageCode ? req.params.languageCode : 'en');
             if(!movieResult.status) return res.status(404).send('Could not find movie');
             listInfo.movies.push({
                 posterPath: movieResult.information.poster_path,
@@ -514,7 +510,7 @@ exports.user_get_lists = async function (req, res){
             });
         }
         for(const tv of listResult.information.tvs) {
-            const tvResult = await tvHandler.getShowById(tv, "en");
+            const tvResult = await tvHandler.getShowById(tv, !req.params.languageCode ? req.params.languageCode : 'en');
             if(!tvResult.status) return res.status(404).send('Could not find tv');
             listInfo.tvs.push({
                 posterPath: tvResult.information.poster_path,
@@ -528,7 +524,7 @@ exports.user_get_lists = async function (req, res){
 
 //**** SEARCH *****/
 exports.search_get = async function(req, res) {
-    const searchResult = await searchHandler(req.params.title, 'en')
+    const searchResult = await searchHandler(req.params.title, !req.params.languageCode ? req.params.languageCode : 'en')
     if(!searchResult.status) return res.status(404).send('Could not find any result')
     return res.status(200).json(searchResult.information);
 }
