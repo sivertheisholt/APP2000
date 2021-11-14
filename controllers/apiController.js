@@ -210,8 +210,8 @@ exports.movie_get = async function(req, res) {
 
 exports.movie_get_frontpage = async function(req, res) {
     let userResult = new ValidationHandler(undefined, undefined);
-    if(!req.params.uid == undefined) {
-        userResult = await userHandler.getUserFromId(req.params.uid);
+    if(!req.query.uid == undefined) {
+        userResult = await userHandler.getUserFromId(req.query.uid);
         if(!userResult.status) return res.status(404).send('Could not find user');
     }
     
@@ -273,8 +273,8 @@ exports.tv_get = async function(req, res) {
 
 exports.tv_get_frontpage = async function(req, res) {
     let userResult = new ValidationHandler(undefined, undefined);
-    if(!req.params.uid == undefined) {
-        userResult = await userHandler.getUserFromId(req.params.uid);
+    if(!req.query.uid == undefined) {
+        userResult = await userHandler.getUserFromId(req.query.uid);
         if(!userResult.status) return res.status(404).send('Could not find user');
     }
     const tvsResult = await recommendedMediaHandler.recommendTv(userResult.information, !req.query.languageCode ? req.query.languageCode : 'en');
