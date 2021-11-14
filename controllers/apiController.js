@@ -195,10 +195,10 @@ exports.list_remove_tv = async function(req, res){
 
 //**** Movie *****/
 exports.movie_get = async function(req, res) {
-    const movieResult = await movieHandler.checkIfSaved(req.params.movieId, req.params.languageCode);
+    const movieResult = await movieHandler.checkIfSaved(req.params.movieId, req.query.languageCode);
     if(!movieResult.status) {
-        const movieResultTmdb = await tmdbHandler.data.getMovieInfoByID(req.params.movieId, req.params.languageCode);
-        const castinfo = await tmdbHandler.data.getMovieCastByID(req.params.movieId, req.params.languageCode);
+        const movieResultTmdb = await tmdbHandler.data.getMovieInfoByID(req.params.movieId, req.query.languageCode);
+        const castinfo = await tmdbHandler.data.getMovieCastByID(req.params.movieId, req.query.languageCode);
         let film = {
             filminfo: movieResultTmdb,
             cast: castinfo
@@ -215,7 +215,7 @@ exports.movie_get_frontpage = async function(req, res) {
         if(!userResult.status) return res.status(404).send('Could not find user');
     }
     
-    const moviesResult = await recommendedMediaHandler.recommendMovie(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
+    const moviesResult = await recommendedMediaHandler.recommendMovie(userResult.information, !req.query.languageCode ? req.query.languageCode : 'en');
     if(!moviesResult.status) return res.status(404).send('Something unexpected happen');
     return res.status(200).json(moviesResult.information);
 }
@@ -254,10 +254,10 @@ exports.movie_get_movies = async function(req, res) {
 //**** TV *****/
 
 exports.tv_get = async function(req, res) {
-    const tvResult = await tvHandler.checkIfSaved(req.params.tvId, !req.params.languageCode ? req.params.languageCode : 'en');
+    const tvResult = await tvHandler.checkIfSaved(req.params.tvId, !req.query.languageCode ? req.query.languageCode : 'en');
     if(!tvResult.status) {
-        const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, !req.params.languageCode ? req.params.languageCode : 'en');
-        const castinfo = await tmdbHandler.data.getSerieCastByID(req.params.tvId, !req.params.languageCode ? req.params.languageCode : 'en');
+        const tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(req.params.tvId, !req.query.languageCode ? req.query.languageCode : 'en');
+        const castinfo = await tmdbHandler.data.getSerieCastByID(req.params.tvId, !req.query.languageCode ? req.query.languageCode : 'en');
         let serie = {
             serieinfo: tvResultTmdb,
             personer: castinfo
@@ -273,7 +273,7 @@ exports.tv_get_frontpage = async function(req, res) {
         userResult = await userHandler.getUserFromId(req.params.uid);
         if(!userResult.status) return res.status(404).send('Could not find user');
     }
-    const tvsResult = await recommendedMediaHandler.recommendTv(userResult.information, !req.params.languageCode ? req.params.languageCode : 'en');
+    const tvsResult = await recommendedMediaHandler.recommendTv(userResult.information, !req.query.languageCode ? req.query.languageCode : 'en');
     if(!tvsResult.status) return res.status(400).send('Something unexpected happen');
     return res.status(200).json(tvsResult.information);
 }
@@ -319,7 +319,7 @@ exports.person_get = async function (req, res){
       shortBio: await hjelpeMetoder.data.maxText(personInfo.biography,500)
     }
     if(person.personinfo.biography == "" || !person.personinfo.biography) {
-      person.personinfo = await tmdbHandler.data.getPersonByID(personId, !req.params.languageCode ? req.params.languageCode : 'en')
+      person.personinfo = await tmdbHandler.data.getPersonByID(personId, !req.query.languageCode ? req.query.languageCode : 'en')
       person.shortBio = await hjelpeMetoder.data.maxText(person.personinfo.biography,500)
     }
     return res.status(200).json(person);
@@ -502,7 +502,7 @@ exports.user_get_lists = async function (req, res){
         }
         if(!listResult.status) return res.status(500).send('Something unexpected happen');
         for(const movie of listResult.information.movies) {
-            const movieResult = await movieHandler.getMovieById(movie, !req.params.languageCode ? req.params.languageCode : 'en');
+            const movieResult = await movieHandler.getMovieById(movie, !req.query.languageCode ? req.query.languageCode : 'en');
             if(!movieResult.status) return res.status(404).send('Could not find movie');
             listInfo.movies.push({
                 posterPath: movieResult.information.poster_path,
@@ -510,7 +510,7 @@ exports.user_get_lists = async function (req, res){
             });
         }
         for(const tv of listResult.information.tvs) {
-            const tvResult = await tvHandler.getShowById(tv, !req.params.languageCode ? req.params.languageCode : 'en');
+            const tvResult = await tvHandler.getShowById(tv, !req.query.languageCode ? req.query.languageCode : 'en');
             if(!tvResult.status) return res.status(404).send('Could not find tv');
             listInfo.tvs.push({
                 posterPath: tvResult.information.poster_path,
@@ -524,7 +524,7 @@ exports.user_get_lists = async function (req, res){
 
 //**** SEARCH *****/
 exports.search_get = async function(req, res) {
-    const searchResult = await searchHandler(req.params.title, !req.params.languageCode ? req.params.languageCode : 'en')
+    const searchResult = await searchHandler(req.params.title, !req.query.languageCode ? req.query.languageCode : 'en')
     if(!searchResult.status) return res.status(404).send('Could not find any result')
     return res.status(200).json(searchResult.information);
 }
