@@ -83,10 +83,10 @@ router.route("/ticket/:ticketId")
 router.route("/movie/get/:movieId")
     .get(asyncExpress(apiController.movie_get))
 
-router.route("/movie/frontpage_recommend")
+router.route("/movie/frontpage/recommend")
     .get(asyncExpress(apiController.movie_get_frontpage));
 
-router.route("/movie/frontpage_discover")
+router.route("/movie/frontpage/discover")
     .get(asyncExpress(apiController.movie_get_frontpage_discover));
 
 router.route("/movie/upcomingmovies")
@@ -103,10 +103,10 @@ router.route("/movie/get/watch/providers/:movieId")
 router.route("/tv/get/:tvId")
     .get(asyncExpress(apiController.tv_get));
 
-router.route("/tv/frontpage")
+router.route("/tv/frontpage/recommend")
     .get(asyncExpress(apiController.tv_get_frontpage));
 
-router.route("/tv/frontpage_discover")
+router.route("/tv/frontpage/discover")
     .get(asyncExpress(apiController.tv_get_frontpage_discover));
 
 router.route("/tv/upcomingtvs")
