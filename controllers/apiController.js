@@ -14,6 +14,7 @@ const bcrypt = require("bcrypt");
 const listeMetoder = require('../handling/listeMetoder');
 let mailer = require('../handling/mailer');
 const listGetter = require('../systems/listSystem/listGetter');
+const listCreater = require('../systems/listSystem/listCreater');
 const favoriteMovie = require('../systems/favoriteSystem/favouriteMovie');
 const favoriteTv = require('../systems/favoriteSystem/favouriteTv');
 const watchedGetter = require('../systems/watchedSystem/watchedGetter');
@@ -22,6 +23,7 @@ const watchedEditor = require('../systems/watchedSystem/watchedEditor');
 const listEditor = require('../systems/listSystem/listEditor');
 const jwt = require('jsonwebtoken');
 const searchHandler = require('../handling/searchHandler');
+const mediaFilter = require('../handling/filter')
 
 //**** Reviews *****/
 
@@ -192,6 +194,23 @@ exports.list_remove_tv = async function(req, res){
     return res.status(200).send(result.information);
 }
 
+exports.list_create = async function(req, res){
+    const uid = req.body.uid;
+    const listName = req.body.listName;
+    const user = await userHandler.getUserFromId(uid);
+    if(!user.status) return res.status(400).send(user.information);
+    const result = await listCreater.createList(user.information, listName);
+    if(!result.status) return res.status(400).send(result.information);
+    return res.status(200).send(result.information);
+}
+
+exports.list_delete = async function(req, res){
+    const listId = req.body.listId;
+    const result = await listEditor.deleteList(listId);
+    if(!result.status) return res.status(400).send(result.information);
+    return res.status(200).send(result.information);
+}
+
 
 //**** Movie *****/
 exports.movie_get = async function(req, res) {
@@ -255,6 +274,90 @@ exports.movie_get_movies = async function(req, res) {
     return res.status(200).json(finalListPopularMovies);
 }
 
+exports.movie_get_movies_filter_title_az = async function(req, res) {    
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListPopularMovies = [];
+    for(const movie of tmdbInformasjon.discoverMoviesPopular) {
+        let tempObj = {
+        id: movie.id,
+        pictureUrl: movie.poster_path,
+        title: movie.title,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-'),
+        genre: movie.genre_ids
+        }
+        finalListPopularMovies.push(tempObj);
+    }
+    return res.status(200).json(finalListPopularMovies);
+}
+
+exports.movie_get_movies_filter_title_za = async function(req, res) {    
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListPopularMovies = [];
+    for(const movie of tmdbInformasjon.discoverMoviesPopular) {
+        let tempObj = {
+        id: movie.id,
+        pictureUrl: movie.poster_path,
+        title: movie.title,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-'),
+        genre: movie.genre_ids
+        }
+        finalListPopularMovies.push(tempObj);
+    }
+    finalListPopularMovies.sort(mediaFilter.getSortOrderZA('title'));
+    return res.status(200).json(finalListPopularMovies);
+}
+
+exports.movie_get_movies_filter_title_az = async function(req, res) {    
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListPopularMovies = [];
+    for(const movie of tmdbInformasjon.discoverMoviesPopular) {
+        let tempObj = {
+        id: movie.id,
+        pictureUrl: movie.poster_path,
+        title: movie.title,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-'),
+        genre: movie.genre_ids
+        }
+        finalListPopularMovies.push(tempObj);
+    }
+    finalListPopularMovies.sort(mediaFilter.getSortOrderAZ('title'));
+    return res.status(200).json(finalListPopularMovies);
+}
+
+exports.movie_get_movies_filter_date_asc = async function(req, res) {    
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListPopularMovies = [];
+    for(const movie of tmdbInformasjon.discoverMoviesPopular) {
+        let tempObj = {
+        id: movie.id,
+        pictureUrl: movie.poster_path,
+        title: movie.title,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-'),
+        genre: movie.genre_ids
+        }
+        finalListPopularMovies.push(tempObj);
+    }
+    finalListPopularMovies.sort(mediaFilter.getSortOrderDateAsc)
+    return res.status(200).json(finalListPopularMovies);
+}
+
+exports.movie_get_movies_filter_date_desc = async function(req, res) {    
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListPopularMovies = [];
+    for(const movie of tmdbInformasjon.discoverMoviesPopular) {
+        let tempObj = {
+        id: movie.id,
+        pictureUrl: movie.poster_path,
+        title: movie.title,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(movie.release_date, '-'),
+        genre: movie.genre_ids
+        }
+        finalListPopularMovies.push(tempObj);
+    }
+    finalListPopularMovies.sort(mediaFilter.getSortOrderDateDesc)
+    return res.status(200).json(finalListPopularMovies);
+}
+
 //**** TV *****/
 
 exports.tv_get = async function(req, res) {
@@ -315,6 +418,74 @@ exports.tv_get_tvs = async function (req, res){
         }
         finalListTvshowsPopular.push(tempObj);
     }
+    return res.status(200).json(finalListTvshowsPopular);
+}
+
+exports.tv_get_tvs_filter_date_asc = async function (req, res){
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListTvshowsPopular = [];
+    for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
+        let tempObj = {
+        id: tv.id,
+        pictureUrl: tv.poster_path,
+        title: tv.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, "-"),
+        genre: tv.genre_ids
+        }
+        finalListTvshowsPopular.push(tempObj);
+    }
+    finalListTvshowsPopular.sort(mediaFilter.getSortOrderDateAsc)
+    return res.status(200).json(finalListTvshowsPopular);
+}
+
+exports.tv_get_tvs_filter_date_desc = async function (req, res){
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListTvshowsPopular = [];
+    for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
+        let tempObj = {
+        id: tv.id,
+        pictureUrl: tv.poster_path,
+        title: tv.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, "-"),
+        genre: tv.genre_ids
+        }
+        finalListTvshowsPopular.push(tempObj);
+    }
+    finalListTvshowsPopular.sort(mediaFilter.getSortOrderDateDesc)
+    return res.status(200).json(finalListTvshowsPopular);
+}
+
+exports.tv_get_tvs_filter_title_az = async function (req, res){
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListTvshowsPopular = [];
+    for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
+        let tempObj = {
+        id: tv.id,
+        pictureUrl: tv.poster_path,
+        title: tv.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, "-"),
+        genre: tv.genre_ids
+        }
+        finalListTvshowsPopular.push(tempObj);
+    }
+    finalListTvshowsPopular.sort(mediaFilter.getSortOrderAZ('title'));
+    return res.status(200).json(finalListTvshowsPopular);
+}
+
+exports.tv_get_tvs_filter_title_za = async function (req, res){
+    let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
+    let finalListTvshowsPopular = [];
+    for(const tv of tmdbInformasjon.discoverTvshowsPopular) {
+        let tempObj = {
+        id: tv.id,
+        pictureUrl: tv.poster_path,
+        title: tv.name,
+        releaseDate: await hjelpeMetoder.data.lagFinDato(tv.first_air_date, "-"),
+        genre: tv.genre_ids
+        }
+        finalListTvshowsPopular.push(tempObj);
+    }
+    finalListTvshowsPopular.sort(mediaFilter.getSortOrderZA('title'));
     return res.status(200).json(finalListTvshowsPopular);
 }
 

@@ -72,6 +72,12 @@ router.route('/list/add/tv')
 router.route('/list/remove/tv')
     .post(apiMiddleware.api_check_token, asyncExpress(apiController.list_remove_tv));
 
+router.route('/list/create')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.list_create));
+
+router.route('/list/delete')
+    .post(apiMiddleware.api_check_token, asyncExpress(apiController.list_delete));
+
 
 //Ticket
 router.route("/ticket/:ticketId")
@@ -95,6 +101,18 @@ router.route("/movie/upcomingmovies")
 router.route("/movie/movies")
     .get(asyncExpress(apiController.movie_get_movies));
 
+router.route("/movie/movies/filter/title/az")
+    .get(asyncExpress(apiController.movie_get_movies_filter_title_az));
+
+router.route("/movie/movies/filter/title/za")
+    .get(asyncExpress(apiController.movie_get_movies_filter_title_za));
+
+router.route("/movie/movies/filter/date/asc")
+    .get(asyncExpress(apiController.movie_get_movies_filter_date_asc));
+
+router.route("/movie/movies/filter/date/desc")
+    .get(asyncExpress(apiController.movie_get_movies_filter_date_desc));
+
 router.route("/movie/get/watch/providers/:movieId")
     .get(asyncExpress(apiController.movie_get_watch_providers))
     
@@ -114,6 +132,18 @@ router.route("/tv/upcomingtvs")
 
 router.route("/tv/tvs")
     .get(asyncExpress(apiController.tv_get_tvs));
+
+router.route("/tv/tvs/filter/title/az")
+    .get(asyncExpress(apiController.tv_get_tvs_filter_title_az));
+
+router.route("/tv/tvs/filter/title/za")
+    .get(asyncExpress(apiController.tv_get_tvs_filter_title_za));
+
+router.route("/tv/tvs/filter/date/asc")
+    .get(asyncExpress(apiController.tv_get_tvs_filter_date_asc));
+
+router.route("/tv/tvs/filter/date/desc")
+    .get(asyncExpress(apiController.tv_get_tvs_filter_date_desc));
 
 router.route("/tv/get/watch/providers/:tvId")
     .get(asyncExpress(apiController.tv_get_watch_providers))
