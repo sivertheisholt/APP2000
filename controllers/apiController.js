@@ -219,6 +219,10 @@ exports.movie_get_frontpage = async function(req, res) {
     if(!moviesResult.status) return res.status(404).send('Something unexpected happen');
     return res.status(200).json(moviesResult.information);
 }
+exports.movie_get_frontpage_discover = async function(req, res) {
+    let tmdbInformasjon = tmdbHandler.data.returnerTmdbInformasjon();
+    return res.status(200).json(tmdbInformasjon.discoverMoviesPopular);
+}
 
 exports.movie_get_upcoming = async function(req, res) {    
     let tmdbInformasjon = await tmdbHandler.data.returnerTmdbInformasjon();
@@ -276,6 +280,11 @@ exports.tv_get_frontpage = async function(req, res) {
     const tvsResult = await recommendedMediaHandler.recommendTv(userResult.information, !req.query.languageCode ? req.query.languageCode : 'en');
     if(!tvsResult.status) return res.status(400).send('Something unexpected happen');
     return res.status(200).json(tvsResult.information);
+}
+
+exports.tv_get_frontpage_discover = async function(req, res) {
+    let tmdbInformasjon = tmdbHandler.data.returnerTmdbInformasjon();
+    return res.status(200).json(tmdbInformasjon.discoverTvshowsPopular);
 }
 
 exports.tv_get_upcoming = async function(req, res) {
