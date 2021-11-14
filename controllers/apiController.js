@@ -319,7 +319,7 @@ exports.person_get = async function (req, res){
       shortBio: await hjelpeMetoder.data.maxText(personInfo.biography,500)
     }
     if(person.personinfo.biography == "" || !person.personinfo.biography) {
-      person.personinfo = await tmdbHandler.data.getPersonByID(personId, !req.params.languageCode ? req.params.languageCode : 'en'!req.params.languageCode ? req.params.languageCode : 'en')
+      person.personinfo = await tmdbHandler.data.getPersonByID(personId, !req.params.languageCode ? req.params.languageCode : !req.params.languageCode ? req.params.languageCode : 'en')
       person.shortBio = await hjelpeMetoder.data.maxText(person.personinfo.biography,500)
     }
     return res.status(200).json(person);
