@@ -47,7 +47,7 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.8",
+    "@types/jquery": "^3.5.9",
     "nodemon": "^2.0.15"
   }
 }
