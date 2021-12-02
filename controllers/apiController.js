@@ -224,7 +224,7 @@ exports.movie_get = async function(req, res) {
         }
         return res.status(200).json(film);
     }
-    return res.status(200).json(reviewApprovedResult.information);
+    return res.status(200).json(movieResult.information);
 }
 
 exports.movie_get_frontpage = async function(req, res) {
