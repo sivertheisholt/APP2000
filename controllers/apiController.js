@@ -233,8 +233,9 @@ exports.movie_get = async function(req, res) {
 }
 
 exports.movie_get_frontpage = async function(req, res) {
+    console.log(req.query.uid)
     let userResult = new ValidationHandler(undefined, undefined);
-    if(req.query.uid != null) {
+    if(req.query.uid != undefined) {
         userResult = await userHandler.getUserFromId(req.query.uid);
         if(!userResult.status) return res.status(404).send('Could not find user');
     }
@@ -386,7 +387,7 @@ exports.tv_get = async function(req, res) {
 
 exports.tv_get_frontpage = async function(req, res) {
     let userResult = new ValidationHandler(undefined, undefined);
-    if(req.query.uid != null) {
+    if(req.query.uid != undefined) {
         userResult = await userHandler.getUserFromId(req.query.uid);
         if(!userResult.status) return res.status(404).send('Could not find user');
     }
