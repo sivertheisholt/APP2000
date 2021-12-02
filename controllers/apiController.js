@@ -224,7 +224,12 @@ exports.movie_get = async function(req, res) {
         }
         return res.status(200).json(film);
     }
-    return res.status(200).json(movieResult.information);
+    const castinfo = await tmdbHandler.data.getMovieCastByID(req.params.movieId, req.query.languageCode);
+    let film = {
+        filminfo: movieResult.information,
+        cast: castinfo
+    }
+    return res.status(200).json(film);
 }
 
 exports.movie_get_frontpage = async function(req, res) {
@@ -371,7 +376,12 @@ exports.tv_get = async function(req, res) {
         }
         return res.status(200).json(serie)
     }
-    return res.status(200).json(tvResult.information);
+    const castinfo = await tmdbHandler.data.getSerieCastByID(req.params.tvId, !req.query.languageCode ? req.query.languageCode : 'en');
+    let serie = {
+        serieinfo: tvResult.information,
+        personer: castinfo
+    }
+    return res.status(200).json(serie);
 }
 
 exports.tv_get_frontpage = async function(req, res) {
