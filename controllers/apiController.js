@@ -214,17 +214,17 @@ exports.list_delete = async function(req, res){
 
 //**** Movie *****/
 exports.movie_get = async function(req, res) {
-    const movieResult = await movieHandler.checkIfSaved(req.params.movieId, req.query.languageCode);
+    const movieResult = await movieHandler.checkIfSaved(req.params.movieId, !req.query.languageCode ? req.query.languageCode : 'en');
     if(!movieResult.status) {
-        const movieResultTmdb = await tmdbHandler.data.getMovieInfoByID(req.params.movieId, req.query.languageCode);
-        const castinfo = await tmdbHandler.data.getMovieCastByID(req.params.movieId, req.query.languageCode);
+        const movieResultTmdb = await tmdbHandler.data.getMovieInfoByID(req.params.movieId, !req.query.languageCode ? req.query.languageCode : 'en');
+        const castinfo = await tmdbHandler.data.getMovieCastByID(req.params.movieId, !req.query.languageCode ? req.query.languageCode : 'en');
         let film = {
             filminfo: movieResultTmdb,
             cast: castinfo
         }
         return res.status(200).json(film);
     }
-    const castinfo = await tmdbHandler.data.getMovieCastByID(req.params.movieId, req.query.languageCode);
+    const castinfo = await tmdbHandler.data.getMovieCastByID(req.params.movieId, !req.query.languageCode ? req.query.languageCode : 'en');
     let film = {
         filminfo: movieResult.information,
         cast: castinfo
