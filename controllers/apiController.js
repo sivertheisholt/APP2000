@@ -364,6 +364,12 @@ exports.movie_get_movies_filter_date_desc = async function(req, res) {
     return res.status(200).json(finalListPopularMovies);
 }
 
+exports.movie_get_reviews = async function(req,res) {
+    const reviews = await reviewGetter.getApprovedReviews(req.params.id, "movie");
+    if(!reviews.status) return res.status(404).send("Could not find movie");
+    return res.status(200).json(reviews.information);
+}
+
 //**** TV *****/
 
 exports.tv_get = async function(req, res) {
@@ -499,6 +505,13 @@ exports.tv_get_tvs_filter_title_za = async function (req, res){
     finalListTvshowsPopular.sort(mediaFilter.getSortOrderZA('title'));
     return res.status(200).json(finalListTvshowsPopular);
 }
+
+exports.tv_get_reviews = async function(req,res) {
+    const reviews = await reviewGetter.getApprovedReviews(req.params.id, "tv");
+    if(!reviews.status) return res.status(404).send("Could not find tv reviews");
+    return res.status(200).json(reviews.information);
+}
+
 
 exports.person_get = async function (req, res){
     const personId = req.params.personId;
