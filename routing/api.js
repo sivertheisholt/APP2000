@@ -114,8 +114,10 @@ router.route("/movie/movies/filter/date/desc")
     .get(asyncExpress(apiController.movie_get_movies_filter_date_desc));
 
 router.route("/movie/get/watch/providers/:movieId")
-    .get(asyncExpress(apiController.movie_get_watch_providers))
-    
+    .get(asyncExpress(apiController.movie_get_watch_providers));
+
+router.route("/movie/get/reviews/:movieId")
+    .get(asyncExpress(apiController.movie_get_reviews));
 
 //TV
 router.route("/tv/get/:tvId")
@@ -146,7 +148,11 @@ router.route("/tv/tvs/filter/date/desc")
     .get(asyncExpress(apiController.tv_get_tvs_filter_date_desc));
 
 router.route("/tv/get/watch/providers/:tvId")
-    .get(asyncExpress(apiController.tv_get_watch_providers))
+    .get(asyncExpress(apiController.tv_get_watch_providers));
+
+router.route("/tv/get/reviews/:tvId")
+    .get(asyncExpress(apiController.tv_get_reviews));
+
 
 
 //Persons
