@@ -54,19 +54,19 @@ exports.review_post_pending = async function(req, res) {
     }
     const reviewApprovedResult = await reviewCreater.makeReview(review);
     if(!reviewApprovedResult.status) return res.status(400).send(reviewApprovedResult.information);
-    return res.status(200).json(reviewApprovedResult.information);
+    return res.status(200).send("Review successfully created");
 }
 
 exports.review_post_pending_approve = async function(req, res) {
     const approveResult = await reviewEditor.approveReview(req.params.reviewId);
     if(!approveResult.status) return res.status(404).send(approveResult.information);
-    return res.status(200).json(approveResult.information);
+    return res.status(200).send("Review successfully created");
 }
 
 exports.review_post_pending_deny = async function(req, res) {
     const denyResult = await reviewEditor.denyReview(req.params.reviewId);
     if(!denyResult.status) return res.status(404).send(denyResult.information);
-    return res.status(200).json(denyResult.information);
+    return res.status(200).send("Review successfully created");
 }
 
 //**** Bruker *****/
