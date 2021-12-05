@@ -48,9 +48,9 @@ exports.review_get_pending = async function(req, res) {
 exports.review_post_pending = async function(req, res) {
     let review;
     if(req.params.type.toLowerCase() == "movie") {
-        review = new reviewCreater.ReviewMovie(req.params.data);
+        review = new reviewCreater.ReviewMovie(req.params.uid, req.params.id, req.params.text, req.params.stars);
     } else {
-        review = new reviewCreater.ReviewTv(req.params.data)
+        review = new reviewCreater.ReviewTv(req.params.uid, req.params.id, req.params.text, req.params.stars)
     }
     const reviewApprovedResult = await reviewCreater.makeReview(review);
     if(!reviewApprovedResult.status) return res.status(400).send(reviewApprovedResult.information);
