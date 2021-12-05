@@ -47,10 +47,10 @@ exports.review_get_pending = async function(req, res) {
 
 exports.review_post_pending = async function(req, res) {
     let review;
-    if(req.params.type.toLowerCase() == "movie") {
-        review = new reviewCreater.ReviewMovie(req.params.uid, req.params.id, req.params.text, req.params.stars);
+    if(req.body.type.toLowerCase() == "movie") {
+        review = new reviewCreater.ReviewMovie(req.body.uid, req.body.id, req.body.text, req.body.stars);
     } else {
-        review = new reviewCreater.ReviewTv(req.params.uid, req.params.id, req.params.text, req.params.stars)
+        review = new reviewCreater.ReviewTv(req.body.uid, req.body.id, req.body.text, req.body.stars)
     }
     const reviewApprovedResult = await reviewCreater.makeReview(review);
     if(!reviewApprovedResult.status) return res.status(400).send(reviewApprovedResult.information);
