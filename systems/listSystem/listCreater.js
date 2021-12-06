@@ -18,7 +18,7 @@ exports.createList = async function(user, name) {
         userId: user.uid,
         name: name
     });
-    if(!resultList.status) return resultList;
+    if(!resultList.status) return resultList.information;
 
     //Oppdaterer bruker
     const userResult = await userHandler.updateUser(user, {$push: {lists: resultList.information._id.toString()}})
@@ -26,7 +26,7 @@ exports.createList = async function(user, name) {
     
     //Suksess
     logger.log({level: 'debug', message: `Successfully created list with id ${resultList.information._id} for user with id ${user.uid}`});
-    return new ValidationHandler(true, 'Successfully created list');
+    return new ValidationHandler(true, resultList.information._id);
 }
 
 /**
