@@ -69,13 +69,6 @@ var methods = {
                 } 
             })
 
-            console.log(tmdbInformasjon.discoverMoviesUpcoming)
-        
-            //tmdbInformasjon.discoverMoviesUpcoming = discoverMoviesUpcoming.flat();
-            //tmdbInformasjon.discoverMoviesPopular = discoverMoviesPopular.flat();
-            //tmdbInformasjon.discoverTvshowsUpcoming = discoverTvshowsUpcoming.flat();
-            //tmdbInformasjon.discoverTvshowsPopular = discoverTvshowsPopular.flat();
-
             //Sorterer movies upcoming etter dato
             tmdbInformasjon.discoverMoviesUpcoming.sort((a, b) => {
                 return new Date(a.release_date).getTime() - new Date(b.release_date).getTime();
