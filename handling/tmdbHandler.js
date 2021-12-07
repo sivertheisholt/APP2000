@@ -15,32 +15,52 @@ var methods = {
             logger.log({level: 'info', message: 'Starting collection of tmdb information...'});
             let currentDate = new Date();
             let currentDateFormated = `${currentDate.getFullYear()}-${(currentDate.getMonth()+1).toString().padStart(2, "0")}-${currentDate.getDate().toString().padStart(2,"0")}`
-            const antallPages = 5; //Antall sider som skal bli hentet
+            const antallPages = 1; //Antall sider som skal bli hentet
             let tmdbInformasjon = {
                 discoverMoviesUpcoming: [],
                 discoverMoviesPopular: [],
                 discoverTvshowsUpcoming: [],
                 discoverTvshowsPopular: [],
             };
-            const [discoverMoviesUpcoming, discoverMoviesPopular, discoverTvshowsUpcoming, discoverTvshowsPopular] = await Promise.all([
-                Promise.all(getDiscoverMovie(antallPages, `primary_release_date.gte=${currentDateFormated}`)
+            const [discoverMoviesUpcoming, discoverMoviesPopular, discoverTvshowsUpcoming, discoverTvshowsPopular] = await Promise.allSettled([
+                Promise.allSettled(getDiscoverMovie(antallPages, `primary_release_date.gte=${currentDateFormated}`)
                     .map(promise => promise
-                    .then(res => res.results))),
-                Promise.all(getDiscoverMovie(antallPages, `primary_release_date.lte=${currentDateFormated}`)
+                    .then(res => res.results)
+                    .catch(err => {}))),
+                Promise.allSettled(getDiscoverMovie(antallPages, `primary_release_date.lte=${currentDateFormated}`)
                     .map(promise => promise
-                    .then(res => res.results))),
-                Promise.all(getDiscoverTvshow(antallPages, `first_air_date.gte=${currentDateFormated}`)
+                    .then(res => res.results)
+                    .catch(err => {}))),
+                Promise.allSettled(getDiscoverTvshow(antallPages, `first_air_date.gte=${currentDateFormated}`)
                     .map(promise => promise
-                    .then(res => res.results))),
-                Promise.all(getDiscoverTvshow(antallPages, `first_air_date.gte.lte=${currentDateFormated}`)
+                    .then(res => res.results)
+                    .catch(err => {}))),
+                Promise.allSettled(getDiscoverTvshow(antallPages, `first_air_date.gte.lte=${currentDateFormated}`)
                     .map(promise => promise
-                    .then(res => res.results))),
+                    .then(res => res.results)
+                    .catch(err => {}))),
             ])
+            discoverMoviesUpcoming.value.forEach(item => {
+                if(item.status == 'fulfilled') tmdbInformasjon.discoverMoviesUpcoming.push(item.value) 
+            })
+            discoverMoviesPopular.value.forEach(item => {
+                if(item.status == 'fulfilled') tmdbInformasjon.discoverMoviesPopular.push(item.value)
+            })
+            discoverTvshowsUpcoming.value.forEach(item => {
+                if(item.status == 'fulfilled') tmdbInformasjon.discoverTvshowsUpcoming.push(item.value) 
+            })
+            discoverTvshowsPopular.value.forEach(item => {
+                if(item.status == 'fulfilled') tmdbInformasjon.discoverTvshowsPopular.push(item.value)
+            })
+
+
+
+            console.log(tmdbInformasjon.discoverMoviesUpcoming)
         
-            tmdbInformasjon.discoverMoviesUpcoming = discoverMoviesUpcoming.flat();
-            tmdbInformasjon.discoverMoviesPopular = discoverMoviesPopular.flat();
-            tmdbInformasjon.discoverTvshowsUpcoming = discoverTvshowsUpcoming.flat();
-            tmdbInformasjon.discoverTvshowsPopular = discoverTvshowsPopular.flat();
+            //tmdbInformasjon.discoverMoviesUpcoming = discoverMoviesUpcoming.flat();
+            //tmdbInformasjon.discoverMoviesPopular = discoverMoviesPopular.flat();
+            //tmdbInformasjon.discoverTvshowsUpcoming = discoverTvshowsUpcoming.flat();
+            //tmdbInformasjon.discoverTvshowsPopular = discoverTvshowsPopular.flat();
 
             //Sorterer movies upcoming etter dato
             tmdbInformasjon.discoverMoviesUpcoming.sort((a, b) => {
