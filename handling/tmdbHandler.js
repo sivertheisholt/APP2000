@@ -15,7 +15,7 @@ var methods = {
             logger.log({level: 'info', message: 'Starting collection of tmdb information...'});
             let currentDate = new Date();
             let currentDateFormated = `${currentDate.getFullYear()}-${(currentDate.getMonth()+1).toString().padStart(2, "0")}-${currentDate.getDate().toString().padStart(2,"0")}`
-            const antallPages = 1; //Antall sider som skal bli hentet
+            const antallPages = 20; //Antall sider som skal bli hentet
             let tmdbInformasjon = {
                 discoverMoviesUpcoming: [],
                 discoverMoviesPopular: [],
@@ -41,19 +41,33 @@ var methods = {
                     .catch(err => {}))),
             ])
             discoverMoviesUpcoming.value.forEach(item => {
-                if(item.status == 'fulfilled') tmdbInformasjon.discoverMoviesUpcoming.push(item.value) 
+                if(item.status == 'fulfilled') {
+                    item.value.forEach(item => {
+                        tmdbInformasjon.discoverMoviesUpcoming.push(item) 
+                    })
+                } 
             })
             discoverMoviesPopular.value.forEach(item => {
-                if(item.status == 'fulfilled') tmdbInformasjon.discoverMoviesPopular.push(item.value)
+                if(item.status == 'fulfilled'){
+                    item.value.forEach(item => {
+                        tmdbInformasjon.discoverMoviesPopular.push(item)
+                    })
+                }
             })
             discoverTvshowsUpcoming.value.forEach(item => {
-                if(item.status == 'fulfilled') tmdbInformasjon.discoverTvshowsUpcoming.push(item.value) 
+                if(item.status == 'fulfilled'){
+                    item.value.forEach(item => {
+                        tmdbInformasjon.discoverTvshowsUpcoming.push(item) 
+                    })
+                } 
             })
             discoverTvshowsPopular.value.forEach(item => {
-                if(item.status == 'fulfilled') tmdbInformasjon.discoverTvshowsPopular.push(item.value)
+                if(item.status == 'fulfilled'){
+                    item.value.forEach(item => {
+                        tmdbInformasjon.discoverTvshowsPopular.push(item)
+                    })
+                } 
             })
-
-
 
             console.log(tmdbInformasjon.discoverMoviesUpcoming)
         
