@@ -15,53 +15,53 @@ var methods = {
             logger.log({level: 'info', message: 'Starting collection of tmdb information...'});
             let currentDate = new Date();
             let currentDateFormated = `${currentDate.getFullYear()}-${(currentDate.getMonth()+1).toString().padStart(2, "0")}-${currentDate.getDate().toString().padStart(2,"0")}`
-            const antallPages = 5; //Antall sider som skal bli hentet
+            const antallPages = 20; //Antall sider som skal bli hentet
             let tmdbInformasjon = {
                 discoverMoviesUpcoming: [],
                 discoverMoviesPopular: [],
                 discoverTvshowsUpcoming: [],
                 discoverTvshowsPopular: [],
             };
-            const [discoverMoviesUpcoming, discoverMoviesPopular, discoverTvshowsUpcoming, discoverTvshowsPopular] = await Promise.allSettled([
-                Promise.allSettled(getDiscoverMovie(antallPages, `primary_release_date.gte=${currentDateFormated}`)
-                    .map(promise => promise
-                    .then(res => res.results)
-                    .catch(err => {}))),
-                Promise.allSettled(getDiscoverMovie(antallPages, `primary_release_date.lte=${currentDateFormated}`)
-                    .map(promise => promise
-                    .then(res => res.results)
-                    .catch(err => {}))),
-                Promise.allSettled(getDiscoverTvshow(antallPages, `first_air_date.gte=${currentDateFormated}`)
-                    .map(promise => promise
-                    .then(res => res.results)
-                    .catch(err => {}))),
-                Promise.allSettled(getDiscoverTvshow(antallPages, `first_air_date.gte.lte=${currentDateFormated}`)
-                    .map(promise => promise
-                    .then(res => res.results)
-                    .catch(err => {}))),
-            ])
-            discoverMoviesUpcoming.value.forEach(item => {
+
+            const discoverMoviesUpcoming = await Promise.allSettled(getDiscoverMovie(antallPages, `primary_release_date.gte=${currentDateFormated}`)
+                .map(promise => promise
+                .then(res => res.results)))
+            
+            const discoverMoviesPopular = await Promise.allSettled(getDiscoverMovie(antallPages, `primary_release_date.lte=${currentDateFormated}`)
+                .map(promise => promise
+                .then(res => res.results)))
+
+            const discoverTvshowsUpcoming = await Promise.allSettled(getDiscoverTvshow(antallPages, `first_air_date.gte=${currentDateFormated}`)
+                .map(promise => promise
+                .then(res => res.results)))
+            
+            const discoverTvshowsPopular = await Promise.allSettled(getDiscoverTvshow(antallPages, `first_air_date.gte.lte=${currentDateFormated}`)
+                .map(promise => promise
+                .then(res => res.results)))
+
+            discoverMoviesUpcoming.forEach(item => {
                 if(item.status == 'fulfilled') {
                     item.value.forEach(item => {
                         tmdbInformasjon.discoverMoviesUpcoming.push(item) 
                     })
                 } 
             })
-            discoverMoviesPopular.value.forEach(item => {
+
+            discoverMoviesPopular.forEach(item => {
                 if(item.status == 'fulfilled'){
                     item.value.forEach(item => {
                         tmdbInformasjon.discoverMoviesPopular.push(item)
                     })
                 }
             })
-            discoverTvshowsUpcoming.value.forEach(item => {
+            discoverTvshowsUpcoming.forEach(item => {
                 if(item.status == 'fulfilled'){
                     item.value.forEach(item => {
                         tmdbInformasjon.discoverTvshowsUpcoming.push(item) 
                     })
                 } 
             })
-            discoverTvshowsPopular.value.forEach(item => {
+            discoverTvshowsPopular.forEach(item => {
                 if(item.status == 'fulfilled'){
                     item.value.forEach(item => {
                         tmdbInformasjon.discoverTvshowsPopular.push(item)
