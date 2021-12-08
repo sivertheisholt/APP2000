@@ -707,19 +707,35 @@ exports.user_get_lists = async function (req, res){
         if(!listResult.status) return res.status(500).send('Something unexpected happen');
         for(const movie of listResult.information.movies) {
             const movieResult = await movieHandler.getMovieById(movie, !req.query.languageCode ? req.query.languageCode : 'en');
-            if(!movieResult.status) return res.status(404).send('Could not find movie');
-            listInfo.movies.push({
-                posterPath: movieResult.information.poster_path,
-                id: movieResult.information.id
-            });
+            
+            if(!movieResult.status) {
+                let movieResultTmdb = await tmdbHandler.data.getMovieInfoByID(movie, !req.query.languageCode ? req.query.languageCode : 'en');
+                listInfo.movies.push({
+                    posterPath: movieResultTmdb.poster_path,
+                    id: movieResultTmdb.id
+                });
+            } else {
+                listInfo.movies.push({
+                    posterPath: movieResult.information.poster_path,
+                    id: movieResult.information.id
+                });
+            }
+
         }
         for(const tv of listResult.information.tvs) {
             const tvResult = await tvHandler.getShowById(tv, !req.query.languageCode ? req.query.languageCode : 'en');
-            if(!tvResult.status) return res.status(404).send('Could not find tv');
-            listInfo.tvs.push({
-                posterPath: tvResult.information.poster_path,
-                id: tvResult.information.id
-            });
+            if(!tvResult.status) {
+                let tvResultTmdb = await tmdbHandler.data.getSerieInfoByID(tv, !req.query.languageCode ? req.query.languageCode : 'en')
+                listInfo.tvs.push({
+                    posterPath: tvResultTmdb.poster_path,
+                    id: tvResultTmdb.id
+                });
+            } else {
+                listInfo.tvs.push({
+                    posterPath: tvResult.information.poster_path,
+                    id: tvResult.information.id
+                });
+            }
         }
         lists.push(listInfo);
     }
