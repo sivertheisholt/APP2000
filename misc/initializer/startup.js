@@ -137,7 +137,7 @@ exports.intializeFirebase = async function() {
         storageBucket: "filmatory-76dec.appspot.com",
         messagingSenderId: "328667583783",
         appId: "1:328667583783:web:55137126d9df5fd34bc502",
-        measurementId: "G-4X6S7J5TED"
+        measurementId: "${config.measurementId}"
     };
 
     // Initialize Firebase
