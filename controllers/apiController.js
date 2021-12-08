@@ -555,7 +555,7 @@ exports.list_get = async function (req, res){
     for(const movie of list.information.movies) {
         let movieInfo = await movieHandler.getMovieById(movie, req.renderObject.urlPath);
         if(!movieInfo.status) {
-            movieInfo = new ValidationHandler(true, await tmdb.data.getMovieInfoByID(movie, req.renderObject.urlPath));
+            movieInfo = new ValidationHandler(true, await tmdbHandler.data.getMovieInfoByID(movie, req.renderObject.urlPath));
             movieHandler.addToDatabase(movieInfo.information);
         }
         medias.push({
@@ -571,7 +571,7 @@ exports.list_get = async function (req, res){
     for(const tv of list.information.tvs) {
         let tvInfo = await tvHandler.getShowById(tv, req.renderObject.urlPath);
         if(!tvInfo.status) {
-            tvInfo = new ValidationHandler(true, await tmdb.data.getSerieInfoByID(tv, req.renderObject.urlPath));
+            tvInfo = new ValidationHandler(true, await tmdbHandler.data.getSerieInfoByID(tv, req.renderObject.urlPath));
             tvHandler.addToDatabase(tvInfo.information);
         }
         medias.push({
@@ -720,7 +720,6 @@ exports.user_get_lists = async function (req, res){
                     id: movieResult.information.id
                 });
             }
-
         }
         for(const tv of listResult.information.tvs) {
             const tvResult = await tvHandler.getShowById(tv, !req.query.languageCode ? req.query.languageCode : 'en');
